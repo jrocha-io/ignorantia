@@ -30,8 +30,13 @@ from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdap
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.sciencedirect_full import (
+    ScienceDirectFullAdapter,
+)
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
+from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 
@@ -121,6 +126,8 @@ def _eric_factory() -> AdapterPort:
 
 _EMPTY_SCOPUS = b'{"search-results": {"entry": [], "opensearch:totalResults": "0"}}'
 _EMPTY_IEEE = b'{"articles": [], "total_records": 0}'
+_EMPTY_SPRINGER = b'{"records": []}'
+_EMPTY_WOS = b'{"hits": [], "metadata": {"total": 0}}'
 
 
 def _scopus_full_factory() -> AdapterPort:
@@ -129,6 +136,18 @@ def _scopus_full_factory() -> AdapterPort:
 
 def _ieee_full_factory() -> AdapterPort:
     return IeeeFullAdapter(_StaticHttpClient(_EMPTY_IEEE), api_key="K", max_results=10)
+
+
+def _sciencedirect_full_factory() -> AdapterPort:
+    return ScienceDirectFullAdapter(_StaticHttpClient(_EMPTY_SCOPUS), api_key="K", max_results=10)
+
+
+def _springer_full_factory() -> AdapterPort:
+    return SpringerFullAdapter(_StaticHttpClient(_EMPTY_SPRINGER), api_key="K", max_results=10)
+
+
+def _wos_full_factory() -> AdapterPort:
+    return WosFullAdapter(_StaticHttpClient(_EMPTY_WOS), api_key="K", max_results=10)
 
 
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
@@ -149,6 +168,9 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _eric_factory,
     _scopus_full_factory,
     _ieee_full_factory,
+    _sciencedirect_full_factory,
+    _springer_full_factory,
+    _wos_full_factory,
 )
 
 
