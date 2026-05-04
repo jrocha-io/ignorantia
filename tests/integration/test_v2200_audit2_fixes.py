@@ -13,12 +13,11 @@ A9: parser HTML real para LILACS
 from __future__ import annotations
 
 import json
-import sys
 import subprocess
+import sys
 from pathlib import Path
-from unittest.mock import patch, MagicMock
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
@@ -46,7 +45,7 @@ def test_contextual_preamble_version_is_2_20():
 
 def test_user_agent_has_correct_version():
     """A1: User-Agent enviado para Wikimedia inclui versão atual da skill."""
-    from contextual_preamble import _build_user_agent, VERSION
+    from contextual_preamble import VERSION, _build_user_agent
     ua = _build_user_agent("test@example.org")
     assert f"ignorantia-skill/{VERSION}" in ua
 
@@ -293,7 +292,7 @@ def test_lilacs_parser_extracts_from_reference_blocks():
   <span class="author">Gonzalez, M.</span>
   <span>spa</span>
 </div>
-</body></html>'''.encode("utf-8")
+</body></html>'''.encode()
     result = _parse_bvs_html(mock_html, 2020, 2026)
     assert len(result) == 2
     assert result[0]["title"].startswith("Saúde")
@@ -305,7 +304,7 @@ def test_lilacs_parser_extracts_from_reference_blocks():
 def test_lilacs_parser_filters_by_year_window():
     """A9: parser LILACS filtra por janela temporal."""
     from search_lilacs import _parse_bvs_html
-    mock_html = '''<html><body>
+    mock_html = b'''<html><body>
 <div class="reference">
   <h3><a href="/p/1">Paper 1</a></h3>
   <span>2018</span>
@@ -316,7 +315,7 @@ def test_lilacs_parser_filters_by_year_window():
   <span>2024</span>
   <span class="author">B</span>
 </div>
-</body></html>'''.encode("utf-8")
+</body></html>'''
     result = _parse_bvs_html(mock_html, 2023, 2025)
     assert len(result) == 1
     assert result[0]["year"] == 2024

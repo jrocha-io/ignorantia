@@ -1,18 +1,17 @@
 """Testes v2.19.0 — Sprint 4: parsers reais (F15) + testes integração mock HTTP (F16)."""
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
 
 # ============ F15: parser RSS LA Referencia ============
 
-MOCK_RSS_LA_REFERENCIA = '''<?xml version="1.0" encoding="UTF-8"?>
+MOCK_RSS_LA_REFERENCIA = b'''<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
   <title>LA Referencia Search Results</title>
@@ -41,7 +40,7 @@ MOCK_RSS_LA_REFERENCIA = '''<?xml version="1.0" encoding="UTF-8"?>
     <dc:language>eng</dc:language>
   </item>
 </channel>
-</rss>'''.encode("utf-8")
+</rss>'''
 
 
 def test_la_referencia_parses_rss_to_normalized_items():
@@ -75,11 +74,11 @@ def test_la_referencia_parser_handles_malformed_xml():
 def test_la_referencia_parser_skips_items_without_title():
     """F15: items sem title são descartados (defesa a feeds quebrados)."""
     import search_la_referencia as sla
-    bad_rss = '''<?xml version="1.0"?>
+    bad_rss = b'''<?xml version="1.0"?>
 <rss><channel>
   <item><link>http://x/1</link></item>
   <item><title>Valid item</title></item>
-</channel></rss>'''.encode("utf-8")
+</channel></rss>'''
     items = sla._parse_rss_xml(bad_rss)
     assert len(items) == 1
     assert items[0]["title"] == "Valid item"
@@ -113,8 +112,9 @@ def test_la_referencia_real_request_uses_parser_via_mock(tmp_path):
 
 def test_la_referencia_real_request_handles_http_error():
     """F16: HTTPError no urllib é capturado e retorna método _ERROR."""
-    import search_la_referencia as sla
     import urllib.error
+
+    import search_la_referencia as sla
     err = urllib.error.HTTPError(url="x", code=503, msg="Service Unavailable",
                                     hdrs=None, fp=None)
     with patch("urllib.request.urlopen", side_effect=err):

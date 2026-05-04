@@ -11,6 +11,8 @@ __pycache__/
 # Pytest / Testing
 .pytest_cache/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
 .tox/
 .hypothesis/
@@ -19,6 +21,14 @@ htmlcov/
 .mypy_cache/
 .pyre/
 .pytype/
+
+# Linters / formatters
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
 
 # IDEs
 .vscode/

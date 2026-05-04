@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
 
@@ -49,8 +49,8 @@ def test_gap_report_md_is_neutral():
                       "ilegal", "ilícit", "pirat"]
     for term in excluded_terms:
         assert term not in text_lower, (
-            f"VIOLAÇÃO posição neutra: termo encontrado no gap report. "
-            f"O relatório deve declarar o gap sem tomar posição sobre plataformas."
+            "VIOLAÇÃO posição neutra: termo encontrado no gap report. "
+            "O relatório deve declarar o gap sem tomar posição sobre plataformas."
         )
 
     # DEVE mencionar que decisão é do usuário

@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
@@ -232,8 +232,9 @@ def test_pipeline_finalize_runs_all_steps(tmp_path):
         "model,task\nBERT,classification\nGPT,generation\n", encoding="utf-8"
     )
 
-    import pipeline_finalize
     import argparse
+
+    import pipeline_finalize
     args = argparse.Namespace(
         title="Teste Pipeline", title_short="Pipeline", version="1.0.0",
         lang="pt-BR", date_iso="2026-05-03", license_str="CC-BY-4.0",
@@ -264,8 +265,9 @@ def test_pipeline_finalize_respects_skip_flags(tmp_path):
     content = _make_minimal_content()
     (output_dir / "content.json").write_text(json.dumps(content), encoding="utf-8")
 
-    import pipeline_finalize
     import argparse
+
+    import pipeline_finalize
     args = argparse.Namespace(
         title="Teste", title_short=None, version="1.0.0",
         lang="pt-BR", date_iso="2026-05-03", license_str="CC-BY-4.0",
@@ -290,8 +292,9 @@ def test_pipeline_finalize_fails_gracefully_on_missing_content(tmp_path):
     output_dir = tmp_path / "out"
     output_dir.mkdir()
 
-    import pipeline_finalize
     import argparse
+
+    import pipeline_finalize
     args = argparse.Namespace(
         title="X", title_short=None, version="1.0.0",
         lang="pt-BR", date_iso="2026-05-03", license_str="CC-BY-4.0",
@@ -314,8 +317,9 @@ def test_pipeline_summary_json_well_formed(tmp_path):
     content = _make_minimal_content()
     (output_dir / "content.json").write_text(json.dumps(content), encoding="utf-8")
 
-    import pipeline_finalize
     import argparse
+
+    import pipeline_finalize
     args = argparse.Namespace(
         title="X", title_short=None, version="1.0.0",
         lang="pt-BR", date_iso="2026-05-03", license_str="CC-BY-4.0",
