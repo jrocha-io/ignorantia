@@ -13,6 +13,7 @@ from collections.abc import Callable
 from ignorantia.domain.search.ports.adapter_factory_port import AdapterFactoryPort
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.infrastructure.http_client import HttpClient
+from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
@@ -25,6 +26,7 @@ from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
     ScienceDirectFullAdapter,
@@ -34,6 +36,7 @@ from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
 from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
 from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
@@ -41,6 +44,7 @@ _AdapterBuilder = Callable[[HttpClient], AdapterPort]
 
 
 _REGISTRY: dict[str, _AdapterBuilder] = {
+    "acm_full": AcmFullAdapter,
     "arxiv": ArxivAdapter,
     "bdtd": BdtdAdapter,
     "biorxiv": BioRxivAdapter,
@@ -54,11 +58,13 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "medrxiv": MedRxivAdapter,
     "openalex": OpenAlexAdapter,
     "pubmed": PubMedAdapter,
+    "sage_full": SageFullAdapter,
     "scielo": ScieloAdapter,
     "sciencedirect_full": ScienceDirectFullAdapter,
     "scopus_full": ScopusFullAdapter,
     "semantic_scholar": SemanticScholarAdapter,
     "springer_full": SpringerFullAdapter,
+    "wiley_tdm": WileyTdmAdapter,
     "wos_full": WosFullAdapter,
     "zenodo": ZenodoAdapter,
 }

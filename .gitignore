@@ -54,3 +54,4 @@ Thumbs.db
 
 # Skill packaging artifacts
 ignorantia-skill-*.zip
+.claude/

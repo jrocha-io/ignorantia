@@ -53,6 +53,11 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+      - name: Upgrade pip itself
+        # Pip-audit scans installed packages including pip; older pip on
+        # the runner ships with CVEs (e.g. CVE-2026-3219). Upgrading pip
+        # before the audit keeps the gate focused on *our* dependencies.
+        run: python -m pip install --upgrade pip
       - name: Install security tools
         run: pip install "bandit>=1.7" "pip-audit>=2.7"
       - name: Run bandit
