@@ -18,12 +18,17 @@ from ignorantia.domain.search.entities import SearchQuery
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.domain.search.value_objects import Tier
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
+from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
@@ -48,6 +53,8 @@ _EMPTY_BIORXIV = b'{"collection": []}'
 _EMPTY_EUROPEPMC = b'{"resultList": {"result": []}, "hitCount": 0}'
 _EMPTY_PUBMED = b'{"esearchresult": {"idlist": []}}'
 _EMPTY_ZENODO = b'{"hits": {"hits": [], "total": 0}}'
+_EMPTY_RSS = b"<rss><channel></channel></rss>"
+_EMPTY_SOLR = b'{"response": {"docs": []}}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -90,6 +97,26 @@ def _zenodo_factory() -> AdapterPort:
     return ZenodoAdapter(_StaticHttpClient(_EMPTY_ZENODO), max_results=10)
 
 
+def _la_referencia_factory() -> AdapterPort:
+    return LaReferenciaAdapter(_StaticHttpClient(_EMPTY_RSS), max_results=10)
+
+
+def _bdtd_factory() -> AdapterPort:
+    return BdtdAdapter(_StaticHttpClient(_EMPTY_RSS), max_results=10)
+
+
+def _scielo_factory() -> AdapterPort:
+    return ScieloAdapter(_StaticHttpClient(_EMPTY_SOLR), max_per_page=10, max_results=10)
+
+
+def _hal_factory() -> AdapterPort:
+    return HalAdapter(_StaticHttpClient(_EMPTY_SOLR), max_results=10)
+
+
+def _eric_factory() -> AdapterPort:
+    return EricAdapter(_StaticHttpClient(_EMPTY_SOLR), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -101,6 +128,11 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _europepmc_factory,
     _pubmed_factory,
     _zenodo_factory,
+    _la_referencia_factory,
+    _bdtd_factory,
+    _scielo_factory,
+    _hal_factory,
+    _eric_factory,
 )
 
 

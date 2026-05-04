@@ -14,12 +14,17 @@ from ignorantia.domain.search.ports.adapter_factory_port import AdapterFactoryPo
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.infrastructure.http_client import HttpClient
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
+from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
@@ -30,13 +35,18 @@ _AdapterBuilder = Callable[[HttpClient], AdapterPort]
 
 _REGISTRY: dict[str, _AdapterBuilder] = {
     "arxiv": ArxivAdapter,
+    "bdtd": BdtdAdapter,
     "biorxiv": BioRxivAdapter,
     "crossref": CrossrefAdapter,
     "doaj": DoajAdapter,
+    "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
+    "hal": HalAdapter,
+    "la_referencia": LaReferenciaAdapter,
     "medrxiv": MedRxivAdapter,
     "openalex": OpenAlexAdapter,
     "pubmed": PubMedAdapter,
+    "scielo": ScieloAdapter,
     "semantic_scholar": SemanticScholarAdapter,
     "zenodo": ZenodoAdapter,
 }
