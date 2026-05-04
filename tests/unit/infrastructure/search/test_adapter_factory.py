@@ -42,4 +42,5 @@ class TestUnknownAdapters:
             AdapterFactory(_client()).create("unknown_source")
 
     def test_known_sources_lists_registered_adapters(self) -> None:
-        assert "arxiv" in AdapterFactory(_client()).known_sources()
+        sources = AdapterFactory(_client()).known_sources()
+        assert {"arxiv", "crossref", "doaj", "openalex", "semantic_scholar"} <= set(sources)
