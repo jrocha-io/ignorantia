@@ -157,5 +157,10 @@ def _validate_http_url(url: str) -> None:
 def _default_opener(
     request: urllib.request.Request, timeout: float
 ) -> _Response:  # pragma: no cover — exercised by integration code
-    response: _Response = urllib.request.urlopen(request, timeout=timeout)  # noqa: S310
+    # ``HttpClient.get`` validates the URL scheme via ``_validate_http_url``
+    # before any caller reaches this opener, so the ``file://`` and custom
+    # scheme attacks B310/S310 warn about cannot occur in practice.
+    response: _Response = urllib.request.urlopen(  # noqa: S310 # nosec B310
+        request, timeout=timeout
+    )
     return response

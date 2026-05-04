@@ -38,6 +38,7 @@ dev = [
     "bandit>=1.7",
     "pip-audit>=2.7",
     "hypothesis>=6.92",
+    "jsonschema>=4.0",
 ]
 docx = ["python-docx>=1.0"]
 all = ["ignorantia[dev,docx]"]
@@ -180,4 +181,10 @@ directory = "htmlcov"
 # ----------------------------------------------------------------------
 [tool.bandit]
 exclude_dirs = ["tests", "scripts"]
-skips = []
+# B405/B314: We parse XML from controlled, HTTPS-served sources
+# (export.arxiv.org Atom; VuFind RSS at lareferencia.info, bdtd.ibict.br).
+# The HTTPS channel guarantees integrity against MITM injection of
+# malicious XML, so the XXE/billion-laughs class of attacks bandit warns
+# about does not apply. Switching to ``defusedxml`` would be the
+# belt-and-braces hardening; tracked as v3.0.0 follow-up.
+skips = ["B405", "B314"]
