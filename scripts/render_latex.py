@@ -207,7 +207,11 @@ def render_tex(content: dict, output_path: Path,
     parts.append(f"\\title{{{_escape_latex(title)}}}")
     authors = authors or content.get("authors", [])
     if authors:
-        parts.append(f"\\author{{{_escape_latex(' \\and '.join(authors))}}}")
+        # py3.10/3.11 reject backslashes inside f-string expression parts;
+        # build the joined string outside the f-string for compatibility.
+        author_sep = " \\and "
+        joined_authors = _escape_latex(author_sep.join(authors))
+        parts.append(f"\\author{{{joined_authors}}}")
     parts.append("\\date{}")
     parts.append("\\maketitle")
     parts.append("")
