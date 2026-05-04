@@ -17,6 +17,7 @@ from hypothesis import strategies as st
 from ignorantia.domain.search.entities import SearchQuery
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.domain.search.value_objects import Tier
+from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
@@ -29,6 +30,7 @@ from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
     ScienceDirectFullAdapter,
@@ -36,6 +38,7 @@ from ignorantia.infrastructure.search.http.sciencedirect_full import (
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
 from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
 from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
@@ -128,6 +131,7 @@ _EMPTY_SCOPUS = b'{"search-results": {"entry": [], "opensearch:totalResults": "0
 _EMPTY_IEEE = b'{"articles": [], "total_records": 0}'
 _EMPTY_SPRINGER = b'{"records": []}'
 _EMPTY_WOS = b'{"hits": [], "metadata": {"total": 0}}'
+_EMPTY_CROSSREF_MEMBER = b'{"message": {"items": [], "total-results": 0}}'
 
 
 def _scopus_full_factory() -> AdapterPort:
@@ -148,6 +152,18 @@ def _springer_full_factory() -> AdapterPort:
 
 def _wos_full_factory() -> AdapterPort:
     return WosFullAdapter(_StaticHttpClient(_EMPTY_WOS), api_key="K", max_results=10)
+
+
+def _sage_full_factory() -> AdapterPort:
+    return SageFullAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
+
+
+def _acm_full_factory() -> AdapterPort:
+    return AcmFullAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
+
+
+def _wiley_tdm_factory() -> AdapterPort:
+    return WileyTdmAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
 
 
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
@@ -171,6 +187,9 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _sciencedirect_full_factory,
     _springer_full_factory,
     _wos_full_factory,
+    _sage_full_factory,
+    _acm_full_factory,
+    _wiley_tdm_factory,
 )
 
 
