@@ -119,3 +119,34 @@ class SearchResult:
         """Default ``total_results`` to ``len(items)`` when not supplied."""
         if self.total_results is None:
             object.__setattr__(self, "total_results", len(self.items))
+
+
+@dataclass(frozen=True, slots=True)
+class OaLocation:
+    """An open-access copy of an item, as reported by a tier-0 resolver.
+
+    Tier-0 resolvers (Unpaywall, OA.Works's OaButton, CORE, ...) are not
+    text-search adapters: they take an identifier (typically a DOI) and
+    return the best known OA copy, when available. The information here
+    is what a downstream renderer or PDF collector needs to retrieve the
+    file legally.
+
+    Attributes:
+        url: Landing page or repository URL of the OA copy.
+        url_for_pdf: Direct PDF URL when available.
+        host_type: ``"publisher"`` or ``"repository"``.
+        license: SPDX-style identifier (``cc-by``, ``cc-by-nc``, ...).
+        version: Manuscript stage (``publishedVersion`` /
+            ``acceptedVersion`` / ``submittedVersion``).
+        oa_status: Unpaywall-style status (``gold``, ``hybrid``, ``green``,
+            ``bronze``, ``closed``).
+        resolver: Identifier of the resolver that produced this location.
+    """
+
+    url: str | None = None
+    url_for_pdf: str | None = None
+    host_type: str | None = None
+    license: str | None = None
+    version: str | None = None
+    oa_status: str | None = None
+    resolver: str = ""
