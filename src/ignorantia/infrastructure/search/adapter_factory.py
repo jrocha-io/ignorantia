@@ -14,12 +14,22 @@ from ignorantia.domain.search.ports.adapter_factory_port import AdapterFactoryPo
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.infrastructure.http_client import HttpClient
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
+from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.semantic_scholar import (
+    SemanticScholarAdapter,
+)
 
 _AdapterBuilder = Callable[[HttpClient], AdapterPort]
 
 
 _REGISTRY: dict[str, _AdapterBuilder] = {
     "arxiv": ArxivAdapter,
+    "crossref": CrossrefAdapter,
+    "doaj": DoajAdapter,
+    "openalex": OpenAlexAdapter,
+    "semantic_scholar": SemanticScholarAdapter,
 }
 
 
