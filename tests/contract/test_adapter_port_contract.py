@@ -18,10 +18,14 @@ from ignorantia.domain.search.entities import SearchQuery
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.domain.search.value_objects import Tier
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
+from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 
 class _StaticHttpClient:
@@ -40,6 +44,10 @@ _EMPTY_CROSSREF = b'{"message": {"items": []}}'
 _EMPTY_DOAJ = b'{"results": []}'
 _EMPTY_OPENALEX = b'{"results": [], "meta": {"count": 0}}'
 _EMPTY_S2 = b'{"data": []}'
+_EMPTY_BIORXIV = b'{"collection": []}'
+_EMPTY_EUROPEPMC = b'{"resultList": {"result": []}, "hitCount": 0}'
+_EMPTY_PUBMED = b'{"esearchresult": {"idlist": []}}'
+_EMPTY_ZENODO = b'{"hits": {"hits": [], "total": 0}}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -62,12 +70,37 @@ def _semantic_scholar_factory() -> AdapterPort:
     return SemanticScholarAdapter(_StaticHttpClient(_EMPTY_S2), max_per_page=10, max_results=10)
 
 
+def _biorxiv_factory() -> AdapterPort:
+    return BioRxivAdapter(_StaticHttpClient(_EMPTY_BIORXIV), max_pages=1, max_results=10)
+
+
+def _medrxiv_factory() -> AdapterPort:
+    return MedRxivAdapter(_StaticHttpClient(_EMPTY_BIORXIV), max_pages=1, max_results=10)
+
+
+def _europepmc_factory() -> AdapterPort:
+    return EuropePmcAdapter(_StaticHttpClient(_EMPTY_EUROPEPMC), max_results=10)
+
+
+def _pubmed_factory() -> AdapterPort:
+    return PubMedAdapter(_StaticHttpClient(_EMPTY_PUBMED), max_results=10)
+
+
+def _zenodo_factory() -> AdapterPort:
+    return ZenodoAdapter(_StaticHttpClient(_EMPTY_ZENODO), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
     _doaj_factory,
     _openalex_factory,
     _semantic_scholar_factory,
+    _biorxiv_factory,
+    _medrxiv_factory,
+    _europepmc_factory,
+    _pubmed_factory,
+    _zenodo_factory,
 )
 
 

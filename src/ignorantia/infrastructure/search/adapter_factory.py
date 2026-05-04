@@ -14,22 +14,31 @@ from ignorantia.domain.search.ports.adapter_factory_port import AdapterFactoryPo
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.infrastructure.http_client import HttpClient
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
+from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 _AdapterBuilder = Callable[[HttpClient], AdapterPort]
 
 
 _REGISTRY: dict[str, _AdapterBuilder] = {
     "arxiv": ArxivAdapter,
+    "biorxiv": BioRxivAdapter,
     "crossref": CrossrefAdapter,
     "doaj": DoajAdapter,
+    "europepmc": EuropePmcAdapter,
+    "medrxiv": MedRxivAdapter,
     "openalex": OpenAlexAdapter,
+    "pubmed": PubMedAdapter,
     "semantic_scholar": SemanticScholarAdapter,
+    "zenodo": ZenodoAdapter,
 }
 
 
