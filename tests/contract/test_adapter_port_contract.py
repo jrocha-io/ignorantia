@@ -17,11 +17,30 @@ from hypothesis import strategies as st
 from ignorantia.domain.search.entities import SearchQuery
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.domain.search.value_objects import Tier
+from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
+from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
+from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.eric import EricAdapter
+from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
+from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
+from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
+from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.sciencedirect_full import (
+    ScienceDirectFullAdapter,
+)
+from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
+from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
+from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
+from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 
 class _StaticHttpClient:
@@ -40,6 +59,12 @@ _EMPTY_CROSSREF = b'{"message": {"items": []}}'
 _EMPTY_DOAJ = b'{"results": []}'
 _EMPTY_OPENALEX = b'{"results": [], "meta": {"count": 0}}'
 _EMPTY_S2 = b'{"data": []}'
+_EMPTY_BIORXIV = b'{"collection": []}'
+_EMPTY_EUROPEPMC = b'{"resultList": {"result": []}, "hitCount": 0}'
+_EMPTY_PUBMED = b'{"esearchresult": {"idlist": []}}'
+_EMPTY_ZENODO = b'{"hits": {"hits": [], "total": 0}}'
+_EMPTY_RSS = b"<rss><channel></channel></rss>"
+_EMPTY_SOLR = b'{"response": {"docs": []}}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -62,12 +87,109 @@ def _semantic_scholar_factory() -> AdapterPort:
     return SemanticScholarAdapter(_StaticHttpClient(_EMPTY_S2), max_per_page=10, max_results=10)
 
 
+def _biorxiv_factory() -> AdapterPort:
+    return BioRxivAdapter(_StaticHttpClient(_EMPTY_BIORXIV), max_pages=1, max_results=10)
+
+
+def _medrxiv_factory() -> AdapterPort:
+    return MedRxivAdapter(_StaticHttpClient(_EMPTY_BIORXIV), max_pages=1, max_results=10)
+
+
+def _europepmc_factory() -> AdapterPort:
+    return EuropePmcAdapter(_StaticHttpClient(_EMPTY_EUROPEPMC), max_results=10)
+
+
+def _pubmed_factory() -> AdapterPort:
+    return PubMedAdapter(_StaticHttpClient(_EMPTY_PUBMED), max_results=10)
+
+
+def _zenodo_factory() -> AdapterPort:
+    return ZenodoAdapter(_StaticHttpClient(_EMPTY_ZENODO), max_results=10)
+
+
+def _la_referencia_factory() -> AdapterPort:
+    return LaReferenciaAdapter(_StaticHttpClient(_EMPTY_RSS), max_results=10)
+
+
+def _bdtd_factory() -> AdapterPort:
+    return BdtdAdapter(_StaticHttpClient(_EMPTY_RSS), max_results=10)
+
+
+def _scielo_factory() -> AdapterPort:
+    return ScieloAdapter(_StaticHttpClient(_EMPTY_SOLR), max_per_page=10, max_results=10)
+
+
+def _hal_factory() -> AdapterPort:
+    return HalAdapter(_StaticHttpClient(_EMPTY_SOLR), max_results=10)
+
+
+def _eric_factory() -> AdapterPort:
+    return EricAdapter(_StaticHttpClient(_EMPTY_SOLR), max_results=10)
+
+
+_EMPTY_SCOPUS = b'{"search-results": {"entry": [], "opensearch:totalResults": "0"}}'
+_EMPTY_IEEE = b'{"articles": [], "total_records": 0}'
+_EMPTY_SPRINGER = b'{"records": []}'
+_EMPTY_WOS = b'{"hits": [], "metadata": {"total": 0}}'
+_EMPTY_CROSSREF_MEMBER = b'{"message": {"items": [], "total-results": 0}}'
+
+
+def _scopus_full_factory() -> AdapterPort:
+    return ScopusFullAdapter(_StaticHttpClient(_EMPTY_SCOPUS), api_key="K", max_results=10)
+
+
+def _ieee_full_factory() -> AdapterPort:
+    return IeeeFullAdapter(_StaticHttpClient(_EMPTY_IEEE), api_key="K", max_results=10)
+
+
+def _sciencedirect_full_factory() -> AdapterPort:
+    return ScienceDirectFullAdapter(_StaticHttpClient(_EMPTY_SCOPUS), api_key="K", max_results=10)
+
+
+def _springer_full_factory() -> AdapterPort:
+    return SpringerFullAdapter(_StaticHttpClient(_EMPTY_SPRINGER), api_key="K", max_results=10)
+
+
+def _wos_full_factory() -> AdapterPort:
+    return WosFullAdapter(_StaticHttpClient(_EMPTY_WOS), api_key="K", max_results=10)
+
+
+def _sage_full_factory() -> AdapterPort:
+    return SageFullAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
+
+
+def _acm_full_factory() -> AdapterPort:
+    return AcmFullAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
+
+
+def _wiley_tdm_factory() -> AdapterPort:
+    return WileyTdmAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
     _doaj_factory,
     _openalex_factory,
     _semantic_scholar_factory,
+    _biorxiv_factory,
+    _medrxiv_factory,
+    _europepmc_factory,
+    _pubmed_factory,
+    _zenodo_factory,
+    _la_referencia_factory,
+    _bdtd_factory,
+    _scielo_factory,
+    _hal_factory,
+    _eric_factory,
+    _scopus_full_factory,
+    _ieee_full_factory,
+    _sciencedirect_full_factory,
+    _springer_full_factory,
+    _wos_full_factory,
+    _sage_full_factory,
+    _acm_full_factory,
+    _wiley_tdm_factory,
 )
 
 
