@@ -1,0 +1,122 @@
+# Modo 09 — AI-Assisted Integrative Review
+
+> Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
+
+## Caso de uso
+
+Síntese de literatura combinando estudos com metodologias diversas (quantitativos, qualitativos, teóricos, mixed-methods) sob narrativa unificada. Especialmente apropriado para temas em saúde, enfermagem e educação onde a literatura é heterogênea metodologicamente. Padrão consolidado em Qualis A1 BR (Cadernos de Saúde Pública, Educação e Pesquisa, Revista Brasileira de Educação, Revista Latino-Americana de Enfermagem).
+
+## Layer 1 — Modo
+
+| Dimensão | Especificação |
+|---|---|
+| **review_type** | `integrative_review` |
+| **Reporting guideline primário** | WHITTEMORE-KNAFL (Whittemore & Knafl 2005 + Toronto & Remington 2020) |
+| **Camada hierárquica** | Primária |
+| **Tempo típico de produção** | `user_estimate_15min_unvalidated` |
+| **Selo HTML** | `mode-integrative` (verde-azulado) |
+
+## Layer 2 — Reporting guideline (WHITTEMORE-KNAFL)
+
+| Dimensão | Especificação |
+|---|---|
+| **Itens checklist** | 16 itens |
+| **Itens automatizáveis (full)** | 7 |
+| **Itens automatizáveis (partial)** | 7 |
+| **Itens human-only** | 1 (WK-11 — conclusion drawing/verification) |
+| **Revisores humanos exigidos** | 1 (single-reviewer aceito; AI verification recomendada) |
+| **AI dual-check** | Recomendado para screening |
+| **Pré-registro** | OSF recomendado (não está formalmente na EQUATOR) |
+
+### Cinco estágios de Whittemore & Knafl (obrigatórios)
+
+1. **Problem Identification** — Pergunta de pesquisa estruturada (PICO/PCC/SPIDER); variáveis operacionais.
+2. **Literature Search** — Busca abrangente em ≥3 bases; inclusão de evidência teórica + empírica + grey literature.
+3. **Data Evaluation** — Quality appraisal com instrumentos apropriados ao tipo de estudo (CASP qualitativos, JBI quantitativos, MMAT mixed-methods).
+4. **Data Analysis** — Data reduction → display (matriz/tabela) → comparison (cross-tabulação) → conclusion drawing.
+5. **Presentation** — Síntese narrativa temática + implicações + limitações.
+
+### Declarações obrigatórias
+
+- Funding (blocking)
+- Conflicts of Interest (blocking)
+- AI Disclosure (blocking)
+- Limitations específicas: single-reviewer + heterogeneidade metodológica
+- Pré-registro link (recomendado, OSF Registries)
+
+## Layer 3 — Venue padrão e alternativas (OA-first)
+
+### Padrão (OA-gratuito, $0 APC)
+
+**Zenodo** + preprint paralelo conforme área:
+- Saúde: medRxiv ou SciELO Preprints
+- Educação: EdArXiv ou SciELO Preprints
+- Enfermagem: SciELO Preprints (predominância PT-BR)
+
+### Alternativas Qualis A1 BR ($0 APC, peer review tradicional)
+
+- **Cadernos de Saúde Pública (Fiocruz)** — A1 saúde, OJS, $0, EN
+- **Revista de Saúde Pública (USP)** — A1 saúde, OJS, $0, EN/PT/ES
+- **Ciência & Saúde Coletiva (Abrasco)** — A1 saúde, OJS, $0, PT/EN/ES
+- **Educação e Pesquisa (USP)** — A1 educação, OJS, $0, PT/EN/ES
+- **Revista Brasileira de Educação (ANPEd)** — A1 educação, OJS, $0, PT/EN/ES/FR
+- **Revista Latino-Americana de Enfermagem (USP)** — alta visibilidade enfermagem, OJS, $0
+
+Para autores brasileiros sem orçamento, os Qualis A1 BR são o caminho natural — alta aceitabilidade de Integrative Reviews + zero custo + visibilidade na comunidade nacional.
+
+### Alternativas internacionais (peer review hybrid/paywall)
+
+- **Journal of Advanced Nursing (Wiley)** — hybrid, ~$3500 APC para OA, tradicional para integrative reviews em enfermagem (revista onde Whittemore & Knafl 2005 foi publicada).
+- **International Journal of Nursing Studies (Elsevier)** — hybrid, ~$3000 APC para OA, alto impacto.
+
+## Bases de busca recomendadas
+
+Mínimo: **3 bases**.
+
+Tier 1 (OA, sempre buscar):
+- **Saúde/Enfermagem**: PubMed Central + LILACS + SciELO + EuropePMC
+- **Educação**: ERIC OA + SciELO + Google Scholar (limitado)
+- **Multi-área**: BDENF (enfermagem BR), BVS-MS (Ministério da Saúde BR), CAPES Periódicos (filtro OA)
+
+Tier 2 (metadados livres):
+- PubMed completo, CINAHL (subset OA), PsycINFO
+
+Tier 3 (apenas via material fornecido):
+- Scopus, WoS, Embase
+
+## Estudos primários esperados
+
+Tipicamente **15-50 estudos incluídos** após filtragem. Integrative reviews são geralmente mais focadas que Scoping (não buscam ser exaustivas), mas mais inclusivas que SR estrito (aceitam estudos quanti + quali + teóricos no mesmo corpus).
+
+## Custos para o usuário
+
+- **APC**: $0 (Zenodo ou Qualis A1 BR)
+- **Software**: opcional (Rayyan free tier suficiente)
+- **Bases pagas**: não exigidas (Tier 1+2 cobre)
+- **Pré-registro**: $0 (OSF)
+
+## Eliminadores aplicáveis
+
+- E1-E15 todos
+- E16: protege contra uso indevido do termo "Systematic Review" — manter `review_type: integrative_review` evita gatilho
+
+## Limitações declaradas obrigatoriamente
+
+- Single-reviewer (mitigado por AI verification mas não substituído)
+- Heterogeneidade metodológica dos estudos incluídos (intrínseca ao formato)
+- Síntese narrativa-temática, não meta-analítica
+- Quality appraisal com instrumentos diferentes por tipo de estudo (não comparável diretamente)
+
+## Caso particular do projeto base
+
+Para temas educacionais brasileiros onde literatura mistura estudos empíricos quantitativos (efeitos de jogos digitais), qualitativos (percepção de professores), e teóricos (filosofia da educação), Integrative Review é frequentemente o **formato mais natural e mais publicável** em revistas brasileiras Qualis A1.
+
+Combinação possível: Integrative Review + Modo 10 (Realist Review) para mesmo tema, com perspectivas complementares — Integrative descreve o que existe, Realist explica os mecanismos causais.
+
+## Quando NÃO usar este modo
+
+- Apenas estudos quantitativos homogêneos disponíveis → Modo 4 (SR estrito) com meta-análise
+- Mapeamento descritivo amplo sem síntese substantiva → Modo 1 (Scoping Review)
+- Pergunta sobre mecanismos causais ("por que funciona") → Modo 10 (Realist Review)
+- Decisão urgente com prazo curto → Modo 2 (Rapid Review)
+- CS/SE com classificação categórica → Modo 3 (Mapping Study)

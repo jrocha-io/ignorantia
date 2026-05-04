@@ -1,0 +1,65 @@
+id: CAMPBELL-STANDARDS
+name: "Campbell Collaboration Methods Standards"
+version: "1.8"
+canonical_url: "https://www.campbellcollaboration.org/methods/standards/"
+canonical_doc: "https://www.campbellcollaboration.org/wp-content/uploads/2024/11/Campbell-Policies-and-Guidelines-_May3-2022.docx.pdf"
+items_total: 35
+applies_to:
+  - systematic_review_strict
+  - systematic_review_with_2_reviewers
+note: "Campbell Collaboration adota PRISMA 2020 + MECCIR + critérios próprios para revisões em educação, justiça, política social, desenvolvimento internacional. Three-step process: title registration → protocol → review."
+
+items:
+  - id: "C-1"
+    section: "REGISTRATION"
+    title: "Title registration accepted by Campbell"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "C-2"
+    section: "PROTOCOL"
+    title: "Protocol approved by Campbell editorial team"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "C-3"
+    section: "TEAM"
+    title: "Two independent reviewers MANDATORY at every stage"
+    automation_level: partial
+    severity_if_missing: blocking
+    note: "Campbell NÃO aceita single-reviewer com IA-assistance. Para Campbell, modo Systematic Review estrito obrigatório."
+  - id: "C-4"
+    section: "SEARCH"
+    title: "Comprehensive search across multiple databases including grey literature"
+    automation_level: full
+    minimum_count: 5
+    severity_if_missing: blocking
+  - id: "C-5"
+    section: "EXTRACTION"
+    title: "Pre-piloted extraction form with 2 reviewers"
+    automation_level: partial
+    severity_if_missing: blocking
+  - id: "C-6"
+    section: "RoB"
+    title: "Risk of bias assessed with appropriate tool (RoB 2 / ROBINS / equivalent)"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "C-7"
+    section: "SYNTHESIS"
+    title: "Meta-analysis if appropriate; statistical heterogeneity reported"
+    automation_level: partial
+    severity_if_missing: major
+    only_if_meta_analysis: true
+  - id: "C-8"
+    section: "DATA"
+    title: "Data sharing: search strategies, full citations, coding/extraction, analytic code"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "C-9"
+    section: "DECLARATIONS"
+    title: "ICMJE authorship + CRediT roles + ORCID for all authors"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "C-10"
+    section: "DECLARATIONS"
+    title: "Conflict of interest forms for all authors"
+    automation_level: full
+    severity_if_missing: blocking

@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ignorantia/schemas/unified_output.schema.json",
+  "title": "ignorantia comparison — unified output",
+  "description": "Schema unificado consolidando outputs do ignorantia engine + baselines + métricas. Versão 1.0.0 — coerente com PROTOCOL.md §5.",
+  "type": "object",
+  "required": ["evaluation_id", "schema_version", "timestamp", "manuscript_id", "results"],
+  "additionalProperties": false,
+  "properties": {
+    "evaluation_id": {"type": "string", "description": "UUID da execução."},
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "ignorantia_version": {"type": "string", "examples": ["2.5.0"]},
+    "manuscript_id": {"type": "string"},
+    "manuscript_meta": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "language": {"type": "string"},
+        "mode": {"type": "string"}
+      }
+    },
+    "ground_truth": {
+      "type": "object",
+      "properties": {
+        "venue_id": {"type": "string"},
+        "tier": {"type": "string"},
+        "fallback_tier": {"type": "integer"},
+        "guideline_used": {"type": "string"}
+      }
+    },
+    "results": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ignorantia": {
+          "type": "object",
+          "properties": {
+            "venue_ranking": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["venue_id", "score"],
+                "properties": {
+                  "venue_id": {"type": "string"},
+                  "score": {"type": "number"},
+                  "fallback_tier": {"type": "integer"},
+                  "rank": {"type": "integer"}
+                }
+              }
+            },
+            "compliance_score": {"type": "number"},
+            "gaps": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "bson": {
+          "type": "object",
+          "properties": {
+            "venue_ranking": {"type": "array", "items": {"type": "object"}},
+            "method": {"type": "string"},
+            "snapshot": {"type": "boolean"},
+            "snapshot_date": {"type": "string"},
+            "error": {"type": ["string", "null"]}
+          }
+        },
+        "jane": {
+          "type": "object",
+          "properties": {
+            "venue_ranking": {"type": "array", "items": {"type": "object"}},
+            "method": {"type": "string"},
+            "snapshot": {"type": "boolean"},
+            "error": {"type": ["string", "null"]}
+          }
+        },
+        "asreview_sim": {
+          "type": "object",
+          "properties": {
+            "wss_at_95": {"type": ["number", "null"]},
+            "recall_at_10pct": {"type": ["number", "null"]},
+            "atd": {"type": ["number", "null"], "description": "Average Time to Discover (em iterations)"},
+            "dataset": {"type": "string"},
+            "method": {"type": "string"},
+            "error": {"type": ["string", "null"]}
+          }
+        },
+        "snapshots": {
+          "type": "object",
+          "description": "Snapshots manuais carregados (Penelope, Elsevier JF, etc.)",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "vendor": {"type": "string"},
+              "snapshot_date": {"type": "string"},
+              "venue_ranking": {"type": "array", "items": {"type": "object"}},
+              "compliance_checks": {
+                "type": "object",
+                "properties": {
+                  "passed": {"type": "integer"},
+                  "failed": {"type": "integer"},
+                  "details": {"type": "array"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "venue_top1_match": {"type": "boolean"},
+        "venue_top5_match": {"type": "boolean"},
+        "venue_top10_match": {"type": "boolean"},
+        "venue_mrr_ignorantia": {"type": "number"},
+        "venue_mrr_bson": {"type": ["number", "null"]},
+        "venue_mrr_jane": {"type": ["number", "null"]},
+        "venue_ndcg10_ignorantia": {"type": ["number", "null"]},
+        "compliance_f1_ignorantia_vs_human": {"type": ["number", "null"]},
+        "compliance_kappa_ignorantia_vs_human": {"type": ["number", "null"]}
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Limitações declaradas para esta avaliação (ex.: 'B!SON returned no results — venue não está em DOAJ')."
+    }
+  }
+}

@@ -1,0 +1,105 @@
+metadata:
+  venue_id: rpem_unespar
+  name: "Revista Paranaense de Educação Matemática"
+  name_pt: "Revista Paranaense de Educação Matemática"
+  publisher: "Universidade Estadual do Paraná (Unespar) — Campus Campo Mourão"
+  country: BR
+  language_acceptance: [pt, en, es]
+  qualis_stratum: A2
+  qualis_subarea: "Educacao"
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://periodicos.unespar.edu.br/index.php/rpem/about/submissions"
+  archived_url: "https://web.archive.org/web/2026/https://periodicos.unespar.edu.br/index.php/rpem/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    RPEM é periódico da Unespar com forte tradição em mapping studies e systematic reviews
+    em educação matemática.
+    Diamond OA: sem APC.
+    A2 confirmado no Qualis 2021-2024 (área-mãe: Ensino, com aplicabilidade direta a Educação).
+    Comunicado oficial Unespar/PRPPG (jan/2026): ascendeu A3 → A2 entre 2017-2020 e 2021-2024.
+    Foco metodológico: aceita Petersen-style mapping studies e PRISMA-style SR.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_with_2_reviewers
+    - scoping_review
+    - mapping_study
+    - integrative_review
+    - narrative_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-ScR
+  methodological_standards_endorsed:
+    - ABEC
+
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    min: 3000
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 5
+    controlled_vocabulary: free
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+    - id: ethics_approval
+      severity: major
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://periodicos.unespar.edu.br/index.php/rpem/about/editorialPolicies"
+  notes: |
+    Segue diretrizes ABEC Brasil — IA como ferramenta com disclosure obrigatório.
+
+reproducibility:
+  data_availability_statement: encouraged
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

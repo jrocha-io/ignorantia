@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" width="600" height="700" style="font-family:sans-serif;font-size:13px">
+  <style>
+    .box {fill:#fff;stroke:#333;stroke-width:1.5}
+    .label {fill:#333;text-anchor:middle}
+    .label-stage {font-weight:bold;fill:#444}
+    .arrow {stroke:#333;stroke-width:1.5;fill:none;marker-end:url(#a)}
+    .excl {fill:#fef0f0;stroke:#a04040}
+  </style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+
+  <text x="300" y="20" class="label label-stage">PRISMA-2020 — Letramento digital de idosos</text>
+
+  <rect x="100" y="40" width="400" height="60" class="box"/>
+  <text x="300" y="65" class="label">Identification: Records identified</text>
+  <text x="300" y="85" class="label">via databases (n = 1840)</text>
+
+  <line x1="300" y1="100" x2="300" y2="130" class="arrow"/>
+
+  <rect x="100" y="130" width="400" height="60" class="box"/>
+  <text x="300" y="155" class="label">Records after duplicates removed</text>
+  <text x="300" y="175" class="label">(n = 1247)</text>
+
+  <line x1="300" y1="190" x2="300" y2="220" class="arrow"/>
+
+  <rect x="100" y="220" width="280" height="60" class="box"/>
+  <text x="240" y="245" class="label">Screening: Records screened</text>
+  <text x="240" y="265" class="label">(n = 1247)</text>
+
+  <rect x="400" y="220" width="170" height="60" class="box excl"/>
+  <text x="485" y="245" class="label">Excluded</text>
+  <text x="485" y="265" class="label">(n = 1098)</text>
+
+  <line x1="380" y1="250" x2="400" y2="250" class="arrow"/>
+  <line x1="240" y1="280" x2="240" y2="310" class="arrow"/>
+
+  <rect x="100" y="310" width="280" height="60" class="box"/>
+  <text x="240" y="335" class="label">Eligibility: Full-text assessed</text>
+  <text x="240" y="355" class="label">(n = 149)</text>
+
+  <rect x="400" y="310" width="170" height="80" class="box excl"/>
+  <text x="485" y="332" class="label">Excluded (n = 126)</text>
+  <text x="485" y="350" class="label" style="font-size:11px">no population: 42</text>
+  <text x="485" y="365" class="label" style="font-size:11px">no intervention: 38</text>
+  <text x="485" y="380" class="label" style="font-size:11px">wrong type: 31, no full: 15</text>
+
+  <line x1="380" y1="340" x2="400" y2="340" class="arrow"/>
+  <line x1="240" y1="370" x2="240" y2="400" class="arrow"/>
+
+  <rect x="100" y="400" width="280" height="60" class="box" style="fill:#f0fef0;stroke:#408040"/>
+  <text x="240" y="425" class="label" style="font-weight:bold">Included: Studies in synthesis</text>
+  <text x="240" y="445" class="label" style="font-weight:bold">(n = 23)</text>
+</svg>

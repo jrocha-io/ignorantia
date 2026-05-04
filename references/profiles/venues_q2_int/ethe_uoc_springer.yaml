@@ -1,0 +1,103 @@
+metadata:
+  venue_id: ethe_uoc_springer
+  name: International Journal of Educational Technology in Higher Education
+  name_pt: International Journal of Educational Technology in Higher Education
+  publisher: Springer Nature (em parceria com Universitat Oberta de Catalunya — UOC)
+  country: NL
+  language_acceptance:
+  - en
+  - es
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: null
+  apc_amount_original: '0'
+  fallback_tier: 1
+  submission_system: editorial_manager
+  source_url: https://educationaltechnologyjournal.springeropen.com
+  archived_url: https://web.archive.org/web/2026/https://educationaltechnologyjournal.springeropen.com
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    ATENÇÃO QUARTIL: SJR Q1 Education e Q1 E-learning (não Q2 estrito), mas incluído no catálogo Q2 INT como anchor diamond OA único. Caso de Q1 internacional sem APC (raro).
+    Diamond OA suportado pela UOC (instituição catalã); Springer Nature como infraestrutura editorial.
+    Tier 1: único caso de Q1 INT diamond OA verificável em Education.
+    Aceita systematic reviews, scoping reviews, literature reviews em EdTech.
+    PRISMA-2020; COPE compliance; política Springer Nature para uso de IA generativa.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - scoping_review
+  - narrative_review
+  - integrative_review
+  - mapping_study
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - educational technology
+  - higher education
+  - e-learning
+  - digital education
+  - edtech
+scope:
+  primary_subjects:
+  - Educational Technology
+  - Higher Education
+  - E-learning
+  excluded_subjects: []

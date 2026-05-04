@@ -1,0 +1,102 @@
+metadata:
+  venue_id: cogent_education
+  name: Cogent Education
+  name_pt: Cogent Education
+  publisher: Taylor & Francis (Routledge)
+  country: GB
+  language_acceptance:
+  - en
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q2
+  sjr_quartile: Q2
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 1620
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: GBP
+  apc_amount_original: '1295'
+  fallback_tier: 2
+  submission_system: scholarone
+  source_url: https://www.tandfonline.com/journals/oaed20
+  archived_url: https://web.archive.org/web/2026/https://www.tandfonline.com/journals/oaed20
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    Q2 SJR e Q2 JCR Education (referência: Researcher.Life e Scimago JR).
+    Fully OA com APC ~USD 1.620 (£1.295) — APC moderado para Q2 internacional.
+    Tier 2: APC ≤ USD 2.000; publisher comunitário científico via T&F Cogent OA program.
+    Aceita systematic and scholarly reviews. PRISMA-2020 para SLRs; CONSORT; STROBE.
+    Política T&F Generative AI explícita (uso permitido com declaração; LLMs não podem ser autores).
+    Discount via Read & Publish T&F para autores com filiação institucional elegível pode reduzir APC.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - narrative_review
+  - scoping_review
+  - integrative_review
+  - meta_analysis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - education
+  - educational research
+  - pedagogy
+  - learning
+  - teaching
+scope:
+  primary_subjects:
+  - Education
+  - Educational Research
+  excluded_subjects: []

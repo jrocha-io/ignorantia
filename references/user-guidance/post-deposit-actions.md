@@ -1,0 +1,243 @@
+# Próximos Passos pós-Depósito Zenodo: Mitigações de Longo Prazo de Conflito de Interesse
+
+> **Escopo deste documento.** Este arquivo é uma orientação ao **operador humano** (você, autor) da ferramenta `ignorantia`, não instruções ao Claude Chat executando o pipeline. As ações descritas aqui ocorrem **fora do ghostwriter**: depois que a Revisão Sistemática (ou Scoping/Rapid/Mapping Review) já está depositada no Zenodo e em preprint server.
+>
+> **Por que existe este documento.** A ferramenta `ignorantia v2.0` cobre o que é exigência editorial obrigatória (pré-registro PROSPERO/OSF, declaração CoI padronizada, seção de evidência contrária encontrada, categorização `review_purpose`, pacote de reprodutibilidade). Mas há três classes de mitigação adicional que **não pertencem ao escopo do ghostwriter** porque são decisões editoriais e estratégicas do autor — e mesmo assim afetam materialmente a credibilidade científica do conjunto de Revisões depositadas. Este documento descreve essas três classes e como aplicá-las.
+>
+> **Quando ler este documento.** Após o pacote da Revisão sair do `ignorantia` e antes/durante/depois da submissão ao Zenodo + preprint server. Idealmente, revisar a cada nova Revisão depositada e periodicamente (por exemplo, a cada 10 Revisões) para o conjunto.
+
+---
+
+## 1. Por que estas mitigações importam
+
+Você está produzindo Revisões em volume (estimativa atual: 5 a 200+ Revisões fundamentando vários projetos). Mesmo com:
+
+- pré-registro PROSPERO/OSF antes da decisão de design,
+- declaração CoI padronizada,
+- seção de evidência contrária encontrada,
+- pacote de reprodutibilidade completo no Zenodo,
+
+ainda restam três percepções possíveis por terceiros (revisores, leitores críticos, mídia, concorrentes) que podem fragilizar o conjunto:
+
+1. **"O autor publica Revisões para justificar produtos seus — motivated reasoning."**
+2. **"Todas as Revisões deste autor confirmam o projeto dele — sinal vermelho estatístico."**
+3. **"Zenodo + preprint sem peer review = AI slop com aparência de ciência."**
+
+A ferramenta `ignorantia` mitiga estas percepções até onde é metodologicamente possível dentro do escopo do ghostwriter. As ações abaixo complementam essa mitigação **fora** do ghostwriter, no nível do autor e do projeto.
+
+---
+
+## 2. Mitigação A — Vinculação bidirecional Revisão ↔ Changelog do Projeto
+
+### 2.1. O que é
+
+Cada decisão de design tomada num dos seus projetos cita o DOI Zenodo da Revisão que a fundamenta. Cada Revisão lista, em registro **externo ao manuscrito**, as decisões de design que ela influencia.
+
+> ⚠️ **Importante**: a Revisão depositada **não cita o projeto**. O manuscrito da Revisão é cientificamente independente e vale por si. A vinculação ocorre **apenas no projeto**, em arquivo do tipo `EVIDENCE_BASE.md` ou no changelog. Esse princípio foi definido explicitamente em conversa: "o artigo não deve citar nada do projeto. É problema do projeto se manter vinculado às pesquisas."
+
+### 2.2. Por que é defesa contra motivated reasoning
+
+A acusação default é "você publicou a Revisão para justificar a decisão". A vinculação bidirecional, com timestamps verificáveis, prova o oposto:
+
+- O timestamp do pré-registro PROSPERO/OSF é anterior ao timestamp da decisão de design.
+- O changelog do projeto referencia o DOI da Revisão e o número PROSPERO/OSF.
+- Logo, a Revisão é a fonte; a decisão de design é a consequência.
+
+Sem essa cadeia de evidência, a acusação fica sem refutação concreta. Com ela, vira fato verificável.
+
+### 2.3. Como implementar (passo a passo)
+
+**No projeto subjacente** (não na Revisão):
+
+1. Criar arquivo `docs/EVIDENCE_BASE.md` (ou nome equivalente) na raiz do repositório do projeto, com formato:
+
+   ```markdown
+   # Base de Evidência do Projeto X
+   
+   ## Decisão D-001: Não corrigir hipóteses pré-silábicas
+   
+   - **Fundamentada por**: Revisão RS-01 — "Construtivismo de Ferreiro/Teberosky em meios digitais"
+   - **DOI Zenodo**: 10.5281/zenodo.XXXXXXX (versão atual)
+   - **DOI Concept**: 10.5281/zenodo.YYYYYYY (sempre aponta para a versão mais recente)
+   - **Pré-registro**: PROSPERO CRDXXXXXXXXX (data: AAAA-MM-DD)
+   - **Decisão tomada em**: AAAA-MM-DD (commit `a1b2c3d`)
+   - **Achados-chave aplicados**: Apps construtivistas mostram avanço mais rápido em hipótese alfabética; correção precoce gera ansiedade e reduz transferência para escrita em papel.
+   - **Achados contrários considerados**: 2 estudos sustentam abordagem fônica direta; revisado por critério de robustez metodológica (sample size, RoB) e desconsiderado como minoria de baixa qualidade.
+   ```
+
+2. Para cada commit do projeto que altera implementação relacionada a uma decisão D-NNN, mencionar no commit message:
+
+   ```
+   feat(alfabetizacao): implementa modo construtivista (não-corretivo)
+   
+   Refs: docs/EVIDENCE_BASE.md#decisao-d-001
+   ```
+
+3. Quando uma Revisão for atualizada (versão semestral ou anual), revisar `EVIDENCE_BASE.md`:
+   - Se os achados continuam sustentando a decisão: atualizar campo "DOI Zenodo" para nova versão; manter decisão.
+   - Se os achados mudaram e contradizem a decisão atual: abrir issue de revisão da decisão de design, registrar a mudança em commit subsequente, atualizar `EVIDENCE_BASE.md`.
+
+### 2.4. Esforço estimado
+
+- Setup inicial: 30-60 minutos por projeto (criar arquivo, popular com decisões já tomadas).
+- Manutenção: ~5 minutos por decisão nova ou por atualização de Revisão.
+- A cada Revisão atualizada: revisão de todas as decisões vinculadas (~10-20 minutos).
+
+### 2.5. Quando aplicar
+
+- **Sempre** que a Revisão for usada para fundamentar decisão concreta de algum projeto seu.
+- **Não** se aplica a Revisões cuja categoria `review_purpose` seja `independent_inquiry` (pesquisas que você fez por curiosidade ou para outro fim, sem decisão de projeto vinculada).
+
+---
+
+## 3. Mitigação B — Pesquisa de Auditoria Periódica
+
+### 3.1. O que é
+
+A cada N Revisões publicadas (sugestão inicial: 10), produzir uma Revisão **propositalmente focada em achados negativos ou em evidências que questionem premissas amplamente aceitas** na área em que seus projetos operam — não necessariamente sobre os seus projetos.
+
+### 3.2. Por que é defesa contra "todas suas Revisões confirmam o projeto"
+
+Se você produz 40 Revisões e todas elas, sem exceção, confirmam decisões dos seus projetos, isso é estatisticamente improvável e parece motivated reasoning mesmo que não seja. A literatura científica raramente é unânime; encontrar e publicar achados negativos demonstra que você lê a literatura criticamente, não seletivamente.
+
+A Revisão de auditoria é o mecanismo público de prova dessa postura crítica.
+
+### 3.3. Distinção importante: dialética vs auditoria
+
+Em conversa anterior, você apontou:
+
+> "Toda pesquisa pode sim trabalhar com pontos contrários e pontos favoráveis (dialética) por padrão, que eu saiba."
+
+Correto. Há dois níveis distintos:
+
+| Nível | O que é | Onde fica |
+|---|---|---|
+| **Dialética intra-Revisão** | Cada Revisão apresenta evidência pró e contra dentro do escopo da pergunta dela. Análise dialética, não confirmacionista. | **Já está no escopo do ghostwriter `ignorantia` v2.0** — coberto pelo critério C2 (cross-tabulação dialética) e pela seção obrigatória "Evidência contrária encontrada". |
+| **Auditoria entre-Revisões** | A cada N Revisões, uma Revisão dedicada a "negative findings on widely-held assumptions in [area]". É a Revisão **inteira** que foca em desafiar suposições, não apenas a discussão de uma Revisão. | **Fora do escopo do ghostwriter.** Decisão editorial sua. |
+
+A dialética intra-Revisão é obrigatória; a auditoria entre-Revisões é opcional mas recomendada.
+
+### 3.4. Como escolher o tópico da Revisão de auditoria
+
+Você decide o tópico. Algumas heurísticas que ajudam:
+
+1. **Suposições amplamente aceitas mas pouco testadas**: e.g., "gamificação aumenta engajamento" — há literatura recente questionando, especialmente em populações neurodivergentes.
+2. **Achados que ferem o senso comum da indústria**: e.g., "dark patterns de retenção podem reduzir aprendizagem real mesmo aumentando tempo de uso" — útil porque questiona métricas pelas quais a indústria se autoavalia.
+3. **Áreas adjacentes onde sua intuição inicial pode estar errada**: e.g., se você assume que "LIBRAS na janela é sempre melhor", auditar essa assumpção contra evidência sobre interpretação simultânea para crianças surdas.
+4. **Interseções desconfortáveis**: e.g., "eficácia educacional de apps em contextos de pobreza extrema" — pode achar que apps são menos relevantes que infraestrutura básica.
+
+### 3.5. Como rotular e depositar
+
+A Revisão de auditoria é depositada como qualquer outra, com `review_purpose: independent_inquiry` e seção CoI declarando: *"This review was conducted as part of the author's evidence-base auditing protocol; no design decision in any current project of the author depends on confirming or refuting the findings of this review."*
+
+### 3.6. Quando aplicar
+
+- A cada ~10 Revisões depositadas, considerar uma Revisão de auditoria.
+- Não há obrigação rígida de contagem; o que importa é o padrão. Se ao revisar seu portfólio de Revisões você nota que **todas** confirmam suas decisões, o sinal vermelho é claro e a próxima deve ser de auditoria.
+- Em projetos de alta visibilidade (política pública, produto comercial com escala), considerar Revisão de auditoria mais frequente (a cada 5).
+
+---
+
+## 4. Mitigação C — Open Peer Review pós-Zenodo
+
+### 4.1. O que é
+
+Após depositar a Revisão no Zenodo + preprint server, convidar formalmente 2-3 revisores qualificados externos para fazer peer review público linkado ao DOI Zenodo. Plataformas:
+
+- **PREreview.org** — open peer review platform; reviews ficam publicamente linkadas ao preprint/Zenodo DOI; revisores podem ser anônimos ou identificados.
+- **Sciety.org** — agrega reviews públicas de várias fontes (PREreview, eLife, Review Commons, ASAPbio, etc.) e linka ao DOI.
+- **Hypothesis.is** — annotation layer; revisor anota o PDF/HTML público com comentários estruturados.
+- **Researchhub.com** — open peer review com micropagamento opcional ao revisor.
+
+### 4.2. Por que é defesa contra "Zenodo + preprint = AI slop"
+
+Zenodo é depósito; preprint server é divulgação. Nenhum dos dois é peer-reviewed por padrão. Para o leitor cético, "depositada no Zenodo" significa "não revisada por pares" — o que pode ser justo num primeiro momento.
+
+Open peer review pós-depósito muda a equação:
+
+- DOI Zenodo + 2-3 reviews públicas linkadas = mais credibilidade que "preprint sem revisão", embora menos que "publicada em revista peer-reviewed".
+- Se você responde publicamente às críticas (também via PREreview ou comentário no Zenodo), o ciclo de revisão fica auditável — algo que muitas revistas tradicionais não oferecem.
+
+Trade-off real: as reviews podem ser críticas e públicas. Aceitar isso é parte do ganho de credibilidade. Se você não quer aceitar críticas públicas, esta mitigação não é para você.
+
+### 4.3. Como aplicar (passo a passo)
+
+1. **Identificar revisores qualificados externos**:
+   - Acadêmicos da área da Revisão (procurar autores citados na própria Revisão).
+   - Sem vínculo com seus projetos.
+   - Com histórico de publicação na área (verificar OpenAlex, Google Scholar).
+2. **Contato**:
+   - Email cordial explicando a Revisão, o DOI Zenodo, o objetivo de peer review público, e a plataforma sugerida (PREreview, Sciety).
+   - Disponibilizar o pacote de reprodutibilidade completo (com prompt.md, model.txt, dois.csv, etc.) — isso é diferencial significativo e atrai revisores curiosos sobre AI-assisted reviews.
+   - Aceitar que muitos revisores recusarão; orçar 5-10 convites para 2-3 reviews efetivas.
+3. **Resposta às reviews**:
+   - Responder publicamente, na própria plataforma ou via comentário no Zenodo.
+   - Se a review aponta falha real: depositar **nova versão** da Revisão no Zenodo (Zenodo permite versionamento com DOI persistente apontando para a versão mais recente) corrigindo a falha; declarar a mudança no changelog da Revisão.
+   - Se a review aponta discordância de interpretação: responder com argumentação, sem necessariamente alterar a Revisão.
+4. **Compensação aos revisores**:
+   - Plataformas como ResearchHub permitem micropagamento; PREreview e Sciety são gratuitas para todos.
+   - Mesmo em plataformas gratuitas, considerar oferecer co-autoria em Revisão futura ou outro reconhecimento profissional, se cabível.
+
+### 4.4. Esforço estimado
+
+- Identificar revisores: 30-60 minutos por Revisão.
+- Convites e follow-up: 1-2 horas por Revisão.
+- Espera por reviews: 2-8 semanas.
+- Resposta às reviews + eventual nova versão: 2-4 horas por Revisão.
+
+### 4.5. Quando aplicar
+
+Não é viável para todas as Revisões se o volume for alto (200+). Critérios sugeridos para priorizar:
+
+- **Revisões com `review_purpose: design_foundational`** que fundamentam decisões críticas de produto comercial ou política pública.
+- **Revisões com alta visibilidade** (citadas em mídia, em políticas, em decisões de negócio com escala).
+- **Revisões com achados controversos** (que contradizem práticas estabelecidas da indústria).
+- **Revisões de auditoria** (Mitigação B) — fortes candidatas porque o conteúdo é por definição crítico e merece ser ele próprio criticado.
+- **Revisões em áreas onde você tem CoI mais agudo** (e.g., produto comercial em concorrência direta).
+
+Para o restante (Revisões de menor stake), o pacote padrão (Zenodo + preprint + dialética intra-Revisão + declaração CoI) é suficiente.
+
+---
+
+## 5. Síntese: protocolo recomendado em 3 níveis
+
+| Nível | Esforço | Itens | Quando aplicar |
+|---|---|---|---|
+| **Mínimo obrigatório (já no ghostwriter)** | Baixo | Pré-registro PROSPERO/OSF • Declaração CoI padronizada • Seção evidência contrária encontrada • Categorização review_purpose • Pacote reprodutibilidade Zenodo | Toda Revisão, sempre |
+| **Recomendado (este documento)** | Médio | Mitigação A — Vinculação bidirecional Revisão↔Changelog | Toda Revisão com `review_purpose: design_foundational` ou `design_correction` |
+| **Reforço periódico (este documento)** | Alto | Mitigação B — Revisão de auditoria a cada ~10 • Mitigação C — Open peer review pós-Zenodo em Revisões de alto stake | Conforme critérios em §3.6 e §4.5 |
+
+---
+
+## 6. Pontos a revisar periodicamente
+
+A cada 10 Revisões depositadas (ou trimestralmente, o que vier antes), revisar:
+
+1. Quantas Revisões depositadas até o momento?
+2. Quantas com `review_purpose: design_foundational`? Todas elas têm vinculação no `EVIDENCE_BASE.md` do projeto correspondente?
+3. Houve alguma Revisão atualizada que invalidou decisão de projeto? Foi tratada conforme protocolo?
+4. Alguma das Revisões teve achados negativos materiais? Estão declarados na seção "Evidência contrária encontrada"?
+5. Já passou tempo suficiente para uma Revisão de auditoria? Tem tópico em mente?
+6. Alguma Revisão de alto stake mereceria open peer review? Foi solicitada?
+7. As guidelines emergentes da EQUATOR Network (PRISMA-AI quando publicada, etc.) afetam Revisões já depositadas? Alguma precisa ser atualizada?
+
+---
+
+## 7. O que este documento NÃO resolve
+
+Mesmo com as três mitigações aplicadas integralmente, alguns riscos permanecem e precisam ser aceitos conscientemente:
+
+- **Risco de bias inconsciente**: você decide os critérios de inclusão e os ajustes de interpretação. Mesmo com pré-registro, há margem para escolhas que favoreçam a hipótese desejada. A única defesa total seria peer review duplo-cego em revista tradicional — caminho viável para Revisões prioritárias, custoso para 200.
+- **Risco de captura por LLM**: o ghostwriter usa LLM. LLMs têm vieses próprios (treinamento, RLHF, recência). Documentar o modelo + temperatura + seed reduz mas não elimina. Considerar repetir Revisões críticas com modelo diferente como sanity check.
+- **Risco editorial de longo prazo**: depósitos Zenodo + preprint não substituem publicação em revista peer-reviewed para algumas comunidades. Para Revisões de alto stake, considerar submissão à revista após o ciclo Zenodo + open peer review.
+- **Risco de obsolescência**: literatura em LLM/IA dobra em 18-24 meses. Sem atualização, a Revisão envelhece rápido. Planejar atualizações ou rotular como `time_bounded` honestamente.
+
+Estes riscos não são endereçáveis pela ferramenta ghostwriter; são limites do método. Reconhecê-los é parte da postura epistemicamente honesta que o projeto adota desde o início.
+
+---
+
+## 8. Histórico de versões deste documento
+
+| Versão | Data | Mudança |
+|---|---|---|
+| 1.0 | 2026-05-02 | Criação inicial. Cobre Mitigações A (vinculação bidirecional), B (auditoria periódica) e C (open peer review pós-Zenodo) — não pertencentes ao escopo do ghostwriter mas críticas para credibilidade científica do conjunto de Revisões. |

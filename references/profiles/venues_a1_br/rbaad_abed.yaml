@@ -1,0 +1,104 @@
+metadata:
+  venue_id: rbaad_abed
+  name: "Revista Brasileira de Aprendizagem Aberta e a Distância"
+  name_pt: "Revista Brasileira de Aprendizagem Aberta e a Distância"
+  publisher: "Associação Brasileira de Educação a Distância (ABED), São Paulo"
+  country: BR
+  language_acceptance: [pt, en, es]
+  qualis_stratum: A2
+  qualis_subarea: "Educacao"
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://abed.emnuvens.com.br/RBAAD/about/submissions"
+  archived_url: "https://web.archive.org/web/2026/https://abed.emnuvens.com.br/RBAAD/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    RBAAD é periódico da ABED (sociedade científica brasileira de EaD).
+    Diamond OA: sem APC, CC BY 4.0.
+    A2 confirmado no Qualis 2021-2024 (declaração explícita na home da revista).
+    Especialmente apropriada para revisões sobre tecnologias educacionais, EaD,
+    aprendizagem digital e formação de professores em contexto digital.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_with_2_reviewers
+    - integrative_review
+    - scoping_review
+    - narrative_review
+    - mapping_study
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+  methodological_standards_endorsed:
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    min: 4000
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+    - id: ethics_approval
+      severity: major
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://abed.emnuvens.com.br/RBAAD/about/editorialPolicies"
+  notes: |
+    Segue convenção ABEC Brasil — IA como ferramenta com disclosure obrigatório.
+    Sem documento próprio detalhado publicado.
+
+reproducibility:
+  data_availability_statement: encouraged
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

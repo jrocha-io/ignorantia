@@ -1,0 +1,143 @@
+metadata:
+  venue_id: frontiers_education
+  name: "Frontiers in Education"
+  name_pt: "Frontiers in Education"
+  publisher: "Frontiers Media SA"
+  country: CH
+  language_acceptance: [en]
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: null
+  jcr_impact_factor_2025: 1.9
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 2200  # convertido de 1950 CHF (aprox.)
+  apc_chf: 1950
+  apc_currency: CHF
+  apc_year: 2026
+  apc_waivers: |
+    Frontiers oferece fee support program: discounts e split payments para autores
+    que demonstrem necessidade financeira (case-by-case, ~5 dias úteis para resposta).
+    Em 2025 Frontiers waived $9M em fee support, ~11.300 artigos publicados.
+    Brasil é upper-middle income — pode aplicar mas não tem waiver automático.
+    Institutional partnerships disponíveis.
+  submission_system: frontiers_native
+  source_url: "https://www.frontiersin.org/journals/education/for-authors/publishing-fees"
+  archived_url: "https://web.archive.org/web/2026/https://www.frontiersin.org/journals/education/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Frontiers in Education é o membro da família Frontiers para área educacional.
+    APC mais baixo (~$2200) que Frontiers in Medicine ou em CS (~$2900).
+    Aceita explicitamente: Original Research, Systematic Review, Methods, Review,
+    Policy and Practice Reviews, Hypothesis and Theory, Registered Report, Study Protocol,
+    Policy Brief, Brief Research Report, Conceptual Analysis.
+    
+    A diversidade de article types torna Frontiers in Education adequado para múltiplos
+    modos do ignorantia, especialmente Modos 1 (Scoping), 4 (SR-strict), 6 (Position via
+    Hypothesis and Theory), 8 (White Paper via Policy Brief), 9 (Integrative via Review),
+    10 (Realist via Policy and Practice Reviews).
+    
+    Tempo médio submissão→publicação: 14 semanas. Rejection rate: até 75% conforme área.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - scoping_review
+    - rapid_review
+    - meta_analysis
+    - integrative_review
+    - realist_review
+    - position_paper
+    - theoretical_essay
+    - white_paper
+    - policy_brief
+    - qualitative_synthesis
+  recommended_for_layer: all
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-ScR
+    - PRISMA-S
+  primary_subject_areas:
+    - "Education"
+    - "Educational Technology"
+    - "Higher Education"
+    - "Educational Policy"
+
+hard_requirements:
+  length:
+    unit: words
+    max: 12000
+    min: null
+    excludes: [abstract, references, tables, figures, supplementary]
+    review_type_specific:
+      systematic_review_with_2_reviewers: {max: 12000, unit: words}
+      scoping_review: {max: 12000, unit: words}
+      position_paper: {max: 4000, unit: words}
+      policy_brief: {max: 3000, unit: words}
+  abstract:
+    max_words: 350
+    structured: false
+  title:
+    max_words: 30
+  keywords:
+    min: 3
+    max: 8
+    controlled_vocabulary: ERIC
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: major
+    - id: ethics_approval
+      severity: major
+    - id: orcid_corresponding_only
+      severity: major
+    - id: prospero_registration
+      severity: minor
+      detection_anchors: ["CRD\\d{6,9}", "PROSPERO", "OSF Registries", "osf\\.io/[a-z0-9]+"]
+  file_format:
+    accepted: [docx, tex]
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://www.frontiersin.org/about/policies-and-publication-ethics"
+  notes: |
+    Frontiers exige disclosure de uso de IA em todos os artigos.
+    Política em linha com COPE guidelines. AI não pode ser autor.
+
+reproducibility:
+  data_availability_statement: required
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: true
+  apc_waiver_for_brazil: false
+  alternative_to_paywall_for_area: true

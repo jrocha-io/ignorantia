@@ -1,0 +1,186 @@
+id: SOFTWARE-PAPER-GENERIC
+name: "Software Paper Generic Standard (JOSS-aligned)"
+version: "2025"
+canonical_url_joss: "https://joss.readthedocs.io/en/latest/paper.html"
+canonical_url_softwarex: "https://www.sciencedirect.com/journal/softwarex/publish/guide-for-authors"
+items_total: 15
+applies_to:
+  - software_paper
+note: |
+  Padrão genérico para Software Papers que cobre as exigências comuns de:
+  - JOSS (Journal of Open Source Software) — venue padrão OA-gratuito
+  - SoftwareX (Elsevier) — alternativa OA paga (~$2400 APC)
+  - F1000Research (Software Tool Article) — alternativa OA paga (~$1350-1850 APC)
+  - IEEE Software (Tools track) — alternativa hybrid
+
+  Características críticas de Software Papers (qualquer venue):
+  - Documento curto (típico 750-1750 palavras em JOSS, até 6000 em SoftwareX)
+  - Foco em descrever software de pesquisa, não resultados de pesquisa
+  - Software já existe, é open source, tem testes e documentação
+  - "Statement of need" obrigatório
+  - "State of the field" obrigatório (comparação com alternativas)
+  - AI Disclosure obrigatória (JOSS 2025; tendência geral)
+  - Repositório Git público com histórico ≥6 meses (gate em JOSS)
+
+  Camada hierárquica: Secundária (exige material fornecido — o software pronto).
+
+items:
+  # ==================== STRUCTURE ====================
+  - id: "SP-1"
+    section: "STRUCTURE"
+    title: "Summary section (high-level functionality, non-specialist audience)"
+    automation_level: full
+    detection_method: "summary_section_present"
+    anchors:
+      - "^# Summary"
+      - "^## Summary"
+      - "^# Resumo"
+    severity_if_missing: blocking
+
+  - id: "SP-2"
+    section: "STRUCTURE"
+    title: "Statement of need (research purpose, target audience, relation to other work)"
+    automation_level: full
+    detection_method: "statement_of_need_section"
+    anchors:
+      - "Statement of need"
+      - "Statement of Need"
+      - "Declaração de necessidade"
+    severity_if_missing: blocking
+
+  - id: "SP-3"
+    section: "STRUCTURE"
+    title: "State of the field (comparison with related software/tools)"
+    automation_level: full
+    detection_method: "state_of_field_section"
+    anchors:
+      - "State of the field"
+      - "Related software"
+      - "Related work"
+      - "Comparison with"
+      - "Trabalhos relacionados"
+    severity_if_missing: blocking
+
+  - id: "SP-4"
+    section: "STRUCTURE"
+    title: "Software design/architecture overview"
+    automation_level: partial
+    detection_method: "software_design_section"
+    anchors:
+      - "Software design"
+      - "Architecture"
+      - "Implementation"
+      - "Arquitetura"
+    severity_if_missing: major
+
+  - id: "SP-5"
+    section: "STRUCTURE"
+    title: "Use cases / examples of usage"
+    automation_level: partial
+    detection_method: "usecases_section"
+    anchors:
+      - "Use cases"
+      - "Usage examples"
+      - "Casos de uso"
+      - "Examples"
+    severity_if_missing: major
+
+  - id: "SP-6"
+    section: "STRUCTURE"
+    title: "AI usage disclosure (mandatory for JOSS 2025; recommended elsewhere)"
+    automation_level: full
+    detection_method: "ai_disclosure_section"
+    anchors:
+      - "AI usage disclosure"
+      - "Declaration of AI use"
+      - "Declaração de uso de IAG"
+      - "AI disclosure"
+    severity_if_missing: blocking
+
+  - id: "SP-7"
+    section: "STRUCTURE"
+    title: "Acknowledgements (financial support, contributors)"
+    automation_level: full
+    detection_method: "acknowledgements_section"
+    anchors:
+      - "Acknowledgements"
+      - "Acknowledgments"
+      - "Agradecimentos"
+    severity_if_missing: minor
+
+  - id: "SP-8"
+    section: "STRUCTURE"
+    title: "References (full venue names, not abbreviations)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== SOFTWARE REQUIREMENTS ====================
+  - id: "SP-9"
+    section: "SOFTWARE_REQUIREMENTS"
+    title: "Software is open source (OSI-approved license)"
+    automation_level: partial
+    detection_method: "osi_license_present"
+    anchors:
+      - "MIT License"
+      - "Apache License"
+      - "BSD-?\\d*-?Clause"
+      - "GPL"
+      - "LGPL"
+      - "MPL"
+    severity_if_missing: blocking
+
+  - id: "SP-10"
+    section: "SOFTWARE_REQUIREMENTS"
+    title: "Software has tests"
+    automation_level: none
+    severity_if_missing: blocking
+    needs_human_review: true
+
+  - id: "SP-11"
+    section: "SOFTWARE_REQUIREMENTS"
+    title: "Software has documentation"
+    automation_level: none
+    severity_if_missing: blocking
+    needs_human_review: true
+
+  - id: "SP-12"
+    section: "SOFTWARE_REQUIREMENTS"
+    title: "Repository public ≥6 months with active development (JOSS gate)"
+    automation_level: none
+    severity_if_missing: blocking
+    needs_human_review: true
+    note: "JOSS-specific gate; outras venues podem ser mais flexíveis."
+
+  - id: "SP-13"
+    section: "SOFTWARE_REQUIREMENTS"
+    title: "Research impact: real users beyond authors (JOSS gate)"
+    automation_level: none
+    severity_if_missing: blocking
+    needs_human_review: true
+    note: "JOSS gate-rejects sem demonstração de uso real além do autor. Outros venues mais flexíveis."
+
+  # ==================== FORMAT ====================
+  - id: "SP-14"
+    section: "FORMAT"
+    title: "Length within venue limits (JOSS: 750-1750 words; SoftwareX: 4-6 pages)"
+    automation_level: full
+    detection_method: "word_count_in_range"
+    severity_if_missing: blocking
+
+  - id: "SP-15"
+    section: "FORMAT"
+    title: "paper.md + paper.bib in Git-based repo (JOSS); single file (SoftwareX)"
+    automation_level: none
+    severity_if_missing: blocking
+    needs_human_review: true
+
+# Resumo de automatizabilidade:
+# full:    7 itens (SP-1, 2, 3, 6, 7, 14, [9 partial])
+# partial: 4 itens (SP-4, 5, 8, 9)
+# none:    4 itens (SP-10, 11, 12, 13, 15) — todos human-verifiable
+
+# Venues compatíveis (a serem mapeados nos perfis individuais):
+# - joss: padrão OA-gratuito ($0 APC)
+# - softwarex_elsevier: hybrid OA ~$2400 APC
+# - f1000research_software: OA ~$1350-1850 APC
+# - ieee_software_tools: hybrid (OA opcional ~$2500 APC)

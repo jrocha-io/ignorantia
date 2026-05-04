@@ -1,0 +1,122 @@
+id: PRISMA-RR
+name: "PRISMA Extension for Rapid Reviews (PRISMA-RR)"
+version: "2024"
+canonical_doi: "10.1136/bmj-2024-079866"
+canonical_url: "https://www.equator-network.org/reporting-guidelines/prisma-rr/"
+applies_to:
+  - rapid_review
+note: "Rapid reviews permitem single-reviewer dual-checked, AI-assisted screening, restrição de bases (≥1 + grey lit), e janela temporal limitada. Concebido explicitamente para apoiar decisões com urgência (políticas públicas, emergências sanitárias, decisões de design)."
+
+items:
+  - id: "RR-1"
+    section: "TITLE"
+    title: "Identify as rapid review (NÃO usar termo systematic review)"
+    automation_level: full
+    detection_method: "regex_in_title"
+    anchors:
+      - "rapid review"
+      - "revisão rápida"
+    severity_if_missing: blocking
+    note: "Esta é a regra MAIS importante: rapid review NÃO pode se chamar systematic review."
+  - id: "RR-2"
+    section: "ABSTRACT"
+    title: "Structured abstract noting rapid methodology and limitations"
+    automation_level: partial
+    severity_if_missing: major
+  - id: "RR-3"
+    section: "INTRO"
+    title: "Justification for rapid approach (urgency, decision context)"
+    automation_level: partial
+    detection_method: "rapid_justification_present"
+    anchors:
+      - "rapid review was conducted"
+      - "decision-making"
+      - "urgency"
+      - "policy decision"
+      - "design decision"
+    severity_if_missing: major
+  - id: "RR-4"
+    section: "METHODS"
+    title: "Pre-registered protocol (OSF preferred for rapid reviews)"
+    automation_level: full
+    severity_if_missing: blocking
+    anchors:
+      - "osf\\.io/\\w+"
+      - "PROSPERO"
+      - "doi\\.org/.*protocol"
+  - id: "RR-5"
+    section: "METHODS"
+    title: "Eligibility criteria with explicit limits (date range, language, design)"
+    automation_level: partial
+    severity_if_missing: blocking
+  - id: "RR-6"
+    section: "METHODS"
+    title: "Search: minimum 1 database + grey literature OR full justification of limited scope"
+    automation_level: full
+    minimum_count: 1
+    severity_if_missing: blocking
+  - id: "RR-7"
+    section: "METHODS"
+    title: "Selection process: single-reviewer with AI-assistance OR dual-check declared"
+    automation_level: partial
+    detection_method: "single_reviewer_disclosed"
+    anchors:
+      - "single reviewer"
+      - "AI-assisted screening"
+      - "single-reviewer dual-checked"
+      - "LLM-assisted"
+    severity_if_missing: blocking
+    note: "Para rapid review, single-reviewer é aceitável SE explicitamente declarado e com AI-assistance ou cross-check."
+  - id: "RR-8"
+    section: "METHODS"
+    title: "Data extraction: simplified template, single extractor with verification"
+    automation_level: partial
+    severity_if_missing: major
+  - id: "RR-9"
+    section: "METHODS"
+    title: "Critical appraisal: simplified RoB OR justified omission"
+    automation_level: partial
+    severity_if_missing: major
+  - id: "RR-10"
+    section: "RESULTS"
+    title: "PRISMA-style flow diagram (adapted to rapid)"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "RR-11"
+    section: "RESULTS"
+    title: "Study characteristics summary"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "RR-12"
+    section: "DISCUSSION"
+    title: "Limitations EXPLICITLY linking to rapid methodology"
+    automation_level: partial
+    detection_method: "rapid_limitations_section"
+    anchors:
+      - "rapid.{0,10}methodology.{0,30}limitation"
+      - "single-reviewer.{0,30}limitation"
+      - "limited search"
+      - "AI-assisted screening may"
+    severity_if_missing: blocking
+    note: "Falta dessa seção é o erro mais comum em rapid reviews mal-feitas."
+  - id: "RR-13"
+    section: "DISCUSSION"
+    title: "Implications: should this be upgraded to systematic review?"
+    automation_level: partial
+    severity_if_missing: minor
+  - id: "RR-14"
+    section: "OTHER"
+    title: "Funding declared"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "RR-15"
+    section: "OTHER"
+    title: "Conflicts of interest declared"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "RR-16"
+    section: "OTHER"
+    title: "Reproducibility package: prompt, model, search results raw"
+    automation_level: full
+    severity_if_missing: major
+    note: "Para rapid review com IA-assistance, package reprodutibilidade é o que substitui dual-reviewer human consensus."

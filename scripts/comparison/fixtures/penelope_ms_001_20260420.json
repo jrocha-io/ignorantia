@@ -1,0 +1,20 @@
+{
+  "vendor": "penelope",
+  "snapshot_date": "2026-04-20",
+  "manuscript_id": "ms_001",
+  "venue_ranking": [],
+  "compliance_checks": {
+    "passed": 18,
+    "failed": 2,
+    "details": [
+      {"check_id": "title_page_corresponding_email", "status": "passed"},
+      {"check_id": "title_page_funding", "status": "passed"},
+      {"check_id": "title_page_conflicts", "status": "failed", "reason": "Section 'Conflicts of Interest' not detected."},
+      {"check_id": "ethics_human_consent", "status": "passed"},
+      {"check_id": "data_access_statement", "status": "failed", "reason": "Data availability statement missing or weak."},
+      {"check_id": "citations_vs_references", "status": "passed"},
+      {"check_id": "reference_system_consistent", "status": "passed"},
+      {"check_id": "reporting_checklist_prisma", "status": "passed"}
+    ]
+  }
+}

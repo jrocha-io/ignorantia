@@ -1,0 +1,166 @@
+id: SIGSOFT-EMP-STANDARDS
+name: "ACM SIGSOFT Empirical Standards: Systematic Review"
+version: "2024"
+canonical_url: "https://acmsigsoft.github.io/EmpiricalStandards/docs/?standard=SystematicReview"
+canonical_repo: "https://github.com/acmsigsoft/EmpiricalStandards"
+applies_to:
+  - systematic_review_strict
+  - systematic_review_with_2_reviewers
+  - mapping_study
+note: "Padrão de fato em CS/SE para SLRs publicadas em IEEE TSE, ACM TOSEM, EMSE, IST, JSS, MSR, ICSE, FSE."
+
+items:
+  - id: "ESS-1"
+    section: "PROTOCOL"
+    title: "Protocol developed and (preferably) registered before searches"
+    automation_level: full
+    detection_method: "protocol_artifact_present"
+    severity_if_missing: blocking
+
+  - id: "ESS-2"
+    section: "PROTOCOL"
+    title: "Research questions explicit and structured (PICOC, GQM, or equivalent)"
+    automation_level: partial
+    detection_method: "rqs_explicit"
+    anchors:
+      - "RQ\\d+"
+      - "research question"
+      - "research questions"
+      - "PICOC"
+    severity_if_missing: blocking
+
+  - id: "ESS-3"
+    section: "SEARCH"
+    title: "At least 3 digital libraries OR justified single-source approach"
+    automation_level: full
+    detection_method: "databases_listed"
+    anchors:
+      - "ACM Digital Library"
+      - "IEEE Xplore"
+      - "Scopus"
+      - "Web of Science"
+      - "SpringerLink"
+      - "ScienceDirect"
+      - "DBLP"
+    minimum_count: 3
+    severity_if_missing: blocking
+
+  - id: "ESS-4"
+    section: "SEARCH"
+    title: "Search string documented for each library (or with platform-specific syntax adjustments)"
+    automation_level: full
+    detection_method: "search_string_per_library"
+    severity_if_missing: blocking
+
+  - id: "ESS-5"
+    section: "SEARCH"
+    title: "Snowballing (forward and/or backward) performed and reported"
+    automation_level: full
+    detection_method: "snowballing_declared"
+    anchors:
+      - "snowballing"
+      - "snowball"
+      - "Wohlin"
+      - "backward citation"
+      - "forward citation"
+    severity_if_missing: major
+
+  - id: "ESS-6"
+    section: "SELECTION"
+    title: "Two independent reviewers (with disagreement resolution) OR single-reviewer with full transparency"
+    automation_level: partial
+    detection_method: "reviewer_count_declared"
+    anchors_two_reviewers:
+      - "two reviewers"
+      - "two researchers independently"
+      - "Cohen.{0,3}kappa"
+      - "Fleiss"
+    anchors_single_disclosed:
+      - "AI-assisted"
+      - "single reviewer with"
+    severity_if_missing: blocking
+
+  - id: "ESS-7"
+    section: "SELECTION"
+    title: "Inclusion/exclusion criteria explicit and applied consistently"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  - id: "ESS-8"
+    section: "SELECTION"
+    title: "Selection process transparent (numbers per stage in PRISMA-like flow)"
+    automation_level: full
+    detection_method: "prisma_flow_diagram_present"
+    severity_if_missing: blocking
+
+  - id: "ESS-9"
+    section: "EXTRACTION"
+    title: "Data extraction form used (template provided)"
+    automation_level: full
+    detection_method: "extraction_form_artifact"
+    severity_if_missing: blocking
+
+  - id: "ESS-10"
+    section: "EXTRACTION"
+    title: "Extraction by two reviewers OR single with cross-check"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "ESS-11"
+    section: "QUALITY"
+    title: "Quality assessment of primary studies (not just inclusion criteria)"
+    automation_level: full
+    detection_method: "qa_artifact_present"
+    anchors:
+      - "quality assessment"
+      - "quality appraisal"
+      - "DARE"
+      - "CASP"
+      - "Kitchenham.*quality"
+    severity_if_missing: major
+
+  - id: "ESS-12"
+    section: "SYNTHESIS"
+    title: "Synthesis approach justified (narrative, thematic, meta-analysis)"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "ESS-13"
+    section: "SYNTHESIS"
+    title: "Cross-tabulation between studies (not just listing)"
+    automation_level: full
+    detection_method: "cross_tab_density_check"
+    anchors_cross_tab:
+      - "in contrast"
+      - "diferentemente"
+      - "however,? "
+      - "convergem"
+      - "divergem"
+      - "while .{1,30} found"
+      - "whereas"
+    severity_if_missing: major
+
+  - id: "ESS-14"
+    section: "VALIDITY"
+    title: "Threats to validity (4 types: construct, internal, external, conclusion)"
+    automation_level: full
+    detection_method: "validity_section_with_4_types"
+    anchors:
+      - "construct validity"
+      - "internal validity"
+      - "external validity"
+      - "conclusion validity"
+    severity_if_missing: major
+
+  - id: "ESS-15"
+    section: "REPRODUCIBILITY"
+    title: "Replication package available"
+    automation_level: full
+    detection_method: "replication_package_link"
+    anchors:
+      - "Zenodo"
+      - "OSF"
+      - "GitHub"
+      - "figshare"
+      - "Dryad"
+    severity_if_missing: major

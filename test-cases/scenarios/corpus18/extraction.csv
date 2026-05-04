@@ -1,0 +1,19 @@
+id,title,authors,year,venue,country,study_type,rq_addressed,abstract,main_findings
+S01,Older adults and tablet learning,"Smith J, Jones K",2019,IEEE TVCG,USA,RCT,RQ1,"Tablet-based learning for older adults",Pontuação progressiva é elemento central
+S02,Multiplayer games for seniors,"Alice F, Brown G",2020,ACM CHI,UK,Cohort,RQ2,"Multiplayer engagement among elderly",Multiplayer assíncrono preferido sobre sincrono
+S03,Digital literacy interventions,"Costa M",2021,Computers & Education,Brazil,Mixed methods,RQ3,"Digital literacy programs",Barreiras cognitivas são as mais frequentes
+S04,Asynchronous gameplay,"Wilson H",2018,IEEE TLT,Canada,Experimental,RQ2,"Async multiplayer dynamics",Idosos preferem turnos longos
+S05,Cognitive accessibility,"Schmidt R",2022,ACM ASSETS,Germany,Survey,RQ3,"Cognitive barriers in tech",Vocabulário técnico é barreira específica
+S06,Game design for elderly,"Tan W",2020,ACM CHI,Singapore,Qualitative,RQ1,"Design principles for senior games",Narrativa contextualizada favorece engajamento
+S07,Long-term engagement,"García L",2021,Computers in Human Behavior,Spain,Longitudinal,RQ2,"Sustained engagement",Engajamento decai após 8 semanas sem rotação
+S08,Visual contrast in apps,"Park J",2019,IEEE TVCG,South Korea,Experimental,RQ3,"Contrast and aging",Contraste insuficiente é a 2a barreira mais frequente
+S09,Cooperative gaming,"Khan M",2022,ACM CHI,India,RCT,RQ2,"Cooperative vs competitive",Cooperativos preferidos sobre competitivos em 18/24
+S10,Onboarding for seniors,"Petrov A",2020,IEEE TLT,Russia,Mixed methods,"RQ1, RQ3","Onboarding patterns",Onboarding tradicional não funciona com idosos
+S11,Smartphone literacy seniors,"Tanaka Y",2021,Behaviour & Information Technology,Japan,Survey,RQ1,"Smartphone basics",Pontuação progressiva também central em smartphone
+S12,Gamification effects,"Oliveira P",2019,Educação & Pesquisa,Brazil,Case study,"RQ1, RQ2","Gamification in learning",Elementos de jogo aumentam motivação inicial
+S13,Voice interfaces for elderly,"Andersen K",2022,ACM CHI,Denmark,Experimental,RQ3,"Voice UI accessibility",Voz reduz barreiras cognitivas
+S14,Memory training games,"Pereira L",2021,Computers in Human Behavior,Portugal,Longitudinal,"RQ1, RQ2","Memory and games",Transfer cognitivo é limitado ao domínio treinado
+S15,Touch interactions,"Hassan O",2020,ACM CHI,Egypt,Qualitative,RQ3,"Touch and elderly hands",Touch fino é barreira motora subdocumentada
+S16,Inter-generational play,"Liu C",2022,IEEE TVCG,China,Experimental,RQ2,"Cross-generational gaming",Competição inter-geracional traz frustração
+S17,Senior tutorial design,"Volkov D",2021,IEEE TLT,Russia,Mixed methods,"RQ1, RQ3","Tutorial design",Tutoriais longos desestimulam
+S18,Adaptive difficulty,"Yamamoto K",2022,ACM CHI,Japan,RCT,RQ1,"Adaptive systems",Granularidade fina de feedback funciona melhor

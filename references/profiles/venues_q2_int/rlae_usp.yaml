@@ -1,0 +1,104 @@
+metadata:
+  venue_id: rlae_usp
+  name: Revista Latino-Americana de Enfermagem
+  name_pt: Revista Latino-Americana de Enfermagem
+  publisher: Escola de Enfermagem de Ribeirão Preto, Universidade de São Paulo (USP-EERP)
+  country: BR
+  language_acceptance:
+  - en
+  - pt
+  - es
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q3
+  sjr_quartile: Q2
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: null
+  apc_amount_original: '0'
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://www.scielo.br/j/rlae
+  archived_url: https://web.archive.org/web/2026/https://www.scielo.br/j/rlae
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    Q2 SJR Nursing (SJR 0.491; CiteScore 2.2); JIF 1.34 (2023).
+    Diamond OA via SciELO Brasil + portal USP, sem APC.
+    TIER 1: ÚNICO CASO IDENTIFICADO de Q2 internacional + Tier 1 + brasileiro simultaneamente. Venue prioritário para a ferramenta em Saúde.
+    Aceita systematic, scoping, integrative reviews.
+    PRISMA-2020; JBI metodologia para scoping; COPE compliance.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - scoping_review
+  - narrative_review
+  - integrative_review
+  - meta_analysis
+  - qualitative_synthesis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - nursing
+  - enfermagem
+  - patient care
+  - health promotion
+  - nursing education
+scope:
+  primary_subjects:
+  - Nursing
+  - Health Care
+  excluded_subjects: []

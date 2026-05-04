@@ -1,0 +1,101 @@
+metadata:
+  venue_id: campbell_sage
+  name: "Campbell Systematic Reviews"
+  publisher: "Sage / Campbell Collaboration"
+  country: US
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: sage_track
+  source_url: "https://journals.sagepub.com/author-instructions/CAM"
+  archived_url: "https://web.archive.org/web/2026/https://journals.sagepub.com/author-instructions/CAM"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - CAMPBELL-STANDARDS
+    - GRADE
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+    - "MECCIR (Methodological Expectations of Campbell Collaboration Intervention Reviews)"
+note: "Three-step process obrigatório: title registration → protocol → review. Two-reviewer obrigatório em todas as etapas. NÃO aceita single-reviewer com IA-assistance."
+
+hard_requirements:
+  length:
+    unit: words
+    max: null
+    excludes: []
+  abstract:
+    max_words: 600
+    structured: true
+    structure_headings: [Background, Objectives, Search Methods, Selection Criteria, Data Collection and Analysis, Main Results, Authors' Conclusions]
+  title:
+    max_words: 22
+  keywords:
+    min: 3
+    max: 8
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Plain Language Summary
+    - Background
+    - Objectives
+    - Methods
+    - Results
+    - Discussion
+    - Authors' Conclusions
+    - References
+  mandatory_declarations:
+    - id: prospero_registration
+      severity: blocking
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: blocking
+    - id: orcid_all_authors
+      severity: blocking
+    - id: plain_language_summary
+      severity: blocking
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: true
+    osf_acceptable: false
+    three_stage_process: true
+
+soft_signals:
+  scope_keywords:
+    - social policy
+    - education policy
+    - international development
+    - criminal justice
+    - social work
+    - intervention review
+
+scope:
+  thesaurus_descriptors:
+    - "Social Sciences [ERIC]"
+    - "Public Policy"

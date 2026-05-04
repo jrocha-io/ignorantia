@@ -1,0 +1,99 @@
+metadata:
+  venue_id: nep_elsevier
+  name: Nurse Education in Practice
+  name_pt: Nurse Education in Practice
+  publisher: Elsevier
+  country: GB
+  language_acceptance:
+  - en
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q2
+  sjr_quartile: Q2
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 3090
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: '3090'
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: https://www.sciencedirect.com/journal/nurse-education-in-practice
+  archived_url: https://web.archive.org/web/2026/https://www.sciencedirect.com/journal/nurse-education-in-practice
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    Q2 SJR Education / Q1 Nursing (categorização cruzada).
+    Hybrid; subscription default. APC ~USD 3.090 gold OA opcional.
+    Tier 3: APC alto e modelo subscription dominante.
+    Aceita systematic reviews, integrative reviews em nursing education.
+    PRISMA-2020; política Elsevier para IA.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - scoping_review
+  - integrative_review
+  - narrative_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - nursing education
+  - nurse training
+  - clinical education
+  - nursing practice
+scope:
+  primary_subjects:
+  - Nursing Education
+  - Health Professions Education
+  excluded_subjects: []

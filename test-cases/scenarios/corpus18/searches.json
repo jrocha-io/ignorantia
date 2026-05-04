@@ -1,0 +1,9 @@
+{"per_database": [
+  {"name":"arXiv","n_hits":34,"date":"2026-04-28"},
+  {"name":"ACM DL","n_hits":156},
+  {"name":"IEEE Xplore","n_hits":89},
+  {"name":"Scopus","n_hits":234},
+  {"name":"Web of Science","n_hits":201},
+  {"name":"SciELO BR","n_hits":45},
+  {"name":"Educ@","n_hits":23}
+]}

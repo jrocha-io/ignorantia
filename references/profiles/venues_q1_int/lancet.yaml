@@ -1,0 +1,96 @@
+metadata:
+  venue_id: lancet
+  name: "The Lancet"
+  publisher: "Elsevier"
+  country: GB
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: hybrid
+  submission_system: editorial_manager
+  source_url: "https://www.thelancet.com/lancet/information-for-authors"
+  archived_url: "https://web.archive.org/web/2026/https://www.thelancet.com/lancet/information-for-authors"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - CONSORT-2010
+    - STARD-2015
+    - STROBE
+    - GRADE
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 3500
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 300
+    structured: true
+    structure_headings: [Background, Methods, Findings, Interpretation, Funding]
+  title:
+    max_words: 15
+  keywords:
+    min: 3
+    max: 8
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: prospero_registration
+      severity: blocking
+    - id: trial_registration
+      severity: blocking
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: blocking
+    - id: orcid_all_authors
+      severity: blocking
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: true
+    osf_acceptable: false
+
+soft_signals:
+  scope_keywords:
+    - global health
+    - clinical medicine
+    - public health
+    - randomized controlled trial
+    - high-impact clinical research
+
+scope:
+  thesaurus_descriptors:
+    - "Medicine [MeSH]"
+    - "Public Health [MeSH]"
+    - "Global Health [MeSH]"

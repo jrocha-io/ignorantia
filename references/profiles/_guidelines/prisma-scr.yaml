@@ -1,0 +1,169 @@
+id: PRISMA-ScR
+name: "PRISMA Extension for Scoping Reviews"
+version: "2018"
+canonical_doi: "10.7326/M18-0850"
+canonical_url: "http://www.prisma-statement.org/Extensions/ScopingReviews"
+items_total: 22
+applies_to:
+  - scoping_review
+note: "Scoping reviews tipicamente NÃO exigem dois revisores em todas as etapas (single-reviewer permitido com transparência). JBI Manual cap. 11 é a referência metodológica primária."
+
+items:
+  - id: "1"
+    section: "TITLE"
+    title: "Identify as scoping review"
+    automation_level: full
+    detection_method: "regex_in_title"
+    anchors:
+      - "scoping review"
+      - "revisão de escopo"
+      - "scoping study"
+    severity_if_missing: blocking
+
+  - id: "2"
+    section: "ABSTRACT"
+    title: "Structured summary"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "3"
+    section: "INTRO"
+    title: "Rationale"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "4"
+    section: "INTRO"
+    title: "Objectives explicit (PCC framework recommended)"
+    automation_level: partial
+    detection_method: "pcc_or_objectives_present"
+    anchors:
+      - "Population.{0,10}Concept.{0,10}Context"
+      - "PCC"
+      - "objetivo"
+      - "research question"
+    severity_if_missing: major
+
+  - id: "5"
+    section: "METHODS"
+    title: "Protocol and registration (if any)"
+    automation_level: full
+    detection_method: "protocol_url_or_id"
+    anchors:
+      - "osf\\.io/\\w+"
+      - "protocol.*available"
+      - "doi\\.org/.*protocol"
+    severity_if_missing: major
+    note: "Não-blocking porque scoping reviews não exigem PROSPERO obrigatoriamente."
+
+  - id: "6"
+    section: "METHODS"
+    title: "Eligibility criteria (PCC-based)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  - id: "7"
+    section: "METHODS"
+    title: "Information sources (databases listed with last search dates)"
+    automation_level: full
+    detection_method: "databases_listed_with_dates"
+    minimum_count: 3
+    severity_if_missing: blocking
+
+  - id: "8"
+    section: "METHODS"
+    title: "Search strategy presented"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "9"
+    section: "METHODS"
+    title: "Selection of sources of evidence (process)"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "10"
+    section: "METHODS"
+    title: "Data charting process"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "11"
+    section: "METHODS"
+    title: "Data items charted"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "12"
+    section: "METHODS"
+    title: "Critical appraisal of individual sources (optional in scoping)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "13"
+    section: "METHODS"
+    title: "Synthesis of results"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "14"
+    section: "RESULTS"
+    title: "Selection of sources (PRISMA flow)"
+    automation_level: full
+    detection_method: "prisma_flow_diagram_present"
+    severity_if_missing: blocking
+
+  - id: "15"
+    section: "RESULTS"
+    title: "Characteristics of sources"
+    automation_level: full
+    detection_method: "characteristics_table_present"
+    severity_if_missing: blocking
+
+  - id: "16"
+    section: "RESULTS"
+    title: "Critical appraisal results (if applicable)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "17"
+    section: "RESULTS"
+    title: "Results of individual sources"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "18"
+    section: "RESULTS"
+    title: "Synthesis of results"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "19"
+    section: "DISCUSSION"
+    title: "Summary of evidence"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "20"
+    section: "DISCUSSION"
+    title: "Limitations"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "21"
+    section: "DISCUSSION"
+    title: "Conclusions and implications"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "22"
+    section: "OTHER"
+    title: "Funding"
+    automation_level: full
+    detection_method: "funding_section_present"
+    severity_if_missing: blocking

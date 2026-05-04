@@ -1,0 +1,1072 @@
+{
+  "source": "crossref",
+  "query": "digital literacy older adults",
+  "year_range": [
+    2018,
+    2026
+  ],
+  "type": "journal-article",
+  "fetched_at": "2026-04-29T02:02:34.693268Z",
+  "n": 60,
+  "results": [
+    {
+      "source": "crossref",
+      "id": "10.1177/20552076231178431",
+      "title": "Associations between health literacy, digital skill, and eHealth literacy among older Chinese adults: A cross-sectional study",
+      "abstract": "<jats:sec><jats:title>Objective</jats:title><jats:p> Digital divide in health-related technology use is a prominent issue for older adults. Improving eHealth literacy may be an important solution to this problem. This study aimed to explore the associations between health literacy, digital skills, and eHealth literacy among older Chinese adults. </jats:p></jats:sec><jats:sec><jats:title>Methods</jats:title><jats:p> A total of 2,144 older adults (mean age, 72.01  ±  6.96 years) from Jinan City, China participated in this study. The eHealth Literacy Scale was used to measure eHealth literacy in older adults. A linear regression model was used to analyze the associations among health literacy, digital skills, and eHealth literacy in older Chinese adults. </jats:p></jats:sec><jats:sec><jats:title>Results</jats:title><jats:p> The mean eHealth literacy score of the older adults was 17.56  ±  9.61. After adjusting for sociodemographic characteristics and experience of Internet usage, the results of the linear regression showed that health literacy ( B  =  0.258, 95% confidence interval (CI)  =  0.215–0.302, P&lt; 0.001) and digital skills ( B  =  0.654, 95% CI  =  0.587–0.720, P &lt; 0.001) were positively associated with eHealth literacy. Sensitivity analyses revealed that this association remained robust. </jats:p></jats:sec><jats:sec><jats:title>Conclusions</jats:title><jats:p> The level of eHealth literacy in older Chinese adults is low. Health literacy and digital skills are associated with eHealth literacy in older adults. In the future, eHealth literacy intervention research should be considered from the perspective of health literacy and digital skills. </jats:p></jats:sec>",
+      "authors": [
+        "Shaojie Li",
+        "Guanghui Cui",
+        "Yongtian Yin",
+        "Huilan Xu"
+      ],
+      "year": 2023,
+      "venue": "DIGITAL HEALTH",
+      "doi": "10.1177/20552076231178431",
+      "type": "journal-article",
+      "publisher": "SAGE Publications",
+      "url": "https://doi.org/10.1177/20552076231178431",
+      "citation_count": 46
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/fpubh.2025.1764365",
+      "title": "Editorial: Health literacy and digital health literacy among older adults: public health interventions",
+      "abstract": "",
+      "authors": [
+        "Steven Hoffman"
+      ],
+      "year": 2026,
+      "venue": "Frontiers in Public Health",
+      "doi": "10.3389/fpubh.2025.1764365",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/fpubh.2025.1764365",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.18043/001c.73013",
+      "title": "Re-envisioning Digital Equity and Connection Literacy for Older Adults",
+      "abstract": "<jats:p>Aging adults are increasingly reliant on technology to connect and meaningfully participate in overlapping domains of life. To address the digital and connection literacy needs of 1.7 million North Carolinians aged 65 and older, digital inclusion programming should account for the interconnected social assets, needs, and motivations of this diverse population.</jats:p>",
+      "authors": [
+        "Zachary White"
+      ],
+      "year": 2023,
+      "venue": "North Carolina Medical Journal",
+      "doi": "10.18043/001c.73013",
+      "type": "journal-article",
+      "publisher": "North Carolina Institute of Medicine",
+      "url": "https://doi.org/10.18043/001c.73013",
+      "citation_count": 6
+    },
+    {
+      "source": "crossref",
+      "id": "10.17645/mac.8277",
+      "title": "Frontline Knowledge: Digital Media Literacy of Older Adults in Ukraine",
+      "abstract": "<jats:p>Digital media literacy becomes crucial in modern conflict zones, as conflicts are increasingly digitized and hyperconnected. While a dangerous environment raises the need for orientation, propaganda and fakes discourage audiences’ sense-making efforts. Older adults often experience digital and social exclusion and might be vulnerable to mis- and disinformation. Previous research, focusing mostly on Western Europe, has studied digital media practices of older adults, however, there is very little knowledge on digital media literacy skills and needs of older adults in conflict zones. Drawing on eight focus groups, this article explores Ukrainian older adults’ challenges and compensation strategies during the digitized war. An inductive-qualitative analysis identifies three main factors that shape digital practices and dictate the literacy needs of Ukrainian older adults: (a) (lack of) access, grounded in material infrastructure and social ties; (b) self-(in)efficacy that often stems from pre-convictions about one’s agency and position in society; and (c) resilience that becomes crucial in the situation of continuous exposure to (mediated) violence. This research contributes to the understanding of the media literacy needs of older adults and lays the foundation for developing digital literacy study programs in conflict zones.</jats:p>",
+      "authors": [
+        "Olga Pasitselska"
+      ],
+      "year": 2024,
+      "venue": "Media and Communication",
+      "doi": "10.17645/mac.8277",
+      "type": "journal-article",
+      "publisher": "Cogitatio",
+      "url": "https://doi.org/10.17645/mac.8277",
+      "citation_count": 3
+    },
+    {
+      "source": "crossref",
+      "id": "10.23978/inf.122559",
+      "title": "Health literacy, socioeconomic status and digital device use among older adults",
+      "abstract": "",
+      "authors": [
+        "Johanna Eronen"
+      ],
+      "year": 2022,
+      "venue": "Informaatiotutkimus",
+      "doi": "10.23978/inf.122559",
+      "type": "journal-article",
+      "publisher": "Informaatiotutkimus",
+      "url": "https://doi.org/10.23978/inf.122559",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geront/gnad092",
+      "title": "The “Angry (Digital) Silver” in South Korea: The Rhetoric Around Older Adults’ Digital Media Literacy",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Naïve yet threatening is how the South Korean news media have characterized some older adults who have taken to social media to air their political views. Labeled as “angry (digital) silver,” these older adults using YouTube and other social media platforms for political activity are portrayed as digitally illiterate and aggressive. This paper examines the rhetoric surrounding older adults’ digital media literacy in scholarship and popular news media with a focus on the news media’s portrayal of older adults’ digital political activity. By analyzing the use of language and various rhetorical strategies, I argue that specific rhetoric of caution, which warns against older adults’ so-called lower digital media literacy, is used to invalidate their digital political activity. I draw upon the case of the “Taegukgi squad”—a political group mainly composed of older adults in South Korea—and the evolution of their digital presence. Addressing the media’s biased portrayal of older adults’ digital media literacy, this paper further invites reflection on controversies around the role of age in digital political activities around the globe.</jats:p>",
+      "authors": [
+        "June Oh"
+      ],
+      "year": 2023,
+      "venue": "The Gerontologist",
+      "doi": "10.1093/geront/gnad092",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geront/gnad092",
+      "citation_count": 3
+    },
+    {
+      "source": "crossref",
+      "id": "10.1177/20552076241253473",
+      "title": "The impact of internet health information usage habits on older adults’ e-health literacy",
+      "abstract": "<jats:sec><jats:title>Objective</jats:title><jats:p> As the demand and supply sides of popular health services increasingly rely on the Internet, mastering e-health literacy should become an essential skill for older adults. The aim of this article is to analyse the effects of Internet health information usage habits on older adults’ e- health literacy and to investigate the influencing mechanisms. </jats:p></jats:sec><jats:sec><jats:title>Methods</jats:title><jats:p> Using a combination of random sampling and convenient sampling, data were collected through questionnaire surveys. Data from 776 older adults was analysed using correlation and hierarchical regression to analyse. </jats:p></jats:sec><jats:sec><jats:title>Results</jats:title><jats:p> The mean scores for all aspects of older adults’ habits of using health information on the Internet and electronic health literacy were relatively high. There was no statistically significant difference in the predictive power of the three aspects of electronic health literacy among older adults with different genders, health statuses, education levels and ages ( p &gt; 0.05). The four factors of older adults’ habits of using Internet health information can increase the explanatory power of application ability, judgment ability and decision-making ability in Model 2 by 53.7%, 46.2% and 57%, respectively, with statistical significance ( p &lt; 0.001). </jats:p></jats:sec><jats:sec><jats:title>Conclusion</jats:title><jats:p> The better the habits of older adults in using health information on the Internet, the higher their level of electronic health literacy. Families, communities and social groups should help older adults use online health resources to improve their e-health literacy. Older adults can use WeChat or other interpersonal information platforms to share online health information with each other. </jats:p></jats:sec>",
+      "authors": [
+        "Wei Ye"
+      ],
+      "year": 2024,
+      "venue": "DIGITAL HEALTH",
+      "doi": "10.1177/20552076241253473",
+      "type": "journal-article",
+      "publisher": "SAGE Publications",
+      "url": "https://doi.org/10.1177/20552076241253473",
+      "citation_count": 11
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igae098.2897",
+      "title": "EMBRACING THE DIGITAL ROUTE: EMPOWERMENT THROUGH EHEALTH LITERACY AMONG OLDER ADULTS",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Browsing the internet for health information is one of the most common online activities, with people aged 50 and above leading the technology used for health purposes. This study was conducted to examine how much older adults trust electronic sources of health information (e-health trust) and whether e-health trust had significant associations with electronic health literacy (e-health literacy), consumption of electronic health information (e-health consumerism), and sense of empowerment. The study used selective optimization with compensation theory and corrective and proactive models of successful aging as conceptual frameworks. The respondents (N= 499) were drawn from the national probability-based research panel for online surveys. The study conducted subsample analyses of middle-aged (45≤age≤59, n = 233) and older respondents (age≥60, n= 194). T-tests, multivariate regression analyses, and structural equation modeling were performed. Middle-aged respondents reported greater empowerment than older adults (M=3.31 vs. M=3.05; χ²=5.709, p&amp;lt;.001). No significant association was found between e-health consumerism and perceived empowerment (β=.134, p=.115). However, perceived empowerment has positive associations with e-trust (β=.252, p&amp;lt;.001) and e-health literacy (β=.326, p &amp;lt;.0010). E-trust is positively associated with e-health consumerism (β=.551, p &amp;lt;=.001), suggesting an indirect mediational association between e-health consumerism and perceived empowerment. By empowering older patients to become informed users of digital information and developing educational interventions to improve their health literacy, they may be more likely to take action to improve their health. This is also consistent with the literature that older adults with a higher sense of empowerment have significantly slower rates of health decline over time.</jats:p>",
+      "authors": [
+        "Gul Seckin"
+      ],
+      "year": 2024,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igae098.2897",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igae098.2897",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.4017/gt.2026.25.2.1546.3",
+      "title": "Empowering Older Adults Through Digital Literacy: Housing Navigation &amp; Social Connection Initiatives in New Westminster",
+      "abstract": "",
+      "authors": [
+        "A. Silgardo."
+      ],
+      "year": 2026,
+      "venue": "Gerontechnology",
+      "doi": "10.4017/gt.2026.25.2.1546.3",
+      "type": "journal-article",
+      "publisher": "International Society for Gerontechnology (ISG)",
+      "url": "https://doi.org/10.4017/gt.2026.25.2.1546.3",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.18103/mra.v12i6.5579",
+      "title": "Using ‘Health’ to Promote Older Adults’ Digital Health Literacy",
+      "abstract": "<jats:p>Aim: This project explored requirements for digital learning to support digital health literacy of older adults within a rural region.  Method: A qualitative study with purposeful sampling and thematic analysis of data. Interviews were held with ten digital educators and seven older adults (four with low vision) living and/or working in rural New Zealand.  Results: All participants recognised the importance of trust and having the right people to provide support and foster positive engagement with digital technologies. The digital educators recognised a missed opportunity to engage older adults using health as a topic for digital learning.  Conclusion: A positive experience with learning to use digital technologies is necessary to facilitate digital health literacy for older adults. Digital educators want access to reputable resources to promote health websites; many don’t know these exist. A wide range of digital literacy learning services exist which need to be better promoted in hard copy and online. The authors recommend building on older adults’ existing relationships, engaging with community groups, providing pop-up sessions, and running events to increase digital technological knowledge and engage with health information online. The key is utilising the right people to support the older adult with opportunities for digital skills uptake.</jats:p>",
+      "authors": [
+        "Caroline Lockhart",
+        "Inga Hunter"
+      ],
+      "year": 2024,
+      "venue": "Medical Research Archives",
+      "doi": "10.18103/mra.v12i6.5579",
+      "type": "journal-article",
+      "publisher": "Knowledge Enterprise Journals",
+      "url": "https://doi.org/10.18103/mra.v12i6.5579",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igae098.3740",
+      "title": "THE DIGITAL DIVIDE AMONG CHINESE OLDER ADULTS: INTERNET USAGE AND EHEALTH LITERACY",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>In recent years, particularly due to the COVID-19 pandemic, digital dependency has grown significantly in China, exacerbating the digital divide as a pressing social issue. This study examines Internet usage and eHealth literacy among Chinese older adults aged 60 and above compared to their younger counterparts, using data from the newly available 2021 China General Social Survey. Internet usage was assessed by asking respondents whether they currently use the Internet. eHealth literacy was measured using the 8-item eHealth Literacy Scale, with each item scored on a 5-point Likert scale. Age groups were compared using chi-square tests and t-tests. Correlates of Internet usage and eHealth literacy were analyzed with logistic regression and OLS regression models, respectively. The results indicate that older adults significantly lag in Internet usage, with only 35.25% of those aged 60 and above using the Internet, compared to 89.09% of the under-60 group. Additionally, the younger group demonstrated significantly higher eHealth literacy scores. Regression analyses further revealed that the negative association between older age and Internet usage is more pronounced among rural residents, and that older age is more strongly associated with lower eHealth literacy scores in both women and rural residents, controlling for sociodemographic and socioeconomic status, social support, and health status. This study provides the most recent evidence of significant disparities between older adults and other age groups in China regarding Internet usage and eHealth literacy. It underscores the need for policies and programs focused on bridging the digital divide among older adults.</jats:p>",
+      "authors": [
+        "Jiaan Zhang"
+      ],
+      "year": 2024,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igae098.3740",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igae098.3740",
+      "citation_count": 3
+    },
+    {
+      "source": "crossref",
+      "id": "10.3280/ses2025-003-s001010",
+      "title": "Supporting Older Adults in the Digital Health Era: A Scoping Review of Peer Digital Literacy Courses",
+      "abstract": "<jats:p>Population aging and the digitalization of healthcare are reshaping European societies, posing both challenges and opportunities. Older adults, as primary users of healthcare services, often lack the digital skills needed to benefit fully from ehealth innovations, increasing the risk of social exclusion. Digital literacy is therefore essential to support autonomy, wellbeing, and equitable access to care. While various instructional methods exist, peertopeer learning remains underexplored despite its established use in other healthcare domains. This paper presents a scoping review aimed at mapping existing studies on peertopeer digital literacy courses for older adults. Specifically, it examines the structural characteristics of these courses and how their effectiveness and impact on wellbeing are assessed. The review addresses a gap in the literature and informs future development of inclusive digital education strategies for older populations.</jats:p>",
+      "authors": [
+        "Dario Pizzul",
+        "Alessandro Caliandro"
+      ],
+      "year": 2026,
+      "venue": "SALUTE E SOCIETÀ",
+      "doi": "10.3280/ses2025-003-s001010",
+      "type": "journal-article",
+      "publisher": "Franco Angeli",
+      "url": "https://doi.org/10.3280/ses2025-003-s001010",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.22876/kjbtr.2023..125.003",
+      "title": "The Effects of Online Network and Digital Literacy on Depression in Older Adults : A Review of Functional Characteristics of Apps for Older Adults with Low Digital Literacy",
+      "abstract": "",
+      "authors": [
+        "Soontae An",
+        "Hannah Lee",
+        "Yoojin Lee"
+      ],
+      "year": 2024,
+      "venue": "Journal of Broadcasting and Telecommunications Research",
+      "doi": "10.22876/kjbtr.2023..125.003",
+      "type": "journal-article",
+      "publisher": "Korea Association for Broadcasting & Telecommunication Studies",
+      "url": "https://doi.org/10.22876/kjbtr.2023..125.003",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igaf122.3792",
+      "title": "If Digital Literacy is an Overarching Determinant of Health, how can we measure and confirm e-literacy in older adults?",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>Older adults need to navigate an increasingly digital world-and the heterogeneity of the population’s digital skills (and those of their family caregivers) can be a facilitator or a barrier to care and support and best lives. This poster presents the case for viewing digital literacy as a social determinant of health and a summary of the research validated measures of digital literacy that can be put into place in health and social care organizations. The last portion of the paper outlines a process which can be used to adopt in measures and to assist older adults with access to digital competence and tools.</jats:p>",
+      "authors": [
+        "Michael Splaine",
+        "Nora Reder",
+        "Kate Gordon"
+      ],
+      "year": 2025,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igaf122.3792",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igaf122.3792",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.56028/aemr.15.1.83.2025",
+      "title": "The promoting effect of digital literacy on social participation among older adults",
+      "abstract": "<jats:p>With the rapid development of the information society, digital literacy has become a key ability for the elderly to adapt to modern society. This study, based on data from the China Family Panel Studies (CFPS) in 2020 and 2022, delves into the relationship between digital literacy and social participation among the elderly in China. The findings reveal that digital literacy significantly promotes social participation, with psychological depression playing a crucial role in this process. Additionally, receiving a pension was found to act as a moderating variable for the positive effects of digital literacy, weakening its positive impact on social participation. The findings of this study indicate that digital literacy is not only a technical resource for the elderly but also an important psychosocial resource. These findings provide critical evidence for governments to design more effective digital inclusion policies, emphasizing that while promoting digital skills training for the elderly, targeted mental health support measures must be implemented concurrently. Only through a dual-pathway intervention can the social integration of the elderly be truly enhanced.</jats:p>",
+      "authors": [
+        "Dandan Hu"
+      ],
+      "year": 2025,
+      "venue": "Advances in Economics and Management Research",
+      "doi": "10.56028/aemr.15.1.83.2025",
+      "type": "journal-article",
+      "publisher": "Madison Academic Press",
+      "url": "https://doi.org/10.56028/aemr.15.1.83.2025",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.47225/mg/16/kulonszam/15999",
+      "title": "The role of digital scouts in promoting digital literacy and participation among older adults",
+      "abstract": "<jats:p>In 2023, older people - defined here as those aged 65 years or more - living in the EU-27 corresponded to one fifth (21.3 %) of the total population. During the next decades, this share will also gradually increase and is projected to reach approximately 30% in 2050.</jats:p>",
+      "authors": [
+        "Angela Freitas",
+        "Ines Saavedra",
+        "Natália Machado",
+        "Carina Dantas",
+        "Jana Eckert"
+      ],
+      "year": 2024,
+      "venue": "Magyar Gerontológia",
+      "doi": "10.47225/mg/16/kulonszam/15999",
+      "type": "journal-article",
+      "publisher": "University of Debrecen/ Debreceni Egyetem",
+      "url": "https://doi.org/10.47225/mg/16/kulonszam/15999",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.4017/gt.2026.25.2.1311.3",
+      "title": "Interventions to Enhance Digital Literacy and Telehealth for Older Adults",
+      "abstract": "",
+      "authors": [
+        "E.T. Remillard",
+        "P.P. Freddolino",
+        "S. M. Mohamad",
+        "E.T. Remillard ."
+      ],
+      "year": 2026,
+      "venue": "Gerontechnology",
+      "doi": "10.4017/gt.2026.25.2.1311.3",
+      "type": "journal-article",
+      "publisher": "International Society for Gerontechnology (ISG)",
+      "url": "https://doi.org/10.4017/gt.2026.25.2.1311.3",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.22178/pos.122-55",
+      "title": "Digital Literacy and Information Disorder: Understanding Older Adults' Interaction With False Information on Social Media",
+      "abstract": "<jats:p>This paper investigates how older adults engage with social media and how they deal with misinformation and disinformation. Many older adults today rely on platforms like Facebook and WhatsApp to stay informed, but often struggle to distinguish the truth from false information online. This research, therefore, focuses on why older users struggle to identify false information online. It also examines how digital literacy, trust in information sources, and emotional responses factor into their decisions. A mixed-method was employed. Researchers distributed a questionnaire to 20 elderly users aged 60 years and older and conducted interviews with the same participants to add more depth. They analysed the data using simple statistics and thematic analysis. The results indicate that many elderly users struggle with fact-checking and sometimes believe messages passed along by friends or family. But the more digital skills people had, the more cautious they were about sharing and the more questions they asked. This study suggests the need for basic, applicable media literacy education even for older adults. Helping them fact-check being misled.The following research questions guide this study: 1) How do older adults respond to misinformation and disinformation on social media? 2) What factors influence their trust in the content they receive and share on social media? 3) In what ways does digital literacy affect their ability to deal with false or misleading information?By addressing these questions, the study aims to shed light on how older adults interact with social media amid widespread misinformation and disinformation. It also hopes to suggest practical ways to help improve digital literacy and critical thinking skills among this age group.</jats:p>",
+      "authors": [
+        "Khalid Bada"
+      ],
+      "year": 2025,
+      "venue": "Path of Science",
+      "doi": "10.22178/pos.122-55",
+      "type": "journal-article",
+      "publisher": "Publishing Center Dialog",
+      "url": "https://doi.org/10.22178/pos.122-55",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igae098.3408",
+      "title": "EHEALTH LITERACY AMONG OLDER ADULTS: THE ROLE OF DIGITAL LITERACY AND SELF-EFFICACY",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Particularly for older adults with an increased risk of multimorbidity, digital health technologies can provide added value for health management. Successful use of these technologies requires appropriate skills. Key constructs are eHealth literacy and internet self-efficacy, which become particularly relevant in older age. This study investigated the relationship between these two multifactorial constructs in older adults, with eHealth literacy as a dependent variable, focusing on the mediating effect of digital literacy, and task-specific eHealth self-efficacy (i.e., contacting doctors via video communication and online health information seeking). A cross-sectional dataset with 327 internet-savvy German adults (mean age=71.75±6.06; 41% female) was analyzed using a structural equation model. After controlling for age, sex and subjective health, general internet self-efficacy showed a positive direct association on eHealth self-efficacy (β=.45, p&amp;lt; 0.01). General internet self-efficacy showed no indirect association on eHealth literacy, mediated by digital literacy, but a positive direct association on digital literacy (β=.72, p&amp;lt; 0.001). Digital literacy (β=.30, p&amp;lt; 0.05) was the strongest predictor of eHealth literacy. The model fit the data good (CFI=0.980; RMSEA=0.044) and explained 22.9% of the variance of eHealth literacy and 69.7% of the variance of digital literacy. These results point to the need for programs improving eHealth literacy to also focus on the use of digital devices and the promotion of general and task-specific internet self-efficacy. Implications for public health strategies will be discussed in order to improve eHealth literacy among older adults in a targeted manner and enable the successful use of digital health technologies.</jats:p>",
+      "authors": [
+        "Linda Göbl",
+        "Mario R Jokisch",
+        "Hans-Werner Wahl",
+        "David Leopold",
+        "Michael Doh"
+      ],
+      "year": 2024,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igae098.3408",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igae098.3408",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/fpsyg.2026.1767846",
+      "title": "Active ageing in the digital era: digital literacy, social networks, and mental health among older adults in China",
+      "abstract": "<jats:sec>\n                    <jats:title>Introduction</jats:title>\n                    <jats:p>In the context of rapid population ageing and the global pursuit of Sustainable Development Goal 3 (Good Health and Wellbeing), understanding how digital capabilities shape psychological wellbeing among older adults has become increasingly important. This study aims to examine the impact of digital literacy on the mental health of middle-aged and older adults in China and to explore the mediating role of social networks in this relationship.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>This study uses data from 9,507 respondents drawn from the fourth wave of the China Longitudinal Ageing Study (CLASS) conducted in 2020. Ordinary least squares (OLS) regression and generalized method of moments (GMM) estimation are employed to examine the association between digital literacy and psychological wellbeing. A mediation model is further constructed to test whether social networks serve as an underlying mechanism.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>\n                      The results indicate that the average mental health score of older adults is 20.09, while the mean digital literacy score is 0.203. Digital literacy has a significant positive effect on psychological wellbeing (OLS:\n                      <jats:italic>β</jats:italic>\n                      = 0.951,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01; GMM:\n                      <jats:italic>β</jats:italic>\n                      = 0.607,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), and social networks partially mediate this relationship, with an indirect effect of 0.035, accounting for approximately 3.8% of the total effect. In addition, advanced age (\n                      <jats:italic>β</jats:italic>\n                      = −3.971,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), male gender (\n                      <jats:italic>β</jats:italic>\n                      = −0.193,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), non-agricultural household registration (\n                      <jats:italic>β</jats:italic>\n                      = −0.332,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), and dependence on others for daily activities (\n                      <jats:italic>β</jats:italic>\n                      = −1.107,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01) are negatively associated with mental health. By contrast, higher educational attainment (\n                      <jats:italic>β</jats:italic>\n                      = 0.042,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), greater income (\n                      <jats:italic>β</jats:italic>\n                      = 0.003,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), favorable marital status (\n                      <jats:italic>β</jats:italic>\n                      = 0.291,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01), and having more children (\n                      <jats:italic>β</jats:italic>\n                      = 0.052,\n                      <jats:italic>p</jats:italic>\n                      &amp;lt; 0.01) are positively related to psychological wellbeing.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusion</jats:title>\n                    <jats:p>The findings suggest that digital literacy enhances psychological wellbeing among middle-aged and older adults both directly and indirectly by strengthening social connectedness. This study highlights the importance of integrating digital inclusion strategies into mental health promotion systems for ageing populations and emphasizes the role of supportive social networks in promoting active ageing and sustainable wellbeing in the digital era.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Ling Zong",
+        "Kexin Zhou"
+      ],
+      "year": 2026,
+      "venue": "Frontiers in Psychology",
+      "doi": "10.3389/fpsyg.2026.1767846",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/fpsyg.2026.1767846",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/feduc.2023.1231701",
+      "title": "How “basic” is basic digital literacy for older adults? Insights from digital skills instructors",
+      "abstract": "<jats:sec><jats:title>Introduction</jats:title><jats:p>With the continuing advancement of digitalization of everyday life, digital literacy becomes more and more a necessity. As a consequence, those who are digitally illiterate experience digital exclusion, which increasingly equals social exclusion. Older adults are typically less digitally active and also less skilled in digital technologies than younger cohorts. Digital inclusion frameworks by governmental and supra-national organizations, on the one hand, and academic definitions of “digital literacy” or “digital skills”, on the other hand, tend to include a broad set of competencies next to technical understanding, such as cognitive and social-emotional skills. However, we argue the problem that expectations of what digital literacy commonly entails are too high level for older adults with no pre-existing digital experience with computers, internet, smartphones, or tablets. Even what is considered as entry-level, basic digital skills, or foundational skills, can be very demanding for older adults with limited or no prior knowledge of and practice with digital technologies.</jats:p></jats:sec><jats:sec><jats:title>Methods</jats:title><jats:p>To make our point, we draw on own data from interviews with 26 digital skills instructors who give training to older adults in Belgium (collected between December 2020 and February 2021).</jats:p></jats:sec><jats:sec><jats:title>Results</jats:title><jats:p>We provide empirical evidence for the circumstances that even seemingly basic digital skills, such as getting a device started or downloading apps, can be very demanding and anything but trivial for older adults without prior experience. We demonstrate evidence along three interrelated domains: (1) ICT-jargon and terminology; (2) Hardware; (3) Software and Internet. Each of these domains entail hurdles of knowledge and understanding that need to be overcome for these older adults before we can start addressing the higher goals of digital literacy frameworks.</jats:p></jats:sec><jats:sec><jats:title>Discussion</jats:title><jats:p>The main implication from this article is that even the most basic tenets of digital technology are neither trivial nor simple to grasp for older adults with no or limited prior experience — a point not sufficiently addressed by current frameworks of digital skills/literacy/competence.</jats:p></jats:sec>",
+      "authors": [
+        "Anina Vercruyssen",
+        "Werner Schirmer",
+        "Nelly Geerts",
+        "Dimitri Mortelmans"
+      ],
+      "year": 2023,
+      "venue": "Frontiers in Education",
+      "doi": "10.3389/feduc.2023.1231701",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/feduc.2023.1231701",
+      "citation_count": 69
+    },
+    {
+      "source": "crossref",
+      "id": "10.24857/rgsa.v19n4-063",
+      "title": "Bibliometric Analysis of Studies on Digital Health Literacy in Older Adults (2011-2024)",
+      "abstract": "<jats:p>Objective: This study aims to provide a current and comprehensive overview of research on digital health literacy in older adults through bibliometric analysis.\r\n \r\nTheoretical Framework: Fundamental concepts and methodologies are presented to understand the aspects outlined in the research.\r\n \r\nMethod: The study data were retrieved from the Web of Science Core Collection using the search query TS= (\"digital health literacy\" OR \"eHealth literacy\" OR \"telehealth literacy\") AND (\"older adults\" OR \"elderly\" OR \"aging population\"). The data were analyzed using VOSviewer (version 1.6.20).\r\n \r\nResults and Discussion: The findings indicate that the majority of the articles originate from the United States and that the Journal of Medical Internet Research is the most prolific and most frequently cited journal in this field. Additionally, the most productive authors in terms of publication count are Nahm, Eun-Shim, Xie, Bo, and Paige, Samantha R., while the most highly cited authors are Stellefson, Michael, Xie, Bo, and Paige, Samantha R. Over time, research focus has shifted from topics such as health behaviors and the digital divide to digital health literacy, mHealth applications, and self-management.\r\n \r\nResearch Implications: This study synthesizes the existing literature on digital health literacy among older adults. Future research could further explore the relationship between digital health literacy and health outcomes in older adults.\r\n \r\nOriginality/Value: The originality of the present study lies in providing a general synthesis of previous research on older adults and serving as a guide for future studies in the field.</jats:p>",
+      "authors": [
+        "Döne Kaplan"
+      ],
+      "year": 2025,
+      "venue": "Revista de Gestão Social e Ambiental",
+      "doi": "10.24857/rgsa.v19n4-063",
+      "type": "journal-article",
+      "publisher": "RGSA- Revista de Gestao Social e Ambiental",
+      "url": "https://doi.org/10.24857/rgsa.v19n4-063",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igad104.1995",
+      "title": "SENSE OF CONTROL AND DIGITAL LITERACY AMONG OLDER ADULTS: THE ROLE OF PERSONAL MASTERY AND PERCEIVED CONSTRAINTS",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Digital literacy (DL) is necessary for older adults to fully participate in society in the era of digital technology. This study investigated how the sense of control (SOC) and its two internal dimensions (personal mastery (PM) and perceived constraints (PC)) interact with DL among older Chinese adults. A total of 163 older netizens aged 60 to 76 (Mean age 66.0, SD = 3.57, 72.4% female) were recruited from Beijing in 2021 through convenience sampling and followed for 1 year. DL was measured by a self-designed Digital Literacy Scale among Older Adults (Range 1-5; Cronbach’s α = 0.96) and SOC was measured by the Sense of Control Scale (Range 1-7; Cronbach’s α = 0.88). Cross-lagged analysis and half-longitudinal mediation analysis were used after adjusting for age, gender, and education. The DL were 3.51 and 3.52 at baseline and year-1 on average. Higher baseline SOC (Adjusted beta = 0.23, 95% Confidence Interval = [0.08, 0.38]) and PM (0.26 [0.10, 0.42]) were associated with higher year-1 DL. Higher baseline DL was related to reduced year-1 PC (-0.16 [-0.30, -0.02]). In addition, half-longitudinal mediation analysis showed that higher PM at baseline predicted an increase in DL from baseline to year-1 (0.29 [0.13, 0.43]), whereas higher baseline DL was related to a decrease in PC from baseline to year-1 (-0.16 [-0.30, -0.03]). Our findings indicate that the DL of older netizens is closely related to their internal factors. Older netizens might benefit from better SOC, especially personal mastery, thus narrowing the secondary digital divide.</jats:p>",
+      "authors": [],
+      "year": 2023,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igad104.1995",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igad104.1995",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/feduc.2023.1333929",
+      "title": "Corrigendum: How “basic” is basic digital literacy for older adults? Insights from digital skills instructors",
+      "abstract": "",
+      "authors": [
+        "Anina Vercruyssen",
+        "Werner Schirmer",
+        "Nelly Geerts",
+        "Dimitri Mortelmans"
+      ],
+      "year": 2023,
+      "venue": "Frontiers in Education",
+      "doi": "10.3389/feduc.2023.1333929",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/feduc.2023.1333929",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.2196/11803",
+      "title": "Digital Literacy: A Barrier to Adoption of Connected Health Technologies in Older Adults",
+      "abstract": "",
+      "authors": [
+        "Lisa Gualtieri",
+        "Jeffrey Phillips",
+        "Sandra Rosenbluth",
+        "Steph Synoracki"
+      ],
+      "year": 2018,
+      "venue": "Iproceedings",
+      "doi": "10.2196/11803",
+      "type": "journal-article",
+      "publisher": "JMIR Publications Inc.",
+      "url": "https://doi.org/10.2196/11803",
+      "citation_count": 19
+    },
+    {
+      "source": "crossref",
+      "id": "10.1038/s41598-022-08437-0",
+      "title": "A digital media literacy intervention for older adults improves resilience to fake news",
+      "abstract": "<jats:title>Abstract</jats:title><jats:p>Older adults are especially susceptible to fake news online, possibly because they are less digitally literate compared to younger individuals. Interventions for older adults have emerged to improve digital literacy, although there has been little evaluation of their effectiveness in improving older adults’ resilience to fake news. We report the results of a digital literacy intervention for older adults administered during the 2020 U.S. election. The intervention was a 1-hour, self-directed series of interactive modules designed to teach concepts and skills for identifying misinformation online. Consistent with our pre-registered hypothesis, older adults (<jats:italic>M</jats:italic><jats:sub>age</jats:sub> = 67) in the treatment condition (N = 143) significantly improved their likelihood of accurately discerning fake from true news from 64% pre-intervention to 85% post-intervention. In contrast, older adults in the control condition (N = 238) did not significantly improve (from 55% to 57%). The treated older adults were also more likely to employ strategies for identifying misinformation online compared to pre-intervention and the control group.</jats:p>",
+      "authors": [
+        "Ryan C. Moore",
+        "Jeffrey T. Hancock"
+      ],
+      "year": 2022,
+      "venue": "Scientific Reports",
+      "doi": "10.1038/s41598-022-08437-0",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "url": "https://doi.org/10.1038/s41598-022-08437-0",
+      "citation_count": 150
+    },
+    {
+      "source": "crossref",
+      "id": "10.18063/lne.v3i4.951",
+      "title": "Bridging the Digital Divide: An Investigation into the Factors Influencing the Digital Literacy Gap Among Older Adults",
+      "abstract": "<jats:p>With the rapid advancement of digitalization, Chinese society is confronting the \"digital divide\" exacerbated by population aging. This study focuses on adults aged 60 and above in Zhengzhou City, employing multivariate logistic regression analysis and structural equation modeling (SEM) to investigate key factors influencing the digital divide across three dimensions: access gap, usage gap, and competency gap. Key findings include:(1) Internet usage is gradually integrating into the daily lives of older adults.(2) Personal characteristics of seniors and perceived information insecurity significantly hinder their adoption of digital products.(3) While demand-driven motivations propel older adults to bridge competency gaps, complex product operations and information security concerns remain critical barriers. This research provides actionable insights for formulating targeted strategies to narrow the digital divide and foster inclusive digital participation among older populations.</jats:p>",
+      "authors": [
+        "Ran Shao"
+      ],
+      "year": 2025,
+      "venue": "Lecture Notes in Education, Arts, Management and Social Science",
+      "doi": "10.18063/lne.v3i4.951",
+      "type": "journal-article",
+      "publisher": "Art & Technology Publishing PTE. LTD.",
+      "url": "https://doi.org/10.18063/lne.v3i4.951",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.4017/gt.2026.25.2.1668.3",
+      "title": "The Effect of Digital Literacy on Older Adults’ Intention to Use Digital Healthcare: The Moderating Role of Frailty",
+      "abstract": "",
+      "authors": [
+        "D.H. Lee",
+        "H.J. Yoon",
+        "J.W. Lee",
+        "H.R. Shin",
+        "Y.S. Kim."
+      ],
+      "year": 2026,
+      "venue": "Gerontechnology",
+      "doi": "10.4017/gt.2026.25.2.1668.3",
+      "type": "journal-article",
+      "publisher": "International Society for Gerontechnology (ISG)",
+      "url": "https://doi.org/10.4017/gt.2026.25.2.1668.3",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.2196/80647",
+      "title": "Key Challenges and Barriers to Digital Literacy for Older Adults: Scoping Review",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:sec sec-type=\"background\">\n                    <jats:title>Background</jats:title>\n                    <jats:p>Despite rising internet use in Canada, older adults continue to face significant barriers in adopting and using digital technologies. Digital literacy among older adults extends beyond technical proficiency, encompassing adaptation to new technologies, overcoming age-related limitations, and addressing socioeconomic disparities. Limited digital skills hinder social participation, access to essential services, and engagement with eHealth technologies, exacerbating disparities in health outcomes.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"objective\">\n                    <jats:title>Objective</jats:title>\n                    <jats:p>This scoping review aimed to identify key barriers to digital literacy among older adults, synthesizing evidence from existing literature to provide a comprehensive understanding of the challenges older adults face in adopting and utilizing digital technologies.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"methods\">\n                    <jats:title>Methods</jats:title>\n                    <jats:p>A systematic search was conducted across the Ovid MEDLINE, PubMed, Web of Science, and EBSCOhost databases to identify studies published in the past 10 years that examined digital literacy barriers among older adults. Data extraction captured population characteristics, study context, research methods, and outcomes, which were thematically analyzed to identify overarching categories and themes.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"results\">\n                    <jats:title>Results</jats:title>\n                    <jats:p>A total of 22 studies met the inclusion criteria. Most studies used a qualitative design (n=16, 72.72%), with the remaining studies comprising 3 quantitative studies (13.63%) and 3 reviews (13.63%). Seven primary barriers to digital literacy among older adults were identified: (1) health barriers, (2) support networks, (3) convenience and ease of use, (4) knowledge and information, (5) perception barriers, (6) resource barriers, and (7) barriers for special populations. Within these themes, 18 associated categories provided a more detailed understanding of the challenges older adults face in adopting and using digital technologies.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"conclusions\">\n                    <jats:title>Conclusions</jats:title>\n                    <jats:p>These findings demonstrate that digital literacy challenges among older adults are shaped by interacting individual, social, and contextual factors rather than isolated skill deficits. Barriers often co-occur, with health-related limitations, access to support, technology design, and resource constraints jointly influencing digital engagement. This review highlights the need for integrated and inclusive digital literacy strategies that address compounded barriers and reflect the diverse circumstances of older adults. Future research should focus on establishing consistent definitions of digital literacy, evaluating the long-term impact of digital inclusion initiatives, and addressing the needs of subpopulations experiencing heightened or intersecting barriers.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Salman Khan",
+        "Sarah Webster",
+        "John Puxty",
+        "Madison Robertson"
+      ],
+      "year": 2026,
+      "venue": "JMIR Aging",
+      "doi": "10.2196/80647",
+      "type": "journal-article",
+      "publisher": "JMIR Publications Inc.",
+      "url": "https://doi.org/10.2196/80647",
+      "citation_count": 4
+    },
+    {
+      "source": "crossref",
+      "id": "10.17997/swry.84.1.2",
+      "title": "The Relationship between Socioeconomic Status and Life Satisfaction among Older Adults: Focusing on the Moderating Effect of Digital Literacy",
+      "abstract": "<jats:p>This study analyzed the relationship between socioeconomic status (SES) and life satisfaction among older adults, examining the moderating effects of two components of digital literacy: digital adaptability and digital device competency. The analysis was conducted using data from the 2023 Surveys on Current Status of Senior Citizens, a nationally representative dataset that captures various aspects of older adults’lives in South Korea. Results indicated that SES significantly influenced the life satisfaction of older adults, and digital adaptability acted as a protective factor moderating this relationship. Specifically, older adults with greater confidence in adapting to digital environments experienced a reduced negative impact of socioeconomic inequalities on their life satisfaction. Conversely, although digital device competency positively influenced life satisfaction, it did not moderate the impact of SES. These findings suggest that merely enhancing skills in digital device usage has limited efficacy in addressing socioeconomic disparities, while strengthening older adults' perceptions of digital adaptability could be a more effective strategy. Consequently, the study proposes the following policy implications: First, it is necessary to develop programs beyond technology-centric digital education to enhance older adults' digital adaptability and promote social participation. Second, integrated educational programs that simultaneously enhance digital device competency and digital adaptability perceptions should be established to improve information accessibility and support social network expansion. Third, establishing community-based 'Digital Community Hubs' is critical for providing continuous community-supported access to digital environments for older adults.</jats:p>",
+      "authors": [
+        "Young chang Jeon",
+        "Seong eon Choi",
+        "Da eun Kang"
+      ],
+      "year": 2025,
+      "venue": "The Center for Social Welfare Research Yonsei University",
+      "doi": "10.17997/swry.84.1.2",
+      "type": "journal-article",
+      "publisher": "The Center for Social Welfare Research Yonsei University",
+      "url": "https://doi.org/10.17997/swry.84.1.2",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/fpubh.2022.906089",
+      "title": "Research progress on digital health literacy of older adults: A scoping review",
+      "abstract": "<jats:p>With the rapid development of digital health today, the lack of digital health literacy in older adults is an urgent problem. It is crucial that older adults adapt to the digital reform in medical treatment, pension, health management, and other fields. Therefore, we reviewed the current development status of digital health literacy among older adults. A total of 47 articles were included in this scoping review. Our findings revealed that research on digital health literacy in older adults is still in its infancy. Further development is warranted especially in terms of assessment tools and intervention methods.</jats:p>",
+      "authors": [
+        "Xinxin Wang",
+        "Wei Luan"
+      ],
+      "year": 2022,
+      "venue": "Frontiers in Public Health",
+      "doi": "10.3389/fpubh.2022.906089",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/fpubh.2022.906089",
+      "citation_count": 115
+    },
+    {
+      "source": "crossref",
+      "id": "10.3991/ijac.v18i3.54039",
+      "title": "Integrating English and Digital Literacy for Older Adults",
+      "abstract": "<jats:p>This paper investigates how best to integrate English and digital literacy education for older adults to promote their digital social inclusion. The research of the ERASMUS+ project Coll-Oya focuses on the learning needs of adults aged 55 and older from Tarragona-Spain, Silesia-Poland, and Adana-Türkiye. These participants make up part of a divergent group that, though still active in life, are not digital natives. Most of them have insufficient knowledge of digital tools and the English language to be able to handle new technologies. This project thus responds to these gaps since it seeks to equip participants with both English language skills and digital literacy through content-based instruction combined with practical applications in reallife activities such as online shopping, ticket booking, and engaging in digital communication. The study explores participants’ digital awareness, language proficiency, and collaborative learning experiences with younger generations. A mixed-methods approach involving 204 participants completing an online survey and 45 interviews explores their preferences and challenges in acquiring language and digital skills. The main findings show that tailored learning opportunities increase engagement and motivation among older learners and empower them, instilling a sense of hope and inspiration. Intergenerational collaboration creates a supportive learning environment. Participants reported feeling more confident using technology and improving their English language skills through the joint teaching initiatives. The paper suggests that integrating English and digital literacy training could offer an opportunity to empower the active contribution and social inclusion of those over age 55 in the increasingly digital world. These findings provide pragmatic insights into how the digital competencies of older adults and their language proficiency can be supported in intergenerational learning, thus practically presenting strategies to educators, policymakers, and other stakeholders involved in adult education and digital literacy. </jats:p>",
+      "authors": [
+        "Luis Ochoa Siguencia"
+      ],
+      "year": 2025,
+      "venue": "International Journal of Advanced Corporate Learning (iJAC)",
+      "doi": "10.3991/ijac.v18i3.54039",
+      "type": "journal-article",
+      "publisher": "International Association of Online Engineering (IAOE)",
+      "url": "https://doi.org/10.3991/ijac.v18i3.54039",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.3390/ijerph20043293",
+      "title": "Comparison of eHealth Literacy Scale (eHEALS) and Digital Health Literacy Instrument (DHLI) in Assessing Electronic Health Literacy in Chinese Older Adults: A Mixed-Methods Approach",
+      "abstract": "<jats:p>This study compared the reliability, construct validity, and respondents’ preference of the Chinese version of 8-item eHEALS (C-eHEALS) and 21-item DHLI (C-DHLI) in assessing older adults’ electronic health (eHealth) literacy using a mixed-methods approach. A web-based, cross-sectional survey was conducted among 277 Chinese older adults from September to October 2021, and 15 respondents were subsequently interviewed to understand their preference of scale to use in practice. Results showed that the internal consistency and test-retest reliability of both scales were satisfactory. For the construct validity, the C-DHLI score showed stronger positive correlations with having Internet use for health information and higher educational attainments, occupational skill levels, self-rated Internet skills, and health literacy than the C-eHEALS score. In addition, younger age, higher household income, urban residence, and longer Internet use history were only positively correlated with C-DHLI score. Qualitative data suggested that most interviewees perceived the C-DHLI as more readable than C-eHEALS for its clear structure, specific description, short sentence length, and less semantic complexity. Findings revealed that both scales are reliable tools to measure eHealth literacy among Chinese older adults, and the C-DHLI seemed to be a more valid and favored instrument for the general Chinese older population based on the quantitative and qualitative results.</jats:p>",
+      "authors": [
+        "Luyao Xie",
+        "Phoenix K. H. Mo"
+      ],
+      "year": 2023,
+      "venue": "International Journal of Environmental Research and Public Health",
+      "doi": "10.3390/ijerph20043293",
+      "type": "journal-article",
+      "publisher": "MDPI AG",
+      "url": "https://doi.org/10.3390/ijerph20043293",
+      "citation_count": 37
+    },
+    {
+      "source": "crossref",
+      "id": "10.1080/03601277.2024.2397428",
+      "title": "Digital literacy among older adults: a systematic review in Indian context",
+      "abstract": "",
+      "authors": [
+        "Basabadatta Jena",
+        "Tattwamasi Paltasingh"
+      ],
+      "year": 2024,
+      "venue": "Educational Gerontology",
+      "doi": "10.1080/03601277.2024.2397428",
+      "type": "journal-article",
+      "publisher": "Informa UK Limited",
+      "url": "https://doi.org/10.1080/03601277.2024.2397428",
+      "citation_count": 13
+    },
+    {
+      "source": "crossref",
+      "id": "10.1177/20552076251374114",
+      "title": "Digital literacy, life satisfaction, social capital, and multidimensional health behaviors among middle-aged and older adults in rural China: A nationwide cross-sectional study",
+      "abstract": "<jats:sec>\n            <jats:title>Objective</jats:title>\n            <jats:p>Digital literacy may be related to health behaviors, yet their associations remain less explored. This study examines the relationship between digital literacy and multidimensional health behaviors, including heterogeneous effects by gender, age group, and region. Furthermore, this study examines two mechanisms, drawing on self-determination theory and social capital theory.</jats:p>\n          </jats:sec>\n          <jats:sec>\n            <jats:title>Methods</jats:title>\n            <jats:p>We used data from the China Rural Revitalization Survey (CRRS). The relationships between digital literacy and health behaviors was examined via binary logistic regression models. Bias-corrected percentile bootstrap KHB mediation models investigated the mediating roles of life satisfaction and social capital.</jats:p>\n          </jats:sec>\n          <jats:sec>\n            <jats:title>Results</jats:title>\n            <jats:p>Digital literacy is positively and directly associated with all measured multidimensional health behaviors. The mediation analysis identified some significant indirect associations. Specifically, digital literacy is related to both physical exercise and physical examination through life satisfaction and relational social capital. Moreover, digital literacy is linked to dietary supplement intake through relational social capital and to physical examination and healthy diets through cognitive social capital. Heterogeneity analysis further revealed that digital literacy is more strongly associated with middle-aged adults’ physical examination, healthy diets, and dietary supplement intake, as well as males’ physical examination. Besides, stronger associations were found for residents in rural China's eastern and central regions, particularly for physical examination, healthy diets, and dietary supplement intake.</jats:p>\n          </jats:sec>\n          <jats:sec>\n            <jats:title>Conclusions</jats:title>\n            <jats:p>These findings offer theoretical insights into the relationships between digital literacy and multidimensional health behaviors and provide practical guidance for encouraging and fostering health behaviors.</jats:p>\n          </jats:sec>",
+      "authors": [
+        "Zhibin Li",
+        "Dong Li",
+        "Zuxian Li"
+      ],
+      "year": 2025,
+      "venue": "DIGITAL HEALTH",
+      "doi": "10.1177/20552076251374114",
+      "type": "journal-article",
+      "publisher": "SAGE Publications",
+      "url": "https://doi.org/10.1177/20552076251374114",
+      "citation_count": 4
+    },
+    {
+      "source": "crossref",
+      "id": "10.1177/20552076251411034",
+      "title": "Understanding the factors influencing intergenerational back-feeding on digital health literacy of Chinese older adults: Qualitative interview study",
+      "abstract": "<jats:sec>\n                    <jats:title>Objective</jats:title>\n                    <jats:p>As China faces digitization and aging, despite efforts to improve older adults’ digital health literacy across domains, research lacks examination of the impact of intergenerational back-feeding. This study aims to investigate the effects of intergenerational back-feeding, defined as the transfer of digital knowledge from younger to older generations, on digital health literacy among older adults.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>Semi-structured interviews were conducted with 20 adults aged ≥60 years from three provinces in China. Thematic analysis was guided by the three-stage back-feeding model (access, skills, literacy) and key individual factors (e.g. perceived usefulness and perceived ease of use).</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>The enhancement of digital health literacy among older adults was shaped by a dynamic interplay between individual factors and intergenerational back-feeding. At the access stage, although younger generations frequently provided digital health devices, interface complexity or a preference for traditional care led some older adults to discontinue use. Skill development was significantly influenced by teaching methods: heuristic and face-to-face guidance improved operational competence, whereas remote, proxy, and directive approaches fostered dependency. At the literacy stage, some younger generations’ risk-averse strategies limited older adults’ autonomy, while only a minority proactively engaged in cross-verifying online health information with offline sources.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusion</jats:title>\n                    <jats:p>This study extended the three-stage back-feeding model to health contexts by incorporating individual factors. These findings confirmed the pivotal role of intergenerational back-feeding in enhancing the digital health literacy of older adults in China. Future efforts should integrate family support with national-level policy implementation, which is significant for advancing healthy aging.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Jiachen Sun",
+        "Lu Yang"
+      ],
+      "year": 2026,
+      "venue": "DIGITAL HEALTH",
+      "doi": "10.1177/20552076251411034",
+      "type": "journal-article",
+      "publisher": "SAGE Publications",
+      "url": "https://doi.org/10.1177/20552076251411034",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igae098.2558",
+      "title": "DIGITAL LITERACY CHANGES OVER TIME: IMPLICATIONS FOR LIFE SATISFACTION IN OLDER ADULTS",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Rapid digitalization of society requires people to utilize digital technology in daily lives, and the COVID-19 pandemic accelerated this situation. Although older adults are known to be unfamiliar with using digital technology, their digital literacy can vary according to their life experiences. This study aimed to identify patterns of digital literacy changes in older adults before and after the COVID-19 pandemic and examined how life satisfaction differs based on subtypes of digital literacy changes over time. Data were drawn from the ‘Media Panel’ by the Korea Information Society Development Institute. The final sample was 1,924 individuals over 65 who responded from 2019 to 2021 and maintained their living arrangements (Living alone, Couples only, Couples with children, and Couples with their parents and children). Latent Class Growth Analysis and multiple regression analyses were employed. The patterns of older adults’ digital literacy changes were classified into four subtypes: ‘Low-level increase group (60.9%),’ ‘Medium-level increase group (29.8%),’ ‘High-level maintenance group (5.0%),’ and ‘Rapid increase group (4.2%). The other three groups had higher life satisfaction than the low-level increase group. Findings imply that the majority of older adults saw a rise in their digital literacy skills during the COVID-19 pandemic. The heterogeneity in digital literacy levels among older adults offers valuable insight into the need for interventions that cater to different digital skill levels, potentially impacting their quality of life. Particularly, in order to enhance their overall well-being, it is important to better understand the key features of individuals in each identified group.</jats:p>",
+      "authors": [
+        "Miseon Kang",
+        "Seolah Lee",
+        "Inhye Jung",
+        "Hyo Jung Lee"
+      ],
+      "year": 2024,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igae098.2558",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igae098.2558",
+      "citation_count": 2
+    },
+    {
+      "source": "crossref",
+      "id": "10.29173/cais1887",
+      "title": "Public Library-Led Digital Literacy Training to Older Adults in Social Housing",
+      "abstract": "<jats:p>This paper describes an in-progress two-cycled Action Research investigation of public library-led digital literacy training to older adults in social housing. Prior to the first cycle, the digital literacy needs and training preferences of CityHousing Hamilton (CHH) older adults were identified. These findings were then used to design and evaluate an Android tablet training program delivered by Hamilton Public Library (HPL) to CHH older adults onsite at their CHH place of residence (Cycle One). Findings from Cycle One were then used to design and implement another iteration of onsite HPL-led tablet training to CHH seniors (Cycle Two).\n \nDes formations de littératie numérique pour les personnes âgées vivant dans des logements sociaux dirigées par les bibliothèques publiques \nRésuméCet article décrit une enquête de recherche-action de deux cycles en cours portant sur les formations de littératie numérique données par les bibliothèques publiques pour les personnes âgées vivant dans des logements sociaux. Avant le premier cycle, les besoins en littératie numérique et les préférences de formation ont été identifiées auprès de personnes âgées du CityHousing Hamilton (CHH). Ces résultats ont ensuite été utilisés pour la conceptualisation et l'évaluation d'un programme de formation sur une tablette électronique Android mis en place par la bibliothèque publique d'Hamilton (HPL) pour les personnes âgées du CHH directement à leur endroit de résidence (Premier cycle). Les résultats du premier cycle ont ensuite été utilisés pour conceptualiser et mettre en place une autre itération des formations avec les tablettes électroniques pour les personnes âgées sur place au CHH par la HPL (Second cycle).\nMots-clésLittératie numérique; Formation; Personnes âgées; Bibliothèques publiques; Logements sociaux</jats:p>",
+      "authors": [
+        "Brian Detlor"
+      ],
+      "year": 2025,
+      "venue": "Proceedings of the Annual Conference of CAIS / Actes du congrès annuel de l'ACSI",
+      "doi": "10.29173/cais1887",
+      "type": "journal-article",
+      "publisher": "University of Alberta Libraries",
+      "url": "https://doi.org/10.29173/cais1887",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1007/s10639-025-13364-4",
+      "title": "Effective but sustainable? A case of a digital literacy program for older adults",
+      "abstract": "<jats:title>Abstract</jats:title>\n          <jats:p>Digital technology is used to improve the quality of life for the growing number of older adults in the United States, but it also exacerbated the digital divide between generations and regions. Digital literacy programs effectively designed for older adults have a potential to mitigate this issue; however, sustaining an effectively designed program can be a challenge due to practical constraints. This case study-mixed methods study examined effectiveness and challenges of implementing a digital literacy program that is designed with six instructional strategies known to be effective for older adults. Data sources included surveys and interviews from learners, instructors, including teaching assistants, and an administrator involved in the project throughout three implementation cycles at a regional library. Overall, participants reported enhanced confidence in using digital literacy domains and satisfaction towards the program. Various implementation challenges identified are aligned to the instructional strategies used. The study emphasizes the importance of developing and sustaining an inclusive and flexible digital education for seniors aimed to reduce the digital divide and promote their engagement in an increasingly digital society.</jats:p>",
+      "authors": [
+        "Jiyoon Jung",
+        "Jieun You",
+        "Daesang Kim"
+      ],
+      "year": 2025,
+      "venue": "Education and Information Technologies",
+      "doi": "10.1007/s10639-025-13364-4",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "url": "https://doi.org/10.1007/s10639-025-13364-4",
+      "citation_count": 16
+    },
+    {
+      "source": "crossref",
+      "id": "10.70856/p.1.1.1",
+      "title": "Digitalna uključenost, povezanost i pismenost starijih osoba",
+      "abstract": "<jats:p>U današnjem digitalnom dobu tehnologija je postala ključni aspekt naših života, a tehnološkim napretkom digitalna uključenost starijih osoba postaje sve važnija. Iako su u prošlosti starije generacije možda bile skeptične prema tehnološkim inovacijama, trendovi se mijenjaju. Razumijevanje digitalnih alata nije prirodno stečena vještina, već zahtijeva ulaganje u učenje. Edukacijski programi koji obuhvaćaju osnove interneta, e-pošte i mobilnih aplikacija mogu značajno povećati samopouzdanje starijih korisnika u korištenju tehnologije. Organizacije, zajednice i državne institucije trebale bi prepoznati važnost ovih inicijativa te ponuditi tečajeve za starije. Digitalna pismenost također uključuje sposobnost sigurnog korištenja interneta, prepoznavanje lažnih vijesti te zaštitu privatnosti online. Inovativnim rješenjima, poput personaliziranih edukacijskih platformi, upotrebe umjetne inteligencije za personalizirano učenje, međugeneracijskih radionica i virtualne stvarnosti, možemo dodatno podržati starije osobe u njihovoj integraciji u digitalni svijet. Na taj im način možemo pomoći da ostanu aktivni, povezani te neovisni u svojim zajednicama.</jats:p>",
+      "authors": [
+        "Ivan Pokec",
+        "Đurđica Grabovac",
+        "Goranka Rafaj",
+        "Daliborka Vukmanić"
+      ],
+      "year": 2024,
+      "venue": "Paviljon",
+      "doi": "10.70856/p.1.1.1",
+      "type": "journal-article",
+      "publisher": "Bjelovar University of Applied Sciences",
+      "url": "https://doi.org/10.70856/p.1.1.1",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.3991/ijac.v18i3.53905",
+      "title": "Bridging the Digital Divide",
+      "abstract": "<jats:p>This paper addresses the innovative strategies adopted by the DigIN project in order to increase digital literacy among adults aged 55 years and above using social media platforms, particularly YouTube and Spotify. The project will create an active learning community by sharing relevant educational content tailored to meet the needs of older learners. Analytics gathered data from all platforms, showing key performance indicators, including views and engagement rates and insight into demographics. Preliminary findings indicate high engagement; for example, on the YouTube channel, there were 2120 views and a total of 42.9 hours of watching time, with 42% of viewers falling into the age group 55–64. What is more, those podcasts published on Spotify were highly rated, especially among Polish speakers, thus proving great interest in digital competencies locally. Results prove that social media can be quite a useful tool for corporate learning and human resources development, with the aim of singling out the need for tailored content, taking into consideration peculiar challenges that, in general, arise while teaching older adults. The implications, therefore, for future corporate training initiatives lie in the use of social media to create learning environments that empower underserved populations and, by extension, increase their independence and overall workforce competency.</jats:p>",
+      "authors": [
+        "Luis Ochoa Siguencia"
+      ],
+      "year": 2025,
+      "venue": "International Journal of Advanced Corporate Learning (iJAC)",
+      "doi": "10.3991/ijac.v18i3.53905",
+      "type": "journal-article",
+      "publisher": "International Association of Online Engineering (IAOE)",
+      "url": "https://doi.org/10.3991/ijac.v18i3.53905",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1057/s41599-025-05977-4",
+      "title": "Bridging the digital divide: development and validation of a digital literacy scale for older adults in China",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>\n                    Digital literacy is crucial not only for expanding economic opportunities but also for enhancing the quality of life, as it enables individuals to effectively access and use valuable information. However, there is a notable lack of validated tools specifically designed to assess the digital literacy of older adults. This study aimed to fill this gap by developing and validating a measurement tool to evaluate digital literacy levels among older adults in China. Through a rigorous methodological approach, including exploratory factor analysis and internal consistency assessment, the study confirmed the scale’s validity and reliability. The four-factor model identified includes basic technology literacy, communication literacy, problem-solving literacy, and security literacy, comprising 19 items in total. The scale demonstrated strong reliability (Cronbach’s\n                    <jats:italic>α</jats:italic>\n                     = 0.93) and validity, effectively capturing the multidimensional aspects of digital literacy pertinent to the older population. The scale offers a culturally tailored, validated instrument that not only enhances understanding of digital literacy among older adults but also supports government efforts to design effective educational interventions and policies to improve digital inclusion for this demographic.\n                  </jats:p>",
+      "authors": [
+        "Liqin Yu",
+        "Fei Wu",
+        "Harrison Hao Yang"
+      ],
+      "year": 2025,
+      "venue": "Humanities and Social Sciences Communications",
+      "doi": "10.1057/s41599-025-05977-4",
+      "type": "journal-article",
+      "publisher": "Springer Science and Business Media LLC",
+      "url": "https://doi.org/10.1057/s41599-025-05977-4",
+      "citation_count": 2
+    },
+    {
+      "source": "crossref",
+      "id": "10.1080/03601277.2025.2495275",
+      "title": "Exploring lifelong literacy learning in digital gameplay among midlife-to-older adults",
+      "abstract": "",
+      "authors": [
+        "Yanan Shen",
+        "Habibah Ab Jalil"
+      ],
+      "year": 2025,
+      "venue": "Educational Gerontology",
+      "doi": "10.1080/03601277.2025.2495275",
+      "type": "journal-article",
+      "publisher": "Informa UK Limited",
+      "url": "https://doi.org/10.1080/03601277.2025.2495275",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.55214/25768484.v9i5.7334",
+      "title": "Digital divide: A qualitative study on older adults’ digital health literacy in non-first-tier cities in China",
+      "abstract": "<jats:p>As China faces the dual challenge of rapid digitalization and an aging population, disparities in digital health literacy among older adults threaten equitable access to health services. This qualitative study investigates the lived experiences of community-dwelling older adults in non-first-tier Chinese cities in navigating digital health services, aiming to understand the personal, cognitive, and environmental factors influencing their engagement. Grounded in phenomenological methodology, semi-structured interviews were conducted with ten older adults aged 60 to 77. Data were analyzed using Colaizzi’s seven-step method, guided by the Health Promotion Model and Orem’s Self-Care Deficit Theory. Three major thematic domains emerged: (1) motivational barriers to adopting digital health, such as negative self-efficacy and reliance on traditional healthcare models; (2) constraints in functional and digital health literacy, including memory decline, technological challenges, and fear of online fraud; and (3) the influence of external environmental factors, including familial support, lack of formal training, and the inadequacy of existing service platforms. While participants acknowledged the convenience and potential of digital health, most lacked the confidence, skills, or contextual support to utilize such services meaningfully. These findings highlight the need for age-sensitive design, targeted literacy interventions, and community-based training programs to bridge the digital divide and promote health equity among older adults. The study offers practical insights for policy and practice in digital public health and gerontological care.</jats:p>",
+      "authors": [
+        "Rongzhao Yue",
+        "Sheilla M. Trajera",
+        "Gregory S. Ching"
+      ],
+      "year": 2025,
+      "venue": "Edelweiss Applied Science and Technology",
+      "doi": "10.55214/25768484.v9i5.7334",
+      "type": "journal-article",
+      "publisher": "Learning Gate",
+      "url": "https://doi.org/10.55214/25768484.v9i5.7334",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igae098.2316",
+      "title": "THE IMPACT OF DIGITAL HEALTH LITERACY ON CANCER PREVENTION BEHAVIORS AMONG OLDER ADULTS",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>In today’s age of digital advancement, it is crucial to understand how digital health literacy affects the cancer prevention behaviors of older adults. This study investigates how digital health literacy influences older adults’ ability to navigate online health information and its impact on adopting behaviors to prevent cancer. This study analyzes data from the Health Information National Trends Survey (HINTS) 5, focusing on individuals aged 60 and above. It explores different variables related to digital health literacy and engagement in cancer prevention behaviors, such as smoking cessation, physical activity, alcohol cessation, and cancer screening. Better digital health literacy is linked to an increased chance of quitting smoking (OR = 1.90, 95% CI: 1.02-3.52, p = 0.043). However, there is no such link to physical activity or cancer screening. Nevertheless, searching for health information electronically is associated with giving up alcohol, suggesting that digital health literacy can assist older adults in quitting drinking (OR = 1.47, 95% CI: 1.09-1.98, p = 0.012). The study highlights the importance of digital health literacy in promoting healthy habits among older adults. Specifically, it may help support smoking and alcohol cessation efforts. Though it may not apply to all behaviors, improving digital competencies is crucial to prevent cancer in older adults effectively. Therefore, tailored digital health literacy interventions are necessary to cater to the unique needs of this demographic and minimize their cancer risk.</jats:p>",
+      "authors": [
+        "Jonathan Nutakor",
+        "Lulin Zhou",
+        "Ebenezer Larnyo",
+        "Stephen Addai-Dansoh"
+      ],
+      "year": 2024,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igae098.2316",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igae098.2316",
+      "citation_count": 2
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igad104.3536",
+      "title": "PROFILES OF DIGITAL LITERACY AMONG COMMUNITY-DWELLING KOREAN OLDER ADULTS: A LATENT PROFILE ANALYSIS",
+      "abstract": "<jats:title>Abstract</jats:title>\n               <jats:p>Digital divide exists among not only between older and younger generations but also within the older adult population. Understanding digital literacy profiles among older adults is important to identifying strategies for reducing digital divide among this population. This study aimed to identify profiles of digital literacy among community-dwelling older adults and examine associated factors. Data were collected from a national survey of 1016 community-dwelling older adults in Korea (average age 68.0±6.5 years, 47.8% male). Digital literacy was evaluated across three domains: ’Information and Communication’ (9 items), ’Contents Creation and Management’ (4 items), and ’Safety and Security’ (9 items). Latent profile analysis and multinomial logistic regression yielded three digital literacy profiles: “Low-level” (35.7%, n=363), “Middle-level” (39.2%, n=398), and “High-level” (25.1%, n=255). Compared to the low-level group, a higher likelihood of belonging to the middle level group was associated with younger age, higher education level, higher dependence on instrumental activities of daily living, longer digital device use, and participating in offline social activities. Similarly, a higher likelihood of belonging to the high-level group was associated with younger age, higher education level, higher dependence on instrumental activities of daily living, longer digital device use, better physical well-being, doing daily physical exercise, and greater social support. These findings suggest characteristics associated with lower digital literacy, including older age, lower education level, and reduced functional independence. To promote digital literacy in older adults, potential strategies encompass tailored access and guidance for digital device use specifically tailored to older adults, alongside efforts to nurture social connectedness.</jats:p>",
+      "authors": [
+        "Jiyoung Shin",
+        "Hun Kang",
+        "Seongmi Choi",
+        "JiYeon Choi"
+      ],
+      "year": 2023,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igad104.3536",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igad104.3536",
+      "citation_count": 3
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igag001",
+      "title": "The impact of digital reverse mentoring on older adults’ digital literacy: mediating roles of self-perceptions of aging and self-efficacy",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:sec>\n                    <jats:title>Background and Objectives</jats:title>\n                    <jats:p>Digital literacy is critical for older adults to maintain social connections, access information, and support overall mental well-being. However, many older adults struggle with using digital devices. Guided by the self-fulfilling prophecy theory, this study investigates how digital reverse mentoring (DRM), referring to younger individuals assisting older adults in learning and using digital technology, is associated with digital literacy, with self-perceptions of aging and self-efficacy as mediators.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Research Design and Methods</jats:title>\n                    <jats:p>A cross-sectional study was conducted with 402 community-dwelling older adults aged 60+ in Macao, China. Control variables include gender, age, education, income, self-rated health, and home internet access. Structural equation modeling was employed to test hypothesized relationships and mediation effects.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>DRM significantly improved digital literacy (B = .31, 95% CI: .19, .43). Positive perceptions of aging were positively associated with digital literacy (B = .05, p &amp;lt; .001), whereas negative perceptions showed a negative association (B = .09, p &amp;lt; .001). Contrary to expectations, self-efficacy did not show a significant association with digital literacy. Indirect effects revealed that DRM was positively associated with all mediators (B = .12, 95% CI: .04, .20), suggesting that improving perceptions of aging through DRM may enhance digital literacy.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Discussion and Implication</jats:title>\n                    <jats:p>This study highlights the importance of DRM educational interventions in boosting digital literacy among older adults by positively shaping their perceptions of aging. Addressing these perceptions can break down barriers and promote more inclusive digital participation. Future research should investigate the longitudinal effects and effective intervention strategies to enhance digital literacy.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Innovation and Translational Significance</jats:title>\n                    <jats:p>This study addresses the age-related digital divide by examining DRM as a strategy to improve digital literacy among older adults. Using a psychological framework, we identify perceived aging as a key mediator, showing that increased positive perceptions of aging and reduced negative perceptions of aging enhance digital outcomes. Findings suggest that DRM, as an empowering approach, can be effectively integrated into social service programs and policies to promote digital inclusion and reduce the age-related digital divide. This work offers a practical and evidence-based model for improving individual and societal outcomes in later life through intergenerational engagement.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Jierong Hu",
+        "Minzhi Ye",
+        "Haotian Wan",
+        "WengIan Leong"
+      ],
+      "year": 2026,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igag001",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igag001",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.1002/nop2.70123",
+      "title": "Editorial: Digital Health Literacy and Black Older Adults: Bridging the Digital Divide in Managing Chronic Conditions",
+      "abstract": "",
+      "authors": [
+        "Brenda Owusu",
+        "Serina Gbaba",
+        "Judith Juste",
+        "Balkys Bivins",
+        "Diana Baptiste"
+      ],
+      "year": 2024,
+      "venue": "Nursing Open",
+      "doi": "10.1002/nop2.70123",
+      "type": "journal-article",
+      "publisher": "Wiley",
+      "url": "https://doi.org/10.1002/nop2.70123",
+      "citation_count": 2
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/fpubh.2025.1669425",
+      "title": "Digital literacy and its effects on older adults’ health: exploring mechanisms and outcomes",
+      "abstract": "<jats:sec>\n                    <jats:title>Introduction</jats:title>\n                    <jats:p>In response to population aging, the Chinese government has prioritized enhancing the age-friendly adaptation of digital technologies, which have become essential for promoting social engagement and delivering health services to older adults. This study investigates whether digital literacy effectively improves physical and mental health in the aging population.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>Using longitudinal data from the China Family Panel Studies (CFPS, 2016–2022), we employ two-way fixed effects models and mechanism analysis to empirically examine the impact of digital literacy on health outcomes, while identifying underlying mechanisms and heterogeneous effects.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>Key findings reveal that: (1) Digital literacy significantly improves both physical and psychological health among older adults. (2) These health gains are primarily mediated through enhanced social support networks and the adoption of healthier lifestyles. (3) The health benefits exhibit significant variation across educational attainment, gender, and health status.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Discussion</jats:title>\n                    <jats:p>The findings confirm that digital literacy is a significant determinant of healthy aging. They offer novel theoretical and empirical insights for policymakers, highlighting the importance of promoting digital literacy among older adults, particularly through interventions that leverage social support and healthy lifestyles.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Shu Yang",
+        "Wenjie Xu",
+        "Kang Chen"
+      ],
+      "year": 2025,
+      "venue": "Frontiers in Public Health",
+      "doi": "10.3389/fpubh.2025.1669425",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/fpubh.2025.1669425",
+      "citation_count": 1
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igaf122.365",
+      "title": "The Impact of Digital Literacy on Social Isolation Among Korean American Older Adults: Insights From the PLAN Trial",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>Social isolation is a pressing public health concern both in the United States and globally. While growing research highlights the urgent need to address social isolation to enhance the health and well-being of older adults, the magnitude and nature of this issue among immigrant older adults—especially those with limited English proficiency—is not completely known. Immigrant older adults with limited English proficiency are particularly at risk for social isolation, which may be further exacerbated by low digital literacy and engagement. This multi-method study examines the relationship between digital literacy and social isolation using quantitative data from Korean American older adults (N = 733) screened for the PLAN trial (Preparing healthy aging through dementia Literacy education And Navigation; ClinicalTrials.gov Identifier: NCT03909347). The quantitative sample had a mean age of 77 years, with 70% female, 58% having a high school education or less, 28% reporting comfort with technology, and 37% identified as at risk for social isolation. To contextualize our understanding of these findings, we are currently conducting qualitative interviews with a subset of participants to explore the lived experiences of social isolation and the role of digital literacy among community-dwelling Korean American older adults. These combined insights will serve as a critical first step in informing culturally-responsive intervention strategies aimed at reducing social isolation and improving the well-being of immigrant older adults with limited English proficiency in the United States.</jats:p>",
+      "authors": [
+        "Deborah Min",
+        "Tina Kim",
+        "Hae-Ra Han"
+      ],
+      "year": 2025,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igaf122.365",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igaf122.365",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.52783/jisem.v10i6s.698",
+      "title": "Redesign of the Digital Literacy Program for Older Adults, validating Desirable Skills with Generative Artificial Intelligence",
+      "abstract": "<jats:p>The research described in this article aims to evaluate and redesign the digital literacy program for older adults by validating desirable skills with AI. The same redesign is based on the execution of the specific objectives of this research, highlighting among them: 1) identifying the training requirements so that older adults can break the digital gaps in access and use of ICTs; 2) redesign the digital didactic management model of the digital literacy program and 3) validate the redesign proposal by incorporating feedback with artificial intelligence. The applied methodology is based on the analytical observation of three years of experience of the digital literacy program, which takes into account the virtualization factor of the learning experience, to motivate the transformation of the digital culture of older adults, taking into account The validation of the thematic axes includes comparisons made against the results of queries to information search and analysis tools based on generative artificial intelligence. The results have led to maintaining references of the experience worldwide, but also enriched with its own factors and lessons learned that make the digital literacy experience for older adults in Panama innovative.</jats:p>",
+      "authors": [
+        "Lamed Mendoza Lámbiz"
+      ],
+      "year": 2025,
+      "venue": "Journal of Information Systems Engineering and Management",
+      "doi": "10.52783/jisem.v10i6s.698",
+      "type": "journal-article",
+      "publisher": "Science Research Society",
+      "url": "https://doi.org/10.52783/jisem.v10i6s.698",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1093/geroni/igaf122.1331",
+      "title": "Three Community-Tested Strategies to Increase Hard-to-Reach Older Adults’ Digital Health Literacy",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>In most parts of the world, technology use among older adults is increasing, yet remains low. Lowest user rates are among the oldest old, less affluent, and less educated groups of older adults. Many older adults suffer from social isolation and loneliness, often alongside multiple chronic diseases. Enhancing digital health literacy, which includes improving digital skills and awareness of the resources available through telehealth, presents a promising strategy to address these issues. This session will highlight the results of a four-year effort to develop and test models designed to increase hard-to-reach older adults’ digital health literacy. Three successful strategies have emerged: 1) Trained volunteer coaches go directly to home delivered meals recipients’ homes for coaching; 2) Coaches present at congregate meal sites and senior center special programs; and 3) Local groups develop unique strategies that fit their preferences and resources, using manuals and videos freely shared with agencies. Process evaluation points to the role of trust in getting technology resistant older adults to be willing to learn about devices and telehealth. Preliminary outcome data from trials using all three models show improved digital literacy and increased telehealth awareness. However, results on loneliness and isolation measures have not shown statistically significant improvement, likely due to relatively positive scores on these measures at baseline and the relatively low intensity of the interventions. Long-term effects may be more likely to appear. Resources developed for the models to support digital literacy among the aging population will be illustrated.</jats:p>",
+      "authors": [
+        "Paul Freddolino",
+        "Fei Sun",
+        "Ha-Neul Kim",
+        "Ayaka Lingard",
+        "AnnMarie Schneider"
+      ],
+      "year": 2025,
+      "venue": "Innovation in Aging",
+      "doi": "10.1093/geroni/igaf122.1331",
+      "type": "journal-article",
+      "publisher": "Oxford University Press (OUP)",
+      "url": "https://doi.org/10.1093/geroni/igaf122.1331",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1111/opn.12568",
+      "title": "Psychometric validation of the Chinese digital health literacy instrument among Chinese older adults who have internet use experience",
+      "abstract": "<jats:title>Abstract</jats:title><jats:sec><jats:title>Introduction</jats:title><jats:p>In this digital age, the Internet has become a major source of health information, and electronic health (eHealth) literacy becomes increasingly important for older individuals to properly use the extensive eHealth resources for self‐care. A valid and reliable tool for assessing older people's eHealth literacy would help healthcare workers identify those disadvantaged groups in digital health and provide relevant health education.</jats:p></jats:sec><jats:sec><jats:title>Objectives</jats:title><jats:p>This study aimed to evaluate the psychometric properties of the Chinese version of DHLI in assessing eHealth literacy among older adults in China.</jats:p></jats:sec><jats:sec><jats:title>Methods</jats:title><jats:p>A web‐based, cross‐sectional study was conducted among 277 Chinese older adults from September to November 2021. Two weeks after the first completion, 62 of them answered the C‐DHLI again. The reliability (e.g. internal consistency and test–retest reliability), factorial structure and validity (i.e. content validity and convergent validity) of the C‐DHLI were evaluated based on the survey data.</jats:p></jats:sec><jats:sec><jats:title>Results</jats:title><jats:p>The results demonstrated good internal consistency (Cronbach's alpha: 0.94) and test–retest reliability (total intraclass correlation coefficient [ICC]: 0.94) of the C‐DHLI. Principal component analysis revealed that the 18 items of C‐DHLI loaded on three factors, accounting for 74.69% of the total variance; CFA supported its three‐factor structure with good model fits. Convergent validity was examined by the significant associations between C‐DHLI and C‐eHEALS (<jats:italic>r</jats:italic> = 0.61), health literacy (<jats:italic>r</jats:italic> = 0.56), and whether having used the Internet for health information (<jats:italic>ρ</jats:italic> = 0.43) (<jats:italic>ps</jats:italic> &lt;.001). A cut‐off score of 45 was recommended for determining higher and lower literacy using the C‐DHLI, with the area under curve of 0.82 (95% CI = 0.77–0.88).</jats:p></jats:sec><jats:sec><jats:title>Conclusions and Implications for Practice</jats:title><jats:p>The C‐DHLI showed good psychometric performance in assessing eHealth literacy among Chinese older adults. The findings can support healthcare professionals to effectively measure eHealth literacy among older adults and conduct tailored eHealth interventions or training.</jats:p></jats:sec>",
+      "authors": [
+        "Luyao Xie",
+        "Huahua Hu",
+        "Jiaer Lin",
+        "Phoenix K. H. Mo"
+      ],
+      "year": 2023,
+      "venue": "International Journal of Older People Nursing",
+      "doi": "10.1111/opn.12568",
+      "type": "journal-article",
+      "publisher": "Wiley",
+      "url": "https://doi.org/10.1111/opn.12568",
+      "citation_count": 12
+    },
+    {
+      "source": "crossref",
+      "id": "10.2196/75245",
+      "title": "From Digital Anxiety to Empowerment in Older Adults: Cross-Sectional Survey Study on Psychosocial Drivers of Digital Literacy",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:sec sec-type=\"background\">\n                    <jats:title>Background</jats:title>\n                    <jats:p>Amid the convergence of global population aging and accelerating digital transformation, older adults’ digital adaptability has emerged as a critical indicator of their quality of life, autonomy, and capacity for successful aging. However, digital disparities, technology-related anxiety, and insufficient support systems continue to hinder older individuals from fully participating in digital society. Particularly in modern family structures—where children often live apart from aging parents—the diminishing role of family support further underscores the importance of broader social influences.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"objective\">\n                    <jats:title>Objective</jats:title>\n                    <jats:p>This study aims to examine how environmental factors (family support and social influence) and psychological factors (digital anxiety and sense of achievement) are associated with older adults’ intention to use Assistive Digital Tools and Services (ADTS), and how these relationships contribute to the development of digital literacy. Drawing upon an integrative framework that combines constructs from the Technology Acceptance Model, the Unified Theory of Acceptance and Use of Technology, and social cognitive theory, the study also investigates the mediating and moderating mechanisms underlying these effects, offering strategic insights to support older adults in moving from social isolation to digital empowerment.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"methods\">\n                    <jats:title>Methods</jats:title>\n                    <jats:p>A structured questionnaire survey was conducted using a convenience sampling method among adults aged 55 years and older in Shenyang, Liaoning Province, China, yielding 480 valid responses. Structural equation modeling, bootstrapping, and moderation analysis were used to test the proposed integrative framework.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"results\">\n                    <jats:title>Results</jats:title>\n                    <jats:p>For both family support and social influence, their associations with digital literacy were fully mediated by ADTS. Higher family support was associated with lower digital anxiety, which in turn correlated with greater intention, while stronger social influence was directly associated with higher intention. Digital anxiety showed a strong negative association with intention; however, this relationship was significantly weaker among those reporting a higher sense of achievement. These findings highlight usage intention as a central pathway through which environmental and psychological conditions are related to digital competence.</jats:p>\n                  </jats:sec>\n                  <jats:sec sec-type=\"conclusions\">\n                    <jats:title>Conclusions</jats:title>\n                    <jats:p>Digital literacy in later life is more than a technical skill set—it represents a vital form of psychological and social capital that empowers autonomy, well-being, and social integration. Strengthening older adults’ intention to engage with digital tools through emotional reinforcement, achievement-oriented experiences, and supportive social environments is key to narrowing the digital divide. Beyond its personal benefits, fostering digital competence contributes to successful aging, which in turn brings profound advantages for families, strengthens community cohesion, and supports national goals in public health, economic participation, and social sustainability. Intergenerational learning initiatives, community-based engagement programs, and leveraging social influence to offset weakened family support can create a more inclusive, resilient, and age-friendly digital ecosystem—one that benefits not only older individuals but society at large.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Han-Jen Niu",
+        "Ming-Hsuan Li",
+        "Feng-Yu Hsieh",
+        "Chun-Chieh Yu",
+        "Chun-Ting Lin"
+      ],
+      "year": 2026,
+      "venue": "JMIR Aging",
+      "doi": "10.2196/75245",
+      "type": "journal-article",
+      "publisher": "JMIR Publications Inc.",
+      "url": "https://doi.org/10.2196/75245",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.46914/1562-2959-2026-1-1-153-165",
+      "title": "The scoping review on digital financial literacy among older adults",
+      "abstract": "<jats:p>This scoping review aims to bring together what we know about digital financial literacy (DFL), especially for older adults. It explores how DFL is defined and understood, how it’s measured in different studies, and what kinds of educational programs have been developed to support older people in managing their finances online. This review was guided by the PCC (Population, Concept, Context) framework, allowing for the inclusion of studies on adults aged 18 to 79 to draw insights relevant to older adults. A systematic search of the Web of Science database (2014–2025) was conducted, followed by a two-stage screening and full-text review process. Data were extracted and thematically analyzed to identify how digital financial literacy is defined, measured, and supported through educational interventions, with a focus on age-specific needs and challenges. The review found that most studies assess digital financial literacy (DFL) using surveys and self-report questionnaires focused on knowledge, skills, and fraud awareness. Behavioral experiments, such as randomized controlled trials, provide valuable insights into the effectiveness of different educational approaches. Emerging frameworks emphasize integrating digital literacy with financial literacy and highlight the need for culturally and contextually adaptable interventions, especially for older adults and underserved populations. This review highlights the critical need for integrated financial education that combines knowledge, digital skills, and consumer protection, especially for older adults.</jats:p>",
+      "authors": [
+        "A. K. Izekenova",
+        "A. T. Grimm",
+        "A. K. Zhussupova",
+        "N. K. Zaitenova"
+      ],
+      "year": 2026,
+      "venue": "Bulletin of \"Turan\" University",
+      "doi": "10.46914/1562-2959-2026-1-1-153-165",
+      "type": "journal-article",
+      "publisher": "Turan University",
+      "url": "https://doi.org/10.46914/1562-2959-2026-1-1-153-165",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.4017/gt.2022.21.s.651.pp4",
+      "title": "A descriptive study of digital health literacy and internet use of older adults living alone",
+      "abstract": "",
+      "authors": [
+        "M. Hwang",
+        "G. Kim",
+        "S. Lee",
+        "Y.-H. Park"
+      ],
+      "year": 2022,
+      "venue": "Gerontechnology",
+      "doi": "10.4017/gt.2022.21.s.651.pp4",
+      "type": "journal-article",
+      "publisher": "International Society for Gerontechnology (ISG)",
+      "url": "https://doi.org/10.4017/gt.2022.21.s.651.pp4",
+      "citation_count": 0
+    },
+    {
+      "source": "crossref",
+      "id": "10.1145/3447892.3447901",
+      "title": "Breaking barriers, building understanding",
+      "abstract": "<jats:p>In entering the digital realm, older adults face obstacles beyond the physical and cognitive barriers traditionally associated with accessibility. One of these obstacles, technology related anxiety, is particularly problematic because it discourages exploration and way finding, two behaviors critical to the development of digital literacy. We see opportunities to address this issue and bring isolated older adults into a larger digital community, while simultaneously offering our students with valuable first-hand experience learning about and addressing the challenges faced by capable people struggling with unfamiliar technology. Here, we describe our social-cognitive approach to training digital literacy skills, pairing university student tutors with learners from the local community.</jats:p>",
+      "authors": [
+        "Kelly Steelman",
+        "Charles Wallace"
+      ],
+      "year": 2021,
+      "venue": "ACM SIGCAS Computers and Society",
+      "doi": "10.1145/3447892.3447901",
+      "type": "journal-article",
+      "publisher": "Association for Computing Machinery (ACM)",
+      "url": "https://doi.org/10.1145/3447892.3447901",
+      "citation_count": 3
+    },
+    {
+      "source": "crossref",
+      "id": "10.3389/fsoc.2024.1432607",
+      "title": "Evaluating the impact of a peer-education digital literacy course on older adults' digital skills and wellbeing: a mixed-methods study protocol",
+      "abstract": "<jats:p>The digital transition poses relevant challenges and opportunities for older adults in aging European societies. To unleash the potential of the digital transition in old age and avoid the risk of exclusion, digital education for older adults seems to be a valuable solution. One of the most suitable approaches to digital education for older adults appears to be the peer-to-peer approach. However, not much literature is available on this topic. Within the ACTIVE-IT project, we aimed to design, implement, and evaluate a digital peer education course for older adults, focusing specifically on the use of smartphones and daily utility apps, such as mailing, e-Gov, and e-commerce. The purpose of this contribution is to document the protocol adopted to evaluate the course. The course involved 32 participants aged 65 or older, who, between March 2024 and June 2024, divided into three groups, attended a 10-lesson weekly course taught by a peer. We aim to measure the effect of the course on participants' digital skills and their perceived wellbeing. To do so, we will adopt a mixed methods approach, employing: digital methods by collecting and analyzing data on participants' smartphone use (i.e., log data on smartphone use before/during/after the intervention); a quasi-experiment, collecting information on course participants' wellbeing before/after the course attendance using a questionnaire survey; ethnographic observation conducted during the course, observing interactions between subjects during the course. The study has been approved by the Ethic Committee of the University of Milano Bicocca (prot.nr. 167541/2024).</jats:p>",
+      "authors": [
+        "Dario Pizzul",
+        "Emanuela Sala",
+        "Alessandro Caliandro",
+        "Daniele Zaccaria",
+        "Simone Carlo"
+      ],
+      "year": 2024,
+      "venue": "Frontiers in Sociology",
+      "doi": "10.3389/fsoc.2024.1432607",
+      "type": "journal-article",
+      "publisher": "Frontiers Media SA",
+      "url": "https://doi.org/10.3389/fsoc.2024.1432607",
+      "citation_count": 9
+    },
+    {
+      "source": "crossref",
+      "id": "10.1097/md.0000000000039877",
+      "title": "The mediating impact of exercise frequency and duration on the relationship between digital health literacy and health among older adults: A cross-sectional study",
+      "abstract": "<jats:p>Although several studies have discussed the relationships among digital health literacy, health, and exercise behavior, few have integrated these 3 factors into a single model. This study aims to address this research gap. This article aims to analyze the impact of digital health literacy on the health of older adults, as well as the mediating mechanisms related to exercise frequency and duration. A cross-sectional survey was conducted in Luoyang and Zhengzhou urban areas from December 2023 to January 2024. Utilizing random sampling methods, data were collected from 661 older adults through the “digital health literacy scale,” “health scale,” and “count of exercise duration and frequency” questionnaires. The data were processed by employing SPSS 20 and Process, v3.0, and analyzed through independent samples <jats:italic toggle=\"yes\">t</jats:italic> test, 1-way ANOVA (F-test), and mediation testing methods. The results indicate that no statistical significance (<jats:italic toggle=\"yes\">P</jats:italic> &gt; .05) is observed in terms of the 3 dimensions of digital health literacy, exercise behavior, and health status among older adults with different genders, living conditions, educational backgrounds, and economic status. In contrast, statistical significance (<jats:italic toggle=\"yes\">P</jats:italic> &lt; .05) is observed in terms of exercise frequency and health status among older adults with varying levels of smoking and drinking. The 3 dimensions of digital health literacy among older adults statistically impact (<jats:italic toggle=\"yes\">P</jats:italic> &lt; .05) their exercise duration, frequency, and health. The dimension of access and assessment exerts the most significant influence on exercise duration (β = 0.415) and a considerable impact on health (β = 0.214). Furthermore, the impact of exercise duration and frequency on health status is statistically significant (<jats:italic toggle=\"yes\">P</jats:italic> &lt; .05). In terms of the interactive capability dimension, exercise frequency exerts the most significant influence (β = 0.199). Digital health literacy has a significant impact on the health of older adults. The duration and frequency of exercise play a partial mediating role between older adults’ digital health literacy and their physical health status. Digital health literacy can encourage older adults to increase the duration and frequency of exercise, which, in turn, promotes their physical health.</jats:p>",
+      "authors": [
+        "Ye Wei",
+        "Yinting Zhou"
+      ],
+      "year": 2024,
+      "venue": "Medicine",
+      "doi": "10.1097/md.0000000000039877",
+      "type": "journal-article",
+      "publisher": "Ovid Technologies (Wolters Kluwer Health)",
+      "url": "https://doi.org/10.1097/md.0000000000039877",
+      "citation_count": 7
+    },
+    {
+      "source": "crossref",
+      "id": "10.1111/opn.70058",
+      "title": "The Self‐Regulation‐Incorporated Digital Health Literacy Scale for Older Adults: Instrument Development and Validation",
+      "abstract": "<jats:title>ABSTRACT</jats:title>\n                  <jats:sec>\n                    <jats:title>Introduction</jats:title>\n                    <jats:p>Digital health literacy is a key long‐term health determinant in the digital era, influencing outcomes by enabling individuals to access, evaluate and apply health information in ways that support their personal goals. However, no tool targets older adults to assess digital health literacy with self‐regulation as a core component. Accordingly, we developed and validated a Self‐Regulation‐Incorporated Digital Health Literacy scale (SR‐DHLs) for this population.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>\n                      This conceptually grounded study included instrument development and psychometric validation phases. We generated 23 preliminary items after content and face validity evaluation. Psychometric testing involved item analysis and construct validity assessments conducted through exploratory and confirmatory factor analyses with 506 older adults. Convergent validity was examined using the Korean version of the eHealth Literacy Scale. Reliability was measured using Cronbach's\n                      <jats:italic>α</jats:italic>\n                      and the intraclass correlation coefficient.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>The SR‐DHLs comprises 16 items across four factors: ‘Interaction with other users and systems’, ‘Regulated need‐based selection’, ‘Willingness to actively engage’ and ‘Actualising informed decision‐making’, explaining 63.617% of the variance. Construct validity and acceptable reliability were established.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusions</jats:title>\n                    <jats:p>The SR‐DHLs is a valid and reliable tool for assessing digital health literacy in older adults. It integrates self‐regulation and resource management—essential aspects for navigating digital environments.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Implications for Practice</jats:title>\n                    <jats:p>The SR—DHLs could help nurses identify older adults' needs related to digital health and guide the design of accessible and equitable services.</jats:p>\n                  </jats:sec>",
+      "authors": [
+        "Suyeon Ban",
+        "Yirang Kim",
+        "GyeongAe Seomun"
+      ],
+      "year": 2025,
+      "venue": "International Journal of Older People Nursing",
+      "doi": "10.1111/opn.70058",
+      "type": "journal-article",
+      "publisher": "Wiley",
+      "url": "https://doi.org/10.1111/opn.70058",
+      "citation_count": 0
+    }
+  ]
+}

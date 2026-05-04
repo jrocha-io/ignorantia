@@ -1,0 +1,5 @@
+study_id,citation,doi,year,venue,frameworks,methods,rq_addressed,qa_score
+S01,"Page MJ et al. (2021)",10.1136/bmj.n71,2021,BMJ,PRISMA-2020,Methodological guidance,"RQ1, RQ2",10
+S02,"Kitchenham & Charters (2007)",,2007,EBSE Tech Rep,Kitchenham guidelines,Methodological,"RQ1",9
+S03,"Bostock et al. (2011)",10.1109/TVCG.2011.185,2011,IEEE TVCG,D3.js,Tool/library paper,"RQ3",10
+S04,"Munzner (2014)",,2014,CRC Press,Nested model,Theoretical book,"RQ1, RQ2",9

@@ -1,0 +1,179 @@
+id: WHITE-PAPER-GENERIC
+name: "White Paper / Policy Brief Generic Standard"
+version: "2026"
+canonical_references:
+  - "Brookings Institution Style Guide for Policy Briefs"
+  - "RAND Corporation Research Brief Format"
+  - "Carnegie Endowment Policy Outlook Format"
+  - "ICCT (International Council on Clean Transportation) White Paper Style"
+items_total: 13
+applies_to:
+  - white_paper
+  - policy_brief
+note: |
+  White Papers / Policy Briefs não têm reporting guideline único na EQUATOR Network
+  (não são pesquisa empírica primária). Mas convenções consolidadas existem:
+
+  Convenções comuns (Brookings, RAND, Carnegie, ICCT):
+  - Executive Summary (1 página máximo)
+  - Background / Problem Statement (contexto + por que importa agora)
+  - Findings (síntese de evidências relevantes)
+  - Policy Recommendations (prescritivas, acionáveis, dirigidas a audiência específica)
+  - Limitations (transparência sobre o que o documento NÃO faz)
+  - References (mistura de evidência primária + relatórios + estatísticas oficiais)
+
+  Audiência típica: formuladores de políticas públicas, indústria, sociedade civil,
+  imprensa especializada — NÃO comunidade acadêmica peer-reviewed.
+
+  Características:
+  - Linguagem acessível (não-jargão acadêmico).
+  - Formato visual com bullets, callouts, infográficos.
+  - Tom prescritivo (recomenda ação, não descreve neutralmente).
+  - Length variável: 4-30 páginas (Policy Briefs ~4 págs; White Papers ~10-30 págs).
+
+  Camada hierárquica: Secundária (problema + recomendações vêm do usuário; ferramenta organiza + busca evidência complementar).
+
+  Em todos os casos: AI Disclosure obrigatória.
+
+items:
+  # ==================== STRUCTURE ====================
+  - id: "WP-1"
+    section: "STRUCTURE"
+    title: "Executive Summary (1 page max, key findings + recommendations)"
+    automation_level: full
+    detection_method: "executive_summary_section"
+    anchors:
+      - "Executive Summary"
+      - "Sumário Executivo"
+      - "Resumo Executivo"
+    severity_if_missing: blocking
+    note: "Executive Summary é assinatura do formato; sua ausência caracteriza um documento como NÃO-White-Paper."
+
+  - id: "WP-2"
+    section: "STRUCTURE"
+    title: "Background / Problem Statement (why this matters now)"
+    automation_level: full
+    detection_method: "background_or_problem_section"
+    anchors:
+      - "^# Background"
+      - "^## Background"
+      - "^# Problem Statement"
+      - "^# The problem"
+      - "^# Contexto"
+    severity_if_missing: blocking
+
+  - id: "WP-3"
+    section: "STRUCTURE"
+    title: "Findings (synthesized evidence relevant to the policy question)"
+    automation_level: partial
+    detection_method: "findings_section"
+    anchors:
+      - "^# Findings"
+      - "^# Key findings"
+      - "^# Achados"
+      - "^# Principais resultados"
+    severity_if_missing: blocking
+
+  - id: "WP-4"
+    section: "STRUCTURE"
+    title: "Policy Recommendations (prescriptive, actionable, audience-specific)"
+    automation_level: full
+    detection_method: "recommendations_section"
+    anchors:
+      - "^# Recommendations"
+      - "^# Policy Recommendations"
+      - "^# Recomendações"
+      - "^# Recomendações de política"
+    severity_if_missing: blocking
+
+  - id: "WP-5"
+    section: "STRUCTURE"
+    title: "Target audience explicit (who the recommendations are for)"
+    automation_level: partial
+    detection_method: "audience_explicit"
+    anchors:
+      - "for policymakers"
+      - "for educators"
+      - "for industry"
+      - "para formuladores de políticas"
+      - "para gestores"
+      - "para legisladores"
+    severity_if_missing: major
+
+  - id: "WP-6"
+    section: "STRUCTURE"
+    title: "Limitations (what this document does NOT do)"
+    automation_level: full
+    detection_method: "limitations_section_present"
+    anchors:
+      - "^# Limitations"
+      - "^## Limitations"
+      - "^# Limitações"
+      - "what this document does not"
+    severity_if_missing: blocking
+    note: "White Paper sem limitations declaradas confunde-se com propaganda; declarar limites é essencial à honestidade do formato."
+
+  - id: "WP-7"
+    section: "STRUCTURE"
+    title: "References (mix of primary evidence + reports + official statistics)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== EVIDENCE BASE ====================
+  - id: "WP-8"
+    section: "EVIDENCE_BASE"
+    title: "Mix of source types (peer-reviewed + grey literature + official data)"
+    automation_level: partial
+    detection_method: "diverse_source_types"
+    anchors:
+      - "OECD"
+      - "UNESCO"
+      - "BNCC"
+      - "official statistics"
+      - "government report"
+      - "relatório governamental"
+      - "dados oficiais"
+    severity_if_missing: major
+
+  - id: "WP-9"
+    section: "EVIDENCE_BASE"
+    title: "Search strategy disclosed (even if not systematic)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  # ==================== TRANSPARENCY ====================
+  - id: "WP-10"
+    section: "TRANSPARENCY"
+    title: "AI Disclosure (mandatory)"
+    automation_level: full
+    detection_method: "ai_disclosure_section"
+    severity_if_missing: blocking
+
+  - id: "WP-11"
+    section: "TRANSPARENCY"
+    title: "Author affiliation + funding source declared"
+    automation_level: full
+    detection_method: "funding_section_present"
+    severity_if_missing: blocking
+
+  - id: "WP-12"
+    section: "TRANSPARENCY"
+    title: "Conflicts of interest declared"
+    automation_level: full
+    detection_method: "coi_section_present"
+    severity_if_missing: blocking
+
+  # ==================== ACCESSIBILITY ====================
+  - id: "WP-13"
+    section: "ACCESSIBILITY"
+    title: "Plain Language Summary at top (PLS for non-specialists)"
+    automation_level: partial
+    detection_method: "plain_language_present"
+    severity_if_missing: minor
+
+# Venues compatíveis (todos OA-gratuitos, alinhados ao ethos OA-first):
+# - zenodo_white_paper: padrão OA-gratuito ($0; DOI persistente)
+# - osf_preprints_policy: alternativa OA ($0)
+# - scielo_preprints: alternativa OA ($0; alta visibilidade Latam)
+# - ssrn_public_policy: alternativa OA ($0; alta visibilidade ciências sociais)
+# - institutional_repository: para uso interno organizacional ou da universidade

@@ -1,0 +1,90 @@
+metadata:
+  venue_id: linhas_criticas_unb
+  name: Linhas Críticas
+  name_pt: Linhas Críticas
+  publisher: Faculdade de Educação, Universidade de Brasília (UnB)
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: B1
+  qualis_subarea: Educacao
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://periodicos.unb.br/index.php/linhascriticas
+  archived_url: https://web.archive.org/web/2026/https://periodicos.unb.br/index.php/linhascriticas
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    PROVÁVEL A3 ou B1 em 2021-2024 (A2 em 2017-2020; SciELO Brasil ativo). Confirmação Sucupira por ISSN 1981-0431 mandatória — registrado como B1 conservadoramente.
+    Diamond OA via SciELO + portal UnB, sem APC.
+    Aceita ensaios e revisões críticas.
+taxonomy:
+  review_types_accepted:
+  - narrative_review
+  - scoping_review
+  - qualitative_synthesis
+  - theoretical_essay
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed:
+  - SciELO
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - educação
+  - filosofia da educação
+  - políticas educacionais
+scope:
+  primary_subjects:
+  - Educação
+  excluded_subjects: []

@@ -1,0 +1,91 @@
+metadata:
+  venue_id: holos_ifrn
+  name: HOLOS
+  name_pt: HOLOS — Revista do IFRN
+  publisher: Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte (IFRN)
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: B1
+  qualis_subarea: Educacao
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://www2.ifrn.edu.br/ojs/index.php/HOLOS
+  archived_url: https://web.archive.org/web/2026/https://www2.ifrn.edu.br/ojs/index.php/HOLOS
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    B1 PROVÁVEL 2021-2024 (era A3 em 2017-2020; rebaixamento técnico esperado pela densificação do estrato A na recalibração 2021-2024). Confirmação Sucupira por ISSN 1807-1600 mandatória.
+    Diamond OA via portal IFRN, sem APC.
+    Aceita revisões sistemáticas, integrativas, ensaios.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - integrative_review
+  - narrative_review
+  - scoping_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - educação
+  - ciência
+  - tecnologia
+  - ensino técnico
+scope:
+  primary_subjects:
+  - Educação
+  - Ciência e Tecnologia
+  excluded_subjects: []

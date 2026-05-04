@@ -1,0 +1,96 @@
+metadata:
+  venue_id: bbms_sbm_springer
+  name: "Bulletin of the Brazilian Mathematical Society"
+  name_pt: "Bulletin of the Brazilian Mathematical Society"
+  publisher: "Sociedade Brasileira de Matemática (SBM) co-publicado com Springer Nature"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q3
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 3290
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: "3290"
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: "https://www.springer.com/journal/574/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://www.springer.com/journal/574/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Bulletin of the Brazilian Mathematical Society é periódico oficial da SBM, co-publicado pela Springer Nature.
+    Nova série desde 2002 (substituiu o Boletim antigo).
+    Qualis A2 PROVÁVEL em Matemática/Probabilidade e Estatística no 2021-2024.
+    Confirmação Sucupira por ISSN 1678-7714 mandatória.
+    HYBRID OA com APC USD 3.290 para Open Choice. Subscription-only se autor não pagar.
+    Tier-3 do esquema OA-first: Springer hybrid alto-custo. FALLBACK declarado.
+    Aceita expository surveys de qualidade excepcional; SLR formal não é tipo padrão.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MSC2020
+  citation_style:
+    format: amsplain
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: optional
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - mathematics
+    - mathematical analysis
+    - algebra
+    - geometry
+    - topology
+
+scope:
+  primary_subjects:
+    - "Matemática Pura"
+    - "Análise"
+    - "Álgebra"
+    - "Geometria"
+    - "Topologia"
+  excluded_subjects: []

@@ -1,0 +1,318 @@
+# Critérios objetivos por área disciplinar
+
+> **Função deste documento.** Listar, por área disciplinar, os critérios objetivos (programaticamente verificáveis) que o `ignorantia` aplica para avaliar adequação de um trabalho à área. Cada área tem reporting guidelines, instrumentos de QA, bases obrigatórias, e expectativas estruturais próprias. **Atenção:** estes critérios são complementares aos critérios gerais (qualquer área) declarados em `quality-rubric.md`.
+
+## Critérios gerais (qualquer área)
+
+Antes dos específicos, repete-se aqui o conjunto **universal**, programaticamente verificável:
+
+1. Pergunta de pesquisa explícita e única (ou conjunto de RQs declarado e numerado).
+2. Lacuna na literatura justificada — não basta "tema importante", precisa "X, Y, Z não cobriram este recorte".
+3. Método reprodutível — descrito com detalhe suficiente para replicação.
+4. Coerência interna — RQs ↔ método ↔ resultados ↔ conclusão alinhados.
+5. Limitações declaradas explicitamente (mínimo 3).
+6. Referencial teórico cita os autores canônicos da área.
+7. Não há afirmação sem fonte (cada claim factual tem citação, exceto observações próprias declaradas).
+8. Tabelas e figuras numeradas, com legenda, e referenciadas no texto.
+9. Citações têm DOI/URL canônica.
+10. Não há citações órfãs.
+11. Língua coerente com norma.
+12. Conflito de interesse declarado.
+13. Fonte de financiamento declarada.
+
+## Áreas e seus critérios específicos
+
+### Engenharia de Software / Ciência da Computação
+
+#### Reporting guidelines
+
+- **Kitchenham & Charters Guidelines** (2007) para SLR em SE.
+- **PRISMA-2020** quando combinado.
+- **ESEM Empirical Standards** para estudos empíricos em SE: https://acmsigsoft.github.io/EmpiricalStandards/
+
+#### Quality appraisal
+
+- **Kitchenham QA1–QA8** (8 questões sobre validade interna, externa, ameaças, replicação)
+- **Dybå & Dingsøyr 11Q** para estudos empíricos em SE
+- **DARE** para revisões anteriores
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Reprodutibilidade computacional | Código + dados disponíveis (GitHub/Zenodo com DOI) |
+| Especificações técnicas detalhadas | Versões de software, hardware, parâmetros |
+| Análise estatística adequada | Teste declarado, p-value reportado, IC, correção múltipla |
+| Linha de base (baseline) explícita | Em estudos comparativos, baseline com referência |
+| Métricas padrão da subárea | ML: accuracy/F1/AUC; HCI: SUS/tempo/erros; Sistemas: throughput/latency |
+
+#### Bases obrigatórias para SLR
+
+- **IEEE Xplore** + **ACM Digital Library** + **dblp** (cobertura primária)
+- **Scopus** OU **Web of Science** (cobertura cross-publisher)
+- Para áreas específicas: arXiv (preprints ML), Google Scholar (cuidado com qualidade)
+
+#### Conferências A* relevantes (substitutos de periódicos)
+
+- **NeurIPS, ICML, ICLR, AAAI, IJCAI** — Machine Learning
+- **CVPR, ICCV, ECCV** — Visão computacional
+- **ACL, EMNLP, NAACL** — NLP
+- **CHI, UIST, CSCW** — HCI
+- **ICSE, FSE, OOPSLA, POPL** — SE / linguagens
+- **SIGGRAPH, SIGGRAPH Asia, EuroVis** — Computação gráfica
+- **OSDI, SOSP, USENIX ATC, NSDI** — Sistemas
+- **SIGMOD, VLDB, ICDE** — Bancos de dados
+
+#### Critérios distintivos para SLR em SE
+
+- Snowballing (Wohlin 2014) frequente, complementando bases.
+- Comprimento típico: 8000-15000 palavras.
+- Discussão de threats: Wohlin et al. 2012 / Kitchenham et al. 2022.
+- Replicação package esperado em venues top.
+
+### Saúde / Medicina
+
+#### Reporting guidelines (obrigatórios por tipo)
+
+- **CONSORT** — Randomized Controlled Trials. https://www.consort-statement.org/
+- **STROBE** — Estudos observacionais (cohort, case-control, cross-sectional). https://www.strobe-statement.org/
+- **PRISMA 2020** — Revisões sistemáticas e meta-análises.
+- **STARD** — Estudos de acurácia diagnóstica.
+- **CARE** — Case reports.
+- **SQUIRE** — Estudos de qualidade.
+- **AGREE** — Diretrizes clínicas.
+- **COREQ** — Estudos qualitativos.
+- **TIDieR** — Descrição de intervenções complexas.
+
+Lista canônica EQUATOR: https://www.equator-network.org/
+
+#### Quality appraisal por tipo
+
+| Tipo de estudo | Instrumento |
+|---|---|
+| RCT | Cochrane RoB-2 |
+| Estudos observacionais | ROBINS-I, Newcastle-Ottawa Scale |
+| Estudos qualitativos | CASP qualitative checklist |
+| Estudos mistos | MMAT |
+| Revisão de revisões | AMSTAR-2 |
+| Acurácia diagnóstica | QUADAS-2 |
+| Estudos de prognóstico | QUIPS, QUAPI |
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Aprovação CEP/CONEP | Resolução CNS 466/2012 ou 510/2016 referenciada |
+| Tamanho amostral | Cálculo de poder estatístico declarado e justificado |
+| Análise estatística | Software declarado, métodos justificados, p-values com IC |
+| GRADE | Para revisões: certeza de evidência avaliada com GRADE |
+| ICMJE compliance | Authorship, AI declaration, CoI, funding |
+| Pré-registro | RCT em ClinicalTrials.gov / ReBEC; SLR em PROSPERO |
+
+#### Bases obrigatórias para SLR
+
+- **PubMed/MEDLINE** + **Cochrane Library** + **Embase** OU **LILACS** (saúde brasileira)
+- **CINAHL** (enfermagem)
+- **Web of Science** + **Scopus** complementares
+
+### Psicologia
+
+#### Reporting guidelines
+
+- **APA Publication Manual** (7ª ed.) — formatação e reporting.
+- **JARS** (Journal Article Reporting Standards) APA — específico para tipos de estudo.
+- **PRISMA 2020** para SLR.
+- **COREQ** para qualitativos.
+- **CONSORT** quando RCT psicossocial.
+
+#### Quality appraisal
+
+- **CASP qualitative checklist** para qualitativos
+- **Quality Assessment Tool for Quantitative Studies** (Effective Public Health Practice Project)
+- **MMAT** para estudos mistos
+- **AMSTAR-2** para revisões
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| APA reporting standards (JARS) | Grupo-alvo, sample size, técnica de seleção, drop-outs |
+| Validade de construto | Discutida explicitamente |
+| Considerações éticas com participantes | Vulneráveis identificados (menores, idosos, PCD) |
+| Validade ecológica vs interna | Discutida |
+| Reflexividade | Em qualitativos: posicionamento do pesquisador declarado |
+
+#### Bases obrigatórias para SLR
+
+- **PsycINFO** (APA) + **Scopus** + **Web of Science** + **PubMed** (quando psi-saúde)
+- Para pt-BR: **PePSIC** + **SciELO BR**
+- **ERIC** quando psicologia educacional
+
+### Educação
+
+#### Reporting guidelines
+
+- **PRISMA 2020** para SLRs.
+- **PRISMA-ScR** para scoping reviews (frequentes em educação).
+- **COREQ** para qualitativos.
+- Sem reporting guideline universal para experimentos educacionais; recomenda-se **CONSORT-EHEALTH** quando intervenção mediada por tecnologia.
+
+#### Quality appraisal
+
+- **CASP** + **AMSTAR-2** para revisões
+- **MMAT** para mistos
+- Em educação, frequentemente adapta-se framework geral
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Contextualização do sistema educacional | Brasileiro (BNCC, LDB) ou internacional declarado |
+| Etapa educacional declarada | Educação infantil, fundamental, médio, superior, EJA |
+| Aprovação CEP | Para estudos com humanos (alunos, professores) |
+| Triangulação metodológica | Em estudos qualitativos |
+
+#### Bases obrigatórias para SLR
+
+- **ERIC** + **Scopus** + **Web of Science**
+- Para pt-BR: **Educ@** + **SciELO BR**
+- Conforme tema: BJET (tecnologia educacional), JESBC (educação científica)
+
+### Humanidades / Ciências Sociais
+
+#### Reporting guidelines
+
+- **PRISMA 2020** quando aplicável (raro, mas crescente).
+- **ENTREQ** para meta-síntese qualitativa.
+- Frequentemente: sem reporting guideline universal; cabe ao autor declarar e justificar metodologia.
+
+#### Quality appraisal
+
+- Adapta-se da literatura qualitativa (CASP qualitative).
+- Para análise documental: critérios de credibilidade, autenticidade, representatividade.
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Referencial teórico explícito | "Mobiliza Foucault como em [Y]" — não basta "Foucault disse" |
+| Posicionamento epistemológico | Positivista? hermenêutico? crítico? feminista? |
+| Categoria analítica | Declarada antes da análise |
+| Diálogo nacional + internacional | Combate à tendência de citar só estrangeiros |
+| Análise crítica | Não meramente descritiva |
+
+#### Bases obrigatórias para SLR
+
+- **JSTOR** + **Web of Science** + **Scopus**
+- Para pt-BR: **SciELO BR** + bases nacionais (BVS, BDTD)
+- Conforme área: ProQuest Dissertations, Project MUSE
+
+### Engenharia (mecânica, civil, química, produção)
+
+#### Reporting guidelines
+
+- **PRISMA 2020** para SLR.
+- **CRediT** taxonomy para autorship.
+- Conforme subárea: ASTM standards, ISO standards relevantes ao tema.
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Especificação técnica detalhada | Materiais, dimensões, condições experimentais |
+| Análise estatística | ANOVA, regressão, design of experiments quando aplicável |
+| Validação experimental | Quando análise teórica/simulação |
+| Reprodutibilidade física | Equipamentos, calibração, condições ambientais |
+| Aderência a normas | ISO, ABNT, ASTM relevantes |
+
+#### Bases obrigatórias para SLR
+
+- **Scopus** + **Web of Science** + **Compendex** (Engineering Village) + **IEEE Xplore** quando elétrica/eletrônica.
+
+### Direito
+
+#### Reporting guidelines
+
+- Sem guideline universal específica.
+- Frequentemente: **monografia argumentativa** com estrutura: introdução + capítulos teóricos + análise + conclusão.
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Argumentação jurídica robusta | Diálogo com a doutrina |
+| Análise de jurisprudência | Quando aplicável, com referências decisórias |
+| Posicionamento próprio do autor | Não meramente descritivo |
+| Diálogo com Direito comparado | Quando relevante |
+| Cobertura ampla da doutrina | Nacional e internacional |
+
+#### Bases obrigatórias
+
+- **Scopus** + **HeinOnline** (internacional) + **SciELO BR** (nacional) + **BDTD** + jurisprudência (Conjur, STF, STJ etc.)
+
+### Química
+
+#### Reporting guidelines
+
+- **PRISMA 2020** para SLR.
+- **CHIRP** para estudos de reactivity.
+- IUPAC nomenclature obrigatória.
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Caracterização de compostos | NMR, MS, IR, X-ray quando aplicável |
+| Reprodutibilidade sintética | Procedimentos detalhados |
+| Pureza declarada | HPLC, GC, etc. |
+| IUPAC nomenclature | Compostos nomeados conforme |
+| Spectra data | Em SI, depositados em repositório quando possível |
+
+#### Bases obrigatórias
+
+- **SciFinder (CAS)** + **Reaxys** + **Web of Science** + **Scopus**.
+
+### Física
+
+#### Reporting guidelines
+
+- **PRISMA 2020** para SLR.
+- arXiv pre-print obrigatório/expectado em vários subcampos.
+
+#### Critérios específicos verificáveis
+
+| Critério | Verificação |
+|---|---|
+| Equacionamento rigoroso | Derivações declaradas |
+| Análise de erro | Quantitativa, declarada |
+| Reprodutibilidade computacional | Código de simulação no GitHub/Zenodo |
+| Notação padrão da subárea | Consistente |
+
+#### Bases obrigatórias
+
+- **arXiv** + **Web of Science** + **Scopus** + **APS PROLA** + **IOP Science**.
+
+## Estrutura para o `ignorantia`
+
+Quando o usuário declara área na Fase 1, o skill carrega contextualmente o subset relevante deste documento e adapta:
+
+- **Reporting guideline obrigatório** para a área.
+- **Quality appraisal instrument** apropriado.
+- **Bases obrigatórias** para a busca.
+- **Critérios verificáveis específicos** para incluir na rubrica.
+
+Áreas multi-disciplinares (e.g., bioinformática = CS + biologia) recebem a união dos critérios das áreas envolvidas.
+
+## Fontes primárias
+
+- EQUATOR Network (catálogo de reporting guidelines): https://www.equator-network.org/
+- CONSORT: https://www.consort-statement.org/
+- STROBE: https://www.strobe-statement.org/
+- PRISMA 2020: https://www.prisma-statement.org/
+- COREQ: https://academic.oup.com/intqhc/article/19/6/349/1791966
+- ENTREQ: https://doi.org/10.1186/1471-2288-12-181
+- APA JARS: https://apastyle.apa.org/jars
+- ESEM Empirical Standards (SE): https://acmsigsoft.github.io/EmpiricalStandards/
+- Kitchenham & Charters Guidelines (2007): https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf
+- Cochrane Handbook: https://training.cochrane.org/handbook
+- AGREE: https://www.agreetrust.org/

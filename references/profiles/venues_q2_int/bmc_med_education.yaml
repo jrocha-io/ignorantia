@@ -1,0 +1,100 @@
+metadata:
+  venue_id: bmc_med_education
+  name: BMC Medical Education
+  name_pt: BMC Medical Education
+  publisher: BMC (Springer Nature)
+  country: GB
+  language_acceptance:
+  - en
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q2
+  sjr_quartile: Q1
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 2890
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: GBP
+  apc_amount_original: '2290'
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: https://bmcmededuc.biomedcentral.com
+  archived_url: https://web.archive.org/web/2026/https://bmcmededuc.biomedcentral.com
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    Q1 SJR Medicine (miscellaneous); Q2 em algumas subáreas Education. JIF 3.2 (2024); SJR 0.947.
+    Fully OA com APC ~USD 2.890 (GBP 2.290 / EUR 2.490). Política de waiver Springer Nature para autores de países de baixa-média renda disponível.
+    Tier 3 sem waiver; Tier 2 efetivo com waiver Springer Nature para autores brasileiros elegíveis.
+    Aceita systematic, scoping, integrative reviews.
+    PRISMA-2020 OBRIGATÓRIO para SLRs; PROSPERO recomendado; COPE; política Springer Nature para IA.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - scoping_review
+  - narrative_review
+  - integrative_review
+  - meta_analysis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: true
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - medical education
+  - health professions education
+  - clinical education
+  - curriculum development
+scope:
+  primary_subjects:
+  - Medical Education
+  - Health Professions Education
+  excluded_subjects: []

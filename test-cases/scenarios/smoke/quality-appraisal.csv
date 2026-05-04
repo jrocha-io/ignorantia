@@ -1,0 +1,5 @@
+study_id,reviewer1_QA1,reviewer1_QA2,reviewer1_QA3,reviewer1_QA4,reviewer1_QA5,reviewer1_total,consensus_QA1,consensus_QA2,consensus_QA3,consensus_QA4,consensus_QA5,consensus_total
+S01,1,1,1,1,1,5,1,1,1,1,1,5
+S02,1,1,1,0.5,1,4.5,1,1,1,0.5,1,4.5
+S03,1,1,1,1,1,5,1,1,1,1,1,5
+S04,1,1,0.5,1,1,4.5,1,1,0.5,1,1,4.5

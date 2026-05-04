@@ -1,0 +1,84 @@
+{
+  "databases": [
+    {
+      "name": "Crossref",
+      "query": "digital literacy older adults",
+      "n_results": 980,
+      "date": "2026-04-29"
+    },
+    {
+      "name": "Crossref",
+      "query": "letramento digital idosos",
+      "n_results": 320,
+      "date": "2026-04-29"
+    },
+    {
+      "name": "Crossref",
+      "query": "gamification older adults learning",
+      "n_results": 540,
+      "date": "2026-04-29"
+    }
+  ],
+  "prisma_2020": {
+    "identification": {
+      "n_records_databases": 1840,
+      "n_records_other": 0,
+      "n_after_dedup": 1247
+    },
+    "screening": {
+      "n_screened": 1247,
+      "n_excluded_screening": 1098
+    },
+    "eligibility": {
+      "n_full_text": 149,
+      "n_excluded_full_text": 126,
+      "exclusion_reasons": {
+        "not population": 42,
+        "not intervention": 38,
+        "wrong study type": 31,
+        "no full text": 15
+      }
+    },
+    "inclusion": {
+      "n_included": 23
+    }
+  },
+  "search_strategies": {
+    "boolean": "(\"digital literacy\" OR \"letramento digital\" OR \"digital skills\" OR \"gamification\") AND (\"older adults\" OR \"elderly\" OR \"idoso*\")",
+    "date_range": "2018-01-01 to 2026-04-29",
+    "languages": [
+      "English",
+      "Portuguese"
+    ]
+  },
+  "per_database": [
+    {
+      "name": "Crossref",
+      "queries": [
+        "(\"digital literacy\" OR \"digital skills\") AND (\"older adults\" OR \"elderly\")",
+        "(\"letramento digital\" OR \"competência digital\") AND (\"idoso*\" OR \"envelhecimento\")",
+        "\"gamification\" AND (\"older adults\" OR \"elderly\") AND learning"
+      ],
+      "n_results": 1840,
+      "date": "2026-04-29"
+    },
+    {
+      "name": "PubMed",
+      "queries": [
+        "(\"digital literacy\"[tiab] OR \"ehealth literacy\"[tiab]) AND (\"aged\"[mesh] OR \"older adults\"[tiab])"
+      ],
+      "n_results": 412,
+      "date": "2026-04-29",
+      "note": "busca planejada — não executada nesta versão (ver L1)"
+    },
+    {
+      "name": "SciELO",
+      "queries": [
+        "\"letramento digital\" AND idoso"
+      ],
+      "n_results": 89,
+      "date": "2026-04-29",
+      "note": "busca planejada — não executada nesta versão"
+    }
+  ]
+}

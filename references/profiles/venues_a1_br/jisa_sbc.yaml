@@ -1,0 +1,100 @@
+metadata:
+  venue_id: jisa_sbc
+  name: "Journal of Internet Services and Applications"
+  name_pt: "Journal of Internet Services and Applications"
+  publisher: "Sociedade Brasileira de Computação (SBC) em cooperação com CGI.br e LARC"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q2
+  sjr_quartile: Q1
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://journals-sol.sbc.org.br/index.php/jisa/about"
+  archived_url: "https://web.archive.org/web/2026/https://journals-sol.sbc.org.br/index.php/jisa/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    JISA migrou da Springer para SBC OpenLib em 2023 — agora publisher 100% brasileiro.
+    A2 PROVÁVEL no Qualis 2021-2024 (área-mãe Ciência da Computação).
+    Documento Qualis CC do IC/Unicamp (2021): "JISA é naturalmente A2".
+    JCR IF 2024 = 2,4; SJR Q1 (Computer Networks).
+    Diamond OA pós-migração SOL/SBC: APC subsidiado por CGI.br, sem cobrança ao autor.
+    Aceita explicitamente surveys e mapping studies (cobertura: redes, cloud, IoT, sistemas distribuídos).
+    Confirmação Sucupira por ISSN 1869-0238 obrigatória antes de uso operacional.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_with_2_reviewers
+    - mapping_study
+    - narrative_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+  methodological_standards_endorsed:
+    - ACM-SIGSOFT-EMPIRICAL
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 300
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+  file_format:
+    accepted: [tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://journals-sol.sbc.org.br/index.php/jisa/about"
+  notes: |
+    Política alinhada à SBC OpenLib — IA com disclosure obrigatório; não pode ser autor.
+
+reproducibility:
+  data_availability_statement: encouraged
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

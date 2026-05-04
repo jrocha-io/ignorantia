@@ -1,0 +1,61 @@
+# Bases e plataformas que NÃO serão implementadas
+
+Este arquivo registra plataformas e bases bibliográficas que a skill ignorantia **NÃO implementa adapters** mesmo após a expansão "premium" da v2.11.0+. Cada entrada inclui razão técnica, decisão de governança que justifica a exclusão, e alternativa funcional disponível na skill.
+
+---
+
+## ResearchGate
+
+| Item | Conteúdo |
+|---|---|
+| **URL** | https://www.researchgate.net |
+| **Cobertura típica** | Auto-arquivamento de PDFs por autores; ~135M papers reivindicados |
+| **API pública?** | Não. RG Developer API descontinuada em 2018. |
+| **ToS** | [Terms of Service](https://www.researchgate.net/terms-of-service) §3.1 proíbe scraping automatizado, "data harvesting", crawling, e uso de bots. |
+| **Razão da exclusão** | DD-6: "Conflito com ToS de plataforma é inaceitável." |
+| **Alternativa funcional** | `search_unpaywall.py` + `search_core.py` + `search_openalex.py` cobrem mesmo conjunto de PDFs auto-arquivados, com identificadores estáveis (DOI, OAI-PMH ID) que RG não fornece. Cobertura agregada > 250M registros (vs ~135M reivindicados RG). |
+
+## Academia.edu
+
+| Item | Conteúdo |
+|---|---|
+| **URL** | https://www.academia.edu |
+| **Cobertura típica** | Auto-arquivamento de PDFs por autores em humanidades/ciências sociais; ~50M papers |
+| **API pública?** | Não. Sem endpoint REST público. |
+| **ToS** | [Terms of Use](https://www.academia.edu/terms) §C proíbe scraping, automated tools, crawlers. Modelo de negócio Academia Premium é incompatível com acesso programático. |
+| **Razão da exclusão** | DD-6: "Conflito com ToS de plataforma é inaceitável." |
+| **Alternativa funcional** | Mesma de ResearchGate. Adicionalmente, `search_jstor_oa.py` + `search_oapen.py` + `search_dialnet.py` cobrem humanidades/ciências sociais. |
+
+---
+
+## O que muda na disclosure user-facing
+
+Quando reviewer/banca pergunta "buscou no ResearchGate / Academia.edu?", a resposta honesta é:
+
+> "Não diretamente, porque ambas as plataformas proíbem acesso programático em seus Termos de Serviço. Buscamos via Unpaywall, CORE e OpenAlex, que indexam os mesmos PDFs auto-arquivados em repositórios institucionais e pessoais, com identificadores estáveis (DOI, OAI-PMH). Cobertura efetiva é ≥ que ResearchGate/Academia individualmente."
+
+Esta é a **única** resposta que mantém boas relações com as plataformas e cumpre rigor metodológico simultaneamente.
+
+---
+
+## Outras plataformas avaliadas e rejeitadas
+
+### Sci-Hub, LibGen
+
+Acesso a paywall via cópia ilegal de PDFs. Violação de copyright. **Não consideradas em hipótese alguma.** Política da skill (CRITICAL_RULES de SKILL.md): "NUNCA burle paywall."
+
+### Wikipedia, Wikidata como adapters de busca
+
+NÃO são adapters de busca por design (DD-11). São fontes de background contextual em `scripts/contextual_preamble.py`, gerando seção "O campo onde este artigo vive" separada da Introdução do paper.
+
+### Twitter/X, LinkedIn (Altmetric sources)
+
+Não são bases bibliográficas; são fontes de attention metrics. Cobertura via `search_dimensions.py` (que agrega Altmetric Score) é suficiente; acesso direto exigiria API empresarial paga e tem ROI questionável.
+
+---
+
+## Histórico
+
+| Data | Versão | Mudança |
+|---|---|---|
+| 2026-05-03 | v2.11.1 | Criação. ResearchGate, Academia.edu registradas como WON'T por DD-6. |

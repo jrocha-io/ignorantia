@@ -1,0 +1,88 @@
+# PRISMA 2020 — Quick reference
+
+PRISMA = Preferred Reporting Items for Systematic reviews and Meta-Analyses, 2020 update (Page MJ et al., BMJ 2021;372:n71). Applies to any SLR that synthesizes evidence about effects, prevalence, diagnostic accuracy, or other empirical questions. The official site is https://www.prisma-statement.org/.
+
+## The 27-item checklist (condensed)
+
+Items the manuscript MUST report. Numbers correspond to the official PRISMA 2020 checklist.
+
+### Title and abstract
+1. **Title** identifies the report as a systematic review.
+2. **Abstract** structured per PRISMA-Abstract: background, methods (eligibility, sources, methods of synthesis), results, discussion, registration.
+
+### Introduction
+3. **Rationale** for the review in the context of existing knowledge.
+4. **Objectives** stated as PICO (or analogue).
+
+### Methods
+5. **Eligibility criteria** with rationale; specify any unusual exclusions.
+6. **Information sources**: every database, register, website, hand-search source, with the date of last search per source.
+7. **Search strategy**: full search strings for every database, including filters and limits. Reproducibility hinges on this.
+8. **Selection process** with number of reviewers and how disagreements were resolved.
+9. **Data collection process**: same — reviewers, automation tools, contact with study authors.
+10. **Data items**: outcomes, definitions, time points, all variables sought.
+11. **Study risk-of-bias assessment**: tool used (e.g., RoB-2, ROBINS-I, JBI), reviewers, automation.
+12. **Effect measures** (RR, OR, mean difference, etc.) used in synthesis.
+13. **Synthesis methods**: how studies were grouped; statistical methods including software; heterogeneity and sensitivity analyses.
+14. **Reporting bias assessment** (e.g., funnel plots, Egger's test).
+15. **Certainty assessment** (e.g., GRADE).
+
+### Results
+16. **Study selection**: numbers at each stage (identification, screening, eligibility, inclusion). **Use the PRISMA flow diagram.**
+17. **Study characteristics** in a table.
+18. **Risk of bias in studies**: present results.
+19. **Results of individual studies**.
+20. **Results of syntheses**: per outcome, including heterogeneity, sensitivity.
+21. **Reporting bias** in syntheses.
+22. **Certainty of evidence** per outcome.
+
+### Discussion
+23. **Discussion**: interpretation, limitations of evidence, limitations of the review process.
+
+### Other
+24. **Registration and protocol** reference (PROSPERO, OSF, Zenodo DOI).
+25. **Support** and funding.
+26. **Competing interests**.
+27. **Availability** of data, code, materials.
+
+## PRISMA flow diagram structure
+
+Two parallel columns: "Identification" and "Screening". Required boxes:
+
+```
+Identification
+    Records identified from databases (n = X)
+    Records identified from other sources (n = Y)
+
+After deduplication: n = A
+
+Screening
+    Records screened (n = A)
+    Records excluded after title/abstract (n = B)
+    Reports sought for retrieval (n = A − B)
+    Reports not retrieved (n = C)
+    Reports assessed for eligibility (n = A − B − C)
+    Reports excluded with reasons (n = D, list reasons + counts)
+
+Included
+    Studies included in review (n = A − B − C − D)
+    Reports of included studies (n = ...)
+```
+
+The official template SVG is at https://www.prisma-statement.org/prisma-2020-flow-diagram. Our `scripts/prisma_flow.py` generates it from `searches.json` + `screening.csv`.
+
+## Pre-registration
+
+PRISMA 2020 strongly recommends pre-registration. Options:
+
+- **PROSPERO** (https://www.crd.york.ac.uk/prospero/) — free, for health-related reviews.
+- **OSF Registries** (https://osf.io/registries) — any field.
+- **Zenodo** (https://zenodo.org/) — versioned DOI for the protocol document, suitable for any field. Use this if PROSPERO/OSF aren't a fit.
+
+## Differences from PRISMA 2009
+
+If the user references "PRISMA" generically, use 2020. Key changes:
+- Expanded reporting of search strategies (full strings, not just "we searched X databases").
+- Explicit reporting of automation tools.
+- New items on certainty of evidence (GRADE).
+- New flow diagram template with clearer reasons-for-exclusion column.

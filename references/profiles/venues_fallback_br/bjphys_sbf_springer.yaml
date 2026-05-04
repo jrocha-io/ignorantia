@@ -1,0 +1,99 @@
+metadata:
+  venue_id: bjphys_sbf_springer
+  name: "Brazilian Journal of Physics"
+  name_pt: "Brazilian Journal of Physics"
+  publisher: "Sociedade Brasileira de Física (SBF) co-publicado com Springer Nature"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q3
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 3290
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: "3290"
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: "https://www.springer.com/journal/13538/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://www.springer.com/journal/13538/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Brazilian Journal of Physics (BJP) é periódico oficial da SBF, co-publicado pela Springer Nature desde 2010.
+    Qualis A2 PROVÁVEL em Astronomia/Física no 2021-2024.
+    Confirmação Sucupira por ISSN 1678-4448 mandatória.
+    HYBRID OA com APC USD 3.290 para Open Choice. Subscription-only se autor não pagar.
+    Tier-3 do esquema OA-first: Springer hybrid alto-custo. FALLBACK declarado.
+    Distinto da RBEF (Revista Brasileira de Ensino de Física), que é diamond mas área-mãe Ensino.
+    Aceita review articles e topical reviews; SLR formal não é tipo padrão.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: PACS
+  citation_style:
+    format: numeric
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - physics
+    - condensed matter
+    - particle physics
+    - statistical mechanics
+    - quantum
+
+scope:
+  primary_subjects:
+    - "Física"
+    - "Matéria Condensada"
+    - "Física de Partículas"
+    - "Mecânica Estatística"
+  excluded_subjects: []

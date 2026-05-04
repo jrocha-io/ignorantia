@@ -1,0 +1,101 @@
+metadata:
+  venue_id: jbcs_sbc
+  name: "Journal of the Brazilian Computer Society"
+  name_pt: "Jornal da Sociedade Brasileira de Computação"
+  publisher: "Springer / Sociedade Brasileira de Computação"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q3
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 1990
+  submission_system: editorial_manager
+  source_url: "https://journal-bcs.springeropen.com/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://journal-bcs.springeropen.com/submission-guidelines"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - mapping_study
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - SIGSOFT-EMP-STANDARDS
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+note_qualis: "Reportado historicamente como A2 (não A1) no quadriênio 2017-2024. Incluído por escassez relativa de A1 brasileiros em CS/SE; representa o topo viável do estrato brasileiro neste subgrupo."
+
+hard_requirements:
+  length:
+    unit: words
+    max: 14000
+    excludes: [abstract, references]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 20
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: ACM-CCS-2012
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Background
+    - Methods
+    - Results
+    - Discussion
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: major
+    - id: data_availability
+      severity: major
+    - id: orcid_corresponding_only
+      severity: major
+  file_format:
+    accepted: [docx, tex]
+    template_url: "https://www.springer.com/journal/13173/submission-guidelines"
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - software engineering
+    - computer science
+    - distributed systems
+    - artificial intelligence
+    - human-computer interaction
+    - software systems
+  out_of_scope_keywords:
+    - clinical medicine
+    - educational research without computational component
+
+scope:
+  thesaurus_descriptors:
+    - "Software and its engineering [ACM CCS]"
+    - "Computing methodologies [ACM CCS]"
+    - "Information systems [ACM CCS]"
+  areas_qualis:
+    - "Ciência da Computação (área 1)"

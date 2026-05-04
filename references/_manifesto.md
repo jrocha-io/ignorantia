@@ -1,0 +1,45 @@
+# A finalidade real do `ignorantia`
+
+> *"A ignorância afirma ou nega veementemente; a ciência duvida."*  — Voltaire
+
+## Para que serve este skill
+
+`ignorantia` existe para o usuário **aprender com profundidade** sobre um assunto, não para gerar publicações. O nome é deliberadamente irônico: confessa que o trabalho começa em ignorância (a do usuário, declarada de saída) e que a IA, ao construir a primeira versão sozinha, opera em outro tipo de ignorância — a da máquina que não sabe fazer ciência sem mediação humana.
+
+A finalidade é que o usuário **termine sabendo profundamente** sobre o tema. Quem termina o processo:
+
+1. Conhece o estado-da-arte do tema, com base em literatura primária, não em opinião.
+2. Sabe o que não está respondido, o que está em disputa, o que é consenso.
+3. Sabe quais autores, grupos e instituições conduzem a pesquisa relevante.
+4. Sabe, por método e não por intuição, distinguir literatura de qualidade de literatura ruim.
+5. Sabe o que **ele mesmo precisa fazer** se quiser publicar de verdade — porque o `avaliacao.html` mostra exatamente quão longe a primeira versão está dos padrões.
+
+## Por que rigor metodológico se a finalidade é só aprender?
+
+Porque **aprender mal é pior que não aprender**. Construir um relato sobre um tema sem método produz uma narrativa convincente que pode estar errada. PRISMA, quality appraisal, declaração de IA, citação correta — não são burocracia: são as **garantias mínimas** de que o conhecimento absorvido tem fundamento.
+
+O rigor científico aqui serve à **honestidade epistêmica**: se você usa este skill, sai sabendo o que sabe e (mais importante) o que não sabe.
+
+## "Aprender com ignorância (brutalidade)"
+
+A ironia do nome aponta para uma verdade desconfortável: muito do que se chama de "pesquisa acadêmica" é feito com brutalidade — copy-paste, citação descuidada, quality appraisal omitido, IA usada para tarefas que são prerrogativa do pesquisador. O skill **não esconde isso**. Ele faz a primeira versão com método, e então diz ao usuário, claramente, **onde houve atalho** e **onde a banca/revisor humano vai cobrar trabalho real**.
+
+Por isso o `ai-use-honest-disclosure.md` é central: ele lista o que **a IA não pode fazer pelo usuário** (decisão de critérios, triagem efetiva, juízo de qualidade, síntese interpretativa, discussão crítica, conclusões) e convida o usuário a "honrar sua participação" — pegar essas partes e fazer pessoalmente, com a IA como apoio, não como substituta.
+
+## Posição em relação à "onda negacionista" sobre cientistas
+
+Há, na cultura contemporânea, um movimento de descredibilizar cientistas chamando-os de "ignorantes". `ignorantia` resgata o termo no sentido **socrático**: o ponto de partida do conhecimento é reconhecer que não se sabe. Cientistas são bons justamente porque **operam dentro do que sabem que não sabem** — método é a forma de combater isso, não negação.
+
+O skill ensina, na prática, esse modo de pensar. Quem usa `ignorantia` aprende não só sobre o tema, mas sobre **como cientistas pensam**: declaração de limitações, confiança calibrada, distinção entre o que está provado e o que é hipótese.
+
+## Como o skill se comporta em coerência com isso
+
+1. **A Fase 1 é pedagógica, não burocrática.** Cada pergunta vem com a razão metodológica. Se o usuário não responde, o skill decide — mas explica que essa decisão é dele se quiser, e essa é a oportunidade de aprender.
+2. **Cada artefato gerado tem aviso explícito.** "Este trabalho foi conduzido pela IA com supervisão humana; não destinado a submissão sem revisão substancial."
+3. **O HTML interativo é ferramenta de aprendizado.** Resumos por seção, marca-textos de claims, anotações de auditoria, drawers com extração — tudo pensado para **navegação cognitiva**, não para impressão de revisor.
+4. **A avaliação é pedagógica.** Não é "score para publicar". É "este é o estado do que você construiu junto com a IA; estes são os padrões pelos quais comunidade científica julga; veja a distância e o que falta."
+5. **O skill não esconde o que a IA fez.** Declaração de uso de IAG é central, com lista granular de etapas. Quando uma etapa que deveria ser humana foi delegada, o skill registra e o avaliacao sinaliza.
+
+## Em uma frase
+
+`ignorantia` é uma ferramenta para o usuário **sair menos ignorante** sobre um assunto, com **honestidade brutal** sobre o que aprendeu, o que falta aprender, e quanto do trabalho ainda precisa ser **propriamente seu** se ele quiser tornar isso publicação real.

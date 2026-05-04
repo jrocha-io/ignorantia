@@ -1,0 +1,151 @@
+metadata:
+  venue_id: f1000research
+  name: "F1000Research"
+  name_pt: "F1000Research"
+  publisher: "F1000 (Taylor & Francis Group)"
+  country: GB
+  language_acceptance: [en]
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: null  # F1000Research model é distinto — não recebe IF tradicional para todos os artigos; varia por tipo
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 1595
+  apc_currency: USD
+  apc_year: 2026
+  apc_varies_by_article_type: true
+  apc_notes: |
+    APC varia por tipo de artigo:
+    - Research Articles, Methods, Reviews, Systematic Reviews, Software Tool Articles, Case Reports: ~$1595
+    - Brief Reports, Data Notes, Study Protocols, Posters, Slides: ~$795
+    - Updates a artigos publicados: $500/update (revisões em resposta a peer review são gratuitas).
+    Reviewers da F1000Research recebem 20% de desconto em uma submissão dentro de 12 meses.
+  apc_waivers: |
+    Waiver completo para autores em low-income economies (World Bank list).
+    Brasil = upper-middle income, sem waiver automático.
+  submission_system: f1000_native
+  source_url: "https://f1000research.com/for-authors/article-processing-charges"
+  archived_url: "https://web.archive.org/web/2026/https://f1000research.com/for-authors/article-processing-charges"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    F1000Research tem MODELO DE PEER REVIEW DIFERENTE: publicação imediata após
+    pre-publication checks editoriais, peer review aberto e PÓS-publicação.
+    Reviewers são nomeados publicamente; reviews são publicados junto com o artigo.
+    Status indexação:
+    - Imediato: Google Scholar, CrossRef, DOAJ
+    - Após aprovação peer review (≥2 Approved OU 1 Approved + 2 Approved with Reservations):
+      indexação em PubMed, PMC, MEDLINE, Europe PMC, Scopus, Embase
+    Modelo é especialmente útil para:
+    - Software Tool Articles (alternativa ao JOSS quando JOSS não aceita)
+    - Systematic Reviews com publicação rápida
+    - Registered Reports (50% off APC para Stage 2 se Stage 1 já publicado)
+    - Method Articles
+    - Negative results / null findings (raramente aceitos em journals tradicionais)
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - scoping_review
+    - rapid_review
+    - meta_analysis
+    - integrative_review
+    - realist_review
+    - software_paper
+    - position_paper
+    - technical_report
+    - qualitative_synthesis
+  recommended_for_layer: all
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - PRISMA-ScR
+    - PRISMA-RR
+  primary_subject_areas:
+    - "Multi-disciplinary"
+    - "Biomedicine"
+    - "Software / Methods"
+    - "Open Science"
+
+length_constraints_doc: |
+  Sem limite rígido; SRs típicas 4000-8000 palavras; Software Tool Articles 1500-4000.
+
+hard_requirements:
+  length:
+    unit: words
+    max: null
+    min: null
+    excludes: [abstract, references, tables, figures, supplementary]
+    review_type_specific:
+      software_paper: {max: 4000, min: 1500, unit: words}
+      systematic_review_with_2_reviewers: {max: 8000, unit: words}
+  abstract:
+    max_words: 300
+    structured: false
+  title:
+    max_words: 30
+  keywords:
+    min: 3
+    max: 10
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: data_availability
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: major
+    - id: trial_registration
+      severity: major
+    - id: ethics_approval
+      severity: major
+    - id: prospero_registration
+      severity: minor
+      detection_anchors: ["CRD\\d{6,9}", "PROSPERO"]
+  file_format:
+    accepted: [docx, tex, pdf]
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://f1000research.com/for-authors/policies"
+  notes: |
+    F1000Research exige disclosure de uso de IA em todos os artigos.
+    Aceita drafting com IA com transparência total. AI não pode ser autor.
+
+reproducibility:
+  data_availability_statement: required
+  code_availability_statement: required
+  preprint_policy: native
+  registration_required_for_clinical_trials: true
+  registered_reports_supported: true
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: true
+  apc_waiver_for_brazil: false
+  alternative_to_paywall_for_area: true
+  open_peer_review: true

@@ -1,0 +1,97 @@
+metadata:
+  venue_id: rbe_anped
+  name: "Revista Brasileira de Educação"
+  name_pt: "Revista Brasileira de Educação"
+  publisher: "Associação Nacional de Pós-Graduação e Pesquisa em Educação (ANPEd)"
+  country: BR
+  language_acceptance: [pt, en, es, fr]
+  qualis_stratum: A1
+  qualis_subarea: Educacao
+  jcr_quartile: null
+  sjr_quartile: Q4
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://submission.scielo.br/index.php/rbedu/about/submissions"
+  archived_url: "https://web.archive.org/web/2026/https://submission.scielo.br/index.php/rbedu/about/submissions"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - scoping_review
+    - narrative_review
+    - mapping_study
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-ScR
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: characters_with_spaces
+    min: 40000
+    max: 70000
+    excludes: []
+  abstract:
+    max_chars: 1000
+    structured: false
+  title:
+    max_words: 16
+  keywords:
+    min: 3
+    max: 5
+    controlled_vocabulary: Thesaurus-BR-Educacao
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+    - Introdução
+    - Metodologia
+    - Resultados
+    - Discussão
+    - Referências
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: orcid_all_authors
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [docx, doc]
+  authorship:
+    icmje_required: false
+    orcid_required: all
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - educação
+    - políticas educacionais
+    - história da educação
+    - sociologia da educação
+    - filosofia da educação
+    - pesquisa em educação
+  out_of_scope_keywords:
+    - clinical medicine
+    - hard sciences only
+
+scope:
+  thesaurus_descriptors:
+    - "Educação"
+    - "Políticas Educacionais"
+    - "Pesquisa Educacional"
+  areas_qualis:
+    - "Educação (área 38)"

@@ -6,41 +6,217 @@
 
 **Estado quantitativo:** 62 adapters de busca · 57 TIER1_RUNNERS · 7 áreas · 16 paywall com cascata legal · 6 etapas no pipeline_finalize · 13 DDs (todas implementadas) · 33 decisões editoriais · 359+ testes regressão verde.
 
-Ver `SKILL.md` para entry point ao Claude, `CHANGELOG.md` para histórico SemVer, `journal.txt` para log cronológico de desenvolvimento, e `references/` para documentação operacional (decisões editoriais, modos hierárquicos, perfis de venues, auditorias iterativas, plano v3.0.0).
-
 ## O que é
 
 `ignorantia` é uma skill executada pelo Claude (Anthropic) que conduz uma SLR completa, do protocolo pré-registrado ao manuscrito final. O ponto de partida é a **ignorância declarada do usuário** sobre um tema — o resultado é um artigo do mais alto nível, reprodutível e auditável.
 
-## Arquitetura (v2.23.0)
+Diferenciais:
 
-- **Domain-aware**: 7 áreas (saúde, educação, cs_se, ciências sociais, humanidades, business, multi).
-- **62 adapters de busca** com schema canônico unificado (mock = real, source_tier Liskov-conforme).
-- **6 etapas pipeline** com registry Open/Closed (`PIPELINE_STEPS`).
-- **3 renderers**: chunks (canônico, HTML interativo D3), docx (ABNT), latex (PDF).
-- **Cascata paywall legal**: KEY → PROXY → FALLBACK_MD → MOCK em 16 adapters premium.
-- **Decisão 22 (reproducibility manifest)** + **DD-10 (logs em duas camadas)**.
+- **PRISMA-2020 executado, não citado.** Flow diagram com números reais, quality appraisal CASP/DARE para cada estudo, extração tabulada — todos artefatos saem do pipeline.
+- **HTML interativo auto-contido.** Saída primária com gráficos D3.js, tabelas filtráveis, anotações estilo professor, dark mode, e referências clicáveis.
+- **Cobertura premium via cascata legal (v2.15.0).** 16 adapters paywall (Scopus, WoS, ScienceDirect, Embase, Springer, Wiley TDM, IEEE Xplore, APA PsycInfo, EBSCO CINAHL, JSTOR, Sage, ACM, SSRN, Hein Online, ProQuest, Google Scholar via SerpApi) com cascata `KEY → PROXY → FALLBACK_MD → MOCK`. Sem credencial, gera `citations_to_obtain_<base>.md` com 4 opções de obtenção (CAPES, biblioteca, autor, COMUT).
+- **Logs em duas camadas (v2.17.0).** Camada 1 (adapter): `fetched`/`kept_after_local_filter`/`discarded_local` em JSON Lines automático. Camada 2 (screening): 3 estágios PRISMA-2020 (`title`/`abstract`/`full_text`) com CSV auditável reviewer-by-reviewer.
+- **Preâmbulo contextual Wikipedia/Wikidata (v2.18.0).** Seção "O campo onde este artigo vive" distinta da Introdução, para audiência leiga (banca multidisciplinar, white paper). Citações ABNT NBR 10520 com data de acesso.
+- **Sprint Badge calibrado empiricamente** em 187 SLRs reais (Plataforma Sucupira CAPES Qualis 2021-2024). Classifica o pacote em A1/A2/A3/B1 ou SUB-B1, com precision Q1 = 97.6% no modo pacote mínimo.
+- **SemVer imutável.** Cada saída é uma versão fechada. Versões antigas permanecem como registro histórico.
+- **Compliance acadêmica completa.** Portaria CNPq 2.664/2026, COPE, ICMJE, LGPD, CEP/CONEP, declarações obrigatórias de uso de IA.
+
+## Quickstart
+
+Em 5 linhas, do tema à avaliação:
+
+```bash
+# 1. Construir o pacote (manualmente ou via Claude)
+# 2. Avaliar
+python3 scripts/assessor/main.py \
+    --package-dir meu-pacote/ \
+    --content meu-pacote/content.json \
+    --extraction meu-pacote/extraction.csv \
+    --qa meu-pacote/quality-appraisal.csv \
+    --searches meu-pacote/searches.json \
+    --html meu-pacote/manuscript.html \
+    --version 1.0.0 --topic-slug meu-tema --area-slug edu \
+    --lang pt-BR \
+    --out avaliacao.json
+
+# 3. Renderizar HTML final
+python3 scripts/render_v2.py \
+    --content meu-pacote/content.json \
+    --assessment avaliacao.json \
+    --extraction meu-pacote/extraction.csv \
+    --qa meu-pacote/quality-appraisal.csv \
+    --searches meu-pacote/searches.json \
+    --prisma meu-pacote/prisma-flow.svg \
+    --version 1.0.0 --topic-slug meu-tema \
+    --out manuscript.html
+```
+
+O Sprint Badge aparece no HTML como pill colorida com tooltip detalhado.
+
+## Fluxo de trabalho (8 fases)
+
+1. **Entrevista de escopo** — captura tema, idioma, modalidade, janela temporal, tipos de estudo, acesso institucional, venue-alvo, vínculo a financiador.
+2. **Protocolo pré-registrado** — `protocol-v<X.Y.Z>.md` validado pelo usuário antes de qualquer busca.
+3. **Execução das buscas** — Crossref, OpenAlex, Europe PMC, Unpaywall (gratuitas) + Scopus/WoS/IEEE Xplore via proxy institucional legítimo.
+4. **Deduplicação e screening** — DOI > arXiv ID > título+autor+ano. Decisões registradas.
+5. **Quality appraisal** — CASP/DARE para todos. Kitchenham QA1-QA8 se SE/CS.
+6. **Extração** — formulário pré-definido.
+7. **Síntese e HTML interativo** — narrativa-temática por RQ, gráficos D3.js, anotações estilo professor.
+8. **Avaliação automática + sugestão de venues + empacotamento** — `avaliacao_v<X.Y.Z>.md` + Sprint Badge + 3-5 venues sugeridos + ZIP final para Zenodo.
+
+## Sprint Badge — calibração empírica
+
+O Sprint Badge classifica o pacote em estratos Qualis brasileiros. **No escopo deste skill, apenas A1, A2, A3 e B1 são reconhecidos** — os estratos A4, B2, B3, B4 e C existem na Plataforma Sucupira mas estão fora da cobertura empírica do corpus de calibração.
+
+Dois modos:
+
+- **`texto_integral` (default):** 9 faixas finas (C, B4, B3, B2, B1, A4, A3, A2, A1), calibradas em 4 cenários canônicos. Validação empírica em FT real ainda pendente (planejada para Rodada S).
+- **`pacote_mínimo` (auto-detect ou opt-in):** 3 faixas (SUB-Q4, Q2-Q3, Q1), calibradas empiricamente em 187 SLRs reais (Rodada N). Precision Q1 = 97.6%.
+
+Detector heurístico v0 marca um pacote como mínimo quando ≥2 dos 4 sinais são detectados:
+1. `ai_declaration` menciona Crossref/OpenAlex/metadata
+2. `background_html` contém placeholder "não extraído" / "not extracted"
+3. ≥70% das references sem DOI
+4. `not_this_version_items` menciona metadata
+
+Override via flag CLI: `--minimal-package=auto|yes|no`.
+
+Documentação técnica completa em `references/whitepaper-sprint-badge-calibration.md`.
+
+## Três exemplos de uso
+
+### 1. Pipeline completo (do protocolo ao ZIP final)
+
+Use o Claude com a skill ativa. Diga:
+
+> "Quero fazer uma revisão sistemática sobre [tema]. PRISMA-2020, manuscrito em pt-BR, janela 2018-2026."
+
+O Claude conduz a entrevista de escopo, gera o protocolo, executa as buscas, faz screening, quality appraisal, extração, síntese, e empacota tudo.
+
+### 2. Apenas avaliação de um pacote já construído
+
+Você tem um pacote SLR (próprio ou de terceiro) e quer avaliá-lo:
+
+```bash
+python3 scripts/assessor/main.py \
+    --package-dir caminho/ \
+    --content caminho/content.json \
+    --extraction caminho/extraction.csv \
+    --qa caminho/quality-appraisal.csv \
+    --searches caminho/searches.json \
+    --html caminho/manuscript.html \
+    --version 1.0.0 --topic-slug topico --area-slug edu \
+    --lang pt-BR \
+    --out avaliacao.json
+```
+
+Saída: JSON com nota Conteúdo (0-10), letra Forma (A-E), Sprint Badge (faixa Qualis), eliminadores verificados, auditoria forense, e lista priorizada do que falta para nota 10.
+
+### 3. Em lote (calibração ou benchmark)
+
+Para rodar o pipeline em N pacotes (ex.: corpus de calibração):
+
+```bash
+python3 scripts/run_calibration_batch.py \
+    --packages /tmp/calibration_packages \
+    --workers 4 \
+    --out /tmp/batch_results.json
+```
+
+(Disponível a partir da Rodada S2.)
+
+## Estrutura do projeto
+
+```
+ignorantia/
+├── SKILL.md                      # Entry point para o Claude
+├── README.md                     # Este arquivo (para usuários humanos)
+├── journal.txt                   # Log de desenvolvimento
+├── scripts/
+│   ├── assessor/                 # Pipeline de avaliação
+│   │   ├── main.py               # Orquestração
+│   │   ├── eliminators.py        # E1-E15
+│   │   ├── rubric.py             # C1-C7 + F1-F7
+│   │   ├── sprint_badge.py       # Calibração Qualis
+│   │   ├── temperature.py        # T1-T4
+│   │   ├── audit.py              # Forense A1-A7
+│   │   ├── venues.py             # Verificação de venues
+│   │   ├── plagiarism.py         # Plágio camada 1
+│   │   └── visual_aids.py        # TLDR cards, grifos, marca-texto
+│   ├── render_v2.py              # Geração do HTML interativo
+│   ├── slr_to_package.py         # Conversor SLR → pacote (calibração)
+│   ├── searches/                 # Ferramentas auxiliares de busca
+│   │   ├── README.md
+│   │   ├── search_arxiv.py
+│   │   ├── search_crossref.py
+│   │   ├── search_dblp.py
+│   │   ├── search_scielo.py
+│   │   └── search_semantic_scholar.py
+│   ├── deduplicate.py
+│   └── prisma_flow.py
+├── assets/
+│   └── templates/
+│       ├── manuscript-template-v2.html
+│       ├── protocol.md
+│       ├── extraction-form.md
+│       └── quality-appraisal.md
+├── references/                   # Documentação operacional
+│   ├── whitepaper-sprint-badge-calibration.md
+│   ├── calibration-corpus.json
+│   ├── venue-stratum-mapping.json
+│   ├── calibrations/             # Histórico por versão
+│   ├── archived/                 # Versões obsoletas mantidas
+│   └── round-J-final-report.md, round-L, round-M, round-N
+└── test-cases/                   # Fixtures de regressão
+    ├── content_h.json
+    ├── corpus_25.json
+    └── calibration/
+```
+
+## Cenários canônicos de regressão
+
+A pipeline tem 4 cenários de teste preservados em `test-cases/`:
+
+| Cenário | Versão | Conteúdo | Forma | Sprint Badge esperado |
+|---|---|---|---|---|
+| smoke (pacote vazio) | 1.0.0 | 0.0 | E | 🚫 NÃO-CLASSIFICÁVEL |
+| corpus 18+ realista | 1.0.0 | 7.2 | A | B1 |
+| ghostwriter v0.1.0 | 0.1.0 | 3.7 | A | ⚠️ SUB-B4 |
+| Caso H (letramento idosos) | 1.0.0 | 6.3 | D | B3 |
+
+Validação automática via `python3 scripts/assessor/main.py --self-test` (a partir da Rodada Q5).
 
 ## Princípios
 
-- **Honestidade epistêmica**: skill nunca inventa dados; falhas são declaradas.
-- **Rigor metodológico**: PRISMA-2020 executado, não apenas citado.
-- **Imutabilidade SemVer**: cada saída é versão fechada.
-- **Auditabilidade total**: toda referência tem link clicável; manifest reproducibility versiona dependências e fixtures.
-- **Engajamento do leitor**: forma e fundo importam — HTML interativo com gráficos D3.js, filtros, anotações, dark mode.
-
-## Plano v3.0.0
-
-Clean Architecture/DDD/bounded contexts/ports & adapters detalhado em `references/V3_ARCHITECTURE_PLAN.md`. TDD estrito, mypy --strict, cobertura ≥90% em domain. Cowork adiado para v4.
-
-## Manual de auditoria
-
-`references/audits/AUDIT_PROCEDURE.md` documenta 27 dimensões de erro em 7 camadas (correção, convenções, especificação, reprodutibilidade, compatibilidade, segurança, lifecycle). Auditoria sistemática que substitui ~5 rodadas improvisadas.
+- **Honestidade epistêmica.** O skill não inventa dados. Se uma busca falhou, declara a falha.
+- **Rigor metodológico.** PRISMA-2020 é executado, não citado.
+- **Imutabilidade.** Cada versão SemVer é fechada. Não se edita versão publicada.
+- **Auditabilidade.** Toda referência tem link clicável para fonte primária.
+- **Engajamento do leitor.** Forma e fundo importam.
 
 ## Licença
 
-CC-BY-4.0 (default).
+CC-BY-4.0 (default; confirmado com usuário no Fase 1).
 
 ## Citação sugerida
 
-> Skill `ignorantia` v2.23.0 (2026). Anthropic Claude. Sprint formal de calibração empírica documentado em `references/whitepaper-sprint-badge-calibration.md`.
+Se você usar `ignorantia` em pesquisa publicada:
+
+> Skill `ignorantia` v2.0.0-alpha25 (2026). Anthropic Claude. Sprint formal de calibração empírica realizado em 187 SLRs reais. Whitepaper técnico em `references/whitepaper-sprint-badge-calibration.md`.
+
+## Histórico de versões
+
+Cada versão tem um relatório dedicado em `references/round-X-final-report.md`. O sprint formal completo (Rodadas J a P) está documentado no whitepaper. Veja `journal.txt` para o log cronológico de desenvolvimento.
+
+## Suporte e contribuição
+
+Este projeto é uma skill desenvolvida em colaboração entre o usuário e o Claude (Anthropic). Para questões metodológicas, consulte primeiro:
+
+- `SKILL.md` — fonte da verdade para o comportamento do skill
+- `references/whitepaper-sprint-badge-calibration.md` — método de calibração
+- `references/round-*-final-report.md` — relatórios das rodadas
+
+Para problemas técnicos no pipeline, verifique:
+
+- `journal.txt` — log de mudanças
+- `tests/test_regression.py` — testes de regressão (a partir da Rodada Q5)

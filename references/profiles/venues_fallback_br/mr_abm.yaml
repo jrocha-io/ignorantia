@@ -1,0 +1,97 @@
+metadata:
+  venue_id: mr_abm
+  name: "Materials Research"
+  name_pt: "Materials Research — Ibero-American Journal of Materials"
+  publisher: "Associação Brasileira de Metalurgia, Materiais e Mineração (ABM)"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 1800
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: "1800"
+  fallback_tier: 2
+  submission_system: ojs
+  source_url: "https://www.scielo.br/journal/mr/instructions/"
+  archived_url: "https://web.archive.org/web/2026/https://www.scielo.br/journal/mr/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Materials Research é periódico oficial da ABM (Associação Brasileira de Metalurgia, Materiais e Mineração).
+    Qualis A2 PROVÁVEL em Engenharias II (Materiais/Metalúrgica) no 2021-2024.
+    Confirmação Sucupira por ISSN 1980-5373 mandatória.
+    Open access via SciELO MAS COBRA APC USD 1.800.
+    Tier-2 do esquema OA-first: APC modesto (≤USD 2.000), publisher comunitário científico (ABM).
+    Aceita review articles em ciência dos materiais; SLR formal não é tipo padrão.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed:
+    - SciELO
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 20
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Materials and Methods
+    - Results and Discussion
+    - Conclusions
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [docx, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - materials science
+    - metallurgy
+    - composites
+    - nanomaterials
+    - characterization
+
+scope:
+  primary_subjects:
+    - "Ciência dos Materiais"
+    - "Engenharia Metalúrgica"
+    - "Engenharia de Materiais"
+  excluded_subjects: []

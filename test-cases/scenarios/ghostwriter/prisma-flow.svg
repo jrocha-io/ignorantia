@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="728" viewBox="0 0 860 728">
+<defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3"
+                orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#222"/>
+        </marker>
+    </defs>
+<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Identification</text>
+<rect x="60" y="44" width="360" height="152" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="68" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records identified from databases</text>
+<text x="240.0" y="84" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Total: n = 1399</text>
+<text x="240.0" y="100" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">arXiv: n = 87</text>
+<text x="240.0" y="116" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Semantic Scholar: n = 412</text>
+<text x="240.0" y="132" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">dblp: n = 156</text>
+<text x="240.0" y="148" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Crossref: n = 234</text>
+<text x="240.0" y="164" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">IEEE Xplore: n = 198</text>
+<text x="240.0" y="180" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Scopus: n = 312</text>
+<rect x="460" y="44" width="360" height="88" fill="#fafaf0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="68" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records identified from other sources</text>
+<text x="640.0" y="84" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Total: n = 31</text>
+<text x="640.0" y="100" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Snowballing: n = 23</text>
+<text x="640.0" y="116" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Hand-search: n = 8</text>
+<rect x="60" y="218" width="360" height="56" fill="#eef2f7" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="242" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records after deduplication</text>
+<text x="240.0" y="258" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 743</text>
+<line x1="240.0" y1="196" x2="240.0" y2="218" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="20" y="290" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Screening</text>
+<rect x="60" y="296" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="320" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records screened (title/abstract)</text>
+<text x="240.0" y="336" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 743</text>
+<line x1="240.0" y1="274" x2="240.0" y2="296" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="296" width="360" height="104" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="320" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Excluded after T/A: n = 612</text>
+<text x="640.0" y="336" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Off-topic: n = 380</text>
+<text x="640.0" y="352" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Not peer-reviewed: n = 95</text>
+<text x="640.0" y="368" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Wrong language: n = 58</text>
+<text x="640.0" y="384" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Editorial/opinion: n = 79</text>
+<line x1="420" y1="324.0" x2="460" y2="348.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="60" y="422" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports sought for retrieval</text>
+<text x="240.0" y="462" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 131</text>
+<line x1="240.0" y1="400" x2="240.0" y2="422" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="422" width="360" height="42" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports not retrieved: n = 7</text>
+<line x1="420" y1="450.0" x2="460" y2="443.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="60" y="500" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="524" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports assessed for eligibility (full-text)</text>
+<text x="240.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 124</text>
+<line x1="240.0" y1="478" x2="240.0" y2="500" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="500" width="360" height="104" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="524" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Excluded after full-text: n = 67</text>
+<text x="640.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Did not address RQ: n = 28</text>
+<text x="640.0" y="556" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Below QA threshold: n = 18</text>
+<text x="640.0" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Insufficient methodology: n = 14</text>
+<text x="640.0" y="588" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Duplicate of included: n = 7</text>
+<line x1="420" y1="528.0" x2="460" y2="552.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="20" y="620" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Included</text>
+<rect x="60" y="626" width="360" height="72" fill="#e6f5e6" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="650" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Studies included in review</text>
+<text x="240.0" y="666" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 57</text>
+<text x="240.0" y="682" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports of included studies: n = 57</text>
+<line x1="240.0" y1="604" x2="240.0" y2="626" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>

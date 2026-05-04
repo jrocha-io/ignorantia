@@ -1,0 +1,101 @@
+metadata:
+  venue_id: cdsr
+  name: "Cochrane Database of Systematic Reviews"
+  publisher: "Wiley / Cochrane"
+  country: GB
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: hybrid
+  submission_system: other
+  source_url: "https://www.cochrane.org/authors/handbooks-and-manuals/handbook"
+  archived_url: "https://web.archive.org/web/2026/https://www.cochrane.org/authors/handbooks-and-manuals/handbook"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - meta_analysis
+    - living_review
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - MECIR
+    - GRADE
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+    - MECCIR
+note: "CDSR é o padrão-ouro de SRs em saúde. Living Systematic Reviews aceitas via MECIR-LSR. MECIR é mandatório, não apenas PRISMA. Two-reviewer obrigatório em todas as etapas."
+
+hard_requirements:
+  length:
+    unit: words
+    max: null
+    excludes: []
+  abstract:
+    max_words: 700
+    structured: true
+    structure_headings: [Background, Objectives, Search Methods, Selection Criteria, Data Collection and Analysis, Main Results, Authors' Conclusions]
+  title:
+    max_words: 22
+  keywords:
+    min: 0
+    max: 0
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Plain Language Summary
+    - Background
+    - Objectives
+    - Methods
+    - Results
+    - Discussion
+    - Authors' Conclusions
+    - References
+  mandatory_declarations:
+    - id: prospero_registration
+      severity: blocking
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: blocking
+    - id: orcid_all_authors
+      severity: blocking
+    - id: plain_language_summary
+      severity: blocking
+  file_format:
+    accepted: [docx]
+    note: "Cochrane usa RevMan (proprietário) para o protocolo + revisão; o manuscrito final pode ser exportado para docx."
+    template_url: "https://documentation.cochrane.org/revman/"
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: true
+    osf_acceptable: false
+    three_stage_process: true
+
+soft_signals:
+  scope_keywords:
+    - intervention review
+    - randomized controlled trial
+    - meta-analysis
+    - systematic review
+    - clinical evidence
+
+scope:
+  thesaurus_descriptors:
+    - "Evidence-Based Medicine [MeSH]"

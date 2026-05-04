@@ -1,0 +1,91 @@
+metadata:
+  venue_id: edufoco_uemg
+  name: Revista Educação em Foco (UEMG)
+  name_pt: Revista Educação em Foco
+  publisher: Faculdade de Educação, Universidade do Estado de Minas Gerais (UEMG)
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: A3
+  qualis_subarea: Educacao
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://revista.uemg.br/index.php/educacaoemfoco
+  archived_url: https://web.archive.org/web/2026/https://revista.uemg.br/index.php/educacaoemfoco
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    A3 CONFIRMADO no quadriênio 2021-2024 (declaração explícita no editorial: "A Revista Educação em Foco, da área de Educação, pela avaliação 2021-2024, é Qualis A3.")
+    Diamond OA via portal UEMG, sem APC, sem taxa de submissão.
+    Aceita revisões críticas e estudos da área educacional. Não exige PRISMA-2020 explicitamente (ignorantia aplica PRISMA por padrão como requisito metodológico interno).
+taxonomy:
+  review_types_accepted:
+  - narrative_review
+  - scoping_review
+  - integrative_review
+  - qualitative_synthesis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: abnt-nbr-6023
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - educação
+  - ensino
+  - pedagogia
+  - formação de professores
+  - didática
+scope:
+  primary_subjects:
+  - Educação
+  excluded_subjects: []

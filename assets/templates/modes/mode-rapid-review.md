@@ -1,0 +1,73 @@
+# Mode template — AI-Assisted Rapid Review
+
+> Aplica-se quando `review_type: rapid_review` no metadado do manuscrito.
+> Combinar com o template-base. Este modo é o mais comum no projeto pelo perfil "evidence-led design with urgency".
+
+## Selo obrigatório no header
+
+```html
+<div class="review-mode-badge mode-rapid" role="status">
+  <strong>AI-Assisted Rapid Review</strong>
+  <span class="mode-detail">following PRISMA-RR (Stevens et al. 2024) + Cochrane Rapid Reviews Methods Group</span>
+  <span class="mode-disclaimer">Single-reviewer with AI-assistance for time-bounded decision support. NOT a systematic review.</span>
+</div>
+```
+
+CSS sugerido (rapid = laranja/âmbar):
+```css
+.review-mode-badge.mode-rapid {
+  background: #fff3e0;
+  border-left: 4px solid #e65100;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+```
+
+## Seções obrigatórias
+
+### §01.x — Justificativa explícita do uso de Rapid (PRISMA-RR item RR-3)
+
+Texto-padrão (ajustar):
+
+> "This review is reported as a Rapid Review (not a Systematic Review) because of [time-bounded decision context: e.g., 'the need to support a design decision for a project with a fixed milestone'; 'an urgent policy question'; 'preliminary scoping for a future SR']. PRISMA-RR (Stevens et al. 2024) and the Cochrane Rapid Reviews Methods Group explicitly endorse single-reviewer methodology with AI-assistance for such contexts, provided the limitations are transparently declared."
+
+### §03 — Declaração de uso de IAG (modo rapid)
+
+Texto-padrão:
+
+> "**Declaration of AI use** — Per PRISMA-RR and Cochrane Rapid Reviews Methods Group, this review used Generative AI (model: [specify], temperature: [specify], seed: [specify when available]) for: search-string expansion, screening (single-reviewer with AI dual-check on 100% of records — model output disagreement triggered manual review), data extraction (single-extractor with AI verification), and synthesis drafting. Critical appraisal was performed by the human reviewer using a simplified RoB instrument. Final inclusion decisions were made by the human reviewer. The complete prompt-model-database trace is deposited in the Reproducibility Package (Zenodo DOI: [fill after deposit])."
+
+### §03.x — Limitações específicas do rapid mode (PRISMA-RR item RR-12 obrigatório)
+
+Texto-padrão (ESTA SEÇÃO É OBRIGATÓRIA — sua ausência é o erro mais comum em rapid reviews):
+
+> "**Limitations attributable to the rapid methodology:** (i) single-reviewer screening (mitigated by AI dual-check but not equivalent to two independent humans); (ii) limited number of databases searched (specify: e.g., 1-2 + grey literature) compared to a full SR (typically 3-5); (iii) simplified critical appraisal; (iv) restricted time window for search updates; (v) synthesis is narrative rather than meta-analytic. Readers should weight conclusions accordingly. This rapid review may inform decision-making but should not be cited as definitive evidence in contexts where systematic-review-level rigor is required."
+
+### §04.x — Implicações: should this be upgraded to systematic review? (PRISMA-RR item RR-13)
+
+Texto-padrão (responder explicitamente):
+
+> "**Should this be upgraded to a Systematic Review?** [Yes / No / Conditional]. Justification: [e.g., 'No — the decision context required time-bounded evidence and has been resolved'; 'Yes — should the findings inform clinical guidance, an upgrade with two independent human reviewers is recommended'; 'Conditional — if the underlying decision is revisited at scale, an upgrade is warranted']."
+
+## Reporting guideline aplicável
+
+`PRISMA-RR` (16 itens) — perfil em `references/profiles/_guidelines/prisma-rr.yaml`.
+
+## Selos no metadado YAML
+
+```yaml
+review_type: rapid_review
+review_purpose: design_foundational  # tipicamente
+reporting_guideline_primary: PRISMA-RR
+reviewer_count_human: 1
+reviewer_count_ai: 1
+ai_dual_check_sample_pct: 100  # rapid review com AI exige check em 100% dos screening calls
+two_reviewer_kappa_documented: false
+title_must_contain: "Rapid Review"  # ou "rapid" em PT/ES
+time_bounded_search_close_date: YYYY-MM-DD  # data de fechamento da busca
+intended_for_decision_context: "[specify]"
+```
+
+## Importante
+
+Rapid Review é o modo de uso provável mais comum em projetos evidence-led com prazo apertado de decisão. Mas o termo "rapid" NÃO autoriza relaxamento metodológico — autoriza apenas single-reviewer + busca limitada + appraisal simplificado, todos com transparência total. Os 5 pontos da §03.x acima são parte indissociável do que torna o rapid honesto.

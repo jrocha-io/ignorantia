@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste de smoke do skill ignorantia · ignorantia · v1.0.0</title>
+<meta name="description" content="  Contexto.  Validar que o template ignorantia produz HTML auto-contido com referências clicáveis [  [1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews">
+<meta name="generator" content="ignorantia skill v1">
+<meta name="dcterms.created" content="2026-04-28">
+<style>
+:root {
+  --bg-primary: #fafaf7;
+  --bg-secondary: #f0efea;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --accent: #6b4eff;
+  --accent-soft: #e8e4ff;
+  --border: #d8d6d0;
+  --border-strong: #aaa;
+  --link: var(--accent);
+  --link-visited: var(--accent);
+  --hi: #c93a3a;
+  --med: #d68a1e;
+  --lo: #6e7780;
+  --good: #2c8a4f;
+  --bad: #c93a3a;
+  --annotation-bg: #fff8d4;
+  --annotation-border: #d4ba1e;
+  --annotation-conexao-bg: #e3f4dc;
+  --annotation-conexao-border: #6aaa3a;
+  --annotation-pergunta-bg: #dde8f6;
+  --annotation-pergunta-border: #4a78c9;
+  --annotation-alerta-bg: #f6dcdc;
+  --annotation-alerta-border: #c93a3a;
+  --code-bg: #f4f1eb;
+  --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --layout-max: 820px;
+}
+html.dark {
+  --bg-primary: #14141a;
+  --bg-secondary: #1c1c24;
+  --bg-card: #1e1e26;
+  --text-primary: #e8e6e0;
+  --text-secondary: #b0aea8;
+  --text-muted: #888;
+  --accent-soft: #2a235c;
+  --border: #2e2e38;
+  --border-strong: #555;
+  --annotation-bg: #2a2515;
+  --annotation-border: #6e5e1e;
+  --annotation-conexao-bg: #1a2818;
+  --annotation-conexao-border: #4a7a2c;
+  --annotation-pergunta-bg: #181e2a;
+  --annotation-pergunta-border: #4a78c9;
+  --annotation-alerta-bg: #2a1818;
+  --annotation-alerta-border: #c93a3a;
+  --code-bg: #20202a;
+  --shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+.layout {
+  max-width: var(--layout-max);
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+  position: relative;
+}
+/* Annotations layer (serious) appears in the right margin in WIDE viewports only,
+   without ever expanding the main column. In narrower viewports it falls inline. */
+a { color: var(--link); text-decoration: none; border-bottom: 1px dotted currentColor; }
+a:hover { border-bottom-style: solid; }
+a:visited { color: var(--link-visited); }
+h1 { font-size: 28px; font-weight: 700; line-height: 1.2; margin: 0 0 8px; }
+h2 { font-size: 22px; font-weight: 600; line-height: 1.3; margin: 0; }
+h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
+h4 { font-size: 16px; font-weight: 600; margin: 16px 0 6px; color: var(--text-secondary); }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px; padding-left: 28px; }
+li { margin-bottom: 4px; }
+code, pre {
+  font-family: "JetBrains Mono", "Menlo", "Consolas", monospace;
+  background: var(--code-bg);
+  border-radius: 3px;
+  font-size: 14px;
+}
+code { padding: 2px 4px; }
+pre { padding: 12px; overflow-x: auto; margin: 12px 0; }
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  margin: 16px 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ── Header ── */
+header.doc-head {
+  padding: 32px 32px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  margin-bottom: 0;
+}
+header.doc-head .layout { padding: 0; }
+.doc-head .brand {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px; color: var(--text-muted);
+  text-transform: lowercase; letter-spacing: 0.05em;
+}
+.doc-head .brand strong { color: var(--accent); font-weight: 600; }
+.doc-head h1 { margin: 12px 0 4px; }
+.doc-head .subtitle { color: var(--text-secondary); font-size: 17px; margin-bottom: 16px; }
+.meta-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.meta-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 4px;
+  font-size: 11px; font-weight: 600;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.meta-badge.version { background: var(--accent); color: white; border-color: var(--accent); }
+.meta-badge.lang, .meta-badge.norma, .meta-badge.framework { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+/* ── Toolbar ── */
+nav.toolbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  padding: 10px 32px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  font-size: 13px;
+}
+.toolbar input[type="search"], .toolbar select {
+  padding: 5px 10px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: var(--bg-card); color: var(--text-primary);
+  font-family: inherit;
+}
+.toolbar input[type="search"] { flex: 1; min-width: 180px; }
+.toolbar fieldset {
+  border: none; padding: 0; margin: 0;
+  display: flex; gap: 6px; align-items: center;
+}
+.toolbar fieldset legend { display: none; }
+.toolbar button {
+  padding: 5px 11px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: var(--bg-card); color: var(--text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+}
+.toolbar button:hover { border-color: var(--border-strong); color: var(--text-primary); }
+.toolbar button[aria-pressed="true"] {
+  background: var(--accent); color: white; border-color: var(--accent);
+}
+.skip-link {
+  position: absolute; left: -1000px; top: 0;
+  padding: 8px 16px; background: var(--accent); color: white;
+  z-index: 100;
+}
+.skip-link:focus { left: 0; }
+
+/* ── Sections ── */
+section[id^="sec-"] {
+  margin: 32px 0;
+  scroll-margin-top: 60px;
+}
+.section-head {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.section-collapse {
+  margin-left: auto;
+  background: none; border: 1px solid var(--border);
+  width: 24px; height: 24px;
+  border-radius: 4px;
+  font-size: 16px; cursor: pointer;
+  color: var(--text-secondary);
+  font-family: inherit;
+  display: flex; align-items: center; justify-content: center;
+}
+section.collapsed .section-body { display: none; }
+section.collapsed .section-collapse::before { content: "+"; }
+section:not(.collapsed) .section-collapse::before { content: "−"; }
+.section-collapse::before { content: "−"; }
+.section-collapse { font-size: 0; }
+.section-collapse::before { font-size: 14px; }
+
+/* ── Badges ── */
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  text-transform: uppercase; white-space: nowrap;
+  background: var(--bg-secondary); color: var(--text-secondary);
+}
+.badge-tier-a { background: var(--hi); color: white; }
+.badge-tier-b { background: var(--med); color: white; }
+.badge-tier-c { background: #4a78c9; color: white; }
+.badge-tier-d { background: var(--good); color: white; }
+.badge-tier-e { background: var(--lo); color: white; }
+.badge-rq { background: var(--accent-soft); color: var(--accent); }
+.badge-qa-hi { background: var(--good); color: white; }
+.badge-qa-mid { background: #4a78c9; color: white; }
+.badge-qa-lo { background: var(--med); color: white; }
+.badge-qa-bad { background: var(--lo); color: white; }
+
+/* ── References ── */
+a.ref {
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0 4px;
+  border-radius: 3px;
+  border: none;
+  vertical-align: super;
+  line-height: 1;
+  position: relative;
+  cursor: help;
+}
+a.ref:hover { background: var(--accent); color: white; }
+a.ref .tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  width: 320px;
+  padding: 10px 14px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: none;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  z-index: 50;
+  vertical-align: baseline;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+a.ref:hover .tooltip, a.ref:focus .tooltip { display: block; }
+ol.references { padding-left: 32px; font-size: 14px; line-height: 1.5; }
+ol.references li { margin-bottom: 12px; padding-left: 4px; }
+ol.references li:target {
+  background: var(--accent-soft);
+  border-radius: 4px;
+  padding: 4px 8px 4px 12px;
+  animation: pulse 2s;
+}
+@keyframes pulse { 0%, 100% { background: var(--accent-soft); } 50% { background: transparent; } }
+ol.references li a.doi { font-family: "JetBrains Mono", monospace; font-size: 12px; }
+
+/* ── Tables ── */
+.table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--border); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+table thead th {
+  background: var(--bg-secondary);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+/* Only the studies table has sticky headers (it's the long, scrolled-through one) */
+table#studies thead th { position: sticky; top: 50px; }
+table thead th:hover { background: var(--accent-soft); }
+table thead th[data-sort-direction="asc"]::after { content: " ▲"; opacity: 0.6; }
+table thead th[data-sort-direction="desc"]::after { content: " ▼"; opacity: 0.6; }
+table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+table tbody tr:hover { background: var(--accent-soft); }
+table tbody td { padding: 8px 12px; vertical-align: top; }
+.filters-row th { background: var(--bg-primary); padding: 6px; }
+.filters-row input, .filters-row select {
+  width: 100%; padding: 4px 6px; font-size: 12px;
+  border: 1px solid var(--border); border-radius: 3px;
+  background: var(--bg-card); color: var(--text-primary);
+  font-family: inherit;
+}
+
+/* ── Annotations (SERIOUS layer) ── */
+.annotated { position: relative; }
+.annotation { display: none; }
+html.show-annotations .annotation {
+  display: block;
+  position: absolute;
+  width: 260px;
+  background: var(--annotation-bg);
+  border-left: 3px solid var(--annotation-border);
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: inherit;          /* same family as body — readable, a11y-friendly */
+  font-style: italic;
+  font-weight: 400;
+  box-shadow: var(--shadow);
+  border-radius: 0 4px 4px 0;
+  color: var(--text-primary);
+  /* JS sets top dynamically; left places it just past the right edge of .layout */
+  left: calc(100% + 24px);
+}
+html.show-annotations .annotation-conexao { background: var(--annotation-conexao-bg); border-left-color: var(--annotation-conexao-border); }
+html.show-annotations .annotation-pergunta { background: var(--annotation-pergunta-bg); border-left-color: var(--annotation-pergunta-border); }
+html.show-annotations .annotation-alerta { background: var(--annotation-alerta-bg); border-left-color: var(--annotation-alerta-border); }
+.annotation .annotation-author {
+  display: inline-block;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 700;
+  margin-right: 6px;
+  color: var(--annotation-border);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.annotations-container { position: relative; }
+@media (max-width: 1140px) {
+  /* Not enough room for off-side margin — fall back to inline. */
+  html.show-annotations .annotation {
+    position: static !important;
+    margin: 12px 0;
+    width: auto;
+    left: auto;
+    border-left: 4px solid var(--annotation-border);
+  }
+}
+
+/* ── FUN DOODLES layer (decorative, aria-hidden, not a11y-strict) ── */
+/* Inspired by the "red marker scribbles" all over a screenshot — exclamations,
+   circled phrases, hand-drawn arrows. Toggle is independent from the serious layer. */
+.fun-doodles {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 5;
+}
+html.show-fun-doodles .fun-doodles { display: block; }
+.doodle {
+  position: absolute;
+  font-family: "Permanent Marker", "Bradley Hand", "Marker Felt", "Brush Script MT", cursive;
+  color: #d12a2a;
+  font-size: 19px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-shadow: 0 0 1px rgba(209,42,42,.25);
+  white-space: nowrap;
+  transform-origin: left center;
+  pointer-events: none;
+  user-select: none;
+}
+html.dark .doodle { color: #ff5555; text-shadow: 0 0 2px rgba(255,85,85,.4); }
+.doodle-circle {
+  border: 3px solid #d12a2a;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(209,42,42,.2);
+}
+html.dark .doodle-circle { border-color: #ff5555; }
+.doodle-arrow svg { display: block; overflow: visible; }
+.doodle-arrow svg path { stroke: #d12a2a; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+html.dark .doodle-arrow svg path { stroke: #ff5555; }
+.doodle-underline {
+  height: 8px;
+}
+.doodle-underline svg { display:block; width:100%; height:100%; overflow: visible; }
+.doodle-underline svg path { stroke: #d12a2a; stroke-width: 2.5; fill: none; }
+html.dark .doodle-underline svg path { stroke: #ff5555; }
+
+/* ── Figures ── */
+figure { margin: 24px 0; padding: 0; }
+figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+figcaption {
+  font-size: 13px; color: var(--text-secondary);
+  text-align: center; margin-top: 8px; font-style: italic;
+}
+.chart-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 16px; }
+
+/* ── "What this version is NOT" ── */
+.not-this-version {
+  margin: 32px 0;
+  padding: 18px 24px;
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--med);
+  border-radius: 0 4px 4px 0;
+}
+.not-this-version h3 { margin-top: 0; color: var(--med); font-weight: 700; }
+.not-this-version ul { margin-bottom: 0; }
+.not-this-version li { color: var(--text-secondary); }
+
+/* ── Footer ── */
+footer {
+  margin-top: 48px; padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+footer p { margin: 4px 0; }
+footer a { color: var(--text-muted); }
+
+/* ── Search highlight ── */
+mark.search-hit { background: yellow; color: black; padding: 0 2px; border-radius: 2px; }
+html.dark mark.search-hit { background: #6e5e1e; color: var(--text-primary); }
+
+/* ── Definitions list ── */
+dl { margin: 12px 0; }
+dt { font-weight: 600; margin-top: 8px; }
+dd { margin-left: 16px; color: var(--text-secondary); }
+dl.ai-declaration {
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+dl.ai-declaration dt { color: var(--text-primary); }
+dl.ai-declaration dd { color: var(--text-primary); }
+.ai-responsibility {
+  background: var(--annotation-bg);
+  border-left: 4px solid var(--annotation-border);
+  padding: 12px 16px;
+  border-radius: 0 4px 4px 0;
+  margin: 16px 0;
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Pular para conteúdo</a>
+<a class="skip-link" href="#sec-results">Pular para resultados</a>
+<a class="skip-link" href="#sec-references">Pular para referências</a>
+
+<header class="doc-head">
+  <div class="layout">
+    <p class="brand"><strong>ignorantia</strong> · smoke-test · v1.0.0 · 2026-04-28</p>
+    <h1>Teste de smoke do skill ignorantia</h1>
+    <p class="subtitle">Validação do pipeline render_manuscript.py com dados sintéticos</p>
+    <div class="meta-badges">
+      <span class="meta-badge version">v1.0.0</span>
+      <span class="meta-badge lang">PT-BR</span>
+      <span class="meta-badge norma">ABNT</span>
+      <span class="meta-badge framework">PRISMA-2020</span>
+      <span class="meta-badge">Skill validation</span>
+      <span class="meta-badge">4 estudos incluídos</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toolbar" aria-label="Controles do documento">
+  <input type="search" id="q" placeholder="Buscar no manuscrito..." aria-label="Busca textual">
+  <fieldset class="filters">
+    <legend>Filtros</legend>
+    <select id="filter-section" aria-label="Filtrar por seção">
+      <option value="">Todas as seções</option>
+      <option value="sec-00">§00 Resumo</option>
+<option value="sec-01">§01 Introdução</option>
+<option value="sec-02">§02 Background</option>
+<option value="sec-03">§03 Método</option>
+<option value="sec-04">§04 Resultados</option>
+<option value="sec-05">§05 Síntese</option>
+<option value="sec-06">§06 Discussão</option>
+<option value="sec-07">§07 Validade</option>
+<option value="sec-08">§08 Conclusão</option>
+<option value="sec-ai-declaration">§08.bis Declaração IA</option>
+<option value="sec-venues">§08.ter Venues</option>
+<option value="sec-09">§09 Não é</option>
+<option value="sec-references">§10 Referências</option>
+    </select>
+    <select id="filter-rq" aria-label="Filtrar por RQ">
+      <option value="">Todas RQs</option>
+      <option value="RQ1">RQ1: O template renderiza?</option>
+<option value="RQ2">RQ2: Os links funcionam?</option>
+<option value="RQ3">RQ3: D3 carrega?</option>
+    </select>
+  </fieldset>
+  <fieldset class="toggles">
+    <legend>Visualização</legend>
+    <button id="toggle-annotations" aria-pressed="false" title="Mostrar anotações de professor">📝 Anotações</button>
+    <button id="toggle-fun" aria-pressed="false" title="Mostrar rabiscos vermelhos (decorativo)">🎨 Rabiscos</button>
+    <button id="toggle-dark" aria-pressed="false" title="Alternar modo escuro">🌙 Escuro</button>
+    <button id="toggle-collapse-all" aria-pressed="false" title="Colapsar todas as seções">▾ Colapsar</button>
+  </fieldset>
+</nav>
+
+<main id="main" class="layout">
+
+<div class="fun-doodles" aria-hidden="true"><div class="doodle doodle-exclaim" data-anchor="#sec-00 .section-head h2" data-type="exclaim" data-side="right" data-rot="-3" data-dx="8" data-dy="-4">OLHA ESSE TEMPLATE!</div>
+<div class="doodle doodle-exclaim" data-anchor="#sec-00 strong:first-of-type" data-type="exclaim" data-side="above" data-rot="4" data-dx="0" data-dy="-4">INTERATIVO!</div>
+<div class="doodle doodle-circle" data-anchor="#sec-04 .section-head h2" data-type="circle" data-side="right" data-rot="-2" data-dx="0" data-dy="0"></div>
+<div class="doodle doodle-exclaim" data-anchor="#chart-temporal" data-type="exclaim" data-side="right" data-rot="-5" data-dx="-120" data-dy="80">GRÁFICO TOP!</div>
+<div class="doodle doodle-circle" data-anchor=".meta-badge.version" data-type="circle" data-side="right" data-rot="3" data-dx="0" data-dy="0"></div>
+<div class="doodle doodle-exclaim" data-anchor=".meta-badge.version" data-type="exclaim" data-side="below" data-rot="-3" data-dx="0" data-dy="14">VERSIONADO!</div>
+<div class="doodle doodle-exclaim" data-anchor="#fig-qa-heatmap figcaption" data-type="exclaim" data-side="right" data-rot="-2" data-dx="-260" data-dy="-80">CASP-STYLE!</div>
+<div class="doodle doodle-exclaim" data-anchor="#sec-03 h3" data-type="exclaim" data-side="right" data-rot="-4" data-dx="8" data-dy="0">PRISMA REAL!</div>
+<div class="doodle doodle-underline" data-anchor="#sec-references h2" data-type="underline" data-side="right" data-rot="0" data-dx="0" data-dy="0"><svg viewBox="0 0 100 8" preserveAspectRatio="none"><path d="M 0 4 Q 12 1 25 4 T 50 4 T 75 4 T 100 4"/></svg></div>
+<div class="doodle doodle-exclaim" data-anchor="#sec-references h2" data-type="exclaim" data-side="right" data-rot="-3" data-dx="8" data-dy="2">CLICÁVEIS!</div></div>
+
+<!-- §00 Prologue / Abstract -->
+<section id="sec-00">
+  <header class="section-head">
+    <span class="section-num">§ 00</span>
+    <h2>Resumo estruturado</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-00-body">−</button>
+  </header>
+  <div class="section-body" id="sec-00-body">
+    <p><strong>Contexto.</strong> Validar que o template ignorantia produz HTML auto-contido com referências clicáveis [<a class="ref" href="https://doi.org/10.1136/bmj.n71" data-ref="1"><span class="tooltip">[1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.</span>1</a>], camada de anotações, dark mode, busca, e gráficos D3 [<a class="ref" href="https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf" data-ref="2"><span class="tooltip">[2] Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007.</span>2</a>,<a class="ref" href="https://doi.org/10.1109/TVCG.2011.185" data-ref="3"><span class="tooltip">[3] Bostock M, Ogievetsky V, Heer J. D³: Data-Driven Documents. IEEE TVCG. 2011;17(12):2301–9.</span>3</a>]. <strong>Método.</strong> Gerar conteúdo mínimo. <strong>Resultados.</strong> Renderiza ou não. <strong>Conclusão.</strong> Se este parágrafo aparece formatado, o smoke test passou.</p>
+  </div>
+</section>
+
+<!-- §01 Introduction -->
+<section id="sec-01">
+  <header class="section-head">
+    <span class="section-num">§ 01</span>
+    <h2>Introdução</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-01-body">−</button>
+  </header>
+  <div class="section-body" id="sec-01-body">
+    <p>Este é um conteúdo sintético para validação. Citar Page et al. [<a class="ref" href="https://doi.org/10.1136/bmj.n71" data-ref="1"><span class="tooltip">[1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.</span>1</a>] e Kitchenham et al. [<a class="ref" href="https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf" data-ref="2"><span class="tooltip">[2] Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007.</span>2</a>] e Bostock [<a class="ref" href="https://doi.org/10.1109/TVCG.2011.185" data-ref="3"><span class="tooltip">[3] Bostock M, Ogievetsky V, Heer J. D³: Data-Driven Documents. IEEE TVCG. 2011;17(12):2301–9.</span>3</a>].</p><p class="annotated" data-annotation-id="ann-1">Parágrafo com anotação âncora — ative o toggle Anotações na toolbar.</p>
+  </div>
+</section>
+
+<!-- §02 Background -->
+<section id="sec-02">
+  <header class="section-head">
+    <span class="section-num">§ 02</span>
+    <h2>Background e referencial teórico</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-02-body">−</button>
+  </header>
+  <div class="section-body" id="sec-02-body">
+    <p>Background sintético [<a class="ref" href="https://doi.org/10.1136/bmj.n71" data-ref="1"><span class="tooltip">[1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.</span>1</a>,<a class="ref" href="https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf" data-ref="2"><span class="tooltip">[2] Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007.</span>2</a>]. PRISMA 2020 é a norma vigente [<a class="ref" href="https://doi.org/10.1136/bmj.n71" data-ref="1"><span class="tooltip">[1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.</span>1</a>].</p>
+  </div>
+</section>
+
+<!-- §03 Methodology -->
+<section id="sec-03">
+  <header class="section-head">
+    <span class="section-num">§ 03</span>
+    <h2>Método</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-03-body">−</button>
+  </header>
+  <div class="section-body" id="sec-03-body">
+    <p>Metodologia: PRISMA-2020 com flow real abaixo. CASP-style QA aplicado.</p>
+
+    <h3>Diagrama PRISMA-2020</h3>
+    <figure id="fig-prisma">
+      <figcaption>Figura 1. Fluxo PRISMA-2020 da seleção de estudos.</figcaption>
+      <svg xmlns="http://www.w3.org/2000/svg" width="860" height="728" viewBox="0 0 860 728">
+<defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3"
+                orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#222"/>
+        </marker>
+    </defs>
+<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Identification</text>
+<rect x="60" y="44" width="360" height="152" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="68" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records identified from databases</text>
+<text x="240.0" y="84" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Total: n = 1399</text>
+<text x="240.0" y="100" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">arXiv: n = 87</text>
+<text x="240.0" y="116" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Semantic Scholar: n = 412</text>
+<text x="240.0" y="132" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">dblp: n = 156</text>
+<text x="240.0" y="148" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Crossref: n = 234</text>
+<text x="240.0" y="164" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">IEEE Xplore: n = 198</text>
+<text x="240.0" y="180" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Scopus: n = 312</text>
+<rect x="460" y="44" width="360" height="88" fill="#fafaf0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="68" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records identified from other sources</text>
+<text x="640.0" y="84" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Total: n = 31</text>
+<text x="640.0" y="100" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Snowballing: n = 23</text>
+<text x="640.0" y="116" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Hand-search: n = 8</text>
+<rect x="60" y="218" width="360" height="56" fill="#eef2f7" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="242" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records after deduplication</text>
+<text x="240.0" y="258" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 743</text>
+<line x1="240.0" y1="196" x2="240.0" y2="218" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="20" y="290" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Screening</text>
+<rect x="60" y="296" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="320" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Records screened (title/abstract)</text>
+<text x="240.0" y="336" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 743</text>
+<line x1="240.0" y1="274" x2="240.0" y2="296" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="296" width="360" height="104" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="320" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Excluded after T/A: n = 612</text>
+<text x="640.0" y="336" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Off-topic: n = 380</text>
+<text x="640.0" y="352" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Not peer-reviewed: n = 95</text>
+<text x="640.0" y="368" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Wrong language: n = 58</text>
+<text x="640.0" y="384" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Editorial/opinion: n = 79</text>
+<line x1="420" y1="324.0" x2="460" y2="348.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="60" y="422" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports sought for retrieval</text>
+<text x="240.0" y="462" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 131</text>
+<line x1="240.0" y1="400" x2="240.0" y2="422" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="422" width="360" height="42" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports not retrieved: n = 7</text>
+<line x1="420" y1="450.0" x2="460" y2="443.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="60" y="500" width="360" height="56" fill="#f5f5f5" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="524" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports assessed for eligibility (full-text)</text>
+<text x="240.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 124</text>
+<line x1="240.0" y1="478" x2="240.0" y2="500" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="460" y="500" width="360" height="104" fill="#fff0f0" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="640.0" y="524" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Excluded after full-text: n = 67</text>
+<text x="640.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Did not address RQ: n = 28</text>
+<text x="640.0" y="556" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Below QA threshold: n = 18</text>
+<text x="640.0" y="572" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Insufficient methodology: n = 14</text>
+<text x="640.0" y="588" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">  Duplicate of included: n = 7</text>
+<line x1="420" y1="528.0" x2="460" y2="552.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="20" y="620" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">Included</text>
+<rect x="60" y="626" width="360" height="72" fill="#e6f5e6" stroke="#222" stroke-width="1.2" rx="4" ry="4"/>
+<text x="240.0" y="650" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Studies included in review</text>
+<text x="240.0" y="666" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">n = 57</text>
+<text x="240.0" y="682" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#111">Reports of included studies: n = 57</text>
+<line x1="240.0" y1="604" x2="240.0" y2="626" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>
+    </figure>
+  </div>
+</section>
+
+<!-- §04 Results -->
+<section id="sec-04">
+  <header class="section-head">
+    <span class="section-num">§ 04</span>
+    <h2>Resultados — caracterização do corpus</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-04-body">−</button>
+  </header>
+  <div class="section-body" id="sec-04-body">
+    <p>Corpus de 4 estudos sintéticos.</p>
+
+    <h3>Distribuição temporal</h3>
+    <figure id="fig-temporal">
+      <figcaption>Figura 2. Distribuição temporal dos estudos incluídos.</figcaption>
+      <div class="chart-container" id="chart-temporal" aria-label="Gráfico de barras dos estudos por ano"></div>
+    </figure>
+
+    <h3>Heatmap de quality appraisal</h3>
+    <figure id="fig-qa-heatmap">
+      <figcaption>Figura 3. Heatmap de quality appraisal por estudo e dimensão.</figcaption>
+      <div class="chart-container" id="chart-qa-heatmap" aria-label="Heatmap das pontuações de quality appraisal"></div>
+    </figure>
+
+    <h3>Tabela de estudos incluídos</h3>
+    <p class="table-help">Clique nos cabeçalhos para ordenar. Use os filtros abaixo de cada coluna.
+       Clique numa linha para detalhes completos.</p>
+    <div class="table-wrap">
+      <table id="studies">
+        <thead>
+          <tr>
+            <th data-sort="id">ID</th>
+            <th data-sort="cite">Estudo</th>
+            <th data-sort="year">Ano</th>
+            <th data-sort="venue">Venue</th>
+            <th data-sort="frameworks">Frameworks</th>
+            <th data-sort="methods">Métodos</th>
+            <th data-sort="rqs">RQs</th>
+            <th data-sort="qa">QA</th>
+          </tr>
+          <tr class="filters-row">
+            <th></th>
+            <th><input type="search" data-col="cite" placeholder="filtrar..."></th>
+            <th><input type="search" data-col="year" placeholder="ano"></th>
+            <th><input type="search" data-col="venue" placeholder="venue..."></th>
+            <th><input type="search" data-col="frameworks" placeholder="framework..."></th>
+            <th><input type="search" data-col="methods" placeholder="método..."></th>
+            <th><input type="search" data-col="rqs" placeholder="RQ..."></th>
+            <th><input type="search" data-col="qa" placeholder="≥N"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-id="S01" data-rqs="rq1,rq2" data-qa="5"><td>S01</td><td><a href="https://doi.org/10.1136/bmj.n71" rel="external">Page MJ et al. (2021)</a></td><td>2021</td><td>BMJ</td><td>PRISMA-2020</td><td>Methodological guidance</td><td><span class="badge badge-rq">RQ1</span> <span class="badge badge-rq">RQ2</span></td><td><span class="badge badge-qa-hi">5</span></td></tr>
+<tr data-id="S02" data-rqs="rq1" data-qa="4.5"><td>S02</td><td>Kitchenham &amp; Charters (2007)</td><td>2007</td><td>EBSE Tech Rep</td><td>Kitchenham guidelines</td><td>Methodological</td><td><span class="badge badge-rq">RQ1</span></td><td><span class="badge badge-qa-hi">4.5</span></td></tr>
+<tr data-id="S03" data-rqs="rq3" data-qa="5"><td>S03</td><td><a href="https://doi.org/10.1109/TVCG.2011.185" rel="external">Bostock et al. (2011)</a></td><td>2011</td><td>IEEE TVCG</td><td>D3.js</td><td>Tool/library paper</td><td><span class="badge badge-rq">RQ3</span></td><td><span class="badge badge-qa-hi">5</span></td></tr>
+<tr data-id="S04" data-rqs="rq1,rq2" data-qa="4.5"><td>S04</td><td>Munzner (2014)</td><td>2014</td><td>CRC Press</td><td>Nested model</td><td>Theoretical book</td><td><span class="badge badge-rq">RQ1</span> <span class="badge badge-rq">RQ2</span></td><td><span class="badge badge-qa-hi">4.5</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- §05 Synthesis by RQ -->
+<section id="sec-05">
+  <header class="section-head">
+    <span class="section-num">§ 05</span>
+    <h2>Síntese por pergunta de pesquisa</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-05-body">−</button>
+  </header>
+  <div class="section-body" id="sec-05-body">
+    <p><strong>RQ1:</strong> síntese narrativa fictícia [<a class="ref" href="https://doi.org/10.1136/bmj.n71" data-ref="1"><span class="tooltip">[1] Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.</span>1</a>]. <strong>RQ2:</strong> outra síntese [<a class="ref" href="https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf" data-ref="2"><span class="tooltip">[2] Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007.</span>2</a>,<a class="ref" href="https://doi.org/10.1109/TVCG.2011.185" data-ref="3"><span class="tooltip">[3] Bostock M, Ogievetsky V, Heer J. D³: Data-Driven Documents. IEEE TVCG. 2011;17(12):2301–9.</span>3</a>].</p>
+  </div>
+</section>
+
+<!-- §06 Discussion / Guidelines -->
+<section id="sec-06">
+  <header class="section-head">
+    <span class="section-num">§ 06</span>
+    <h2>Discussão e guidelines</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-06-body">−</button>
+  </header>
+  <div class="section-body" id="sec-06-body">
+    <p>Discussão sintética. Guidelines: G1, G2, G3.</p>
+  </div>
+</section>
+
+<!-- §07 Threats to validity -->
+<section id="sec-07">
+  <header class="section-head">
+    <span class="section-num">§ 07</span>
+    <h2>Ameaças à validade</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-07-body">−</button>
+  </header>
+  <div class="section-body" id="sec-07-body">
+    <p>Smoke test não tem ameaças à validade — é só para conferir o pipeline.</p>
+  </div>
+</section>
+
+<!-- §08 Conclusion & future work -->
+<section id="sec-08">
+  <header class="section-head">
+    <span class="section-num">§ 08</span>
+    <h2>Conclusão e direções futuras</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-08-body">−</button>
+  </header>
+  <div class="section-body" id="sec-08-body">
+    <p>Pipeline OK se este HTML carrega.</p>
+<div class="annotations-container">
+<aside class="annotation annotation-observacao" id="ann-1" data-anchor="[data-annotation-id=&quot;ann-1&quot;]"><span class="annotation-author">— Prof.</span>Esta é uma anotação de teste — ela aparece à direita quando o toggle Anotações está ligado.</aside>
+<aside class="annotation annotation-conexao" id="ann-2" data-anchor="#sec-05"><span class="annotation-author">— Prof.</span>Conecta com §06 — a discussão amplia esses pontos.</aside>
+</div>
+  </div>
+</section>
+
+<!-- §08.bis AI Declaration (mandatory: CNPq art. 9 / COPE / ICMJE) -->
+<section id="sec-ai-declaration">
+  <header class="section-head">
+    <span class="section-num">§ 08.bis</span>
+    <h2>Declaração de uso de Inteligência Artificial Generativa</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-ai-declaration-body">−</button>
+  </header>
+  <div class="section-body" id="sec-ai-declaration-body">
+    
+<p>Em conformidade com a <strong>Portaria CNPq nº 2.664/2026</strong>, art. 9, declara-se:</p>
+<dl class="ai-declaration">
+  <dt>Ferramenta(s) utilizada(s)</dt><dd>Claude Opus 4.7</dd>
+  <dt>Provedor</dt><dd>Anthropic</dd>
+  <dt>Interface / skill</dt><dd>ignorantia v1.2.0</dd>
+  <dt>Período de uso</dt><dd>2026-04-28 → 2026-04-28</dd>
+  <dt>Etapas em que houve uso da ferramenta</dt>
+  <dd><ul><li>Elaboração das strings booleanas</li><li>Síntese narrativa de seções §05</li><li>Geração do HTML interativo via render_manuscript.py</li></ul></dd>
+  <dt>Finalidade específica em cada etapa</dt><dd>Geração assistida de strings booleanas alinhadas à sintaxe de cada base; redação de síntese narrativa por RQ a partir do CSV de extração; renderização do HTML final auto-contido com gráficos D3.js inline.</dd>
+  <dt>Supervisão humana exercida</dt><dd>Todo o conteúdo gerado foi revisado pelo autor antes da inclusão. Buscas, screening e quality appraisal serão revisados por dois professores humanos no Zenodo.</dd>
+</dl>
+<p class="ai-responsibility"><strong>Os autores assumem integral responsabilidade pelo conteúdo final, incluindo precisão factual, ausência de plágio e adequação metodológica, ainda que parte do conteúdo tenha sido mediada pela ferramenta declarada. A IA não está listada como autora.</strong></p>
+<p><strong>Autor(es) responsável(eis):</strong> Autor humano de teste<br>
+<strong>Data:</strong> 2026-04-28</p>
+
+  </div>
+</section>
+
+<!-- §08.ter Suggested venues for submission -->
+<section id="sec-venues">
+  <header class="section-head">
+    <span class="section-num">§ 08.ter</span>
+    <h2>Venues sugeridos para submissão</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-venues-body">−</button>
+  </header>
+  <div class="section-body" id="sec-venues-body">
+    <p>Sugestões de periódicos/conferências para submissão, priorizando publishers de elite com adesão a COPE/ICMJE.</p><div class="table-wrap"><table id="venues"><thead><tr><th>Venue</th><th>Publisher</th><th>ISSN</th><th>Política IA</th><th>Indicador</th><th>Acesso</th><th>Ciclo (sem.)</th><th>Adequação ao tema</th></tr></thead><tbody><tr><td><a href="https://www.computer.org/csdl/journal/tg" rel="external">IEEE Transactions on Visualization and Computer Graphics</a></td><td>IEEE</td><td>1077-2626</td><td><a href="https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/" rel="external">link</a></td><td>JIF 4.7 (2024)</td><td>Hybrid (OA option)</td><td>12-16</td><td>Top venue para infovis e D3.</td></tr><tr><td><a href="https://dl.acm.org/journal/tochi" rel="external">ACM Transactions on Computer-Human Interaction</a></td><td>ACM</td><td>1073-0516</td><td><a href="https://www.acm.org/publications/policies/frequently-asked-questions" rel="external">link</a></td><td>JIF 4.0 (2024)</td><td>Hybrid</td><td>16-20</td><td>Foco em interação dinâmica.</td></tr><tr><td><a href="https://onlinelibrary.wiley.com/journal/14678659" rel="external">Computer Graphics Forum (EuroVis)</a></td><td>Wiley</td><td>0167-7055</td><td><a href="https://authorservices.wiley.com/ethics-guidelines/best-practice-guidelines.html" rel="external">link</a></td><td>JIF 2.7</td><td>Hybrid</td><td>10-14</td><td>EuroVis publica visualização interativa.</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<!-- §09 What this version is NOT -->
+<section id="sec-09">
+  <header class="section-head">
+    <span class="section-num">§ 09</span>
+    <h2>O que esta versão NÃO é</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-09-body">−</button>
+  </header>
+  <div class="section-body" id="sec-09-body">
+    <div class="not-this-version">
+      <ul>
+        <li>Não é uma SLR real — é um teste de pipeline.</li>
+<li>Os números no PRISMA são fictícios.</li>
+<li>As referências não foram lidas — só citadas para testar links.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §10 References -->
+<section id="sec-references">
+  <header class="section-head">
+    <span class="section-num">§ 10</span>
+    <h2>Referências</h2>
+    <button class="section-collapse" aria-expanded="true" aria-controls="sec-references-body">−</button>
+  </header>
+  <div class="section-body" id="sec-references-body">
+    <p class="meta">Norma: <strong>ABNT</strong>. Cada referência é clicável e abre a fonte primária (DOI, arXiv, ou URL canônica). Ao passar o mouse sobre <code>[n]</code> no texto, a referência completa aparece em tooltip.</p>
+    <ol class="references">
+      <li id="ref-1">Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>. 2021;372:n71. <a class="ref-link doi" href="https://doi.org/10.1136/bmj.n71" rel="external">↗</a></li>
+<li id="ref-2">Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007. <a class="ref-link doi" href="https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf" rel="external">↗</a></li>
+<li id="ref-3">Bostock M, Ogievetsky V, Heer J. D³: Data-Driven Documents. <em>IEEE TVCG</em>. 2011;17(12):2301–9. <a class="ref-link doi" href="https://doi.org/10.1109/TVCG.2011.185" rel="external">↗</a></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>
+    <strong>ignorantia</strong> · v1.0.0 · 2026-04-28 · PT-BR · ABNT
+    
+    · <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>
+    · <span title="SHA-256 do HTML">hash: c2f1c5eab635</span>
+  </p>
+  
+  <p class="meta">Skill: <code>ignorantia</code> · Framework metodológico: <code>PRISMA-2020</code> · 0 bases consultadas · 0 registros identificados → 4 estudos incluídos.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Dark mode ──
+  function applyDarkPreference() {
+    try {
+      const stored = localStorage.getItem('ignorantia-dark');
+      if (stored === '1') document.documentElement.classList.add('dark');
+      else if (stored === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch(e) {}
+    syncToggleState('toggle-dark', document.documentElement.classList.contains('dark'));
+  }
+  document.getElementById('toggle-dark').addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('ignorantia-dark', isDark ? '1' : '0'); } catch(e) {}
+    syncToggleState('toggle-dark', isDark);
+  });
+
+  // ── Annotations ──
+  document.getElementById('toggle-annotations').addEventListener('click', () => {
+    const on = document.documentElement.classList.toggle('show-annotations');
+    syncToggleState('toggle-annotations', on);
+    if (on) positionAnnotations();
+  });
+  function positionAnnotations() {
+    const annotations = document.querySelectorAll('.annotation[data-anchor]');
+    const container = document.querySelector('.annotations-container');
+    if (!container) return;
+    const containerTop = container.getBoundingClientRect().top + window.scrollY;
+    annotations.forEach(a => {
+      const sel = a.getAttribute('data-anchor');
+      let target;
+      try { target = document.querySelector(sel); } catch(e) { return; }
+      if (!target) return;
+      const targetTop = target.getBoundingClientRect().top + window.scrollY;
+      a.style.top = (targetTop - containerTop) + 'px';
+    });
+  }
+  window.addEventListener('resize', () => {
+    if (document.documentElement.classList.contains('show-annotations')) positionAnnotations();
+    if (document.documentElement.classList.contains('show-fun-doodles')) positionDoodles();
+  });
+
+  // ── Fun doodles (decorative red scribbles) ──
+  document.getElementById('toggle-fun').addEventListener('click', () => {
+    const on = document.documentElement.classList.toggle('show-fun-doodles');
+    syncToggleState('toggle-fun', on);
+    if (on) positionDoodles();
+  });
+  function positionDoodles() {
+    const layer = document.querySelector('.fun-doodles');
+    if (!layer) return;
+    const layerRect = layer.getBoundingClientRect();
+    const offsetX = layerRect.left + window.scrollX;
+    const offsetY = layerRect.top + window.scrollY;
+    layer.querySelectorAll('.doodle[data-anchor]').forEach(d => {
+      const sel = d.getAttribute('data-anchor');
+      let target;
+      try { target = document.querySelector(sel); } catch(e) { return; }
+      if (!target) return;
+      const tRect = target.getBoundingClientRect();
+      const tLeft = tRect.left + window.scrollX - offsetX;
+      const tTop = tRect.top + window.scrollY - offsetY;
+      const type = d.getAttribute('data-type') || 'exclaim';
+      const side = d.getAttribute('data-side') || 'right';
+      const dx = parseFloat(d.getAttribute('data-dx') || 0);
+      const dy = parseFloat(d.getAttribute('data-dy') || 0);
+      const rot = d.getAttribute('data-rot') || '0';
+      if (type === 'circle') {
+        // wrap target with a circle of size = target box + padding
+        const pad = 6;
+        d.style.left = (tLeft - pad) + 'px';
+        d.style.top = (tTop - pad) + 'px';
+        d.style.width = (tRect.width + pad*2) + 'px';
+        d.style.height = (tRect.height + pad*2) + 'px';
+        d.style.transform = `rotate(${rot}deg)`;
+      } else if (type === 'underline') {
+        d.style.left = tLeft + 'px';
+        d.style.top = (tTop + tRect.height + 2) + 'px';
+        d.style.width = tRect.width + 'px';
+        d.style.transform = `rotate(${rot}deg)`;
+      } else if (type === 'arrow') {
+        // arrow points TO target from a position offset by dx,dy
+        d.style.left = (tLeft + (side === 'right' ? tRect.width + 12 : -120) + dx) + 'px';
+        d.style.top = (tTop + dy) + 'px';
+        d.style.transform = `rotate(${rot}deg)`;
+      } else { // exclaim text
+        if (side === 'right') {
+          d.style.left = (tLeft + tRect.width + 16 + dx) + 'px';
+          d.style.top = (tTop + dy) + 'px';
+        } else if (side === 'left') {
+          d.style.right = 'auto';
+          d.style.left = (tLeft - 16 - 200 + dx) + 'px';  // approximate width
+          d.style.top = (tTop + dy) + 'px';
+        } else if (side === 'above') {
+          d.style.left = (tLeft + dx) + 'px';
+          d.style.top = (tTop - 32 + dy) + 'px';
+        } else {
+          d.style.left = (tLeft + dx) + 'px';
+          d.style.top = (tTop + tRect.height + 4 + dy) + 'px';
+        }
+        d.style.transform = `rotate(${rot}deg)`;
+      }
+    });
+  }
+
+  // ── Collapse toggle (per section) ──
+  document.querySelectorAll('.section-collapse').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const sec = e.target.closest('section');
+      sec.classList.toggle('collapsed');
+      const expanded = !sec.classList.contains('collapsed');
+      btn.setAttribute('aria-expanded', expanded);
+    });
+  });
+  document.getElementById('toggle-collapse-all').addEventListener('click', e => {
+    const allCollapsed = !!document.querySelector('section.collapsed');
+    const target = !allCollapsed; // if any not collapsed, collapse all; else open all
+    document.querySelectorAll('section[id^="sec-"]').forEach(s => {
+      if (target) s.classList.add('collapsed');
+      else s.classList.remove('collapsed');
+    });
+    syncToggleState('toggle-collapse-all', target);
+  });
+
+  // ── Search ──
+  const q = document.getElementById('q');
+  let searchTimeout;
+  q.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => doSearch(q.value), 200);
+  });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { q.value = ''; doSearch(''); }
+  });
+  function doSearch(term) {
+    document.querySelectorAll('mark.search-hit').forEach(m => {
+      const t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+    });
+    if (!term || term.length < 2) return;
+    const re = new RegExp('(' + escapeRegExp(term) + ')', 'gi');
+    const walker = document.createTreeWalker(
+      document.querySelector('main.layout'),
+      NodeFilter.SHOW_TEXT,
+      { acceptNode: n => n.parentNode.tagName === 'SCRIPT' || n.parentNode.tagName === 'STYLE'
+                       ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT }
+    );
+    const nodes = [];
+    let n;
+    while (n = walker.nextNode()) if (re.test(n.nodeValue)) nodes.push(n);
+    nodes.forEach(node => {
+      const span = document.createElement('span');
+      span.innerHTML = node.nodeValue.replace(re, '<mark class="search-hit">$1</mark>');
+      node.parentNode.replaceChild(span, node);
+    });
+    const first = document.querySelector('mark.search-hit');
+    if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  // ── Section filter ──
+  const filterSection = document.getElementById('filter-section');
+  filterSection.addEventListener('change', () => {
+    const sel = filterSection.value;
+    document.querySelectorAll('section[id^="sec-"]').forEach(s => {
+      s.style.display = (!sel || s.id === sel) ? '' : 'none';
+    });
+  });
+
+  // ── RQ filter ──
+  const filterRQ = document.getElementById('filter-rq');
+  filterRQ.addEventListener('change', () => {
+    const sel = filterRQ.value;
+    document.querySelectorAll('#studies tbody tr').forEach(tr => {
+      const rqs = (tr.getAttribute('data-rqs') || '').toLowerCase();
+      tr.style.display = (!sel || rqs.includes(sel.toLowerCase())) ? '' : 'none';
+    });
+  });
+
+  // ── Studies table: sort + filter per column ──
+  const tbl = document.getElementById('studies');
+  if (tbl) {
+    tbl.querySelectorAll('thead th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => sortTable(tbl, th));
+    });
+    tbl.querySelectorAll('.filters-row input[data-col]').forEach(inp => {
+      inp.addEventListener('input', () => filterTable(tbl));
+    });
+  }
+  function sortTable(table, th) {
+    const idx = Array.from(th.parentNode.children).indexOf(th);
+    const dir = th.getAttribute('data-sort-direction') === 'asc' ? 'desc' : 'asc';
+    table.querySelectorAll('thead th').forEach(t => t.removeAttribute('data-sort-direction'));
+    th.setAttribute('data-sort-direction', dir);
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a, b) => {
+      const av = a.children[idx].textContent.trim();
+      const bv = b.children[idx].textContent.trim();
+      const an = parseFloat(av); const bn = parseFloat(bv);
+      const cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : av.localeCompare(bv);
+      return dir === 'asc' ? cmp : -cmp;
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  }
+  function filterTable(table) {
+    const inputs = Array.from(table.querySelectorAll('.filters-row input[data-col]'));
+    const filters = inputs.map((inp, i) => ({ idx: Array.from(inp.parentNode.parentNode.children).indexOf(inp.parentNode), val: inp.value.trim().toLowerCase() }));
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      const show = filters.every(f => {
+        if (!f.val) return true;
+        const cell = tr.children[f.idx];
+        if (!cell) return true;
+        const text = cell.textContent.toLowerCase();
+        // numeric ≥N
+        if (f.val.startsWith('>=') || f.val.startsWith('≥')) {
+          const n = parseFloat(f.val.replace(/^[>=≥]+/, ''));
+          const cn = parseFloat(text);
+          return !isNaN(n) && !isNaN(cn) && cn >= n;
+        }
+        return text.includes(f.val);
+      });
+      tr.style.display = show ? '' : 'none';
+    });
+  }
+
+  // ── Reference tooltips: ensure they fit on screen ──
+  document.querySelectorAll('a.ref').forEach(ref => {
+    ref.addEventListener('mouseenter', () => {
+      const tip = ref.querySelector('.tooltip');
+      if (!tip) return;
+      const rect = ref.getBoundingClientRect();
+      // if tip would overflow right, anchor right
+      if (rect.left + 320 > window.innerWidth) {
+        tip.style.left = 'auto';
+        tip.style.right = '0';
+      }
+    });
+  });
+
+  // ── helpers ──
+  function syncToggleState(id, on) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('aria-pressed', !!on);
+  }
+
+  // ── on load ──
+  applyDarkPreference();
+
+  // ── D3 charts (data injected by render_manuscript.py) ──
+  const TEMPORAL_DATA = [{"year": 2007, "n": 1}, {"year": 2011, "n": 1}, {"year": 2014, "n": 1}, {"year": 2021, "n": 1}];
+  const QA_HEATMAP_DATA = {"studies": [{"id": "S01", "scores": [1.0, 1.0, 1.0, 1.0, 1.0]}, {"id": "S02", "scores": [1.0, 1.0, 1.0, 0.5, 1.0]}, {"id": "S03", "scores": [1.0, 1.0, 1.0, 1.0, 1.0]}, {"id": "S04", "scores": [1.0, 1.0, 0.5, 1.0, 1.0]}], "dimensions": ["QA1", "QA2", "QA3", "QA4", "QA5"]};
+
+  if (typeof d3 !== 'undefined') {
+    if (TEMPORAL_DATA && TEMPORAL_DATA.length) renderTemporal(TEMPORAL_DATA);
+    if (QA_HEATMAP_DATA && QA_HEATMAP_DATA.studies) renderQAHeatmap(QA_HEATMAP_DATA);
+  }
+
+  function renderTemporal(data) {
+    const container = document.getElementById('chart-temporal');
+    if (!container) return;
+    const W = container.clientWidth || 700;
+    const H = 260;
+    const M = { top: 20, right: 16, bottom: 40, left: 40 };
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('width', '100%').attr('height', H);
+    const x = d3.scaleBand().domain(data.map(d=>d.year)).range([M.left, W-M.right]).padding(0.15);
+    const y = d3.scaleLinear().domain([0, d3.max(data, d=>d.n)]).nice().range([H-M.bottom, M.top]);
+    svg.append('g').selectAll('rect').data(data).join('rect')
+      .attr('x', d=>x(d.year)).attr('y', d=>y(d.n))
+      .attr('width', x.bandwidth()).attr('height', d=>y(0)-y(d.n))
+      .attr('fill', 'var(--accent)')
+      .append('title').text(d => `${d.year}: ${d.n} estudo${d.n===1?'':'s'}`);
+    svg.append('g').attr('transform',`translate(0,${H-M.bottom})`)
+      .call(d3.axisBottom(x).tickFormat(d=>d).tickSizeOuter(0))
+      .selectAll('text').style('font-size','11px');
+    svg.append('g').attr('transform',`translate(${M.left},0)`)
+      .call(d3.axisLeft(y).ticks(5).tickSizeOuter(0))
+      .selectAll('text').style('font-size','11px');
+  }
+
+  function renderQAHeatmap(data) {
+    const container = document.getElementById('chart-qa-heatmap');
+    if (!container) return;
+    const studies = data.studies; // [{id, scores:[v1, v2, ...]}, ...]
+    const dims = data.dimensions; // ['QA1', 'QA2', ...]
+    const W = container.clientWidth || 700;
+    const H = Math.max(200, studies.length * 14 + 80);
+    const M = { top: 50, right: 16, bottom: 16, left: 56 };
+    const cellW = (W - M.left - M.right) / dims.length;
+    const cellH = (H - M.top - M.bottom) / studies.length;
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('width','100%').attr('height', H);
+    const color = d3.scaleLinear().domain([0, 0.5, 1]).range(['#c93a3a', '#d68a1e', '#2c8a4f']);
+    studies.forEach((s, i) => {
+      svg.append('text').attr('x', M.left-6).attr('y', M.top + i*cellH + cellH/2 + 3)
+        .attr('text-anchor','end').style('font-size','10px').style('font-family','monospace')
+        .text(s.id);
+      s.scores.forEach((v, j) => {
+        svg.append('rect')
+          .attr('x', M.left + j*cellW).attr('y', M.top + i*cellH)
+          .attr('width', cellW-1).attr('height', cellH-1)
+          .attr('fill', color(v))
+          .append('title').text(`${s.id} · ${dims[j]}: ${v}`);
+      });
+    });
+    dims.forEach((d, j) => {
+      svg.append('text').attr('x', M.left + j*cellW + cellW/2).attr('y', M.top - 10)
+        .attr('text-anchor','middle').style('font-size','11px').style('font-weight','600')
+        .text(d);
+    });
+  }
+})();
+</script>
+</body>
+</html>

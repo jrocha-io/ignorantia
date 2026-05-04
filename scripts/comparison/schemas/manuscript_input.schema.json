@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ignorantia/schemas/manuscript_input.schema.json",
+  "title": "ignorantia comparison — manuscript input",
+  "description": "Input padronizado para alimentar baselines e o engine ignorantia em comparação automatizada.",
+  "type": "object",
+  "required": ["manuscript_id", "title", "abstract", "language", "ground_truth"],
+  "additionalProperties": false,
+  "properties": {
+    "manuscript_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "description": "Identificador único, sem espaços. Usado em filenames e como chave em outputs."
+    },
+    "title": {"type": "string", "minLength": 5, "maxLength": 500},
+    "abstract": {"type": "string", "minLength": 50, "maxLength": 5000},
+    "language": {"type": "string", "enum": ["pt", "en", "es"]},
+    "mode": {
+      "type": "string",
+      "enum": [
+        "systematic_review_strict", "systematic_review_with_2_reviewers",
+        "scoping_review", "rapid_review", "mapping_study",
+        "integrative_review", "realist_review",
+        "software_paper", "position_paper", "technical_report", "white_paper",
+        "narrative_review", "qualitative_synthesis", "theoretical_essay", "meta_analysis"
+      ],
+      "description": "Modo do ghostwriter ignorantia (Decisão 1, v2.1)."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["doi"],
+        "properties": {
+          "doi": {"type": "string", "pattern": "^10\\..+/.+"},
+          "title": {"type": "string"},
+          "year": {"type": "integer", "minimum": 1900, "maximum": 2100}
+        }
+      },
+      "description": "Lista de referências do manuscrito (DOIs primários)."
+    },
+    "ground_truth": {
+      "type": "object",
+      "required": ["venue_id"],
+      "properties": {
+        "venue_id": {"type": "string", "description": "venue_id catalogado em ignorantia (ex.: rlae_usp, ist_elsevier) ou identificador externo se fora do catálogo."},
+        "venue_name": {"type": "string"},
+        "tier": {"type": "string", "enum": ["A1", "A2", "A3", "B1", "Q1_INT", "Q2_INT", "external"]},
+        "fallback_tier": {"type": "integer", "enum": [1, 2, 3], "description": "Tier OA-first conforme Decisão 14."},
+        "guideline_used": {"type": "string", "description": "Reporting guideline aplicada (PRISMA-2020, PRISMA-ScR, MECIR, Kitchenham, etc.)."}
+      },
+      "additionalProperties": false
+    },
+    "compliance_annotation": {
+      "type": "object",
+      "description": "Anotação humana item-a-item da reporting guideline aplicada. Para PRISMA-2020: 27 itens.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["item_id", "compliant"],
+        "properties": {
+          "item_id": {"type": "string"},
+          "compliant": {"type": "boolean"},
+          "evidence": {"type": "string"},
+          "annotator_id": {"type": "string"}
+        }
+      }
+    }
+  }
+}

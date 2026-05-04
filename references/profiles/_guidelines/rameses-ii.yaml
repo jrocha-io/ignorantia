@@ -1,0 +1,201 @@
+id: RAMESES-II
+name: "RAMESES Publication Standards: Realist Reviews"
+version: "2013"
+canonical_doi: "10.1186/1741-7015-11-21"
+canonical_url: "https://www.equator-network.org/reporting-guidelines/rameses-publication-standards-realist-syntheses/"
+canonical_authors: "Wong G, Greenhalgh T, Westhorp G, Buckingham J, Pawson R (2013) BMC Medicine 11:21"
+items_total: 19
+applies_to:
+  - realist_review
+note: |
+  Realist Review é a metodologia de revisão concebida por Pawson et al. (2005)
+  para responder a pergunta "o que funciona, para quem, em que contextos, e por quê",
+  focando em mecanismos causais (Context-Mechanism-Outcome — CMO configurations)
+  ao invés de efeitos médios.
+
+  RAMESES II (Wong et al. 2013, BMC Med) é o reporting standard oficial,
+  incluído na EQUATOR Network. Aplicável a:
+  - Avaliação de programas de política pública
+  - Avaliação de intervenções educacionais complexas
+  - Análise de tecnologias em educação (incluindo IA)
+  - Avaliação de mudanças organizacionais
+
+  Diferenças críticas vs Systematic Review:
+  - Foco em explicação de mecanismos, não em efeito médio.
+  - Aceita múltiplos tipos de evidência (quanti, quali, teórica, grey lit).
+  - Iteração explícita: theory → search → analysis → refinement → re-search.
+  - Síntese baseada em CMO configurations, não em meta-análise.
+  - Single-reviewer aceito com transparência total.
+
+  Especialmente apropriada para temas educacionais e de política pública
+  ("para quem funciona, em que contexto, por quê").
+
+items:
+  # ==================== TITLE / ABSTRACT ====================
+  - id: "RR-1"
+    section: "TITLE"
+    title: "Identify as realist review/synthesis"
+    automation_level: full
+    detection_method: "regex_in_title"
+    anchors:
+      - "realist review"
+      - "realist synthesis"
+      - "revisão realista"
+      - "síntese realista"
+    severity_if_missing: blocking
+
+  - id: "RR-2"
+    section: "ABSTRACT"
+    title: "Structured abstract with realist methodology indicators"
+    automation_level: partial
+    severity_if_missing: major
+
+  # ==================== INTRODUCTION ====================
+  - id: "RR-3"
+    section: "INTRODUCTION"
+    title: "Rationale for realist approach (why realist over other methodologies)"
+    automation_level: partial
+    detection_method: "rationale_realist_explicit"
+    anchors:
+      - "realist methodology was chosen"
+      - "realist approach"
+      - "context-mechanism-outcome"
+      - "abordagem realista"
+    severity_if_missing: blocking
+
+  - id: "RR-4"
+    section: "INTRODUCTION"
+    title: "Initial program theory or hypothesis (CMO configurations)"
+    automation_level: partial
+    detection_method: "initial_program_theory"
+    anchors:
+      - "initial program theory"
+      - "initial programme theory"
+      - "CMO configuration"
+      - "context-mechanism-outcome"
+      - "teoria inicial do programa"
+    severity_if_missing: blocking
+    note: "RAMESES II exige initial program theory explicitada — não é opcional."
+
+  - id: "RR-5"
+    section: "INTRODUCTION"
+    title: "Research question(s) framed in realist terms"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== METHODS ====================
+  - id: "RR-6"
+    section: "METHODS"
+    title: "Search strategy (iterative, may include multiple rounds)"
+    automation_level: full
+    detection_method: "iterative_search_declared"
+    anchors:
+      - "iterative search"
+      - "multiple search rounds"
+      - "busca iterativa"
+      - "subsequent searches"
+    severity_if_missing: major
+
+  - id: "RR-7"
+    section: "METHODS"
+    title: "Selection criteria reflect relevance to program theory (not just topic match)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  - id: "RR-8"
+    section: "METHODS"
+    title: "Data extraction focused on CMO components"
+    automation_level: partial
+    detection_method: "cmo_extraction"
+    anchors:
+      - "context"
+      - "mechanism"
+      - "outcome"
+      - "contexto"
+      - "mecanismo"
+      - "desfecho"
+    severity_if_missing: blocking
+
+  - id: "RR-9"
+    section: "METHODS"
+    title: "Quality and relevance assessment of included studies"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "RR-10"
+    section: "METHODS"
+    title: "Synthesis approach: refining program theory through testing against evidence"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== RESULTS ====================
+  - id: "RR-11"
+    section: "RESULTS"
+    title: "Document selection process (PRISMA-like flow adapted)"
+    automation_level: full
+    detection_method: "prisma_flow_diagram_present"
+    severity_if_missing: blocking
+
+  - id: "RR-12"
+    section: "RESULTS"
+    title: "Document characteristics summary"
+    automation_level: full
+    detection_method: "characteristics_table_present"
+    severity_if_missing: blocking
+
+  - id: "RR-13"
+    section: "RESULTS"
+    title: "Main findings expressed as CMO configurations"
+    automation_level: partial
+    severity_if_missing: blocking
+    needs_human_verification: true
+
+  - id: "RR-14"
+    section: "RESULTS"
+    title: "Refined program theory (how it changed from initial)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== DISCUSSION ====================
+  - id: "RR-15"
+    section: "DISCUSSION"
+    title: "Summary of findings (program theory + key CMOs)"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "RR-16"
+    section: "DISCUSSION"
+    title: "Comparison with existing literature"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "RR-17"
+    section: "DISCUSSION"
+    title: "Limitations specific to realist methodology"
+    automation_level: partial
+    detection_method: "realist_limitations_section"
+    anchors:
+      - "realist methodology limitations"
+      - "limitations of realist synthesis"
+      - "limitações da síntese realista"
+    severity_if_missing: blocking
+
+  - id: "RR-18"
+    section: "DISCUSSION"
+    title: "Implications for policy/practice and future research"
+    automation_level: partial
+    severity_if_missing: major
+
+  # ==================== OTHER ====================
+  - id: "RR-19"
+    section: "OTHER"
+    title: "Funding + conflicts of interest declared"
+    automation_level: full
+    detection_method: "funding_and_coi_present"
+    severity_if_missing: blocking
+
+# Resumo de automatizabilidade:
+# full:    5 itens (RR-1, 6, 11, 12, 19)
+# partial: 13 itens
+# none:    1 item  (RR-15)

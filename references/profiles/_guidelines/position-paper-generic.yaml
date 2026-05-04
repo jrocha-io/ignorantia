@@ -1,0 +1,163 @@
+id: POSITION-PAPER-GENERIC
+name: "Position Paper / Theoretical Essay Generic Standard"
+version: "2026"
+canonical_references:
+  - "Toulmin S (2003) The Uses of Argument. Updated edition. Cambridge University Press."
+  - "Walton D (2008) Informal Logic: A Pragmatic Approach. 2nd ed. Cambridge University Press."
+items_total: 12
+applies_to:
+  - position_paper
+  - theoretical_essay
+note: |
+  Position Papers e Theoretical Essays não têm reporting guideline único na EQUATOR Network
+  (são por natureza argumentativos, não empíricos). Mas têm convenções consolidadas:
+
+  Convenções IEEE Software (Insights/Viewpoints):
+  - Formato curto (~3000 palavras tipicamente)
+  - "Renowned expert position with novel insights and new perspectives"
+  - Background → Position statement → Argumentation → Counter-arguments → Implications
+
+  Convenções Communications of the ACM (Viewpoints):
+  - Similar a IEEE Software Insights; foco em pontos críticos comunidade CS
+
+  Convenções AI & Society (Springer):
+  - Position papers filosófico-sociais com argumentação rigorosa
+  - Mais espaço para fundamentação teórica (~6000-10000 palavras)
+
+  Estrutura argumentativa genérica (Toulmin/Walton-inspired):
+  - Claim explícito (a posição defendida)
+  - Grounds (evidência/fatos que sustentam)
+  - Warrants (princípios que conectam grounds a claim)
+  - Backing (apoio para os warrants)
+  - Qualifiers (em que extensão a posição vale)
+  - Rebuttals (em que condições a posição não vale)
+
+  Camada hierárquica: Secundária (a tese é fornecida pelo usuário; busca bibliográfica é complementar).
+
+  Em todos os casos: AI Disclosure obrigatória.
+
+items:
+  # ==================== STRUCTURE ====================
+  - id: "PP-1"
+    section: "STRUCTURE"
+    title: "Background / context establishing the problem"
+    automation_level: partial
+    detection_method: "background_section"
+    anchors:
+      - "^# Background"
+      - "^## Background"
+      - "^# Introduction"
+      - "^# Contexto"
+    severity_if_missing: blocking
+
+  - id: "PP-2"
+    section: "STRUCTURE"
+    title: "Position statement explicit (the claim being defended)"
+    automation_level: partial
+    detection_method: "position_explicit"
+    anchors:
+      - "we argue that"
+      - "this paper argues"
+      - "our position is"
+      - "argumentamos que"
+      - "nossa posição é"
+      - "this article maintains"
+    severity_if_missing: blocking
+
+  - id: "PP-3"
+    section: "STRUCTURE"
+    title: "Argumentation with grounds + warrants + backing"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  - id: "PP-4"
+    section: "STRUCTURE"
+    title: "Counter-arguments addressed (anticipating objections)"
+    automation_level: full
+    detection_method: "counter_arguments_section"
+    anchors:
+      - "counter-argument"
+      - "objection"
+      - "however,? one might argue"
+      - "critics may"
+      - "contra-argumento"
+      - "objeções"
+    severity_if_missing: major
+    note: "Position Paper sem counter-arguments parece propaganda; reviewers IEEE/CACM penalizam."
+
+  - id: "PP-5"
+    section: "STRUCTURE"
+    title: "Qualifiers and rebuttals (when does the position NOT hold)"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "PP-6"
+    section: "STRUCTURE"
+    title: "Implications for practice/policy/research"
+    automation_level: partial
+    detection_method: "implications_section"
+    anchors:
+      - "implications"
+      - "implicações"
+      - "implications for practice"
+      - "implications for policy"
+      - "implications for research"
+    severity_if_missing: blocking
+
+  - id: "PP-7"
+    section: "STRUCTURE"
+    title: "References (literature supporting argumentation, not necessarily systematic)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== TRANSPARENCY ====================
+  - id: "PP-8"
+    section: "TRANSPARENCY"
+    title: "AI Disclosure (declaration of AI use in argumentation/drafting)"
+    automation_level: full
+    detection_method: "ai_disclosure_section"
+    anchors:
+      - "AI usage disclosure"
+      - "Declaration of AI use"
+      - "Declaração de uso de IAG"
+    severity_if_missing: blocking
+
+  - id: "PP-9"
+    section: "TRANSPARENCY"
+    title: "Author's epistemological position declared (where does the author stand)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "PP-10"
+    section: "TRANSPARENCY"
+    title: "Conflicts of interest declared"
+    automation_level: full
+    detection_method: "coi_section_present"
+    anchors:
+      - "competing interests"
+      - "conflicts of interest"
+      - "conflito de interesses"
+      - "declaration of interest"
+    severity_if_missing: blocking
+
+  # ==================== FORMAT ====================
+  - id: "PP-11"
+    section: "FORMAT"
+    title: "Length within venue limits (Insights ~3000 words; AI&Society ~6000-10000)"
+    automation_level: full
+    detection_method: "word_count_in_range"
+    severity_if_missing: major
+
+  - id: "PP-12"
+    section: "FORMAT"
+    title: "Funding declared (if applicable)"
+    automation_level: full
+    detection_method: "funding_section_present"
+    severity_if_missing: minor
+
+# Venues compatíveis:
+# - zenodo_position_paper: padrão OA-gratuito ($0 APC; sem peer review formal)
+# - osf_preprints_position: alternativa OA ($0; preprint)
+# - ieee_software_insights: hybrid; alta visibilidade IEEE; ~3000 palavras
+# - cacm_viewpoints: hybrid; alta visibilidade ACM; formato curto
+# - ai_society_springer: hybrid OA ~$2890 APC; escopo filosófico-social

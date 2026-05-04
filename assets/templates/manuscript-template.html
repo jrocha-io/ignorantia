@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="{{LANG_TAG}}" data-mode="light" data-density="comfortable">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — v{{VERSION}}</title>
+<meta name="description" content="{{SUBTITLE}}">
+<meta name="generator" content="algoritmo particular do autor + Claude (Anthropic)">
+<meta name="dcterms.created" content="{{DATE_ISO}}">
+<meta name="dcterms.license" content="{{LICENSE}}">
+<style>
+:root {
+  /* Light palette */
+  --bg-primary: #fafaf7;
+  --bg-secondary: #f0efe8;
+  --bg-tertiary: #e8e7e0;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --border: #d8d6cc;
+  --border-soft: #e8e6dc;
+  --accent: {{ACCENT_COLOR}};
+  --accent-soft: {{ACCENT_SOFT}};
+  --accent-text: #ffffff;
+  --keyword-bg: rgba(120, 80, 200, 0.12);
+  --keypoint-bg: rgba(255, 220, 100, 0.45);
+  --audit-info: #2563eb;
+  --audit-warn: #ca8a04;
+  --audit-error: #dc2626;
+  --status-green: #15803d;
+  --status-yellow: #ca8a04;
+  --status-orange: #ea580c;
+  --status-red: #dc2626;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+  --shadow: 0 2px 8px rgba(0,0,0,.06);
+  --radius: 6px;
+  --radius-lg: 10px;
+}
+html[data-mode="dark"] {
+  --bg-primary: #14141a;
+  --bg-secondary: #1c1c24;
+  --bg-tertiary: #24242e;
+  --bg-card: #1a1a22;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b0b0;
+  --text-muted: #707078;
+  --border: #2c2c38;
+  --border-soft: #1f1f28;
+  --accent-soft: rgba(140, 100, 230, 0.15);
+  --keyword-bg: rgba(140, 100, 230, 0.22);
+  --keypoint-bg: rgba(255, 200, 80, 0.18);
+  --shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+html[data-density="compact"] body { font-size: 14px; line-height: 1.5; }
+html[data-density="confortable"] body { font-size: 17px; line-height: 1.7; }
+
+/* ============== TOPBAR ============== */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.topbar-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+  padding: 8px 24px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+.brand-version { color: var(--text-muted); font-weight: 400; font-size: 12px; }
+.tabs {
+  display: flex; gap: 4px;
+  flex: 1;
+  margin: 0 16px;
+}
+.tab {
+  background: none; border: none;
+  padding: 8px 14px;
+  font: inherit; font-size: 14px; font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.15s, color 0.15s;
+}
+.tab:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.tab[aria-selected="true"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+.toolbar {
+  display: flex; gap: 6px; align-items: center;
+}
+.search-input {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font: inherit; font-size: 13px;
+  color: var(--text-primary);
+  width: 200px;
+}
+.search-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.icon-btn {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font: inherit; font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.icon-btn:hover { background: var(--bg-tertiary); }
+.icon-btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+
+/* ============== STATUS BANNER ============== */
+.status-banner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 12px 24px;
+}
+.status-banner > .banner {
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  display: flex; align-items: flex-start; gap: 12px;
+  border-left: 4px solid;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+.banner-incomplete { border-left-color: var(--status-orange); background: rgba(234,88,12,.06); }
+.banner-invalid { border-left-color: var(--status-red); background: rgba(220,38,38,.06); }
+.banner-fraudulent { border-left-color: var(--status-red); background: rgba(220,38,38,.10); }
+.banner-good { border-left-color: var(--status-green); background: rgba(21,128,61,.06); }
+.banner-warn { border-left-color: var(--status-yellow); background: rgba(202,138,4,.06); }
+.banner-icon { font-size: 20px; line-height: 1.2; }
+.banner-content h3 { margin: 0 0 4px; font-size: 15px; }
+.banner-content p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+.banner-content a { color: var(--accent); }
+
+/* ============== LAYOUT ============== */
+.tab-panel { display: none; }
+.tab-panel[data-active="true"] { display: block; }
+.layout {
+  max-width: 880px; margin: 0 auto;
+  padding: 24px 24px 80px;
+}
+.layout-wide {
+  max-width: 1280px; margin: 0 auto;
+  padding: 24px 24px 80px;
+}
+
+/* ============== HEADER ============== */
+.doc-header {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+.doc-meta {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.doc-title { margin: 0 0 8px; font-size: 28px; line-height: 1.2; }
+.doc-subtitle { color: var(--text-secondary); font-size: 17px; margin-bottom: 16px; }
+.doc-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.badge-version { background: var(--accent); color: var(--accent-text); }
+.badge-incomplete { background: var(--status-orange); color: white; }
+
+/* ============== SECTIONS ============== */
+section { margin-bottom: 28px; scroll-margin-top: 70px; }
+.section-head {
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 8px; margin-bottom: 16px;
+}
+.section-num {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px; font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.section-head h2 {
+  margin: 0; flex: 1;
+  font-size: 22px;
+  line-height: 1.3;
+}
+.section-collapse {
+  background: none; border: 1px solid var(--border);
+  width: 28px; height: 28px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.section-collapse:hover { background: var(--bg-secondary); }
+.section-body[hidden] { display: none; }
+
+/* ============== TLDR CARD ============== */
+.tldr-card {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.tldr-card-label {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10px; font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.tldr-card p { margin: 0; }
+html.hide-tldr .tldr-card { display: none; }
+
+/* ============== KEYWORD HIGHLIGHTS ============== */
+mark.keyword {
+  background: var(--keyword-bg);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+mark.keypoint {
+  background: var(--keypoint-bg);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+html.hide-keywords mark.keyword { background: transparent; }
+html.hide-keypoints mark.keypoint { background: transparent; font-weight: inherit; }
+
+/* ============== AUDIT ANNOTATIONS (inline) ============== */
+.audit-annotation {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--audit-warn);
+  border-left: 3px solid var(--audit-warn);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 8px 12px;
+  margin: 8px 0;
+  font-size: 13px;
+}
+html.show-audit .audit-annotation { display: block; }
+.audit-annotation-info { border-color: var(--audit-info); border-left-color: var(--audit-info); }
+.audit-annotation-warn { border-color: var(--audit-warn); border-left-color: var(--audit-warn); }
+.audit-annotation-error { border-color: var(--audit-error); border-left-color: var(--audit-error); }
+.audit-annotation-label {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+.audit-annotation a { color: var(--accent); font-size: 12px; }
+
+/* ============== PROVENANCE ============== */
+.provenance-icon {
+  font-size: 11px;
+  margin-right: 4px;
+  opacity: 0.7;
+}
+html.hide-provenance .provenance-icon { display: none; }
+
+/* ============== REFERENCES ============== */
+.ref-cite {
+  display: inline-block;
+  font-size: 0.8em;
+  vertical-align: super;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin: 0 1px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+.ref-cite:hover { background: var(--accent); color: var(--accent-text); }
+.ref-tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  width: 320px;
+  z-index: 50;
+  font-style: normal;
+  color: var(--text-primary);
+  text-align: left;
+}
+.ref-cite:hover .ref-tooltip { visibility: visible; }
+.ref-list { font-size: 13px; line-height: 1.7; padding-left: 0; list-style: none; }
+.ref-list li { padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
+.ref-list li::before { content: "[" counter(refnum) "] "; counter-increment: refnum; color: var(--accent); font-weight: 600; }
+.ref-list { counter-reset: refnum; }
+
+/* ============== TABLES ============== */
+.table-wrap {
+  overflow-x: auto; margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+table thead th {
+  background: var(--bg-secondary);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+table#studies thead th { position: sticky; top: 56px; z-index: 5; }
+table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+table tbody tr:hover { background: var(--bg-secondary); }
+
+/* ============== STATUS PILLS ============== */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-pill-green { background: rgba(21,128,61,.15); color: var(--status-green); }
+.status-pill-yellow { background: rgba(202,138,4,.15); color: var(--status-yellow); }
+.status-pill-orange { background: rgba(234,88,12,.15); color: var(--status-orange); }
+.status-pill-red { background: rgba(220,38,38,.15); color: var(--status-red); }
+
+/* ============== VENUE CARDS ============== */
+.venue-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+.venue-card-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  margin-bottom: 12px;
+}
+.venue-card-name { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+.venue-card-publisher { font-size: 13px; color: var(--text-muted); }
+.venue-card-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin: 12px 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.venue-card-meta span strong { color: var(--text-primary); }
+.venue-card-criteria {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.venue-card-criteria h4 { margin: 0 0 8px; font-size: 13px; color: var(--text-secondary); }
+.venue-card-criteria ul { margin: 0; padding-left: 20px; }
+.venue-card-criteria li.crit-pass { color: var(--status-green); }
+.venue-card-criteria li.crit-warn { color: var(--status-yellow); }
+.venue-card-criteria li.crit-fail { color: var(--status-red); }
+
+/* ============== AUDIT REPORT ============== */
+.audit-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.audit-dim-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.audit-dim-card h4 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.audit-dim-card .score {
+  font-size: 28px; font-weight: 700;
+  font-family: ui-monospace, monospace;
+  color: var(--accent);
+}
+.audit-dim-card .score-max {
+  font-size: 14px; color: var(--text-muted); font-weight: 400;
+}
+.audit-dim-card .pct {
+  font-size: 12px; color: var(--text-secondary);
+  margin-top: 4px;
+}
+.audit-final-grade {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  margin: 24px 0;
+}
+.audit-final-grade .grade {
+  font-size: 48px; font-weight: 700;
+  font-family: ui-monospace, monospace;
+  color: var(--accent);
+  line-height: 1;
+}
+.audit-final-grade .grade-label {
+  font-size: 13px; color: var(--text-secondary); margin-top: 4px;
+}
+.audit-missing {
+  margin: 24px 0;
+}
+.audit-missing h3 {
+  margin: 0 0 12px;
+  border-left: 3px solid var(--audit-error);
+  padding-left: 12px;
+}
+.audit-missing-section { margin-bottom: 16px; }
+.audit-missing-section h4 {
+  font-size: 14px;
+  color: var(--audit-error);
+  margin: 0 0 6px;
+}
+.audit-missing-section.warn h4 { color: var(--audit-warn); }
+.audit-missing-section.polish h4 { color: var(--audit-info); }
+.audit-missing-section ol { margin: 0; padding-left: 24px; }
+.audit-missing-section li { margin-bottom: 4px; }
+
+/* ============== CHARTS ============== */
+.chart-frame {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin: 12px 0;
+  background: var(--bg-card);
+}
+.chart-caption {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ============== UTILITIES ============== */
+.muted { color: var(--text-muted); font-size: 13px; }
+.note-box {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+.not-this-version {
+  background: rgba(202,138,4,.08);
+  border-left: 3px solid var(--status-yellow);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+.not-this-version h4 { margin: 0 0 8px; font-size: 14px; }
+.not-this-version ul { margin: 0; padding-left: 20px; font-size: 13px; }
+
+/* ============== FOOTER ============== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: ui-monospace, monospace;
+}
+footer code { font-size: 11px; }
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 640px) {
+  .topbar-inner { gap: 8px; padding: 8px 12px; }
+  .tabs { margin: 0 4px; gap: 2px; flex-basis: 100%; order: 3; }
+  .tab { padding: 6px 8px; font-size: 12px; }
+  .search-input { width: 110px; }
+  .layout, .layout-wide { padding: 16px 12px 60px; }
+  .doc-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== TOPBAR ========== -->
+<header class="topbar" role="banner">
+  <div class="topbar-inner">
+    <div class="brand">
+      {{TITLE_SHORT}}
+      <span class="brand-version">v{{VERSION}}</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Navegação principal">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-manuscript" id="tab-manuscript" data-tab="manuscript">{{TAB_MANUSCRIPT}}</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audit" id="tab-audit" data-tab="audit">{{TAB_AUDIT}}</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-data" id="tab-data" data-tab="data">{{TAB_DATA}}</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-venues" id="tab-venues" data-tab="venues">{{TAB_VENUES}}</button>
+    </nav>
+    <div class="toolbar">
+      <input type="search" id="q" class="search-input" placeholder="{{SEARCH_PLACEHOLDER}}" aria-label="Buscar">
+      <button class="icon-btn" id="toggle-tldr" aria-pressed="true" title="Mostrar/esconder resumos TL;DR">📋 TL;DR</button>
+      <button class="icon-btn" id="toggle-audit" aria-pressed="false" title="Mostrar/esconder anotações de auditoria inline">🔍 Anotações</button>
+      <button class="icon-btn" id="toggle-keypoints" aria-pressed="false" title="Mostrar/esconder marca-textos">🖍️ Marca</button>
+      <button class="icon-btn" id="toggle-dark" aria-pressed="false" title="Modo escuro">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== STATUS BANNER ========== -->
+{{STATUS_BANNER_HTML}}
+
+<!-- ========== TAB: MANUSCRIPT ========== -->
+<div class="tab-panel" data-active="true" id="panel-manuscript" role="tabpanel" aria-labelledby="tab-manuscript">
+<main class="layout">
+
+  <header class="doc-header">
+    <div class="doc-meta">{{SKILL_TAG}} · {{TOPIC_SLUG}} · v{{VERSION}} · {{DATE_ISO}}</div>
+    <h1 class="doc-title">{{TITLE}}</h1>
+    <p class="doc-subtitle">{{SUBTITLE}}</p>
+    <div class="doc-badges">
+      <span class="badge badge-version">v{{VERSION}}</span>
+      {{HEADER_BADGES}}
+    </div>
+  </header>
+
+  <section id="sec-00" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 00</span>
+      <h2>{{SEC00_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-00-body">−</button>
+    </header>
+    <div class="section-body" id="sec-00-body">
+      {{TLDR_00}}
+      {{ABSTRACT_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-01" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 01</span>
+      <h2>{{SEC01_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-01-body">−</button>
+    </header>
+    <div class="section-body" id="sec-01-body">
+      {{TLDR_01}}
+      {{INTRODUCTION_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-02" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 02</span>
+      <h2>{{SEC02_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-02-body">−</button>
+    </header>
+    <div class="section-body" id="sec-02-body">
+      {{TLDR_02}}
+      {{BACKGROUND_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-03" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 03</span>
+      <h2>{{SEC03_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-03-body">−</button>
+    </header>
+    <div class="section-body" id="sec-03-body">
+      {{TLDR_03}}
+      {{METHODOLOGY_HTML}}
+
+      <h3>{{PRISMA_HEADING}}</h3>
+      <figure class="chart-frame">
+        {{PRISMA_FLOW_SVG_INLINE}}
+        <figcaption class="chart-caption">{{PRISMA_CAPTION}}</figcaption>
+      </figure>
+
+      {{AI_DECLARATION_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-04" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 04</span>
+      <h2>{{SEC04_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-04-body">−</button>
+    </header>
+    <div class="section-body" id="sec-04-body">
+      {{TLDR_04}}
+      {{RESULTS_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-05" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 05</span>
+      <h2>{{SEC05_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-05-body">−</button>
+    </header>
+    <div class="section-body" id="sec-05-body">
+      {{TLDR_05}}
+      {{SYNTHESIS_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-06" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 06</span>
+      <h2>{{SEC06_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-06-body">−</button>
+    </header>
+    <div class="section-body" id="sec-06-body">
+      {{TLDR_06}}
+      {{DISCUSSION_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-07" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 07</span>
+      <h2>{{SEC07_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-07-body">−</button>
+    </header>
+    <div class="section-body" id="sec-07-body">
+      {{TLDR_07}}
+      {{THREATS_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-08" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 08</span>
+      <h2>{{SEC08_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-08-body">−</button>
+    </header>
+    <div class="section-body" id="sec-08-body">
+      {{TLDR_08}}
+      {{CONCLUSION_HTML}}
+    </div>
+  </section>
+
+  <section id="sec-09" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 09</span>
+      <h2>{{SEC09_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-09-body">−</button>
+    </header>
+    <div class="section-body" id="sec-09-body">
+      <div class="not-this-version">
+        <h4>{{SEC09_LABEL}}</h4>
+        <ul>{{NOT_THIS_VERSION_ITEMS}}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-10" class="section">
+    <header class="section-head">
+      <span class="section-num">§ 10</span>
+      <h2>{{SEC10_HEADING}}</h2>
+      <button class="section-collapse" aria-expanded="true" aria-controls="sec-10-body">−</button>
+    </header>
+    <div class="section-body" id="sec-10-body">
+      <p class="muted">{{SEC10_NOTE}}</p>
+      <ol class="ref-list">
+        {{REFERENCES_LIST}}
+      </ol>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<!-- ========== TAB: AUDIT ========== -->
+<div class="tab-panel" data-active="false" id="panel-audit" role="tabpanel" aria-labelledby="tab-audit">
+<main class="layout">
+  <header class="doc-header">
+    <div class="doc-meta">{{AUDIT_HEADER_META}}</div>
+    <h1 class="doc-title">{{AUDIT_HEADING}}</h1>
+    <p class="doc-subtitle">{{AUDIT_SUBTITLE}}</p>
+  </header>
+
+  {{AUDIT_FINAL_GRADE_HTML}}
+  {{AUDIT_DIMENSIONS_HTML}}
+  {{AUDIT_ELIMINATORY_HTML}}
+  {{AUDIT_MISSING_HTML}}
+  {{AUDIT_DETECTORS_HTML}}
+  {{AUDIT_DISCLAIMER_HTML}}
+</main>
+</div>
+
+<!-- ========== TAB: DATA ========== -->
+<div class="tab-panel" data-active="false" id="panel-data" role="tabpanel" aria-labelledby="tab-data">
+<main class="layout-wide">
+  <header class="doc-header">
+    <h1 class="doc-title">{{DATA_HEADING}}</h1>
+    <p class="doc-subtitle">{{DATA_SUBTITLE}}</p>
+  </header>
+
+  <section>
+    <h2>{{STUDIES_HEADING}}</h2>
+    <p class="muted">{{STUDIES_NOTE}}</p>
+    <div class="table-wrap">
+      <table id="studies">
+        <thead>
+          <tr>{{STUDIES_TABLE_HEAD}}</tr>
+        </thead>
+        <tbody>
+          {{STUDIES_TABLE_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>{{TEMPORAL_HEADING}}</h2>
+    <figure class="chart-frame">
+      <div id="chart-temporal"></div>
+      <figcaption class="chart-caption">{{TEMPORAL_CAPTION}}</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>{{QA_HEATMAP_HEADING}}</h2>
+    <figure class="chart-frame">
+      <div id="chart-qa-heatmap"></div>
+      <figcaption class="chart-caption">{{QA_CAPTION}}</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>{{SEARCHES_HEADING}}</h2>
+    {{SEARCHES_TABLE_HTML}}
+  </section>
+</main>
+</div>
+
+<!-- ========== TAB: VENUES ========== -->
+<div class="tab-panel" data-active="false" id="panel-venues" role="tabpanel" aria-labelledby="tab-venues">
+<main class="layout">
+  <header class="doc-header">
+    <h1 class="doc-title">{{VENUES_HEADING}}</h1>
+    <p class="doc-subtitle">{{VENUES_SUBTITLE}}</p>
+  </header>
+
+  <section>
+    <h2>{{VENUES_TOP_HEADING}}</h2>
+    {{VENUES_TOP_CARDS}}
+  </section>
+
+  <section>
+    <h2>{{VENUES_NEXT_HEADING}}</h2>
+    {{VENUES_NEXT_TABLE}}
+  </section>
+
+  <section>
+    <h2>{{VENUES_REST_HEADING}}</h2>
+    <p class="muted">{{VENUES_REST_NOTE}}</p>
+    {{VENUES_REST_LIST}}
+  </section>
+</main>
+</div>
+
+<footer>
+  <p>
+    v{{VERSION}} ·
+    <code>SHA-256: {{HASH}}</code> ·
+    {{LICENSE}} ·
+    {{DATE_ISO}}
+  </p>
+  <p class="muted">{{FOOTER_NOTE}}</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ===== TAB SWITCHING =====
+  const tabs = document.querySelectorAll('.tab[role="tab"]');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      const target = t.dataset.tab;
+      tabs.forEach(x => x.setAttribute('aria-selected', x === t ? 'true' : 'false'));
+      panels.forEach(p => p.dataset.active = (p.id === 'panel-' + target) ? 'true' : 'false');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // ===== TOGGLE BUTTONS =====
+  function setupToggle(btnId, htmlClass, defaultOn) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    if (defaultOn) {
+      document.documentElement.classList.remove(htmlClass);
+    } else {
+      document.documentElement.classList.add(htmlClass);
+    }
+    btn.setAttribute('aria-pressed', defaultOn ? 'true' : 'false');
+    btn.addEventListener('click', () => {
+      const isOn = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', isOn ? 'false' : 'true');
+      document.documentElement.classList.toggle(htmlClass);
+    });
+  }
+
+  setupToggle('toggle-tldr', 'hide-tldr', true);
+  setupToggle('toggle-keypoints', 'hide-keypoints', false);
+
+  // Audit toggle: shows audit annotations inline
+  const auditBtn = document.getElementById('toggle-audit');
+  if (auditBtn) {
+    auditBtn.addEventListener('click', () => {
+      const on = document.documentElement.classList.toggle('show-audit');
+      auditBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  // Dark mode
+  const darkBtn = document.getElementById('toggle-dark');
+  if (darkBtn) {
+    darkBtn.addEventListener('click', () => {
+      const cur = document.documentElement.dataset.mode;
+      document.documentElement.dataset.mode = cur === 'dark' ? 'light' : 'dark';
+      darkBtn.setAttribute('aria-pressed', cur === 'dark' ? 'false' : 'true');
+    });
+  }
+
+  // ===== SECTION COLLAPSE =====
+  document.querySelectorAll('.section-collapse').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!target) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      btn.textContent = expanded ? '+' : '−';
+      target.hidden = expanded;
+    });
+  });
+
+  // ===== SEARCH =====
+  const q = document.getElementById('q');
+  if (q) {
+    q.addEventListener('input', () => {
+      const term = q.value.trim().toLowerCase();
+      // Search restricted to active panel
+      const activePanel = document.querySelector('.tab-panel[data-active="true"]');
+      if (!activePanel) return;
+      activePanel.querySelectorAll('section').forEach(s => {
+        if (!term) { s.style.display = ''; return; }
+        const txt = s.textContent.toLowerCase();
+        s.style.display = txt.includes(term) ? '' : 'none';
+      });
+    });
+  }
+
+  // ===== TABLE SORT (for studies table) =====
+  const studiesTable = document.getElementById('studies');
+  if (studiesTable) {
+    studiesTable.querySelectorAll('thead th').forEach((th, idx) => {
+      th.addEventListener('click', () => {
+        const tbody = studiesTable.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const ascending = !th.dataset.sortAsc || th.dataset.sortAsc === 'false';
+        rows.sort((a, b) => {
+          const av = a.children[idx]?.textContent.trim() || '';
+          const bv = b.children[idx]?.textContent.trim() || '';
+          const an = parseFloat(av), bn = parseFloat(bv);
+          if (!isNaN(an) && !isNaN(bn)) return ascending ? an - bn : bn - an;
+          return ascending ? av.localeCompare(bv) : bv.localeCompare(av);
+        });
+        rows.forEach(r => tbody.appendChild(r));
+        th.dataset.sortAsc = ascending ? 'true' : 'false';
+      });
+    });
+  }
+
+  // ===== D3 CHARTS =====
+  // Data is injected by render_manuscript.py
+  const TEMPORAL_DATA = {{TEMPORAL_DATA_JSON}};
+  const QA_HEATMAP_DATA = {{QA_HEATMAP_DATA_JSON}};
+
+  function renderTemporalChart() {
+    const target = document.getElementById('chart-temporal');
+    if (!target || !window.d3 || !TEMPORAL_DATA || !TEMPORAL_DATA.length) return;
+    const W = Math.min(target.clientWidth || 700, 800);
+    const H = 280;
+    const M = { top: 16, right: 24, bottom: 30, left: 36 };
+    target.innerHTML = '';
+    const svg = d3.select(target).append('svg')
+      .attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`);
+    const x = d3.scaleBand()
+      .domain(TEMPORAL_DATA.map(d => d.year))
+      .range([M.left, W - M.right]).padding(0.18);
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(TEMPORAL_DATA, d => d.count) || 1]).nice()
+      .range([H - M.bottom, M.top]);
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#7850c8';
+    svg.append('g').attr('transform', `translate(0,${H - M.bottom})`)
+      .call(d3.axisBottom(x).tickSizeOuter(0));
+    svg.append('g').attr('transform', `translate(${M.left},0)`)
+      .call(d3.axisLeft(y).ticks(5).tickSizeOuter(0));
+    svg.append('g').selectAll('rect').data(TEMPORAL_DATA).enter().append('rect')
+      .attr('x', d => x(d.year)).attr('y', d => y(d.count))
+      .attr('width', x.bandwidth()).attr('height', d => H - M.bottom - y(d.count))
+      .attr('fill', accent).attr('rx', 3);
+  }
+
+  function renderQAHeatmap() {
+    const target = document.getElementById('chart-qa-heatmap');
+    if (!target || !window.d3 || !QA_HEATMAP_DATA || !QA_HEATMAP_DATA.studies || !QA_HEATMAP_DATA.studies.length) return;
+    const W = Math.min(target.clientWidth || 700, 800);
+    const H = Math.max(QA_HEATMAP_DATA.studies.length * 22 + 60, 200);
+    const M = { top: 50, right: 24, bottom: 16, left: 80 };
+    target.innerHTML = '';
+    const svg = d3.select(target).append('svg')
+      .attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`);
+    const dims = QA_HEATMAP_DATA.dimensions;
+    const x = d3.scaleBand().domain(dims).range([M.left, W - M.right]).padding(0.05);
+    const y = d3.scaleBand().domain(QA_HEATMAP_DATA.studies.map(s => s.id)).range([M.top, H - M.bottom]).padding(0.05);
+    const color = d3.scaleSequential(d3.interpolatePuBu).domain([0, 1]);
+    svg.append('g').attr('transform', `translate(0,${M.top - 5})`)
+      .call(d3.axisTop(x).tickSizeOuter(0));
+    svg.append('g').attr('transform', `translate(${M.left - 5},0)`)
+      .call(d3.axisLeft(y).tickSizeOuter(0));
+    QA_HEATMAP_DATA.studies.forEach(s => {
+      dims.forEach(d => {
+        const v = s[d];
+        if (v === undefined || v === null) return;
+        svg.append('rect')
+          .attr('x', x(d)).attr('y', y(s.id))
+          .attr('width', x.bandwidth()).attr('height', y.bandwidth())
+          .attr('fill', color(v));
+        svg.append('text')
+          .attr('x', x(d) + x.bandwidth()/2).attr('y', y(s.id) + y.bandwidth()/2)
+          .attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+          .attr('font-size', 11).attr('fill', v > 0.5 ? '#fff' : '#000')
+          .text((v).toFixed(1));
+      });
+    });
+  }
+
+  if (window.requestAnimationFrame) {
+    requestAnimationFrame(() => {
+      renderTemporalChart();
+      renderQAHeatmap();
+    });
+  } else {
+    setTimeout(renderTemporalChart, 50);
+    setTimeout(renderQAHeatmap, 50);
+  }
+
+  // Re-render on resize (debounced)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { renderTemporalChart(); renderQAHeatmap(); }, 200);
+  });
+
+})();
+</script>
+</body>
+</html>

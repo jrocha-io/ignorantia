@@ -1,0 +1,95 @@
+metadata:
+  venue_id: bjps_abe_ims
+  name: "Brazilian Journal of Probability and Statistics"
+  name_pt: "Brazilian Journal of Probability and Statistics"
+  publisher: "Associação Brasileira de Estatística (ABE) co-publicado com Institute of Mathematical Statistics (IMS)"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q4
+  sjr_quartile: Q3
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: subscription
+  apc_usd: null
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: null
+  apc_amount_original: null
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: "https://imstat.org/journals-and-publications/brazilian-journal-of-probability-and-statistics/"
+  archived_url: "https://web.archive.org/web/2026/https://imstat.org/journals-and-publications/brazilian-journal-of-probability-and-statistics/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Brazilian Journal of Probability and Statistics (BJPS) é periódico oficial da ABE,
+    co-publicado pelo Institute of Mathematical Statistics (IMS, EUA).
+    Qualis A2 PROVÁVEL em Matemática/Probabilidade e Estatística no 2021-2024.
+    Confirmação Sucupira por ISSN 0103-0752 mandatória.
+    SUBSCRIPTION model (não OA): autor não paga APC mas leitor paga subscription.
+    Tier-3 do esquema OA-first: pior cenário OA (acesso restrito a assinantes/instituições).
+    Listado APENAS como FALLBACK para casos onde leitor institucional é aceitável.
+    Aceita survey papers em probabilidade e estatística teórica.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MSC2020
+  citation_style:
+    format: amsplain
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: optional
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - probability
+    - statistics
+    - stochastic processes
+    - statistical inference
+    - applied probability
+
+scope:
+  primary_subjects:
+    - "Probabilidade"
+    - "Estatística Teórica"
+    - "Processos Estocásticos"
+  excluded_subjects: []

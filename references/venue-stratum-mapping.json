@@ -1,0 +1,1603 @@
+{
+  "version": "1.0",
+  "criteria_version": "1.0",
+  "fetched_at": "2026-04-29 (J-extended)",
+  "n_total": 90,
+  "by_qualis": {
+    "A1": 61,
+    "A2": 18,
+    "B1": 7,
+    "B2": 2,
+    "B3": 1,
+    "A3": 1
+  },
+  "venues": {
+    "nature_main": {
+      "name": "Nature",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "multidisciplinar"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "all"
+      ],
+      "in_catalog88": true
+    },
+    "lancet": {
+      "name": "The Lancet",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "health",
+        "medical",
+        "clinical",
+        "saúde",
+        "médic",
+        "clínic",
+        "epidemiolog"
+      ],
+      "in_catalog88": true
+    },
+    "bmj": {
+      "name": "BMJ",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "health",
+        "medical",
+        "clinical",
+        "saúde",
+        "médic",
+        "clínic",
+        "epidemiolog"
+      ],
+      "in_catalog88": true
+    },
+    "ieee_tse": {
+      "name": "IEEE TSE",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "software",
+        "engineering",
+        "programming",
+        "engenharia de software"
+      ],
+      "in_catalog88": true
+    },
+    "acm_tochi": {
+      "name": "ACM TOCHI",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "interaction",
+        "interface",
+        "user",
+        "HCI",
+        "interação",
+        "usuário"
+      ],
+      "in_catalog88": true
+    },
+    "computers_education": {
+      "name": "Computers & Education",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "educacao",
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "computers education",
+        "educational technology",
+        "e-learning",
+        "computer-based learning",
+        "digital learning",
+        "tecnologia educacional",
+        "aprendizagem digital",
+        "letramento digital",
+        "gamification",
+        "gamificação",
+        "aprendizagem online"
+      ],
+      "in_catalog88": true
+    },
+    "bjet": {
+      "name": "British Journal of Educational Technology (BJET)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "educational technology",
+        "learning technology",
+        "e-learning",
+        "online learning",
+        "digital education",
+        "tecnologia educacional",
+        "aprendizagem online",
+        "letramento digital",
+        "gamification",
+        "gamificação",
+        "mobile learning",
+        "aprendizagem móvel"
+      ],
+      "in_catalog88": true
+    },
+    "rer": {
+      "name": "Review of Educational Research (RER)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "educational research review",
+        "education review",
+        "instruction",
+        "schooling",
+        "pedagogy",
+        "educational research synthesis",
+        "educação revisão",
+        "ensino revisão",
+        "pesquisa educacional",
+        "instrução",
+        "escolarização",
+        "pedagogia",
+        "educational technology",
+        "digital literacy",
+        "inclusive education",
+        "teacher education",
+        "curriculum review"
+      ],
+      "in_catalog88": true
+    },
+    "edresearcher": {
+      "name": "Educational Researcher (ER)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "educational researcher",
+        "education research",
+        "educational policy",
+        "educational practice",
+        "pesquisa educacional",
+        "política educacional"
+      ],
+      "in_catalog88": true
+    },
+    "jep": {
+      "name": "Journal of Educational Psychology",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "psicologia",
+        "educacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "education",
+        "psychology",
+        "learning",
+        "cognition",
+        "instruction",
+        "educação",
+        "psicolog",
+        "aprendiz",
+        "instrução"
+      ],
+      "in_catalog88": true
+    },
+    "psych_bulletin": {
+      "name": "Psychological Bulletin",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "psychological review",
+        "psychology meta-analysis",
+        "psychological meta-analysis",
+        "behavior",
+        "cognition",
+        "personality",
+        "social psychology",
+        "developmental psychology",
+        "comportamento",
+        "cognição",
+        "personalidade",
+        "psicologia social"
+      ],
+      "in_catalog88": true
+    },
+    "annual_review_psychology": {
+      "name": "Annual Review of Psychology",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "psychology annual review",
+        "psychological annual review",
+        "psychology research synthesis",
+        "behavioral science",
+        "cognitive psychology",
+        "developmental psychology",
+        "social psychology",
+        "psychology",
+        "psicologia"
+      ],
+      "in_catalog88": true
+    },
+    "nejm": {
+      "name": "NEJM (New England Journal of Medicine)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "clinical",
+        "medical",
+        "health",
+        "disease",
+        "patient",
+        "trial",
+        "saúde",
+        "clínic",
+        "médic"
+      ],
+      "in_catalog88": true
+    },
+    "jama": {
+      "name": "JAMA (Journal of the American Medical Association)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "clinical",
+        "medical",
+        "health",
+        "disease",
+        "patient",
+        "saúde",
+        "clínic",
+        "médic"
+      ],
+      "in_catalog88": true
+    },
+    "jama_network_open": {
+      "name": "JAMA Network Open",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "clinical",
+        "medical",
+        "health",
+        "disease",
+        "patient",
+        "saúde",
+        "clínic",
+        "médic"
+      ],
+      "in_catalog88": true
+    },
+    "annals_internal_medicine": {
+      "name": "Annals of Internal Medicine",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "internal medicine",
+        "clinical",
+        "patient",
+        "disease",
+        "medic",
+        "clínic",
+        "interna"
+      ],
+      "in_catalog88": true
+    },
+    "plos_medicine": {
+      "name": "PLOS Medicine",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "health",
+        "medical",
+        "clinical",
+        "global health",
+        "policy",
+        "disease",
+        "saúde",
+        "médic",
+        "clínic"
+      ],
+      "in_catalog88": true
+    },
+    "cochrane_database": {
+      "name": "Cochrane Database of Systematic Reviews",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "intervention",
+        "clinical",
+        "treatment",
+        "therapy",
+        "intervenção",
+        "tratamento"
+      ],
+      "in_catalog88": true
+    },
+    "lancet_public_health": {
+      "name": "The Lancet Public Health",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "public health",
+        "epidemiology",
+        "health policy",
+        "health equity",
+        "saúde pública",
+        "epidemiolog"
+      ],
+      "in_catalog88": true
+    },
+    "lancet_psychiatry": {
+      "name": "The Lancet Psychiatry",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "psicologia",
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "psychiatry",
+        "mental health",
+        "psychopharmacology",
+        "psychotherapy",
+        "psiquiatr",
+        "saúde mental"
+      ],
+      "in_catalog88": true
+    },
+    "social_science_medicine": {
+      "name": "Social Science & Medicine",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude",
+        "ciencias_sociais"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "health",
+        "social",
+        "policy",
+        "public health",
+        "epidemiology",
+        "saúde",
+        "polít de saúde",
+        "epidemiolog"
+      ],
+      "in_catalog88": true
+    },
+    "ije": {
+      "name": "International Journal of Epidemiology (IJE)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "epidemiology",
+        "population health",
+        "cohort",
+        "case-control",
+        "epidemiolog",
+        "saúde populacional"
+      ],
+      "in_catalog88": true
+    },
+    "acm_tosem": {
+      "name": "ACM TOSEM (Transactions on Software Engineering & Methodology)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "software engineering",
+        "programming",
+        "methodology",
+        "engenharia de software"
+      ],
+      "in_catalog88": true
+    },
+    "acm_csur": {
+      "name": "ACM CSUR (Computing Surveys)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "survey",
+        "tutorial",
+        "review",
+        "computing",
+        "computação"
+      ],
+      "in_catalog88": true
+    },
+    "acm_tiis": {
+      "name": "ACM TIIS (Transactions on Interactive Intelligent Systems)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "interactive",
+        "intelligent",
+        "AI",
+        "interaction",
+        "interativo",
+        "inteligente"
+      ],
+      "in_catalog88": true
+    },
+    "chi": {
+      "name": "ACM CHI (Conference on Human Factors in Computing Systems)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "human-computer interaction",
+        "HCI",
+        "interface",
+        "user",
+        "interação humano-computador",
+        "usuário"
+      ],
+      "in_catalog88": true
+    },
+    "icse": {
+      "name": "ICSE (International Conference on Software Engineering)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "software engineering",
+        "programming",
+        "engenharia de software"
+      ],
+      "in_catalog88": true
+    },
+    "science_advances": {
+      "name": "Science Advances",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "multidisciplinar"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "multidisciplinary",
+        "broad science",
+        "interdisciplinary",
+        "multidisciplinar",
+        "interdisciplinar"
+      ],
+      "in_catalog88": true
+    },
+    "elife": {
+      "name": "eLife",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "biologia",
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "biology",
+        "biomedicine",
+        "life sciences",
+        "biologia",
+        "biomedicina"
+      ],
+      "in_catalog88": true
+    },
+    "rsos": {
+      "name": "Royal Society Open Science",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "multidisciplinar",
+        "engenharia",
+        "matematica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "science",
+        "engineering",
+        "mathematics",
+        "multidisciplinary",
+        "ciência",
+        "engenharia",
+        "matemática"
+      ],
+      "in_catalog88": true
+    },
+    "annual_review_sociology": {
+      "name": "Annual Review of Sociology",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "ciencias_sociais"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "sociology",
+        "social processes",
+        "stratification",
+        "demography",
+        "urban sociology",
+        "sociologia"
+      ],
+      "in_catalog88": true
+    },
+    "angewandte_chemie": {
+      "name": "Angewandte Chemie International Edition",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "quimica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "chemistry",
+        "química",
+        "leading chemistry",
+        "química geral"
+      ],
+      "in_catalog88": true
+    },
+    "chem_soc_rev": {
+      "name": "Chem Soc Rev (Chemical Society Reviews)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "quimica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "chemistry review",
+        "tutorial review",
+        "química review",
+        "tutorial"
+      ],
+      "in_catalog88": true
+    },
+    "chemical_reviews": {
+      "name": "Chemical Reviews",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "quimica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "chemistry review",
+        "química review"
+      ],
+      "in_catalog88": true
+    },
+    "nature_chemistry": {
+      "name": "Nature Chemistry",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "quimica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "chemistry",
+        "química"
+      ],
+      "in_catalog88": true
+    },
+    "prx": {
+      "name": "Physical Review X (PRX)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "fisica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "physics",
+        "física",
+        "interdisciplinary physics",
+        "interdisciplinar"
+      ],
+      "in_catalog88": true
+    },
+    "rmp": {
+      "name": "Reviews of Modern Physics (RMP)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "fisica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "physics review",
+        "física review"
+      ],
+      "in_catalog88": true
+    },
+    "asme_jmd": {
+      "name": "ASME Journal of Mechanical Design (JMD)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "engenharia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "mechanical design",
+        "design",
+        "engineering",
+        "engenharia mecânica"
+      ],
+      "in_catalog88": true
+    },
+    "composites_partb": {
+      "name": "Composites Part B: Engineering",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "engenharia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "composites",
+        "compósitos",
+        "engineering composites",
+        "materials engineering"
+      ],
+      "in_catalog88": true
+    },
+    "ahr": {
+      "name": "American Historical Review (AHR)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "humanidades"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "history",
+        "historical",
+        "história",
+        "histórico",
+        "historiografia"
+      ],
+      "in_catalog88": true
+    },
+    "jaac": {
+      "name": "Journal of Aesthetics and Art Criticism (JAAC)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "humanidades"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "aesthetics",
+        "art criticism",
+        "estética",
+        "filosofia da arte",
+        "crítica de arte"
+      ],
+      "in_catalog88": true
+    },
+    "cambridge_law_journal": {
+      "name": "Cambridge Law Journal (CLJ)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "direito"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "law",
+        "legal",
+        "common law",
+        "jurisprudence",
+        "direito",
+        "jurídico"
+      ],
+      "in_catalog88": true
+    },
+    "critical_inquiry": {
+      "name": "Critical Inquiry (CI)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "humanidades"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "critical theory",
+        "cultural criticism",
+        "humanities theory",
+        "teoria crítica",
+        "crítica cultural"
+      ],
+      "in_catalog88": true
+    },
+    "apsr": {
+      "name": "American Political Science Review (APSR)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "ciencias_sociais"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "political science",
+        "politics",
+        "governance",
+        "ciência política",
+        "política",
+        "governança"
+      ],
+      "in_catalog88": true
+    },
+    "cadernos_saude_publica": {
+      "name": "Cadernos de Saúde Pública",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde",
+        "saúde pública",
+        "epidemiolog",
+        "clínic",
+        "medic"
+      ],
+      "in_catalog88": true
+    },
+    "educacao_pesquisa": {
+      "name": "Educação & Pesquisa (USP)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "pedagóg",
+        "currícul",
+        "didát",
+        "letramento",
+        "alfabetização",
+        "polít educacional",
+        "tecnologia educacional",
+        "letramento digital",
+        "educação inclusiva",
+        "pesquisa educacional",
+        "formação docente",
+        "prática pedagógica"
+      ],
+      "in_catalog88": true
+    },
+    "rbe": {
+      "name": "Revista Brasileira de Educação (ANPEd)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "pedagóg",
+        "letramento",
+        "alfabetização",
+        "polít educacional",
+        "tecnologia educacional",
+        "letramento digital",
+        "educação inclusiva",
+        "pesquisa educacional",
+        "formação docente"
+      ],
+      "in_catalog88": true
+    },
+    "psicologia_reflexao_critica": {
+      "name": "Psicologia: Reflexão e Crítica",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "psychology",
+        "cognition",
+        "behavior",
+        "psicolog",
+        "cogniç",
+        "comportamento"
+      ],
+      "in_catalog88": true
+    },
+    "rbcs": {
+      "name": "Revista Brasileira de Ciências Sociais",
+      "qualis": "A1",
+      "quartil": "Q3",
+      "areas": [
+        "ciencias_sociais"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "ciências sociais",
+        "sociologia",
+        "antropologia",
+        "movimentos sociais",
+        "estado",
+        "classes sociais"
+      ],
+      "in_catalog88": true
+    },
+    "rbep": {
+      "name": "Revista Brasileira de Estudos Pedagógicos",
+      "qualis": "A2",
+      "quartil": "Q3",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "pedagóg",
+        "letramento",
+        "currícul",
+        "didát",
+        "tecnologia educacional",
+        "letramento digital",
+        "estudos pedagógicos",
+        "formação docente",
+        "pesquisa educacional"
+      ],
+      "in_catalog88": true
+    },
+    "rsp_usp": {
+      "name": "Revista de Saúde Pública (RSP/USP)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde pública",
+        "epidemiolog",
+        "saúde coletiva",
+        "public health",
+        "epidemiology"
+      ],
+      "in_catalog88": true
+    },
+    "csc_abrasco": {
+      "name": "Ciência & Saúde Coletiva (ABRASCO)",
+      "qualis": "A1",
+      "quartil": "Q1",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde coletiva",
+        "saúde pública",
+        "epidemiolog",
+        "ciências humanas e sociais em saúde",
+        "public health",
+        "collective health"
+      ],
+      "in_catalog88": true
+    },
+    "educacao_revista_ufmg": {
+      "name": "Educação em Revista (UFMG)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "pedagóg",
+        "ensino",
+        "currícul",
+        "didát",
+        "letramento",
+        "alfabetização",
+        "polít educacional",
+        "tecnologia educacional",
+        "letramento digital",
+        "educação inclusiva",
+        "formação docente",
+        "prática pedagógica"
+      ],
+      "in_catalog88": true
+    },
+    "cadernos_cedes": {
+      "name": "Cadernos CEDES (Unicamp)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "pedagóg",
+        "currícul",
+        "didát",
+        "polít educacional",
+        "tecnologia educacional",
+        "letramento digital",
+        "educação inclusiva",
+        "formação docente",
+        "sociedade educação"
+      ],
+      "in_catalog88": true
+    },
+    "dados_iesp_uerj": {
+      "name": "Dados — Revista de Ciências Sociais (IESP-UERJ)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "ciencias_sociais"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "ciências sociais",
+        "sociologia",
+        "ciência política",
+        "antropologia",
+        "sociology",
+        "political science"
+      ],
+      "in_catalog88": true
+    },
+    "lua_nova": {
+      "name": "Lua Nova — Revista de Cultura e Política (CEDEC)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "ciencias_sociais"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "democracia",
+        "cidadania",
+        "direitos humanos",
+        "instituições democráticas",
+        "política",
+        "movimentos sociais"
+      ],
+      "in_catalog88": true
+    },
+    "estudos_psicologia_natal": {
+      "name": "Estudos de Psicologia (Natal)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "psicologia",
+        "psicologia social",
+        "comportamento",
+        "psychology",
+        "behavior",
+        "cognition"
+      ],
+      "in_catalog88": true
+    },
+    "psicologia_sociedade": {
+      "name": "Psicologia & Sociedade (ABRAPSO)",
+      "qualis": "A1",
+      "quartil": "Q3",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "psicologia social",
+        "psicologia crítica",
+        "psicossocial",
+        "social psychology",
+        "psicologia comunitária"
+      ],
+      "in_catalog88": true
+    },
+    "sbc_rocs": {
+      "name": "SBC Reviews on Computer Science (ROCS)",
+      "qualis": "A2",
+      "quartil": "Q3",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "computer science survey",
+        "computer science review",
+        "software engineering review",
+        "systematic literature review computing",
+        "mapping study computing",
+        "computação revisão",
+        "engenharia de software revisão",
+        "computer science"
+      ],
+      "in_catalog88": true
+    },
+    "revista_direito_gv": {
+      "name": "Revista Direito GV (FGV)",
+      "qualis": "A1",
+      "quartil": "Q2",
+      "areas": [
+        "direito"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "direito",
+        "law",
+        "law and development",
+        "law and society",
+        "law and economics",
+        "legal theory"
+      ],
+      "in_catalog88": true
+    },
+    "quimica_nova": {
+      "name": "Química Nova (SBQ)",
+      "qualis": "A2",
+      "quartil": "Q3",
+      "areas": [
+        "quimica"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "química",
+        "chemistry",
+        "chemical engineering",
+        "biochemistry",
+        "ensino de química",
+        "história da química"
+      ],
+      "in_catalog88": true
+    },
+    "bjp_sbf": {
+      "name": "Brazilian Journal of Physics (BJP/SBF)",
+      "qualis": "A2",
+      "quartil": "Q3",
+      "areas": [
+        "fisica"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "physics",
+        "física",
+        "theoretical physics",
+        "experimental physics",
+        "quantum",
+        "condensed matter",
+        "statistical physics"
+      ],
+      "in_catalog88": true
+    },
+    "jbsmse_abcm": {
+      "name": "Journal of the Brazilian Society of Mechanical Sciences and Engineering (JBSMSE)",
+      "qualis": "A2",
+      "quartil": "Q3",
+      "areas": [
+        "engenharia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "mechanical engineering",
+        "engenharia mecânica",
+        "thermal sciences",
+        "fluid mechanics",
+        "solid mechanics",
+        "manufacturing",
+        "materials engineering"
+      ],
+      "in_catalog88": true
+    },
+    "ensaio_aval_pol_publ_educ": {
+      "name": "Ensaio: Avaliação e Políticas Públicas em Educação",
+      "qualis": "B1",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "avaliação educacional",
+        "política pública educação",
+        "educação"
+      ],
+      "in_catalog88": false
+    },
+    "praxis_educativa": {
+      "name": "Práxis Educativa",
+      "qualis": "B1",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "didática",
+        "pedagóg"
+      ],
+      "in_catalog88": false
+    },
+    "educar_em_revista": {
+      "name": "Educar em Revista (UFPR)",
+      "qualis": "A2",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "pedagóg",
+        "ensino"
+      ],
+      "in_catalog88": false
+    },
+    "saude_em_debate": {
+      "name": "Saúde em Debate",
+      "qualis": "B1",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde pública",
+        "saúde coletiva",
+        "política saúde"
+      ],
+      "in_catalog88": false
+    },
+    "rev_lat_am_enferm": {
+      "name": "Revista Latino-Americana de Enfermagem",
+      "qualis": "A2",
+      "quartil": "Q2 (upper)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "enfermagem",
+        "cuidado",
+        "nursing"
+      ],
+      "in_catalog88": false
+    },
+    "educacao_unisinos": {
+      "name": "Educação Unisinos",
+      "qualis": "B2",
+      "quartil": "Q3 (lower)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "pedagóg",
+        "formação"
+      ],
+      "in_catalog88": false
+    },
+    "rev_bras_pesq_ed_ciencias": {
+      "name": "Revista Brasileira de Pesquisa em Educação em Ciências",
+      "qualis": "B2",
+      "quartil": "Q3 (lower)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação ciências",
+        "ensino ciências"
+      ],
+      "in_catalog88": false
+    },
+    "rev_bras_enfermagem": {
+      "name": "Revista Brasileira de Enfermagem (REBEn)",
+      "qualis": "A2",
+      "quartil": "Q2 (upper)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "enfermagem",
+        "nursing"
+      ],
+      "in_catalog88": false
+    },
+    "edu_ciencia_cultura": {
+      "name": "Educação, Ciência e Cultura",
+      "qualis": "B3",
+      "quartil": "Q4 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "cultura",
+        "ciência"
+      ],
+      "in_catalog88": false
+    },
+    "computers_human_behavior": {
+      "name": "Computers in Human Behavior",
+      "qualis": "A1",
+      "quartil": "Q1 (upper)",
+      "areas": [
+        "psicologia",
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "computers human behavior",
+        "HCI",
+        "online behavior"
+      ],
+      "in_catalog88": false
+    },
+    "j_med_internet_research": {
+      "name": "Journal of Medical Internet Research",
+      "qualis": "A1",
+      "quartil": "Q1 (upper)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "digital health",
+        "telemedicine",
+        "ehealth"
+      ],
+      "in_catalog88": false
+    },
+    "intl_j_human_computer": {
+      "name": "International Journal of Human-Computer Studies",
+      "qualis": "A2",
+      "quartil": "Q1 (lower)",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "human computer",
+        "HCI",
+        "user studies"
+      ],
+      "in_catalog88": false
+    },
+    "cadernos_pesquisa_fcc": {
+      "name": "Cadernos de Pesquisa (FCC)",
+      "qualis": "A1",
+      "quartil": "Q2 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "pesquisa educacional",
+        "polít educacional"
+      ],
+      "in_catalog88": false
+    },
+    "ensaio_avaliacao": {
+      "name": "Ensaio: Avaliação e Políticas Públicas em Educação",
+      "qualis": "A2",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "avaliação educacional",
+        "polít educacional",
+        "educação"
+      ],
+      "in_catalog88": false
+    },
+    "pro_posicoes": {
+      "name": "Pro-Posições (Unicamp)",
+      "qualis": "A3",
+      "quartil": "Q3 (lower)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "pedagogia"
+      ],
+      "in_catalog88": false
+    },
+    "rev_bras_educ_especial": {
+      "name": "Revista Brasileira de Educação Especial",
+      "qualis": "A2",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação especial",
+        "inclusão escolar",
+        "deficiência"
+      ],
+      "in_catalog88": false
+    },
+    "rev_eletronica_educacao": {
+      "name": "Revista Eletrônica de Educação (UFSCar)",
+      "qualis": "B1",
+      "quartil": "Q4 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "ensino",
+        "tecnologia educacional"
+      ],
+      "in_catalog88": false
+    },
+    "educacao_tematica_digital": {
+      "name": "Educação Temática Digital (ETD)",
+      "qualis": "B1",
+      "quartil": "Q4 (upper)",
+      "areas": [
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "educação",
+        "tecnologia",
+        "informação"
+      ],
+      "in_catalog88": false
+    },
+    "texto_contexto_enfermagem": {
+      "name": "Texto & Contexto Enfermagem",
+      "qualis": "A2",
+      "quartil": "Q2 (lower)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "enfermagem",
+        "cuidado",
+        "saúde"
+      ],
+      "in_catalog88": false
+    },
+    "acta_paulista_enfermagem": {
+      "name": "Acta Paulista de Enfermagem",
+      "qualis": "A2",
+      "quartil": "Q2 (lower)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "enfermagem",
+        "cuidado",
+        "saúde"
+      ],
+      "in_catalog88": false
+    },
+    "rev_esc_enferm_usp": {
+      "name": "Revista da Escola de Enfermagem da USP",
+      "qualis": "A2",
+      "quartil": "Q2 (lower)",
+      "areas": [
+        "saude"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "enfermagem",
+        "cuidado em saúde"
+      ],
+      "in_catalog88": false
+    },
+    "trabalho_educacao_saude": {
+      "name": "Trabalho, Educação e Saúde",
+      "qualis": "B1",
+      "quartil": "Q3 (lower)",
+      "areas": [
+        "saude",
+        "educacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde coletiva",
+        "educação saúde",
+        "trabalho saúde"
+      ],
+      "in_catalog88": false
+    },
+    "saude_sociedade_usp": {
+      "name": "Saúde e Sociedade",
+      "qualis": "A2",
+      "quartil": "Q2 (upper)",
+      "areas": [
+        "saude",
+        "ciencias_sociais"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "saúde coletiva",
+        "saúde sociedade",
+        "saúde pública"
+      ],
+      "in_catalog88": false
+    },
+    "rita_cs": {
+      "name": "Revista de Informática Teórica e Aplicada (RITA)",
+      "qualis": "B1",
+      "quartil": "Q4 (upper)",
+      "areas": [
+        "computacao"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "computação",
+        "informática",
+        "computer science"
+      ],
+      "in_catalog88": false
+    },
+    "ieee_access": {
+      "name": "IEEE Access",
+      "qualis": "A2",
+      "quartil": "Q1 (lower)",
+      "areas": [
+        "computacao",
+        "engenharia"
+      ],
+      "lang": "en",
+      "topic_keywords": [
+        "IEEE Access",
+        "engineering",
+        "computer science"
+      ],
+      "in_catalog88": false
+    },
+    "psicologia_ciencia_profissao": {
+      "name": "Psicologia: Ciência e Profissão",
+      "qualis": "A2",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "psicologia",
+        "psicologia profissional"
+      ],
+      "in_catalog88": false
+    },
+    "estudos_psicol_campinas": {
+      "name": "Estudos de Psicologia (Campinas)",
+      "qualis": "A2",
+      "quartil": "Q3 (upper)",
+      "areas": [
+        "psicologia"
+      ],
+      "lang": "pt",
+      "topic_keywords": [
+        "psicologia",
+        "comportamento",
+        "cognição"
+      ],
+      "in_catalog88": false
+    }
+  }
+}

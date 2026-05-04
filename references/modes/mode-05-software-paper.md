@@ -1,0 +1,96 @@
+# Modo 05 — Software Paper
+
+> Camada hierárquica: **SECUNDÁRIA** (você sozinho + software pronto fornecido).
+
+## Caso de uso
+
+Documento curto descrevendo software de pesquisa já desenvolvido. Foco no software como contribuição, não em resultados de pesquisa que ele permite.
+
+## Layer 1 — Modo
+
+| Dimensão | Especificação |
+|---|---|
+| **review_type** | `software_paper` |
+| **Reporting guideline primário** | SOFTWARE-PAPER-GENERIC (JOSS-aligned) |
+| **Camada hierárquica** | Secundária |
+| **Tempo típico de produção** | `user_estimate_15min_unvalidated` |
+| **Selo HTML** | `mode-software-paper` (ciano) |
+
+## Layer 2 — Reporting guideline (SOFTWARE-PAPER-GENERIC)
+
+| Dimensão | Especificação |
+|---|---|
+| **Itens checklist** | 15 itens |
+| **Revisores humanos** | 1 (autor) + peer review JOSS aberto público |
+| **AI Disclosure** | OBRIGATÓRIO (JOSS 2025) |
+| **Comprimento** | 750-1750 palavras (JOSS); 4-6 páginas (SoftwareX) |
+
+### Pré-requisitos do software (gates obrigatórios)
+
+- License OSI-approved (MIT/Apache/BSD/GPL/LGPL/MPL)
+- Tests existentes
+- Documentation existente
+- Repositório público ≥6 meses (gate JOSS)
+- Uso real demonstrável além do autor (gate JOSS)
+
+### Estrutura obrigatória
+
+1. Summary (high-level, non-specialist)
+2. Statement of Need
+3. State of the Field (comparação com 3-5 alternativas)
+4. Software design / architecture
+5. Use cases / examples
+6. AI usage disclosure
+7. Acknowledgements
+8. References (full venue names)
+
+## Layer 3 — Venue padrão e alternativas (OA-first)
+
+### Padrão (OA-gratuito, $0 APC)
+
+**JOSS** (Journal of Open Source Software)
+- $0 APC
+- Peer review aberto público (reviews ficam visíveis no GitHub)
+- Crossref DOI mintado após aceite
+- Foco em software de pesquisa
+- Indexado DOAJ
+
+### Alternativas explicadas
+
+- **F1000Research (Software Tool Article)**: fully OA, $1350-1850 APC, peer review pós-publicação aberto, formato mais flexível.
+- **SoftwareX (Elsevier)**: fully OA, ~$2400 APC, peer review tradicional, indexado WoS/Scopus.
+- **IEEE Software (Tools track)**: hybrid (~$2500 APC para OA), alta visibilidade IEEE.
+
+## Bases de busca
+
+**Não aplicável** — Software Paper não é revisão de literatura. Mas exige seção "State of the Field" com comparação a 3-5 ferramentas similares (referências curadas, não busca sistemática).
+
+## Estudos primários esperados
+
+**Não aplicável** — software paper não tem estudos primários; tem 5-15 referências comparativas + referências dos use cases.
+
+## Custos para o usuário
+
+- **APC**: $0 (JOSS) | $1350-2500 (alternativas)
+- **Software prévio**: o software em si (custo de desenvolvimento prévio)
+- **Repositório**: GitHub/GitLab/Codeberg gratuitos
+- **Tempo de espera JOSS**: tipicamente 1-3 meses para aceite
+
+## Limitações declaradas
+
+- Software paper documenta o software, não valida sua eficácia em todos os contextos.
+- Sem uso real demonstrado, JOSS gate-rejects.
+
+## Caso particular: paper sobre o próprio ignorantia
+
+Se o objetivo é escrever software paper sobre o ignorantia v2.4:
+- Repo público desde nov/2025 ou anterior é pré-requisito para JOSS.
+- Uso real demonstrado (3-6 RS produzidas) é gate.
+- Há circularidade epistêmica resolvível: declarar self-generation explicitamente, peer review pós-deposit, transparência total.
+
+## Quando NÃO usar
+
+- Software ainda não pronto / sem testes / sem docs → adiar
+- Sem uso real demonstrado → adiar até v2.4 + 3-6 RS produzidas
+- Contribuição é conceitual sobre software, não sobre código → Modo 6 (Position Paper)
+- Documento técnico extenso, sem peer review → Modo 7 (Technical Report)

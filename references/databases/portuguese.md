@@ -1,0 +1,96 @@
+# Bases de dados lusófonas — sintaxe e acesso
+
+Bases prioritárias quando o manuscrito é em português brasileiro. ABNT é a norma. Idioma das strings de busca: **português** (com sinônimos em inglês para aumentar recall).
+
+## Google Acadêmico / Google Scholar (Guided)
+
+- https://scholar.google.com.br
+- Sem API oficial; scraping programático é frágil.
+- Sintaxe Boolean idêntica ao Scholar internacional: `OR` (maiúsculas), `-` excluir, `"frase exata"`, `intitle:`, `author:`.
+- Filtro de idioma: lateral esquerda → "Pesquisar páginas em Português" (filtro `&lr=lang_pt`).
+- Filtro temporal: lateral esquerda.
+- Exportação: por artigo, "Citar" → BibTeX. Para lote, instrua o usuário a usar Publish or Perish (https://harzing.com/resources/publish-or-perish), que extrai metadados do Scholar.
+- Skill: estratégia híbrida — `web_search` para descoberta inicial, depois orientar o usuário.
+
+## SciELO (Direct)
+
+- https://search.scielo.org/
+- API: https://search.scielo.org/?lang=pt&q=...&output=site
+- Tem feed Atom/JSON em alguns endpoints.
+- Boolean: `(letramento AND idoso) AND ano_cluster:("2020" OR "2021" OR ... "2026")`.
+- Filtros úteis: `&filter[in][]=scl` (somente Brasil), `&filter[type][]=research-article`.
+- Cobertura: revistas latino-americanas, Caribe, Espanha e Portugal. Forte em saúde, ciências sociais, educação.
+- Exportação: BibTeX, RIS, CSV pela interface; via API retorna JSON.
+- Use `scripts/search_scielo.py`.
+
+## Portal de Periódicos da CAPES (Guided)
+
+- https://www-periodicos-capes-gov-br.ezl.periodicos.capes.gov.br/ (institucional)
+- Acesso pelo CAFe (Comunidade Acadêmica Federada) ou IP institucional.
+- É uma meta-base — agrega Scopus, WoS, ScienceDirect, Wiley, Springer, ACM, IEEE, JSTOR e muitos outros para instituições brasileiras com vínculo.
+- Boolean: depende da base subjacente; a interface Capes faz a tradução.
+- Estratégia: se usuário é vinculado a IES brasileira, esta é a porta de entrada para bases pagas.
+- Skill: orientar o usuário a logar via CAFe e replicar as strings booleanas que o skill geraria para cada base subjacente.
+
+## BDTD — Biblioteca Digital Brasileira de Teses e Dissertações (Direct)
+
+- https://bdtd.ibict.br/vufind/
+- Mantida pelo IBICT. Cobertura: teses e dissertações de programas de pós-graduação brasileiros.
+- API OAI-PMH: https://bdtd.ibict.br/vufind/OAI/Server (mais útil para harvest periódico que busca pontual).
+- Busca via interface: query simples, sem operadores avançados explícitos. Use frases entre aspas.
+- Skill: `web_fetch` em URL de busca; o resultado é HTML que pode ser parseado.
+
+## Dialnet (Direct)
+
+- https://dialnet.unirioja.es/
+- Foco em produção iberoamericana (Espanha + América Latina). Forte em humanidades, direito, educação.
+- Boolean limitado pela interface; `+termo`, `-termo`, frase com aspas.
+- API: https://dialnet.unirioja.es/api/ — requer registro.
+
+## Redalyc (Direct)
+
+- https://www.redalyc.org/
+- Rede de revistas científicas iberoamericanas em acesso aberto. Forte em ciências sociais, educação, psicologia.
+- Boolean limitado; busca avançada por título, autor, palavra-chave.
+- Tudo OA — download direto do PDF.
+
+## Pepsic (Direct)
+
+- http://pepsic.bvsalud.org/
+- Periódicos eletrônicos em psicologia. OA, mantido pela BVS-Psi.
+- Forte para tema de psicologia em português.
+
+## LILACS (Direct)
+
+- https://lilacs.bvsalud.org/
+- Literatura Latino-Americana e do Caribe em Ciências da Saúde. OA, mantido pela BIREME/OPAS.
+- Boolean: `tw:(letramento AND idoso) AND (instance:"regional") AND (db:"LILACS")`.
+
+## Spell — Scientific Periodicals Electronic Library (Direct)
+
+- https://www.spell.org.br/
+- Foco em administração, contabilidade, turismo. OA.
+
+## Catálogo de Teses e Dissertações da CAPES (Direct)
+
+- https://catalogodeteses.capes.gov.br/
+- Diferente da BDTD (que indexa repositórios institucionais), este é o catálogo oficial de teses defendidas em programas reconhecidos pela CAPES.
+- Sem API pública robusta; busca via interface.
+
+## Estratégia de combinação
+
+Para uma SLR em português brasileiro, ordem recomendada:
+
+1. **SciELO** (executável diretamente) — base primária para artigos peer-reviewed.
+2. **Google Acadêmico** (guiado) — recall amplo; usar Publish or Perish se possível.
+3. **Portal CAPES** (guiado) — se usuário tem CAFe, abre acesso a Scopus/WoS/etc. com strings em português.
+4. **BDTD + Catálogo CAPES** — para teses e dissertações como fontes complementares.
+5. **Dialnet, Redalyc, Pepsic, LILACS** — específicas por área.
+6. **Snowballing** — sempre, especialmente para garantir cobertura de obras seminais brasileiras que podem não aparecer nas buscas booleanas.
+
+## Termos em português — boas práticas
+
+- Sempre incluir variações ortográficas (ex.: "idoso", "idosos", "pessoa idosa", "terceira idade", "envelhecimento").
+- Sempre incluir sinônimos em inglês para artigos brasileiros que indexam em inglês também (ex.: "letramento digital" OR "digital literacy").
+- Cuidado com termos polissêmicos — use frases ou modificadores (ex.: "letramento digital" em vez de só "letramento", que pega alfabetização escolar genérica).
+- Use truncamento `*` quando a base suporta — `idos*` pega idoso/idosa/idosos/idosas.

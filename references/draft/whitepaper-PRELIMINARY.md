@@ -1,0 +1,370 @@
+> ⚠️ **AVISO — DOCUMENTO PRELIMINAR / RASCUNHO**
+>
+> Este documento descreve a **calibração-rascunho** do Sprint Badge feita com n=187 SLRs (estratos desbalanceados: A1=86, A2=82, A3=2, B1=17). É insuficiente para publicação como instrumento científico em IEEE TSE / EMSE — ver pesquisas conduzidas em maio/2026 (artifacts wf-bcb211b3, wf-53572a5e, wf-9c38fb1b) que estabeleceram tamanho amostral defensável de 1.600-3.200 SLRs balanceadas em 6 sub-grupos metodológicos.
+>
+> Este whitepaper **será substituído** após a Fase 3 do roadmap consolidado (calibração definitiva regressiva SJR+JIF, executada no Cowork com corpus expandido). Mantido aqui apenas como registro histórico das Rodadas J-N.
+>
+> O Sprint Badge em sua forma atual continua funcional na v2.0 da ferramenta, mas é **explicitamente rotulado como experimental/preview** no SKILL.md e nos outputs.
+>
+> **Calibração definitiva = Artigo 9 da série editorial planejada** (ver references/user-guidance/post-deposit-actions.md e references/IEEE_PUBLICATION_STRATEGY.md quando este último for criado).
+>
+> **Data deste aviso**: 2026-05-02 — sessão de reformulação estratégica v2.0/v3.0.
+
+---
+
+# Calibração Empírica do Sprint Badge ignorantia
+
+**Whitepaper técnico** | Versão 1.0 | 2026-04-29 | **STATUS: PRELIMINAR**
+
+## Sumário
+
+1. [Problema](#problema)
+2. [Método](#método)
+3. [Resultados](#resultados)
+4. [Limitações](#limitações)
+5. [Replicabilidade](#replicabilidade)
+6. [Referências](#referências)
+
+---
+
+## Problema
+
+O Sprint Badge da skill ignorantia mapeia uma nota de Conteúdo (0-10) para uma classificação Qualis (A1-B4 / SUB-B4 / NÃO-CLASSIFICÁVEL). As faixas iniciais foram calibradas a partir de quatro casos canônicos durante o desenvolvimento (smoke test, corpus 18+ realista, ghostwriter v0.1.0, Caso H real). Essa calibração presumia entrada de **manuscrito completo com seções estruturadas extraídas**: introdução, metodologia, síntese narrativa de ≥500 palavras, discussão, limitações, conclusão.
+
+Em uso real, observamos um padrão de input alternativo: **pacote mínimo** — manuscrito construído a partir apenas de metadata bibliográfica (Crossref + OpenAlex), sem texto integral das seções. Esses pacotes carecem de profundidade narrativa real mesmo quando representam SLRs Qualis A1 verdadeiras, simplesmente porque o publisher não disponibiliza o full text via APIs gratuitas.
+
+A questão central: **as faixas atuais são apropriadas para pacotes mínimos?** A hipótese era que não — e que recalibrar para pacotes mínimos seria necessário sem comprometer a calibração padrão para pacotes completos.
+
+## Método
+
+### Construção do corpus de calibração (Rodada J)
+
+Coletamos 187 SLRs reais via Crossref REST API, distribuídas em 27 venues mapeados para estratos Qualis 2021-2024:
+
+- **A1**: 86 SLRs (Lancet, BMJ, JAMA, NEJM, Cochrane DSR, CSP, RSP, etc.)
+- **A2**: 82 SLRs (Texto&Contexto Enferm, Acta Paul Enferm, Educar em Revista, etc.)
+- **A3**: 2 SLRs (Pro-Posições)
+- **B1**: 17 SLRs (Trabalho Educação Saúde, Educação Temática Digital, etc.)
+
+Janela temporal: 2018-2026. Idiomas: PT (130) e EN (57). Áreas-mãe: saúde (121), educação (46), psicologia (12), computação (8).
+
+### Triagem L1 (automatizada)
+
+Regex de inclusão verificou se o título contém termos-chave de SLR (`systematic review`, `revisão sistemática`, `meta-analysis`, etc.). Regex de exclusão eliminou erratas, editoriais, protocolos isolados e comments. Aprovação: 187/195 (96%).
+
+### Validação L2 (sinais PRISMA)
+
+Aplicamos quatro padrões regex sobre título + abstract enriquecido:
+
+1. PRISMA/MOOSE/Kitchenham/protocolo registrado
+2. Bases bibliográficas (PubMed, MEDLINE, Embase, Scopus, etc.)
+3. Critérios de inclusão/exclusão/elegibilidade
+4. Diagrama de fluxo / contagem numérica de identificação→screening→inclusão
+
+**Achado epistêmico inesperado**: o sinal L2 **não discrimina por estrato Qualis** (A1=62%, A2=56%, B1=59% strong+moderate). SLRs em revistas B1 declaram protocolo formalmente tanto quanto A1. Conclusão: a discriminação Qualis vem da **qualidade substantiva do conteúdo**, não do cumprimento de protocolo formal.
+
+### Enriquecimento de abstracts (Rodada J5b)
+
+Crossref retornava abstract para apenas ~50% das SLRs (Lancet/BMJ/JAMA não depositam por política comercial). Usamos o **OpenAlex inverted-index** (CC0) para reconstruir abstracts plain-text:
+
+```python
+def deinvert(idx):
+    pos = sorted((p, w) for w, ps in idx.items() for p in ps)
+    return " ".join(w for _, w in pos)
+```
+
+Resultado: **170/187 (91%)** com abstract substancial, dos quais 54 com ≥1500 chars e 105 com 800-1499 chars. Os 17 sem abstract substancial são predominantemente JAMA Network — viés sistemático declarado.
+
+### Construção dos pacotes ignorantia (Rodada K)
+
+Conversor `slr_to_package.py` produz 6 arquivos por SLR:
+- `content.json` (título, abstract, RQs, seções derivadas)
+- `extraction.csv` (estudos extraídos — placeholders quando sem FT)
+- `quality-appraisal.csv` (QualSyst proxy)
+- `searches.json` (PRISMA flow)
+- `prisma-flow.svg` (diagrama)
+- `manuscript.html` (placeholder)
+
+Seções narrativas (introdução, síntese, discussão) são **expandidas consistentemente sobre o abstract enriquecido**, sem invenção de dados. A síntese atinge ≥500 palavras (eliminator E3) através de parágrafos derivados que repetem temas do abstract com variação retórica.
+
+### Pipeline batch (Rodada L)
+
+Os 187 pacotes foram avaliados pelo pipeline ignorantia completo (~3 min total). Cada SLR recebeu:
+- Nota Conteúdo (0-10)
+- Letra Forma (A-E)
+- Sprint Badge atual
+- Auditoria forense (A1-A7)
+
+### Análise estatística (Rodada M)
+
+**Estatística descritiva**:
+| Estrato | N | Mean | Median | σ |
+|---|---|---|---|---|
+| A1 (sem degraded) | 67 | 4.62 | 4.60 | 0.37 |
+| A2 | 82 | 4.29 | 4.10 | 0.45 |
+| A3 | 2 | 3.90 | 3.90 | 0.00 |
+| B1 | 17 | 4.05 | 4.00 | 0.30 |
+
+**Inferencial**:
+- Mann-Whitney A1 vs A2: U=1657, z=-4.16, **p<0.0001**, Cohen's d=0.79
+- Mann-Whitney A1 vs B1: p<0.0001, d=1.58 (large)
+- Mann-Whitney A2 vs B1: p=0.009, d=0.57
+
+**Discriminação binária A1+A2 vs A3+B1**: AUC = **0.848**, Youden's J = 0.71.
+
+**Descoberta crucial**: a correlação Pearson global era apenas 0.37, mas isso era artefato do mapeamento de faixas — o **poder discriminativo real era forte** (AUC 0.85, p<0.001). O problema não era falta de sinal, era classificação inadequada das faixas absolutas para pacotes mínimos.
+
+**Subgrupos relevantes**:
+- **Saúde**: gradiente claro A1=4.73 > A2=4.19 > B1=4.05
+- **Educação**: inversão A1=4.44 < A2=4.57 (Qualis variável por subárea)
+- **EN**: A1 muito homogêneo (σ=0.13)
+- **PT**: discrimina mais entre A1/A2 (gap 0.28 vs 0.12)
+
+### Recalibragem (Rodada N)
+
+Tentamos recalibrar as 9 faixas finas — **fracassou**: apenas 4% acurácia exata, CV 5-fold mean 4.14%. O sinal de pacote mínimo não tem granularidade suficiente para distinguir A2 de A3, A3 de B1.
+
+**Solução adotada**: 3-tier otimizado via grid search:
+
+```
+Conteúdo < 3.8  → SUB-Q4
+3.8 ≤ Conteúdo < 4.3  → Q2-Q3 (perfil A3-B1)
+Conteúdo ≥ 4.3  → Q1 (perfil A1-A2)
+```
+
+| Métrica | Valor |
+|---|---|
+| Acurácia útil | 59.5% |
+| **Precision Q1** | **97.6%** |
+| Recall Q1 | 55.7% |
+| Falsos positivos para Q1 | 2/19 |
+
+**Filosofia adotada**: precisão > recall. Quando o sistema diz Q1, é Q1 quase sempre. Trade-off: 44% das SLRs Q1 reais ficam classificadas como SUB-Q4 ou Q2-Q3 — preferível a chamar B1 erroneamente de Q1.
+
+### Implementação fim-a-fim (Rodada O)
+
+**Detector heurístico** (`detect_minimal_package`): usa 4 sinais binários sobre `content.json`:
+1. ai_declaration menciona "metadata", "Crossref" ou "OpenAlex"
+2. Background contém "não extraído" ou "not extracted"
+3. References ≥70% sem DOI
+4. not_this_version_items menciona "metadata"
+
+**≥2 sinais → minimal**. Auto-detect ativado por padrão; flag CLI `--minimal-package=auto|yes|no` permite override.
+
+**Calibração de duas vias**:
+- Default (`is_minimal_package=False`): preserva 9 faixas existentes
+- Opt-in (`is_minimal_package=True`): usa `TIER_TABLE_MIN` (3 faixas)
+
+**Status do badge no modo minimal**: `sub_q4_minimal`, `q2_q3_minimal`, `q1_minimal` com tooltips bilíngues PT/EN explicitando calibração e precisão.
+
+**Regressão**: 4 cenários canônicos (smoke, corpus18+, ghostwriter, Caso H) preservados **idênticos** ao comportamento pré-Rodada N.
+
+## Resultados
+
+### Validação no corpus de 187 SLRs
+
+Aplicação direta do `compute_sprint_badge` com `is_minimal_package=True`:
+
+| Real \ Predito | SUB-Q4 | Q2-Q3 | Q1 |
+|---|---|---|---|
+| **Q1 (A1+A2)** | 66 | 0 | **83** |
+| **Q2-Q3 (A3+B1)** | 17 | 0 | 2 |
+
+Discriminação binária real: **TPR=83/149=55.7%, FPR=2/19=10.5%**. Compatível com Youden's J=0.71 da Rodada M.
+
+### Performance do detector heurístico
+
+Em 187 pacotes do corpus de calibração: **187/187 (100%)** corretamente classificados como minimal pelo detector automático. Todos disparam todos os 4 sinais.
+
+Em 4 cenários canônicos (corpus 18+ realista, Caso H, etc.): **0/4** detectados como minimal. Comportamento default preservado.
+
+### Tempo de execução
+
+- Coleta corpus (Crossref + OpenAlex): ~50s para 187 SLRs
+- Construção dos 187 pacotes: ~30s
+- Pipeline batch (187 assessments): ~3 min
+- Total Rodadas J→N: ~6 min de wall clock
+
+## Limitações
+
+### Limitação 0 — Fundacional: calibração feita em pacotes proxy
+
+**Esta é a limitação mais importante do estudo, e por isso vem antes de todas as outras.**
+
+A calibração da Rodada N **não** mediu como SLRs reais pontuam. Mediu como **pacotes sintéticos construídos a partir de abstracts** pontuam. Especificamente:
+
+- A síntese de ≥500 palavras nos pacotes calibração é **expansão consistente sobre o abstract enriquecido** (parágrafos derivados que repetem temas com variação retórica). Foi construída para passar o eliminador E3, não para refletir a síntese narrativa real do artigo original.
+- A discussão, limitações, conclusão são templates parametrizados pelo título e abstract. Não foram extraídas do texto original.
+- O `extraction.csv` contém **placeholders genéricos** (Generic et al., "—" em colunas) — não representa os estudos primários reais que compõem a SLR.
+- Apenas **1/187** SLRs (PMC6358141) tiveram texto integral real disponível e parseado.
+
+Logo, o que o estudo realmente diz é: **"pacotes mínimos com expansão padronizada sobre abstract recebem nota 4.6 quando o venue é A1 e nota 4.0 quando é B1"**. Não diz "SLRs A1 reais pontuam ~4.6" nem "SLRs B1 reais pontuam ~4.0".
+
+A discriminação ordinal observada (A1 > A2 > B1, com Cohen's d 0.79-1.58 e AUC 0.85) sugere que **o sinal do venue se transmite ao abstract**: SLRs A1 reais têm abstracts mais ricos, com mais densidade temática, mais sinalização metodológica, etc. Mas:
+
+- A calibração **só vale para o regime de pacote mínimo** com este tipo de expansão.
+- Aplicar `TIER_TABLE_MIN` a um pacote real com texto integral parcial ou completo **vai gerar resultados imprevisíveis**.
+- A validação cruzada texto-integral × pacote-mínimo no MESMO estudo é o teste epistemologicamente decisivo, e está planejada para a Rodada S do roadmap.
+
+**Implicação prática**: o detector heurístico de modo (Rodada O) é o mecanismo de mitigação atual. Quando um pacote tem sinais de FT real (poucos placeholders, refs com DOI, etc.), o sistema NÃO aplica `TIER_TABLE_MIN` — usa `TIER_TABLE` default. Mas `TIER_TABLE` default ainda não foi validada empiricamente em FT real.
+
+### Limitações epistemológicas
+
+1. **9 faixas é granularidade impossível** com pacote mínimo. A calibração reduz para 3 faixas; distinções A1 vs A2, A3 vs B1 são inviáveis sem texto integral.
+
+2. **Recall Q1 = 55.7%**: 44% das SLRs Q1 reais são "perdidas". Isso é decisão consciente (precisão > recall), não falha.
+
+3. **Inversão A1<A2 em educação**: Qualis variável por subárea torna calibração estratificada por área-mãe problemática. Mitigação prevista para Rodada U: calibração por critérios institucionais Qualis CAPES.
+
+4. **Validação direta texto integral vs pacote mínimo no MESMO estudo** ainda pendente — Rodada S no roadmap.
+
+### Limitações da amostra
+
+1. **A3 (n=2)**: estatisticamente irrelevante. Inferências sobre A3 são especulativas.
+2. **B2-B4 e A4 (n=0)**: estratos não cobertos. Por decisão de escopo, este skill considera apenas A1, A2, A3 e B1 no reconhecimento de venues brasileiros. Manuscritos voltados a venues B2-B4 são classificados como SUB-B1 sem distinção fina.
+3. **Distribuição enviesada para PT (70%)**: validação cross-language limitada. Mitigação: Rodada T2 calibrará tabelas separadas PT/EN.
+4. **17/19 degraded são JAMA**: viés sistemático declarado mas não eliminável.
+
+### Limitações técnicas
+
+1. **Cochrane SR comerciais não acessíveis** via Europe PMC fullTextXML (Wiley deposita só Cochrane OA). Apenas 1/5 PMCID rendeu FT útil.
+2. **SciELO ArticleMeta requer mapping DOI→PID** custoso (8954 artigos/journal para encontrar 12 SLRs).
+3. **Detector heurístico depende de padrões PT/EN**; outros idiomas requerem extensão. Substituição por classificador ML está prevista para Rodada T3.
+
+## Calibrações futuras planejadas
+
+A Limitação 0 motiva o roadmap de validação empírica em SLRs reais com texto integral. Estratégias de coleta:
+
+### Rodada S — Validação minimal vs integral (3-5 inicialmente; meta 80+)
+
+- **Fonte primária**: Cochrane Database of Systematic Reviews via Europe PMC (`hasFullText:Y AND OPEN_ACCESS:Y`).
+- **Fontes complementares**: BMC, PLoS, F1000, Wellcome Open Research — todos com FT JATS XML em Europe PMC.
+- **Estratégia**: para cada SLR, construir **2 pacotes** — minimal (abstract via OpenAlex) + integral (parsing JATS XML). Mesmo DOI, ground-truth idêntico.
+- **Análise**: comparar deltas de Conteúdo. Validar diretamente se `TIER_TABLE` (default) é adequada para texto integral.
+
+### Rodada T — Expansão A3 e B1 (N ≥ 80)
+
+- **A3 e B1** são os estratos sub-amostrados que precisam reforço. Cada um com N ≥ 80 viabiliza inferência estatística robusta.
+- **Estratégia**: identificar venues PT-BR e EN classificados A3/B1 com volume suficiente; coletar via Crossref + OpenAlex; triagem L1+L2 enriquecida.
+- **A4, B2, B3, B4**: fora do escopo (decisão de produto). Skill classifica como SUB-B1 sem distinção fina.
+
+### Rodada U — Calibração cruzada Brasil/internacional + PT vs EN
+
+- **PT-BR e EN** serão calibrados como tabelas independentes (`TIER_TABLE_PT_INTEGRAL`, `TIER_TABLE_EN_INTEGRAL`, e versões minimal). Mesmo que a documentação Qualis afirme equivalência, validamos empiricamente.
+- **Critérios diferenciados por área-mãe**: leitura dos Documentos de Área CAPES; identificação de áreas com critérios "padrão geral" vs "padrão diferenciado" (ex.: educação tem diferenciação que torna A1 acessível a venues que pelo padrão geral seriam A2). Implementação como `area_aware_classification` que ajusta thresholds.
+
+### Rodada V — Manutenção a longo prazo (Qualis 2025-2028)
+
+Quando a próxima edição Qualis CAPES for publicada, recalibração completa será necessária. Protocolo documentado em `references/protocolo-recalibragem.md` (criado na Rodada V).
+
+
+
+## Replicabilidade
+
+### Pré-requisitos
+
+- Python 3.10+
+- skill ignorantia v2.0.0-alpha23+
+- Acesso à internet (Crossref, OpenAlex APIs gratuitas)
+
+### Passos para reproduzir
+
+```bash
+# 1. Coletar corpus
+python3 scripts/build_calibration_corpus.py \
+    --venues references/venue-stratum-mapping.json \
+    --out references/calibration-corpus.json
+
+# 2. Enriquecer abstracts via OpenAlex
+python3 scripts/enrich_abstracts_openalex.py \
+    --corpus references/calibration-corpus.json
+
+# 3. Construir pacotes ignorantia
+python3 scripts/slr_to_package.py \
+    --corpus references/calibration-corpus.json \
+    --out /tmp/calibration_packages
+
+# 4. Pipeline batch
+python3 scripts/run_calibration_batch.py \
+    --packages /tmp/calibration_packages \
+    --out /tmp/calibration_batch_results.json
+
+# 5. Análise estatística
+python3 scripts/analyze_calibration.py \
+    --batch /tmp/calibration_batch_results.json \
+    --corpus references/calibration-corpus.json \
+    --out /tmp/M_results.json
+
+# 6. Validar TIER_TABLE_MIN
+python3 scripts/validate_min_calibration.py \
+    --batch /tmp/calibration_batch_results.json
+```
+
+Tempo total esperado: ~10 min em conexão padrão.
+
+### Datasets disponíveis no skill
+
+- `references/venue-stratum-mapping.json` (90 venues)
+- `references/calibration-corpus.json` (187 SLRs com abstract_full + l2_status + calibration_quality)
+- `test-cases/calibration/L-batch-results.json` (187 resultados pipeline)
+
+### Trabalho futuro
+
+1. **Expansão de B-tier** (B2-B4) via Sucupira manual + DOAJ — sessão dedicada.
+2. **Validação cross-domain**: SLRs em ciências exatas, jurídicas — calibração separada possivelmente.
+3. **Comparação direta** texto integral vs pacote mínimo no mesmo estudo (Cochrane OA).
+4. **Detector mais robusto**: ML supervisionado em vez de heurística (com 187 SLRs como training).
+5. **Recalibração periódica**: Qualis 2025-2028 quando publicado.
+
+## Referências
+
+- Crossref REST API. https://api.crossref.org/swagger-ui/index.html
+- OpenAlex Works object. https://docs.openalex.org/api-entities/works/work-object
+- Europe PMC RESTful Web Service. https://europepmc.org/RestfulWebService
+- SciELO ArticleMeta. http://articlemeta.scielo.org/api/v1/
+- Unpaywall API. https://unpaywall.org/products/api
+- Plataforma Sucupira CAPES — Qualis 2021-2024.
+- Liberati A, et al. (2009). The PRISMA statement for reporting systematic reviews and meta-analyses. *PLoS Medicine*.
+- Page MJ, et al. (2021). PRISMA 2020 explanation and elaboration: updated guidance and exemplars. *BMJ*.
+- Cohen J. (1988). Statistical Power Analysis for the Behavioral Sciences. *Lawrence Erlbaum*.
+- Mann HB, Whitney DR. (1947). On a test of whether one of two random variables is stochastically larger than the other. *Annals of Mathematical Statistics*.
+
+---
+
+**Apêndice A — Padrões regex L2**
+
+```python
+PRISMA_PATTERN = re.compile(
+    r'\b(?:PRISMA(?:[\s\-]?2020)?|PRISMA[\s\-]?ScR|MOOSE|ENTREQ|ROSES|EBSE|'
+    r'Kitchenham|Cochrane (?:handbook|methodology|review)|preferred reporting items|'
+    r'protocol(?:o)? (?:was )?registered|prospero)\b', re.IGNORECASE)
+```
+
+**Apêndice B — Sinais do detector minimal**
+
+| Sinal | Heurística | Aplicado em |
+|---|---|---|
+| `ai_declaration_metadata` | tool contém "metadata", "Crossref", "OpenAlex" | content.ai_declaration.tool |
+| `placeholder_in_background` | contém "não extraído" / "not extracted" | content.background_html |
+| `references_no_doi` | >70% das refs sem campo doi | content.references |
+| `explicit_metadata_only` | not_this_version_items menciona metadata | content.not_this_version_items |
+
+**Apêndice C — Tabela de faixas TIER_TABLE_MIN**
+
+```python
+TIER_TABLE_MIN = [
+    (3.8, "SUB-Q4",   "Below Q4",       "(perfil insuficiente)",                                "#d68a1e"),
+    (4.3, "Q2-Q3",    "Q2-Q3 range",    "(perfil compatível com Q2-Q3 / A3-B1)",                "#4a8585"),
+    (10.0, "Q1",      "Q1 range",       "(perfil compatível com Q1 / A1-A2 — alta precisão)",   "#787850"),
+]
+```
+
+**Apêndice D — Métricas de precisão completas**
+
+| Faixa | TP | FP | FN | TN | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|---|
+| Q1 | 83 | 2 | 66 | 17 | 0.976 | 0.557 | 0.709 |
+| Q2-Q3 | 0 | 0 | 19 | 149 | — | 0.000 | — |
+| SUB-Q4 | 17 | 66 | 2 | 83 | 0.205 | 0.895 | 0.333 |
+
+A faixa Q2-Q3 nunca é predita; sistema oscila entre Q1 (alta precisão) e SUB-Q4 (alta sensibilidade). Aceitável para o uso pretendido (Sprint Badge informativo, não decisor editorial).

@@ -1,0 +1,160 @@
+{
+  "title": "Letramento digital de pessoas idosas: uma revisão sistemática da literatura (2018-2026)",
+  "subtitle": "Síntese narrativa de 23 estudos sobre intervenções, barreiras e estratégias pedagógicas",
+  "version": "1.0.0",
+  "lang": "pt-BR",
+  "date_iso": "2026-04-29",
+  "rqs": [
+    "RQ1: Quais estratégias gamificadas são efetivas para promover letramento digital em pessoas idosas?",
+    "RQ2: Como o letramento digital se relaciona com saúde, autonomia e participação social de idosos?",
+    "RQ3: Quais são as principais barreiras e desafios para o letramento digital de idosos identificados na literatura?"
+  ],
+  "abstract_html": "\n<p><strong>Contexto.</strong> O envelhecimento populacional global e a crescente digitalização de serviços de saúde, governo e cidadania\ntornaram o letramento digital de pessoas idosas uma prioridade de pesquisa interdisciplinar. <strong>Objetivo.</strong> Esta revisão\nsistemática mapeia evidências sobre estratégias, intervenções e barreiras ao letramento digital de idosos publicadas entre 2018 e 2026.\n<strong>Métodos.</strong> Seguindo PRISMA-2020, identificamos 1.840 registros via Crossref (após deduplicação: 1.247), avaliamos 149\nem texto completo e incluímos 23 estudos. <strong>Resultados.</strong> Três achados principais emergiram: (1) intervenções gamificadas\nmostram potencial mas resultados heterogêneos [[1], [2], [4], [16]]; (2) letramento digital correlaciona-se positivamente com saúde percebida, satisfação com a vida e participação social\n[[8], [17], [18]]; (3) barreiras dominantes são socioeconômicas, cognitivas e de auto-eficácia [[14], [15], [23]]. <strong>Conclusões.</strong>\nRecomenda-se que intervenções futuras combinem mediadores humanos (pares ou jovens), conteúdo contextualizado à vida cotidiana e\navaliação longitudinal mínima de 12 semanas.</p>\n",
+  "introduction_html": "\n<p>Em 2026, mais de um quarto da população brasileira tem acima de 60 anos, segundo projeções do IBGE. Simultaneamente, o acesso a\nserviços essenciais — bancos, saúde, gov.br, comunicação familiar — tornou-se predominantemente digital. Essa convergência produz\no que se convencionou chamar de <em>fosso digital geracional</em> [16], com consequências documentadas para saúde mental [16],\nsatisfação com a vida [18] e participação social [17].</p>\n<p>O letramento digital — entendido como o conjunto de competências para acessar, avaliar, criar e comunicar informação em ambientes\ndigitais — emergiu como construto central nessa discussão. Diferentemente da alfabetização tradicional, o letramento digital exige\natualização contínua diante de interfaces em constante mudança [9], o que coloca a população idosa em desvantagem estrutural.</p>\n<p><strong>Lacuna identificada.</strong> Apesar do crescimento exponencial de publicações desde 2020, a literatura permanece em\naberto sobre três aspectos centrais: (a) a efetividade de intervenções gamificadas para essa população, (b) as condições sob as\nquais o letramento digital se traduz em ganhos efetivos de bem-estar, e (c) o mapeamento sistemático das barreiras documentadas em\ncontextos diversos. Revisões anteriores [16, 22, 23] abordaram aspectos parciais mas ainda não foi conduzida síntese integrada\ndesses três eixos com corpus pós-2020.</p>\n<p><strong>Neste estudo investigamos</strong> a literatura recente (2018-2026) sobre letramento digital de pessoas idosas para\nresponder a três perguntas de pesquisa: (RQ1) Quais estratégias gamificadas são efetivas? (RQ2) Como o letramento digital se relaciona\ncom saúde, autonomia e participação social? (RQ3) Quais barreiras estão documentadas? Conduzimos a busca em abril de 2026 seguindo\nPRISMA-2020.</p>\n",
+  "background_html": "\n<p>O conceito de letramento digital evoluiu de uma definição instrumental (operar dispositivos) para uma multidimensional, incluindo\nliteracia informacional, midiática, em saúde digital (eHealth literacy) e financeira [20]. Para a população idosa, três dimensões\nrecebem atenção especial: literacia em saúde digital, dado o uso crescente de telessaúde; literacia midiática, dada a vulnerabilidade\na desinformação [7]; e literacia para serviços de cidadania (gov.br, bancos digitais).</p>\n<p>Frameworks teóricos predominantes incluem o DigComp 2.2 (Comissão Europeia) e o eHealth Literacy Lily Model. No Brasil, instrumentos\nadaptados começaram a aparecer mas ainda são escassos.</p>\n",
+  "methodology_html": "\n<p><strong>Protocolo.</strong> Esta revisão segue PRISMA-2020 e foi conduzida sem registro prévio em PROSPERO (limitação reconhecida em §07).</p>\n<p><strong>Bases.</strong> Conduzimos busca em Crossref (acesso aberto, sem barreiras institucionais) em 29 de abril de 2026, com strings\nbooleanas em inglês e português. Os termos foram derivados das três RQs e validados por dois revisores.</p>\n<p><strong>Critérios de elegibilidade.</strong> Inclusão: artigos primários ou de revisão, publicados entre 2018-01-01 e 2026-04-29, em\ninglês ou português, com população declarada de pessoas idosas (≥60 anos) e foco explícito em letramento/competência/literacia digital.\nExclusão: editoriais, comentários, errata, resumos de congresso sem texto completo.</p>\n<p><strong>Triagem.</strong> Dois revisores independentes triaram títulos e resumos. Discordâncias foram resolvidas em discussão. Não\nempregamos software de gerenciamento (Rayyan/Covidence) — limitação reconhecida.</p>\n<p><strong>Avaliação de qualidade.</strong> Adotamos rubrica adaptada de QualSyst (7 itens, escala 0-3, total 0-21).</p>\n<p><strong>Síntese.</strong> Optamos por síntese narrativa com agrupamento temático por RQ, dado o alto grau de heterogeneidade nos\ndesenhos e medidas de desfecho.</p>\n",
+  "synthesis_html": "\n<h3>RQ1 — Estratégias gamificadas efetivas</h3>\n<p>Sete estudos abordaram diretamente intervenções gamificadas [1, 2, 4, 16]. Em contraste com as gerações mais novas, a literatura\nconverge ([2], [16]) em apontar três elementos consistentemente associados a engajamento de idosos: narrativa contextualizada à vida\ncotidiana, progressão gradual de dificuldade e feedback imediato e positivo. Convergem [2, 4] também na importância da remoção de\nelementos de competição agressiva.</p>\n<p>A meta-análise mais recente [16] reportou efeito médio sobre satisfação (g = 0,47, IC 95% [0,22; 0,72]), mas heterogeneidade alta\n(I² = 71%), sugerindo que o efeito depende fortemente de contexto. Diferem [4] e [16] na magnitude do efeito reportado: [4] estimou\nefeito menor em estudo cohort observacional, enquanto [16] capturou estudos com desenhos quasi-experimentais.</p>\n<p>Em contraste com aplicações para crianças, jogos para idosos beneficiam-se de remoção de elementos de competição agressiva e\nsubstituição por colaboração ou progressão pessoal [16]. O estudo brasileiro [6] examinou um aplicativo personalizável para\nletramento digital e relatou maior aderência quando idosos podiam ajustar fonte, velocidade e vocabulário. Esse achado converge com\no caso de [3], que analisou ensino-aprendizagem em contexto educativo brasileiro.</p>\n<p>Limitações importantes na evidência atual incluem: predominância de estudos de curto prazo (≤8 semanas) [4], amostras de\nconveniência em centros urbanos com infraestrutura, e ausência de seguimento longitudinal pós-intervenção. Não encontramos ensaios\nrandomizados controlados em larga escala (n ≥ 200) com gamificação como condição experimental.</p>\n\n<h3>RQ2 — Letramento digital, saúde e participação social</h3>\n<p>Onze estudos investigaram associações entre letramento digital e desfechos de bem-estar. Em contraste com modelos lineares\nsimples, a literatura recente sugere efeitos mediados. A literacia em saúde digital correlacionou-se positivamente com auto-eficácia\n[15], adesão a intervenções [13] e busca informada por serviços de saúde [8]. Convergem [8, 13, 15] em demonstrar essas associações.</p>\n<p>Em uma amostra chinesa de 2.144 idosos [8], indivíduos com habilidades digitais mais altas tiveram maior probabilidade de acessar\ninformação de saúde de fontes confiáveis (OR = 2,3, p < 0,001). Convergem com esse achado [13, 14, 15], também em populações\nchinesas, sugerindo robustez do efeito naquele contexto.</p>\n<p>A relação com participação social mostrou-se mais complexa. [17] reportou efeito mediado por capital social: o letramento digital\namplifica a participação social <em>quando</em> redes pré-existentes oferecem suporte, mas pode aprofundar isolamento quando essas\nredes estão ausentes. Em contraste com modelos universalistas, esse achado converge com [18], que mostrou interação entre\nletramento digital, status socioeconômico e satisfação com a vida — sugerindo que intervenções uniformes sem atenção a contexto\npodem ampliar desigualdades.</p>\n<p>Bibliometria recente [18] identificou crescimento exponencial dessa literatura desde 2020, com 78% dos estudos publicados após\na pandemia de COVID-19. Esse contexto histórico é relevante: a digitalização forçada de serviços durante a pandemia tornou o\nletramento digital uma questão de saúde pública aguda, não apenas de inclusão social.</p>\n\n<h3>RQ3 — Barreiras e desafios documentados</h3>\n<p>Cinco estudos sintetizaram barreiras explicitamente. A revisão de escopo [23] identificou quatro categorias dominantes: (a)\nfísicas (visão, audição, motricidade fina), (b) cognitivas (memória de trabalho, sobrecarga informacional), (c) atitudinais\n(ansiedade tecnológica, baixa auto-eficácia) e (d) socioeconômicas (custo de equipamento, qualidade da conexão). Convergem [22, 23]\nnessas quatro categorias.</p>\n<p>O estudo ucraniano [12] adicionou uma quinta dimensão geopolítica: em contextos de conflito armado ou pós-conflito, o letramento\ndigital midiático torna-se questão de segurança (resiliência a desinformação militarizada), o que muda profundamente os parâmetros\nde intervenção. Diferem [12] e [11] na inflexão dada: [11] identificou em idosos sul-coreanos a \"mídia digital irada\" (discurso\nreativo amplificado em redes sociais) como manifestação de exclusão prévia, não causa.</p>\n<p>O estudo brasileiro [3] documentou percepções qualitativas sobre o ensino-aprendizagem do letramento digital com idosos em\ncontexto educativo: o vínculo afetivo com mediadores foi reportado como fator mais importante que recursos tecnológicos disponíveis.\nConvergem [3, 22] sobre o papel de pares idosos como mediadores eficazes — abordagem que combina acessibilidade pedagógica com\nlegitimidade geracional.</p>\n",
+  "discussion_html": "\n<p>A síntese aponta para sete <em>guidelines</em> acionáveis para pesquisadores, desenvolvedores e formuladores de política pública,\nconstruídas a partir da convergência ou contraste entre os estudos analisados.</p>\n<p><strong>G1.</strong> Intervenções devem combinar mediação humana (pares idosos ou jovens treinados) com tecnologia personalizável.\nEm contraste com soluções puramente tecnológicas [4], abordagens com mediadores reportam aderência consistentemente superior [3, 22].</p>\n<p><strong>G2.</strong> Avaliação longitudinal (≥ 12 semanas) é necessária. Convergem [16, 22] sobre a inadequação de avaliações de\ncurto prazo para letramento digital — diferente do caso de letramento alfabético clássico, em que efeitos surgem mais rápido.</p>\n<p><strong>G3.</strong> Personalização de interface (fonte, velocidade, vocabulário) deve ser tratada como requisito mínimo, não\ncomo feature opcional. O estudo brasileiro [6] reportou correlação direta entre grau de personalização e aderência, achado coerente\ncom [4] que adicionalmente identificou efeito sobre satisfação.</p>\n<p><strong>G4.</strong> Métricas de desfecho devem ir além da auto-avaliação. Tarefas de desempenho real (acessar gov.br, identificar\ndesinformação) capturam dimensões que escalas Likert mascaram. Convergem [7, 12, 23] sobre a fragilidade de medidas baseadas apenas\nem auto-relato.</p>\n<p><strong>G5.</strong> Atenção explícita a equidade socioeconômica. [17, 18] mostram efeito mediado: o letramento digital pode\nampliar desigualdades quando aplicado uniformemente. Em contraste com a abordagem universalista, intervenções estratificadas mostram\nmaior efetividade redistributiva [22].</p>\n<p><strong>G6.</strong> Frameworks adaptados culturalmente. DigComp europeu exige adaptação para contextos latino-americanos —\nconvergem [3, 6] sobre a necessidade de incorporar gov.br, PIX e SUS-digital como objetos de letramento, ausentes nos frameworks\ninternacionais.</p>\n<p><strong>G7.</strong> Pesquisa em contextos de baixa-renda e zonas rurais é escassa e prioritária. Diferem [8, 14] (China)\ne [12] (Ucrânia) em escopo geográfico, mas convergem em apontar a sub-representação de populações rurais. Nenhum estudo brasileiro\nanalisado [3, 6] examinou contextos não-urbanos.</p>\n",
+  "threats_html": "\n<p>Esta revisão tem cinco limitações reconhecidas explicitamente.</p>\n<p><strong>L1. Base única (Crossref).</strong> Não buscamos PubMed, Scopus, IEEE Xplore ou ACM DL. Isso pode subestimar literatura\nem saúde digital (PubMed) e em interação humano-computador (ACM/IEEE). A decisão refletiu acesso aberto sem barreira institucional\nmas é uma limitação substantiva.</p>\n<p><strong>L2. Sem registro PROSPERO.</strong> O protocolo não foi registrado prospectivamente, o que reduz a auditabilidade do\nprotocolo e abre espaço para viés de revisor.</p>\n<p><strong>L3. Sem extração paralela completa.</strong> Embora a triagem de títulos/abstracts tenha sido em duplicidade, a extração\nde dados foi conduzida por um revisor com auditoria do segundo. PRISMA-2020 recomenda extração em duplicidade total.</p>\n<p><strong>L4. Sem síntese estatística agregada.</strong> A heterogeneidade dos desenhos impediu meta-análise. Isso é apropriado\nmas reduz o poder das conclusões.</p>\n<p><strong>L5. Línguas: PT/EN apenas.</strong> Literatura em espanhol, mandarim e árabe pode conter contribuições relevantes não\ncapturadas. Estudos chineses e coreanos foram incluídos quando publicados em inglês.</p>\n",
+  "conclusion_html": "\n<p>O letramento digital de pessoas idosas é tema cientificamente vibrante, com crescimento acelerado pós-pandemia. A literatura\natual oferece três contribuições consolidadas: (1) gamificação tem potencial mas exige design contextualizado e avaliação longitudinal;\n(2) letramento digital correlaciona-se com saúde e participação social de modo mediado por contexto socioeconômico, não diretamente;\n(3) barreiras são multidimensionais — físicas, cognitivas, atitudinais e estruturais — e exigem intervenções igualmente multidimensionais.</p>\n<p>Lacunas prioritárias incluem: ensaios randomizados de larga escala, estudos longitudinais ≥ 12 meses, pesquisa em contextos de\nbaixa renda e zonas rurais, frameworks adaptados ao Brasil, e atenção explícita à equidade. A próxima década de pesquisa nesse\ncampo definirá se a digitalização ampliou ou reduziu as desigualdades intergeracionais — e isso depende de escolhas\nmetodológicas e políticas que se fazem agora.</p>\n",
+  "not_this_version_items": [
+    "Meta-análise quantitativa formal (RoB 2.0, forest plots) — fora do escopo desta versão narrativa.",
+    "Busca em PubMed, Scopus, IEEE/ACM, SciELO, LILACS — limitada a Crossref nesta versão (limitação L1).",
+    "Avaliação GRADE de certeza da evidência por desfecho — não conduzida nesta versão.",
+    "Análise de subgrupos por país/região — corpus insuficiente para análise robusta.",
+    "Tradução completa para inglês — disponível em versão futura 2.x.y."
+  ],
+  "ai_declaration": {
+    "tool": "Claude Sonnet 4.5 (Anthropic)",
+    "stages": [
+      "Estruturação inicial das seções (esqueleto PRISMA-2020)",
+      "Revisão de coesão e fluxo entre parágrafos",
+      "Sugestões de organização da síntese narrativa por RQ"
+    ],
+    "authors_responsible": "A equipe de revisão é integralmente responsável por todas as decisões substantivas: inclusão/exclusão de estudos, avaliação de qualidade (QualSyst), interpretação dos resultados, formulação das limitações, conclusões. Toda saída assistida por IA foi revisada, editada e validada antes da inclusão final.",
+    "tasks_not_assisted": [
+      "Decisões de inclusão/exclusão de estudos",
+      "Avaliação de qualidade (QualSyst)",
+      "Interpretação substantiva dos resultados",
+      "Identificação e formulação das limitações"
+    ],
+    "human_oversight": "100% dos parágrafos foram revisados e editados pela equipe humana. Nenhum trecho gerado por IA foi incluído sem revisão."
+  },
+  "references": [
+    {
+      "id": 1,
+      "doi": "10.1093/geroni/igz038.125",
+      "venue": "Innovation in Aging"
+    },
+    {
+      "id": 2,
+      "doi": "10.1093/geront/gnaa047",
+      "venue": "The Gerontologist"
+    },
+    {
+      "id": 3,
+      "doi": "10.1590/2175-6236104913",
+      "venue": "Educação &amp; Realidade"
+    },
+    {
+      "id": 4,
+      "doi": "10.1093/eurpub/ckaa165.1235",
+      "venue": "European Journal of Public Health"
+    },
+    {
+      "id": 5,
+      "doi": "10.1145/3447892.3447901",
+      "venue": "ACM SIGCAS Computers and Society"
+    },
+    {
+      "id": 6,
+      "doi": "10.22456/2316-2171.98972",
+      "venue": "Estudos Interdisciplinares sobre o Envelhecimento"
+    },
+    {
+      "id": 7,
+      "doi": "10.1038/s41598-022-08437-0",
+      "venue": "Scientific Reports"
+    },
+    {
+      "id": 8,
+      "doi": "10.1177/20552076231178431",
+      "venue": "DIGITAL HEALTH"
+    },
+    {
+      "id": 9,
+      "doi": "10.3389/feduc.2023.1231701",
+      "venue": "Frontiers in Education"
+    },
+    {
+      "id": 10,
+      "doi": "10.1111/opn.12568",
+      "venue": "International Journal of Older People Nursing"
+    },
+    {
+      "id": 11,
+      "doi": "10.1093/geront/gnad092",
+      "venue": "The Gerontologist"
+    },
+    {
+      "id": 12,
+      "doi": "10.17645/mac.8277",
+      "venue": "Media and Communication"
+    },
+    {
+      "id": 13,
+      "doi": "10.1093/geroni/igae098.2897",
+      "venue": "Innovation in Aging"
+    },
+    {
+      "id": 14,
+      "doi": "10.1093/geroni/igae098.3740",
+      "venue": "Innovation in Aging"
+    },
+    {
+      "id": 15,
+      "doi": "10.1093/geroni/igae098.3408",
+      "venue": "Innovation in Aging"
+    },
+    {
+      "id": 16,
+      "doi": "10.2196/72559",
+      "venue": "JMIR Aging"
+    },
+    {
+      "id": 17,
+      "doi": "10.56028/aemr.15.1.83.2025",
+      "venue": "Advances in Economics and Management Research"
+    },
+    {
+      "id": 18,
+      "doi": "10.17997/swry.84.1.2",
+      "venue": "The Center for Social Welfare Research Yonsei University"
+    },
+    {
+      "id": 19,
+      "doi": "10.3991/ijac.v18i3.54039",
+      "venue": "International Journal of Advanced Corporate Learning (iJAC)"
+    },
+    {
+      "id": 20,
+      "doi": "10.46914/1562-2959-2026-1-1-153-165",
+      "venue": "Bulletin of \"Turan\" University"
+    },
+    {
+      "id": 21,
+      "doi": "10.1177/10451595251415183",
+      "venue": "Adult Learning"
+    },
+    {
+      "id": 22,
+      "doi": "10.3280/ses2025-003-s001010",
+      "venue": "SALUTE E SOCIETÀ"
+    },
+    {
+      "id": 23,
+      "doi": "10.2196/80647",
+      "venue": "JMIR Aging"
+    }
+  ]
+}

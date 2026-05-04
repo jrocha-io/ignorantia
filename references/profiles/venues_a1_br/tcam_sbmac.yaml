@@ -1,0 +1,102 @@
+metadata:
+  venue_id: tcam_sbmac
+  name: "Trends in Computational and Applied Mathematics"
+  name_pt: "Tendências em Matemática Aplicada e Computacional"
+  publisher: "Sociedade Brasileira de Matemática Aplicada e Computacional (SBMAC), São Carlos"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: null
+  sjr_quartile: Q3
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://tema.sbmac.org.br/tema/about/submissions"
+  archived_url: "https://web.archive.org/web/2026/https://tema.sbmac.org.br/tema/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    TCAM (anteriormente TEMA — Tendências em Matemática Aplicada e Computacional) é periódico
+    da SBMAC (sociedade científica brasileira).
+    Estrato 2021-2024 PROVÁVEL: A2 ou A3 em Matemática/Probabilidade & Estatística.
+    Confirmação Sucupira por ISSN 2676-0029 mandatória — declarar honestamente que pode ser A3.
+    Declaração explícita pela revista: "does not charge submission, article processing (APC),
+    or publication fees" — diamond OA verdadeiro.
+    Inglês preferencial; também aceita PT/ES.
+    Foco: matemática aplicada, computacional, modelagem matemática; aceita papers metodológicos
+    e revisões temáticas de interesse para a comunidade SBMAC.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_with_2_reviewers
+    - narrative_review
+    - mapping_study
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+  methodological_standards_endorsed:
+    - SciELO
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 25
+    excludes: [references]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 5
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+  file_format:
+    accepted: [tex]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://tema.sbmac.org.br/tema/about"
+  notes: |
+    Segue diretrizes SciELO/SBMAC — IA com disclosure obrigatório.
+
+reproducibility:
+  data_availability_statement: encouraged
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

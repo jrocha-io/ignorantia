@@ -1,0 +1,435 @@
+id: PRISMA-2020
+name: "Preferred Reporting Items for Systematic Reviews and Meta-Analyses 2020"
+version: "2020"
+canonical_doi: "10.1136/bmj.n71"
+canonical_url: "http://www.prisma-statement.org/PRISMAStatement/Checklist"
+items_total: 27
+abstract_items: 12
+applies_to:
+  - systematic_review_strict
+  - systematic_review_with_2_reviewers
+  - meta_analysis
+
+# Cada item PRISMA classificado por automatizabilidade.
+# automation_level:
+#   full = verificável 100% por regra determinística
+#   partial = parcialmente automatizável (ancoras detectam presença, conteúdo precisa human review)
+#   none = exige julgamento humano ou LLM
+
+items:
+  # ==================== TITLE ====================
+  - id: "1"
+    section: "TITLE"
+    title: "Identify the report as a systematic review"
+    automation_level: full
+    detection_method: "regex_in_title"
+    anchors:
+      - "systematic review"
+      - "systematic literature review"
+      - "revisão sistemática"
+      - "meta-analysis"
+      - "meta-análise"
+    severity_if_missing: blocking
+
+  # ==================== ABSTRACT ====================
+  - id: "2"
+    section: "ABSTRACT"
+    title: "Use the PRISMA 2020 for Abstracts checklist"
+    automation_level: partial
+    detection_method: "structured_abstract_check"
+    anchors:
+      - "Background"
+      - "Objective"
+      - "Methods"
+      - "Results"
+      - "Conclusions"
+    severity_if_missing: major
+
+  # ==================== INTRODUCTION ====================
+  - id: "3"
+    section: "INTRODUCTION"
+    title: "Rationale for the review in the context of existing knowledge"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "4"
+    section: "INTRODUCTION"
+    title: "Provide an explicit statement of the objective(s) or question(s)"
+    automation_level: partial
+    detection_method: "regex_objective_or_questions"
+    anchors:
+      - "this review aims"
+      - "research question"
+      - "RQ\\d+"
+      - "objetivo desta revisão"
+      - "esta revisão visa"
+    severity_if_missing: major
+
+  # ==================== METHODS ====================
+  - id: "5"
+    section: "METHODS"
+    title: "Eligibility criteria"
+    automation_level: partial
+    detection_method: "section_present_with_inclusion_exclusion"
+    anchors:
+      - "inclusion criteria"
+      - "exclusion criteria"
+      - "critérios de inclusão"
+      - "critérios de exclusão"
+      - "PICO"
+      - "PICOC"
+      - "SPIDER"
+    severity_if_missing: blocking
+
+  - id: "6"
+    section: "METHODS"
+    title: "Information sources (databases) with last search date"
+    automation_level: full
+    detection_method: "databases_listed_with_dates"
+    anchors:
+      - "PubMed"
+      - "Scopus"
+      - "Web of Science"
+      - "Embase"
+      - "ACM Digital Library"
+      - "IEEE Xplore"
+      - "Cochrane"
+      - "SciELO"
+      - "ERIC"
+      - "search.*conducted.*\\d{4}"
+    minimum_count: 3
+    severity_if_missing: blocking
+
+  - id: "7"
+    section: "METHODS"
+    title: "Full search strategies for at least one database"
+    automation_level: partial
+    detection_method: "search_strategy_block_present"
+    anchors:
+      - "search strategy"
+      - "estratégia de busca"
+      - "search string"
+      - "query"
+    severity_if_missing: major
+
+  - id: "8"
+    section: "METHODS"
+    title: "Selection process (number of reviewers, independence)"
+    automation_level: partial
+    detection_method: "two_reviewer_declaration_or_single"
+    anchors_two_reviewers:
+      - "two independent reviewers"
+      - "two reviewers independently"
+      - "dois revisores independentes"
+      - "Cohen.{0,3}kappa"
+      - "inter-rater"
+    anchors_single_reviewer_disclosed:
+      - "single reviewer with"
+      - "AI-assisted screening"
+      - "single-reviewer dual-checked"
+    severity_if_missing: blocking
+    note: "Se review_type ∈ {scoping_review, rapid_review, mapping_study} e single-reviewer for declarado, severity_if_missing rebaixa para major."
+
+  - id: "9"
+    section: "METHODS"
+    title: "Data collection process (extraction)"
+    automation_level: partial
+    detection_method: "extraction_form_described"
+    anchors:
+      - "data extraction form"
+      - "extraction template"
+      - "formulário de extração"
+    severity_if_missing: major
+
+  - id: "10a"
+    section: "METHODS"
+    title: "Data items: outcomes for which data were sought"
+    automation_level: partial
+    detection_method: "outcomes_listed"
+    severity_if_missing: major
+
+  - id: "10b"
+    section: "METHODS"
+    title: "Data items: other variables (PICO components, funding, etc.)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "11"
+    section: "METHODS"
+    title: "Risk of bias assessment (tool used, who assessed)"
+    automation_level: partial
+    detection_method: "rob_tool_named"
+    anchors:
+      - "RoB 2"
+      - "ROBINS-I"
+      - "AMSTAR"
+      - "ROBIS"
+      - "GRADE"
+      - "QUADAS"
+      - "Newcastle-Ottawa"
+      - "Joanna Briggs"
+      - "CASP"
+      - "MMAT"
+    severity_if_missing: major
+
+  - id: "12"
+    section: "METHODS"
+    title: "Effect measures specified for each outcome"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "13a"
+    section: "METHODS"
+    title: "Synthesis methods: criteria for grouping studies"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "13b"
+    section: "METHODS"
+    title: "Synthesis methods: handling of missing summary statistics"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "13c"
+    section: "METHODS"
+    title: "Synthesis methods: tabulation/visualization of results"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "13d"
+    section: "METHODS"
+    title: "Synthesis methods: meta-analysis statistical model"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+    only_if_meta_analysis: true
+
+  - id: "13e"
+    section: "METHODS"
+    title: "Synthesis methods: sensitivity analyses"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "13f"
+    section: "METHODS"
+    title: "Synthesis methods: handling of subgroup analyses"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "14"
+    section: "METHODS"
+    title: "Reporting bias assessment methods (e.g., funnel plots)"
+    automation_level: partial
+    detection_method: "funnel_or_publication_bias_mentioned"
+    anchors:
+      - "funnel plot"
+      - "Egger.{0,5}test"
+      - "publication bias"
+      - "viés de publicação"
+      - "trim and fill"
+    severity_if_missing: minor
+    only_if_meta_analysis: true
+
+  - id: "15"
+    section: "METHODS"
+    title: "Certainty of evidence assessment (e.g., GRADE)"
+    automation_level: partial
+    detection_method: "grade_or_equivalent"
+    anchors:
+      - "GRADE"
+      - "certainty of evidence"
+      - "certeza da evidência"
+    severity_if_missing: major
+
+  # ==================== RESULTS ====================
+  - id: "16a"
+    section: "RESULTS"
+    title: "Study selection: number screened, included, excluded"
+    automation_level: full
+    detection_method: "prisma_flow_diagram_present"
+    anchors:
+      - "prisma-flow"
+      - "PRISMA flow"
+      - "fluxograma"
+      - "flow diagram"
+    severity_if_missing: blocking
+
+  - id: "16b"
+    section: "RESULTS"
+    title: "Cite excluded studies with reasons"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "17"
+    section: "RESULTS"
+    title: "Study characteristics table"
+    automation_level: full
+    detection_method: "extraction_table_present"
+    severity_if_missing: blocking
+
+  - id: "18"
+    section: "RESULTS"
+    title: "Risk of bias of individual studies"
+    automation_level: full
+    detection_method: "rob_table_or_figure_present"
+    severity_if_missing: major
+
+  - id: "19"
+    section: "RESULTS"
+    title: "Results of individual studies"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "20a"
+    section: "RESULTS"
+    title: "Results of syntheses: characteristics of contributing studies"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "20b"
+    section: "RESULTS"
+    title: "Results of syntheses: per-outcome statistical results"
+    automation_level: partial
+    severity_if_missing: major
+    only_if_meta_analysis: true
+
+  - id: "20c"
+    section: "RESULTS"
+    title: "Results of syntheses: investigations of heterogeneity"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "20d"
+    section: "RESULTS"
+    title: "Results of syntheses: sensitivity analyses results"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "21"
+    section: "RESULTS"
+    title: "Reporting biases assessment results"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "22"
+    section: "RESULTS"
+    title: "Certainty of evidence results"
+    automation_level: partial
+    severity_if_missing: major
+
+  # ==================== DISCUSSION ====================
+  - id: "23a"
+    section: "DISCUSSION"
+    title: "General interpretation in context of evidence"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  - id: "23b"
+    section: "DISCUSSION"
+    title: "Limitations of evidence included"
+    automation_level: partial
+    detection_method: "limitations_section_present"
+    anchors:
+      - "limitations"
+      - "limitações"
+      - "threats to validity"
+    severity_if_missing: major
+
+  - id: "23c"
+    section: "DISCUSSION"
+    title: "Limitations of review processes used"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "23d"
+    section: "DISCUSSION"
+    title: "Implications for practice, policy, future research"
+    automation_level: partial
+    severity_if_missing: minor
+
+  # ==================== OTHER ====================
+  - id: "24a"
+    section: "OTHER"
+    title: "Registration: name of registry and registration number"
+    automation_level: full
+    detection_method: "regex_registration_id"
+    anchors:
+      - "CRD\\d{6,9}"
+      - "PROSPERO"
+      - "osf\\.io/\\w+"
+      - "OSF.{0,20}registr"
+    severity_if_missing: blocking
+
+  - id: "24b"
+    section: "OTHER"
+    title: "Indicate where review protocol can be accessed"
+    automation_level: full
+    detection_method: "protocol_link_present"
+    anchors:
+      - "https://www.crd.york.ac.uk/prospero"
+      - "osf\\.io/\\w+"
+      - "doi\\.org/.*protocol"
+    severity_if_missing: major
+
+  - id: "24c"
+    section: "OTHER"
+    title: "Describe amendments to information from registration"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+
+  - id: "25"
+    section: "OTHER"
+    title: "Funding sources and role of funders"
+    automation_level: full
+    detection_method: "funding_section_present"
+    anchors:
+      - "funding"
+      - "financiamento"
+      - "supported by"
+      - "grant"
+    severity_if_missing: blocking
+
+  - id: "26"
+    section: "OTHER"
+    title: "Competing interests"
+    automation_level: full
+    detection_method: "coi_section_present"
+    anchors:
+      - "competing interests"
+      - "conflicts of interest"
+      - "conflito de interesses"
+      - "declaration of interest"
+    severity_if_missing: blocking
+
+  - id: "27"
+    section: "OTHER"
+    title: "Availability of data, code, and other materials"
+    automation_level: full
+    detection_method: "data_availability_section_present"
+    anchors:
+      - "data availability"
+      - "disponibilidade de dados"
+      - "code availability"
+      - "supplementary materials"
+      - "Zenodo"
+      - "OSF"
+      - "GitHub"
+      - "Dryad"
+    severity_if_missing: major
+
+# Resumo de automatizabilidade (referência rápida):
+# full:    8 itens  (1, 6, 16a, 17, 18, 24a, 25, 26, 27)  → 9 itens (≈ 33%)
+# partial: 16 itens (2, 4, 5, 7, 8, 9, 10a, 10b, 11, 12, 13a, 13c, 14, 15, 16b, 19, 20a, 20b, 21, 22, 23b, 23c, 23d, 24b)
+# none:    7 itens  (3, 13b, 13d, 13e, 13f, 20c, 20d, 23a, 24c)
+#
+# Estratégia v2.0: full + partial = ~85% checagem automatizada;
+# none = explicitamente flagged como needs_human_review,
+# nunca contam para o score agregado positivo (apenas negativo se ausentes).

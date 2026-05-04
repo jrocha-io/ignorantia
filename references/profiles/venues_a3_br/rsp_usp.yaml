@@ -1,0 +1,113 @@
+metadata:
+  venue_id: rsp_usp
+  name: "Revista de Saúde Pública"
+  name_pt: "Revista de Saúde Pública"
+  publisher: "Universidade de São Paulo / Faculdade de Saúde Pública"
+  country: BR
+  language_acceptance: [en, pt, es]
+  qualis_stratum: A3
+  qualis_subarea: "QR1-Vida+Saude"
+  jcr_quartile: Q2
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://rsp.fsp.usp.br/instrucoes-aos-autores/"
+  archived_url: "https://web.archive.org/web/2026/https://rsp.fsp.usp.br/instrucoes-aos-autores/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    v2.3 RECALIBRAÇÃO: estrato corrigido de A1 para A3 conforme Pesquisa Qualis 2021-2024 (Etapa 1 v2.3, doc /mnt/project/). RSP era A3 no quadriênio 2017-2020 (listagem PUC-Goiás); CiteScore Scopus ~3.5; SJR Q2 Public Health. FORTEMENTE PROVÁVEL A3 em 2021-2024 (não A1). Confirmação Sucupira por ISSN 1518-8787 mandatória para uso operacional.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - meta_analysis
+    - scoping_review
+    - rapid_review
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - PRISMA-ScR
+    - MOOSE
+    - CONSORT-2010
+    - STARD-2015
+    - STROBE
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 4000
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 300
+    structured: true
+    structure_headings: [Objective, Methods, Results, Conclusions]
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver_superscript
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: major
+    - id: ai_usage
+      severity: major
+    - id: data_availability
+      severity: major
+  file_format:
+    accepted: [docx, doc]
+  figures:
+    max_count: 5
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - public health
+    - epidemiology
+    - health policy
+    - health services
+    - saúde pública
+    - epidemiologia
+    - políticas de saúde
+  out_of_scope_keywords:
+    - laboratory only
+    - veterinary
+
+scope:
+  thesaurus_descriptors:
+    - "Public Health [MeSH]"
+    - "Health Services [MeSH]"
+    - "Epidemiology [MeSH]"
+  areas_qualis:
+    - "Saúde Coletiva (área 22)"
+  excluded_topics: []

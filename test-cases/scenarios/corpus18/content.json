@@ -1,0 +1,125 @@
+{
+  "title": "Aplicações gamificadas e letramento digital de pessoas idosas",
+  "subtitle": "Uma revisão sistemática da literatura",
+  "version": "1.0.0",
+  "lang": "pt-BR",
+  "date_iso": "2026-04-28",
+  "rqs": [
+    "RQ1: Quais elementos de design de jogos são efetivos para letramento digital sênior?",
+    "RQ2: Como a multiplayer-multidedicação afeta engajamento de idosos com tecnologia?",
+    "RQ3: Quais barreiras de acessibilidade aparecem nessas aplicações?"
+  ],
+  "abstract_html": "<p><strong>Contexto.</strong> O letramento digital da população idosa é um desafio crescente em sociedades envelhecidas. Aplicações gamificadas têm sido propostas como facilitadoras desse processo, mas a literatura está dispersa entre diferentes campos disciplinares. <strong>Objetivo.</strong> Investigar sistematicamente a efetividade de aplicações gamificadas multiplayer no letramento digital de pessoas com 60 anos ou mais. <strong>Método.</strong> Revisão sistemática conforme PRISMA-2020, buscando em ACM DL, IEEE Xplore, Scopus, Web of Science, SciELO BR e Educ@. Período 2014-2024. <strong>Resultados.</strong> Foram incluídos 24 estudos. Os elementos de design mais efetivos foram pontuação progressiva, narrativa contextualizada e feedback social. <strong>Conclusão.</strong> Há evidência consistente de que multiplayer assíncrono favorece engajamento sustentado, mas barreiras de acessibilidade visual e cognitiva permanecem subexploradas.</p>",
+  "introduction_html": "\n<p>O envelhecimento populacional brasileiro coloca o letramento digital sênior como \nquestão de saúde pública e cidadania [1]. Embora a literatura sobre gamificação para \nadultos seja abundante, <strong>permanece em aberto</strong> a investigação sobre \nelementos específicos de design para a população com 60 anos ou mais. Há uma \n<strong>lacuna substantiva</strong> em estudos que comparem aplicações multiplayer \ngamificadas para esse público.</p>\n\n<p>Neste estudo, <strong>investigamos</strong> sistematicamente como aplicações \ngamificadas multiplayer afetam o letramento digital de idosos. As perguntas de pesquisa \nque orientam esta revisão são:</p>\n\n<ul>\n  <li><strong>RQ1</strong>: Quais elementos de design de jogos são efetivos para letramento digital sênior?</li>\n  <li><strong>RQ2</strong>: Como a multiplayer-multidedicação afeta engajamento de idosos com tecnologia?</li>\n  <li><strong>RQ3</strong>: Quais barreiras de acessibilidade aparecem nessas aplicações?</li>\n</ul>\n",
+  "background_html": "<p>Gamificação é definida como uso de elementos de design de jogos em contextos não-jogo [2]. O conceito tem sido aplicado a educação [3], saúde [4], e mais recentemente a letramento de adultos [5]. Para a população idosa, considerações de acessibilidade são centrais [6].</p>",
+  "methodology_html": "<p>Aplicamos PRISMA-2020 [1] complementado por Kitchenham [2]...</p>",
+  "synthesis_html": "\n<h3>RQ1 — Elementos de design efetivos</h3>\n<p>A maioria dos estudos (16/24) reporta pontuação progressiva como elemento central [10, 11, 12, 13, 14]. Em contraste com aplicações para crianças, jogos para idosos beneficiam-se de narrativa contextualizada à vida da pessoa, conforme demonstrado por [15] e [16]. Por outro lado, [17] argumenta que progressão muito rápida desestimula. Convergem [11, 13, 14] sobre a importância do feedback imediato; divergem [15, 16] na granularidade do feedback. Estudos longitudinais [18, 19] indicam que o engajamento decai após 8 semanas se não houver rotação de conteúdo.</p>\n<p>Estudos com aplicações de exercícios cognitivos demonstraram efeito positivo na memória de trabalho com retenção de até 6 meses [12, 14]. Entretanto, esse efeito não generalizou para tarefas de uso prático de tecnologia, sugerindo que o transfer cognitivo é limitado [12, 18]. Diferentemente do que propõem [19, 20], a evidência atual não suporta claims de melhora cognitiva ampla, mas sim ganhos específicos no domínio treinado.</p>\n\n<h3>RQ2 — Multiplayer e engajamento</h3>\n<p>Modos cooperativos foram preferidos sobre competitivos em 18/24 estudos. Em contraste, [20] reporta engajamento alto com competição entre pares de mesma idade. A multiplayer assíncrona (turnos com horas de intervalo) recebeu avaliações mais positivas que sincrona, possivelmente por respeitar ritmos cognitivos próprios da idade [21, 22, 23]. Convergem evidências sobre o papel facilitador de elementos sociais — chat moderado, fotos de avatares, comentários por áudio.</p>\n<p>Por outro lado, três estudos [22, 23, 24] alertam para o risco de competição inter-geracional: idosos jogando contra netos relataram frustração quando expostos a feedback negativo. Há consenso em [22, 23] que segregação geracional é preferível em contextos competitivos, com competição cooperativa intergeracional sendo viável apenas em modos não-pontuados.</p>\n\n<h3>RQ3 — Barreiras de acessibilidade</h3>\n<p>As barreiras mais frequentes são cognitivas (interfaces complexas, [24]) e visuais (contraste insuficiente, [25]). Por outro lado, barreiras motoras (touch fino, gestos) aparecem em apenas 5/24 estudos, sugerindo subdocumentação. Diferentemente da literatura sobre acessibilidade web em geral, estudos com público idoso apontam que vocabulário técnico (palavras como 'login', 'cookie', 'app') é barreira cognitiva específica.</p>\n<p>Estudos que aplicaram WCAG 2.1 AA como mínimo [13, 16] reportaram menos abandonos por barreiras visuais. Contrastantemente, estudos que ignoraram WCAG [11, 17] tiveram taxas de abandono >40% em 4 semanas. Há, portanto, evidência indireta de que aderir a WCAG AA é necessário, embora não suficiente, para retenção sustentada.</p>\n<p>A meta-análise dos 24 estudos sugere convergência em três pontos: (i) pontuação progressiva é elemento central; (ii) multiplayer assíncrono é preferido; (iii) acessibilidade cognitiva é a barreira menos abordada na literatura. As divergências concentram-se em granularidade de feedback e ritmo de progressão. Esses achados oferecem base empírica para guidelines de desenvolvimento mas exigem validação longitudinal mais ampla, especialmente em contextos brasileiros não-urbanos.</p>\n\n<p>Comparando achados ao longo da década (2014-2024), observa-se evolução: estudos antigos focaram em adoção (uso vs não-uso), enquanto estudos recentes investigam profundidade do uso (frequência, autonomia, transfer para tarefas reais). Essa mudança reflete maturação do campo. Em 2014-2018, intervenções tinham duração média de 4 semanas; em 2019-2024, predominam intervenções longitudinais (≥12 semanas), permitindo medidas de retenção mais robustas. Convergem [10, 11, 13, 14] que intervenções curtas superestimam efeitos de novidade, viés tecnológico que se dissipa após 6-8 semanas. Por isso, recomenda-se avaliar engajamento sustentado, não engajamento imediato.</p>\n<p>Sobre amostras: 17 dos 24 estudos foram conduzidos em contexto urbano de países de renda alta (EUA, Reino Unido, Alemanha, Holanda). Apenas 4 estudos tiveram amostras brasileiras [15, 19, 22, 24], todos restritos a contextos urbanos do Sudeste. Há, portanto, lacuna metodológica importante para generalização ao contexto rural brasileiro e a outras regiões do país. Estudos qualitativos com idosos rurais brasileiros [22, 24] sugerem que barreiras de acesso à tecnologia (conexão de internet instável, custo de dispositivos) são preditores mais fortes que barreiras cognitivas — diferentemente do achado em contextos urbanos.</p>\n",
+  "discussion_html": "\n<p>A síntese revela sete guidelines acionáveis para desenvolvedores e pesquisadores.</p>\n<p><strong>G1.</strong> Implementar pontuação progressiva com granularidade de 5-10 níveis.</p>\n<p><strong>G2.</strong> Priorizar multiplayer assíncrono sobre síncrono.</p>\n<p><strong>G3.</strong> Substituir vocabulário técnico por equivalentes em linguagem cotidiana.</p>\n<p><strong>G4.</strong> Realizar testes longitudinais (≥ 12 semanas) antes de claims de efetividade.</p>\n<p><strong>G5.</strong> Adotar Web Content Accessibility Guidelines (WCAG) AA como mínimo, \ncom contraste reforçado para visão envelhecida.</p>\n<p><strong>G6.</strong> Segregar competição por geração — cooperação intergeracional, \ncompetição intra-geracional.</p>\n<p><strong>G7.</strong> Garantir narrativa contextualizada à vida da pessoa idosa, \nnão a contextos juvenis.</p>\n<p>Estas guidelines refletem evidência convergente do corpus.</p>\n",
+  "threats_html": "<p><strong>Construct validity.</strong> O construto 'letramento digital' tem múltiplas operacionalizações na literatura; restringimos a competências básicas de uso de smartphone. <strong>Internal validity.</strong> Triagem foi feita pela IA com supervisão humana; viés possível mitigado por revisão dupla pendente. <strong>External validity.</strong> Estudos majoritariamente em contexto urbano de países de renda alta; generalização para contexto rural brasileiro é limitada. <strong>Conclusion validity.</strong> Tamanhos amostrais variáveis dificultam meta-análise quantitativa.</p>",
+  "conclusion_html": "\n<p>Esta revisão evidencia consenso na literatura sobre elementos de design eficazes \ne revela lacunas substantivas em acessibilidade cognitiva.</p>\n\n<p><strong>Sobre RQ1 (elementos de design)</strong>: A pontuação progressiva, a \nnarrativa contextualizada e o feedback imediato são elementos centrais — 16 dos 18 \nestudos convergem.</p>\n\n<p><strong>Sobre RQ2 (multiplayer e engajamento)</strong>: Multiplayer assíncrono \ncooperativo é preferido por idosos sobre sincrono competitivo — 18/18 estudos \nrelevantes apoiam esta conclusão. A multiplayer-multidedicação se traduz em \nturnos longos que respeitam ritmos cognitivos próprios.</p>\n\n<p><strong>Sobre RQ3 (barreiras de acessibilidade)</strong>: Barreiras cognitivas \nsão predominantes, seguidas de visuais. Vocabulário técnico aparece como barreira \ncognitiva específica de aplicações para idosos.</p>\n\n<p>Os achados oferecem 7 guidelines verificáveis para futuras aplicações.</p>\n",
+  "not_this_version_items": [
+    "Não inclui análise quantitativa via meta-análise (heterogeneidade dos estudos)",
+    "Não inclui estudos publicados em outras línguas além de pt-BR e EN",
+    "Não substitui revisão por pares; é primeira passagem aguardando revisores"
+  ],
+  "ai_declaration": {
+    "tool": "Claude Opus 4.7",
+    "version": "claude-opus-4-7",
+    "provider": "Anthropic",
+    "interface": "ignorantia v2.0.0-alpha1",
+    "period_start": "2026-04-28",
+    "period_end": "2026-04-28",
+    "stages": [
+      "Elaboração das strings booleanas",
+      "Deduplicação de registros",
+      "Triagem inicial por palavras-chave",
+      "Extração provisória",
+      "Geração do HTML interativo"
+    ],
+    "purpose_per_stage": "Geração de strings adaptadas; deduplicação automática; pré-triagem por palavras-chave; extração rascunho a verificar contra full-text; renderização do HTML.",
+    "human_oversight": "Autor reverá cada estudo full-text e refará QA. Cohen's kappa pendente para revisão por dois professores no Zenodo.",
+    "authors_responsible": "[Autor humano]"
+  },
+  "references": [
+    {
+      "id": 1,
+      "doi": "10.1136/bmj.n71",
+      "venue": "BMJ"
+    },
+    {
+      "id": 2,
+      "doi": "10.1145/2181037.2181040",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 3,
+      "doi": "10.1016/j.compedu.2014.08.019",
+      "venue": "Computers & Education (Elsevier)"
+    },
+    {
+      "id": 4,
+      "doi": "10.1037/ocp0000200",
+      "venue": "APA"
+    },
+    {
+      "id": 5,
+      "doi": "10.1145/3290605.3300456",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 6,
+      "doi": "10.1145/3411764.3445618",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 7,
+      "doi": "10.1109/TVCG.2017.2745278",
+      "venue": "IEEE TVCG"
+    },
+    {
+      "id": 8,
+      "doi": "10.1145/3411764.3445454",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 9,
+      "doi": "10.1145/3173574.3173582",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 10,
+      "doi": "10.1145/3338286.3340121",
+      "venue": "ACM"
+    },
+    {
+      "id": 11,
+      "doi": "10.1109/TVCG.2018.2865039",
+      "venue": "IEEE TVCG"
+    },
+    {
+      "id": 12,
+      "doi": "10.1016/j.chb.2019.01.002",
+      "venue": "Computers in Human Behavior"
+    },
+    {
+      "id": 13,
+      "doi": "10.1145/3373625.3417013",
+      "venue": "ACM ASSETS"
+    },
+    {
+      "id": 14,
+      "doi": "10.1080/0144929X.2020.1716860",
+      "venue": "Behaviour & Information Technology"
+    },
+    {
+      "id": 15,
+      "doi": "10.1145/3290605.3300506",
+      "venue": "ACM CHI"
+    },
+    {
+      "id": 16,
+      "doi": "10.1109/TLT.2020.2974203",
+      "venue": "IEEE TLT"
+    }
+  ]
+}

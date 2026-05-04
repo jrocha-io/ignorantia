@@ -1,0 +1,92 @@
+metadata:
+  venue_id: ape_unifesp
+  name: Acta Paulista de Enfermagem
+  name_pt: Acta Paulista de Enfermagem
+  publisher: Escola Paulista de Enfermagem, Universidade Federal de São Paulo (UNIFESP)
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: A3
+  qualis_subarea: QR1-Vida+Saude
+  jcr_quartile: null
+  sjr_quartile: Q3
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://acta-ape.org
+  archived_url: https://web.archive.org/web/2026/https://acta-ape.org
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    A1 historicamente em Enfermagem (2017-2020). PROVÁVEL A3 em 2021-2024 sob nova régua bibliométrica QR1 (rebaixamento técnico, mas tipicamente percebido como manutenção de qualidade). Indexada Medline/PMC, Scopus, WoS. Confirmação Sucupira por ISSN 1982-0194 mandatória.
+    Diamond OA via SciELO + portal UNIFESP, sem APC.
+    PRISMA-2020 para SLRs; STROBE; CONSORT.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - narrative_review
+  - integrative_review
+  - scoping_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed:
+  - SciELO
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - enfermagem
+  - cuidado em saúde
+  - saúde da mulher
+  - saúde do idoso
+scope:
+  primary_subjects:
+  - Enfermagem
+  excluded_subjects: []

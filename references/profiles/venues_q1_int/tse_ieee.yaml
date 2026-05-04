@@ -1,0 +1,99 @@
+metadata:
+  venue_id: tse_ieee
+  name: "IEEE Transactions on Software Engineering"
+  publisher: "IEEE Computer Society"
+  country: US
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: hybrid
+  submission_system: scholarone
+  source_url: "https://www.computer.org/csdl/journal/ts/write-for-us"
+  archived_url: "https://web.archive.org/web/2026/https://www.computer.org/csdl/journal/ts/write-for-us"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - mapping_study
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - SIGSOFT-EMP-STANDARDS
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+    - "ACM SIGSOFT Empirical Standards"
+    - "IEEE AI Disclosure Policy 2024"
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 35
+    min: 20
+    excludes: []
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 16
+  keywords:
+    min: 4
+    max: 8
+    controlled_vocabulary: IEEE-Thesaurus
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Related Work
+    - Methods
+    - Results
+    - Discussion
+    - Threats to Validity
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: blocking
+    - id: orcid_all_authors
+      severity: major
+    - id: reproducibility_package_doi
+      severity: major
+  file_format:
+    accepted: [docx, tex]
+    template_url: "https://www.ieee.org/conferences/publishing/templates.html"
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - software engineering
+    - software testing
+    - software requirements
+    - software architecture
+    - empirical software engineering
+    - software evolution
+    - software maintenance
+  out_of_scope_keywords:
+    - clinical medicine
+    - non-software-engineering topics
+
+scope:
+  thesaurus_descriptors:
+    - "Software engineering [IEEE Thesaurus]"
+    - "Software design and implementation [ACM CCS]"

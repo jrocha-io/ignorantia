@@ -1,0 +1,116 @@
+metadata:
+  venue_id: reben_aben
+  name: "Revista Brasileira de Enfermagem"
+  name_pt: "Revista Brasileira de Enfermagem"
+  publisher: "Associação Brasileira de Enfermagem (ABEn Nacional)"
+  country: BR
+  language_acceptance: [pt, en, es]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Vida+Saude"
+  jcr_quartile: Q4
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: scholarone
+  source_url: "https://reben.com.br/en/instructions-to-authors/"
+  archived_url: "https://web.archive.org/web/2026/https://reben.com.br/en/instructions-to-authors/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    REBEn é o periódico oficial da Associação Brasileira de Enfermagem (ABEn).
+    A2 confirmado no Qualis 2021-2024 (área-mãe Enfermagem) — comunicado oficial ABEn (jan/2026).
+    Diamond OA: sem APC para autores; CC BY 4.0; publicação trilíngue (PT/EN/ES).
+    JCR Q3-Q4 (Nursing); SJR Q2 (General Nursing).
+    Aceita amplo portfólio de revisões com PRISMA 2020 obrigatório para SR.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - integrative_review
+    - scoping_review
+    - meta_analysis
+    - qualitative_synthesis
+    - narrative_review
+  recommended_for_layer: all
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - PRISMA-ScR
+    - MOOSE
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+    - MECIR
+
+hard_requirements:
+  length:
+    unit: words
+    max: 4500
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 150
+    structured: true
+    structure_headings: [Objective, Methods, Results, Conclusion]
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: DeCS
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+    - id: ethics_approval
+      severity: blocking
+    - id: prospero_registration
+      severity: blocking
+      detection_anchors: ["CRD\\d{6,9}", "PROSPERO"]
+    - id: trial_registration
+      severity: major
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: true
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://reben.com.br/en/editorial-policy/"
+  notes: |
+    Disclosure obrigatório do uso de IA generativa em qualquer etapa.
+    IA não pode constar como autor. Política alinhada a ICMJE/COPE.
+
+reproducibility:
+  data_availability_statement: required
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: true
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

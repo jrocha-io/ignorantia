@@ -1,0 +1,96 @@
+metadata:
+  venue_id: jistem_usp
+  name: "Journal of Information Systems and Technology Management"
+  name_pt: "Revista de Gestão da Tecnologia e Sistemas de Informação"
+  publisher: "TECSI / Universidade de São Paulo"
+  country: BR
+  language_acceptance: [en, pt]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: null
+  sjr_quartile: Q3
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "http://www.jistem.tecsi.org/index.php/jistem/about/submissions"
+  archived_url: "https://web.archive.org/web/2026/http://www.jistem.tecsi.org/index.php/jistem/about/submissions"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - mapping_study
+    - scoping_review
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - SIGSOFT-EMP-STANDARDS
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 10000
+    min: 6000
+    excludes: [abstract, references]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 4
+    max: 6
+    controlled_vocabulary: ACM-CCS-2012
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Theoretical Background
+    - Methods
+    - Results
+    - Discussion
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: major
+    - id: orcid_all_authors
+      severity: major
+  file_format:
+    accepted: [docx, doc]
+  authorship:
+    icmje_required: false
+    orcid_required: all
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - information systems
+    - technology management
+    - IT governance
+    - digital transformation
+    - business intelligence
+    - sistemas de informação
+    - gestão da tecnologia
+
+scope:
+  thesaurus_descriptors:
+    - "Information systems [ACM CCS]"
+    - "Information systems applications [ACM CCS]"
+  areas_qualis:
+    - "Administração (área 28)"
+    - "Ciência da Computação (área 1)"

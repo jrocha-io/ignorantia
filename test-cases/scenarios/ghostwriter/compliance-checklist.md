@@ -1,0 +1,6 @@
+- Documento de Área CAPES consultado
+- CEP/CONEP: N/A
+- LGPD: respeitada
+- Direitos autorais: CC-BY-4.0
+- Portaria CNPq art. 9 cumprida
+- Vedação projetos terceiros: respeitada

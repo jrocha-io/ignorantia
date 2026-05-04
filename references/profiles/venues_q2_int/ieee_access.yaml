@@ -1,0 +1,102 @@
+metadata:
+  venue_id: ieee_access
+  name: IEEE Access
+  name_pt: IEEE Access
+  publisher: Institute of Electrical and Electronics Engineers (IEEE)
+  country: US
+  language_acceptance:
+  - en
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q2
+  sjr_quartile: Q1
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 1995
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: 1995-2345
+  fallback_tier: 2
+  submission_system: scholarone
+  source_url: https://ieeeaccess.ieee.org
+  archived_url: https://web.archive.org/web/2026/https://ieeeaccess.ieee.org
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    Q1 SJR Engineering miscellaneous; Q2 em algumas categorias Computer Science Applications. JIF 3.4 (2024).
+    Fully OA com APC USD 1.995 (membros IEEE) / USD 2.345 (não-membros) — borderline Tier 2/Tier 3.
+    Tier 2 (membros) / fronteira Tier 3 (não-membros). IEEE como sociedade científica.
+    Aceita survey papers e systematic reviews em todas áreas IEEE.
+    Kitchenham/Petersen para SLRs em CS/SE; PRISMA-2020 quando aplicável; COPE; política IEEE para IA.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - narrative_review
+  - mapping_study
+  - scoping_review
+  - meta_analysis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  - id: orcid_corresponding_only
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - tex
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - engineering
+  - computer science
+  - electrical engineering
+  - interdisciplinary
+  - applied research
+scope:
+  primary_subjects:
+  - Engineering
+  - Computer Science
+  - Interdisciplinary
+  excluded_subjects: []

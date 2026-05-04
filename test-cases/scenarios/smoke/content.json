@@ -1,0 +1,75 @@
+{
+  "title": "Teste de smoke do skill ignorantia",
+  "subtitle": "Validação do pipeline render_manuscript.py com dados sintéticos",
+  "topic_slug": "smoke-test",
+  "version": "1.0.0",
+  "date_iso": "2026-04-28",
+  "lang": "pt-BR",
+  "lang_label": "PT-BR",
+  "norma": "ABNT",
+  "framework": "PRISMA-2020",
+  "area": "Skill validation",
+  "accent_color": "#6b4eff",
+  "accent_soft": "#e8e4ff",
+  "abstract_html": "<p><strong>Contexto.</strong> Validar que o template ignorantia produz HTML auto-contido com referências clicáveis [1], camada de anotações, dark mode, busca, e gráficos D3 [2,3]. <strong>Método.</strong> Gerar conteúdo mínimo. <strong>Resultados.</strong> Renderiza ou não. <strong>Conclusão.</strong> Se este parágrafo aparece formatado, o smoke test passou.</p>",
+  "introduction_html": "<p>Este é um conteúdo sintético para validação. Citar Page et al. [1] e Kitchenham et al. [2] e Bostock [3].</p><p class=\"annotated\" data-annotation-id=\"ann-1\">Parágrafo com anotação âncora — ative o toggle Anotações na toolbar.</p>",
+  "background_html": "<p>Background sintético [1,2]. PRISMA 2020 é a norma vigente [1].</p>",
+  "methodology_html": "<p>Metodologia: PRISMA-2020 com flow real abaixo. CASP-style QA aplicado.</p>",
+  "results_descriptive_html": "<p>Corpus de 4 estudos sintéticos.</p>",
+  "synthesis_html": "<p><strong>RQ1:</strong> síntese narrativa fictícia [1]. <strong>RQ2:</strong> outra síntese [2-3].</p>",
+  "discussion_html": "<p>Discussão sintética. Guidelines: G1, G2, G3.</p>",
+  "threats_html": "<p>Smoke test não tem ameaças à validade — é só para conferir o pipeline.</p>",
+  "conclusion_html": "<p>Pipeline OK se este HTML carrega.</p>",
+  "not_this_version_items": [
+    "<li>Não é uma SLR real — é um teste de pipeline.</li>",
+    "<li>Os números no PRISMA são fictícios.</li>",
+    "<li>As referências não foram lidas — só citadas para testar links.</li>"
+  ],
+  "references": [
+    {"n": 1, "html": "Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>. 2021;372:n71.", "doi": "10.1136/bmj.n71"},
+    {"n": 2, "html": "Kitchenham B, Charters S. Guidelines for performing systematic literature reviews in software engineering. EBSE Tech Rep EBSE-2007-01. 2007.", "url": "https://www.elsevier.com/__data/promis_misc/525444systematicreviewsguide.pdf"},
+    {"n": 3, "html": "Bostock M, Ogievetsky V, Heer J. D³: Data-Driven Documents. <em>IEEE TVCG</em>. 2011;17(12):2301–9.", "doi": "10.1109/TVCG.2011.185"}
+  ],
+  "annotations": [
+    {"id": "ann-1", "anchor_selector": "[data-annotation-id=\"ann-1\"]", "type": "observacao", "html": "Esta é uma anotação de teste — ela aparece à direita quando o toggle Anotações está ligado.", "author": "Prof."},
+    {"id": "ann-2", "anchor_selector": "#sec-05", "type": "conexao", "html": "Conecta com §06 — a discussão amplia esses pontos.", "author": "Prof."}
+  ],
+  "rqs": ["RQ1: O template renderiza?", "RQ2: Os links funcionam?", "RQ3: D3 carrega?"],
+  "ai_declaration": {
+    "tool": "Claude Opus 4.7",
+    "version": "claude-opus-4-7 (2026-04)",
+    "provider": "Anthropic",
+    "interface": "ignorantia v1.2.0",
+    "period_start": "2026-04-28",
+    "period_end": "2026-04-28",
+    "stages": [
+      "Elaboração das strings booleanas",
+      "Síntese narrativa de seções §05",
+      "Geração do HTML interativo via render_manuscript.py"
+    ],
+    "purpose_per_stage": "Geração assistida de strings booleanas alinhadas à sintaxe de cada base; redação de síntese narrativa por RQ a partir do CSV de extração; renderização do HTML final auto-contido com gráficos D3.js inline.",
+    "human_oversight": "Todo o conteúdo gerado foi revisado pelo autor antes da inclusão. Buscas, screening e quality appraisal serão revisados por dois professores humanos no Zenodo.",
+    "authors_responsible": "Autor humano de teste"
+  },
+  "venues": [
+    {"name": "IEEE Transactions on Visualization and Computer Graphics", "publisher": "IEEE", "issn": "1077-2626", "url": "https://www.computer.org/csdl/journal/tg", "ai_policy_url": "https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/", "jif_or_qualis": "JIF 4.7 (2024)", "access_model": "Hybrid (OA option)", "cycle_weeks": "12-16", "fit_rationale": "Top venue para infovis e D3."},
+    {"name": "ACM Transactions on Computer-Human Interaction", "publisher": "ACM", "issn": "1073-0516", "url": "https://dl.acm.org/journal/tochi", "ai_policy_url": "https://www.acm.org/publications/policies/frequently-asked-questions", "jif_or_qualis": "JIF 4.0 (2024)", "access_model": "Hybrid", "cycle_weeks": "16-20", "fit_rationale": "Foco em interação dinâmica."},
+    {"name": "Computer Graphics Forum (EuroVis)", "publisher": "Wiley", "issn": "0167-7055", "url": "https://onlinelibrary.wiley.com/journal/14678659", "ai_policy_url": "https://authorservices.wiley.com/ethics-guidelines/best-practice-guidelines.html", "jif_or_qualis": "JIF 2.7", "access_model": "Hybrid", "cycle_weeks": "10-14", "fit_rationale": "EuroVis publica visualização interativa."}
+  ],
+  "fun_doodles": [
+    {"text": "OLHA ESSE TEMPLATE!", "anchor_selector": "#sec-00 .section-head h2", "type": "exclaim", "side": "right", "rot": -3, "dx": 8, "dy": -4},
+    {"text": "INTERATIVO!", "anchor_selector": "#sec-00 strong:first-of-type", "type": "exclaim", "side": "above", "rot": 4, "dy": -4},
+    {"anchor_selector": "#sec-04 .section-head h2", "type": "circle", "rot": -2},
+    {"text": "GRÁFICO TOP!", "anchor_selector": "#chart-temporal", "type": "exclaim", "side": "right", "rot": -5, "dx": -120, "dy": 80},
+    {"anchor_selector": ".meta-badge.version", "type": "circle", "rot": 3},
+    {"text": "VERSIONADO!", "anchor_selector": ".meta-badge.version", "type": "exclaim", "side": "below", "rot": -3, "dy": 14},
+    {"text": "CASP-STYLE!", "anchor_selector": "#fig-qa-heatmap figcaption", "type": "exclaim", "side": "right", "rot": -2, "dx": -260, "dy": -80},
+    {"text": "PRISMA REAL!", "anchor_selector": "#sec-03 h3", "type": "exclaim", "side": "right", "rot": -4, "dx": 8},
+    {"anchor_selector": "#sec-references h2", "type": "underline", "rot": 0},
+    {"text": "CLICÁVEIS!", "anchor_selector": "#sec-references h2", "type": "exclaim", "side": "right", "rot": -3, "dx": 8, "dy": 2}
+  ],
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "zenodo_doi": null,
+  "previous_version_doi": null
+}

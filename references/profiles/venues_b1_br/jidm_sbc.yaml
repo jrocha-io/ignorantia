@@ -1,0 +1,89 @@
+metadata:
+  venue_id: jidm_sbc
+  name: Journal of Information and Data Management
+  name_pt: Journal of Information and Data Management (JIDM)
+  publisher: SBC OpenLib (SOL), Sociedade Brasileira de Computação
+  country: BR
+  language_acceptance:
+  - en
+  qualis_stratum: B1
+  qualis_subarea: QR1-Exatas+Tecnologicas
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://journals-sol.sbc.org.br/index.php/jidm
+  archived_url: https://web.archive.org/web/2026/https://journals-sol.sbc.org.br/index.php/jidm
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    B1 confirmado no 2017-2020 (página oficial). PROVÁVEL manutenção B1 em 2021-2024 dada continuidade editorial e indexação DBLP.
+    Diamond OA via SBC OpenLib, CC BY-NC, sem APC.
+    Aceita survey papers, mapping studies, literature reviews. Kitchenham/Petersen recomendado.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - mapping_study
+  - narrative_review
+  - scoping_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - information management
+  - data management
+  - databases
+  - information systems
+scope:
+  primary_subjects:
+  - Ciência da Computação
+  - Sistemas de Informação
+  excluded_subjects: []

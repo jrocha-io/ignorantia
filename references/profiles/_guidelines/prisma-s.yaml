@@ -1,0 +1,149 @@
+id: PRISMA-S
+name: "PRISMA Search Extension 2021"
+version: "2021"
+canonical_doi: "10.1186/s13643-020-01542-z"
+canonical_url: "http://www.prisma-statement.org/Extensions/Searching"
+items_total: 16
+applies_to:
+  - systematic_review_strict
+  - systematic_review_with_2_reviewers
+  - scoping_review
+  - rapid_review
+  - meta_analysis
+
+items:
+  - id: "1"
+    section: "INFO_SOURCES"
+    title: "Database name (and platform when relevant)"
+    automation_level: full
+    detection_method: "database_listed_with_platform"
+    anchors:
+      - "PubMed.{0,20}NCBI"
+      - "Ovid MEDLINE"
+      - "Web of Science.{0,20}Clarivate"
+      - "Scopus.{0,20}Elsevier"
+    severity_if_missing: major
+
+  - id: "2"
+    section: "INFO_SOURCES"
+    title: "Multi-database search note (account for syntax differences)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "3"
+    section: "INFO_SOURCES"
+    title: "Study registries searched (e.g., ClinicalTrials.gov, PROSPERO)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "4"
+    section: "INFO_SOURCES"
+    title: "Online resources / browsing methods (Google Scholar, hand-search)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "5"
+    section: "INFO_SOURCES"
+    title: "Citation searching (forward/backward snowballing)"
+    automation_level: full
+    detection_method: "snowballing_declared"
+    anchors:
+      - "snowballing"
+      - "backward citation"
+      - "forward citation"
+      - "snowball"
+      - "Wohlin"
+    severity_if_missing: major
+
+  - id: "6"
+    section: "INFO_SOURCES"
+    title: "Contacts with authors / experts"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "7"
+    section: "INFO_SOURCES"
+    title: "Other (gray literature, theses, conference proceedings)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "8"
+    section: "STRATEGIES"
+    title: "Full search strategies for ALL databases"
+    automation_level: full
+    detection_method: "full_search_strings_present"
+    severity_if_missing: blocking
+
+  - id: "9"
+    section: "STRATEGIES"
+    title: "Limits and restrictions (date, language, document type)"
+    automation_level: full
+    detection_method: "limits_disclosed"
+    anchors:
+      - "language.{0,5}restrict"
+      - "date range"
+      - "from \\d{4} to \\d{4}"
+      - "limited to"
+    severity_if_missing: major
+
+  - id: "10"
+    section: "STRATEGIES"
+    title: "Search filters used (validated filters from libraries)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "11"
+    section: "STRATEGIES"
+    title: "Prior work / scoping searches mentioned"
+    automation_level: partial
+    severity_if_missing: minor
+
+  - id: "12"
+    section: "STRATEGIES"
+    title: "Updates: rerun of search before submission"
+    automation_level: partial
+    detection_method: "search_update_declared"
+    anchors:
+      - "search.{0,5}updated"
+      - "rerun"
+      - "re-executed"
+      - "atualizada em"
+    severity_if_missing: major
+
+  - id: "13"
+    section: "STRATEGIES"
+    title: "Dates of searches (last database query date)"
+    automation_level: full
+    detection_method: "search_date_present"
+    severity_if_missing: blocking
+
+  - id: "14"
+    section: "PEER_REVIEW"
+    title: "Peer review of search strategy (PRESS or equivalent)"
+    automation_level: partial
+    detection_method: "press_or_peer_review_declared"
+    anchors:
+      - "PRESS"
+      - "search strategy peer-reviewed"
+      - "estratégia revisada"
+    severity_if_missing: minor
+
+  - id: "15"
+    section: "MGMT"
+    title: "Total records identified per source / total references"
+    automation_level: full
+    detection_method: "search_count_per_source_in_flow_diagram"
+    severity_if_missing: blocking
+
+  - id: "16"
+    section: "MGMT"
+    title: "Deduplication method described"
+    automation_level: full
+    detection_method: "deduplication_method_declared"
+    anchors:
+      - "deduplica"
+      - "duplicate.{0,5}removed"
+      - "EndNote"
+      - "Zotero"
+      - "Rayyan"
+    severity_if_missing: major

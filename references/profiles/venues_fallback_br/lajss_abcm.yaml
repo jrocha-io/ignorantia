@@ -1,0 +1,97 @@
+metadata:
+  venue_id: lajss_abcm
+  name: "Latin American Journal of Solids and Structures"
+  name_pt: "Latin American Journal of Solids and Structures"
+  publisher: "Associação Brasileira de Engenharia e Ciências Mecânicas (ABCM), Rio de Janeiro"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 975
+  apc_usd_range_min: 650
+  apc_usd_range_max: 1300
+  apc_currency_original: EUR
+  apc_amount_original: "600-1200"
+  fallback_tier: 2
+  submission_system: ojs
+  source_url: "https://www.scielo.br/journal/lajss/instructions/"
+  archived_url: "https://web.archive.org/web/2026/https://www.scielo.br/journal/lajss/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Latin American Journal of Solids and Structures (LAJSS) é periódico oficial da ABCM.
+    Qualis A2 PROVÁVEL no quadriênio 2021-2024 em Engenharias I (Civil/Sanitária/Transportes); A2 em 2017-2020.
+    Confirmação Sucupira por ISSN 1679-7825 mandatória.
+    Open access via SciELO MAS COBRA APC: EUR 600-1200 conforme tipo do artigo (declaração no site).
+    Tier-2 do esquema OA-first do ignorantia: APC modesto declarado, publisher comunitário científico (ABCM).
+    Aceita review papers (não SLR formal); reviews retrospectivos e methodological reviews aceitos.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed:
+    - SciELO
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Materials and Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [docx, tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - solid mechanics
+    - structures
+    - finite element
+    - computational mechanics
+    - continuum mechanics
+
+scope:
+  primary_subjects:
+    - "Engenharia Civil"
+    - "Engenharia Mecânica"
+    - "Mecânica dos Sólidos"
+  excluded_subjects: []

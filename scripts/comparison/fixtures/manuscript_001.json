@@ -1,0 +1,20 @@
+{
+  "manuscript_id": "ms_001",
+  "title": "Active learning approaches for systematic review screening: a systematic review",
+  "abstract": "Background: Active learning has been proposed as a technology-assisted approach to reduce screening burden in systematic reviews. We synthesize evidence on the effectiveness of active learning tools across biomedical and health domains. Methods: Following PRISMA-2020, we searched MEDLINE, Embase, and the ACM Digital Library from inception to 2024. We included studies evaluating active learning prioritization (ALTR) tools against random sampling. Two reviewers independently screened titles, abstracts, and full texts; disagreements resolved by consensus. Results: We included 23 studies covering 26 review datasets. Active learning achieved median WSS@95 of 0.71 (IQR 0.62-0.83), reducing screening burden by 50-90%. Conclusions: Active learning tools provide reproducible time savings in SLR screening, with WSS@95 robustly above 0.60 across domains.",
+  "language": "en",
+  "mode": "systematic_review_with_2_reviewers",
+  "references": [
+    {"doi": "10.1186/s13643-016-0384-4", "title": "Rayyan—a web and mobile app for systematic reviews", "year": 2016},
+    {"doi": "10.1007/s00799-023-00372-3", "title": "Comparing different search methods for the open access journal recommendation tool B!SON", "year": 2023},
+    {"doi": "10.1186/s13643-020-01542-z", "title": "Software tools for SR screening", "year": 2020},
+    {"doi": "10.34894/HE6NAQ", "title": "SYNERGY dataset", "year": 2023}
+  ],
+  "ground_truth": {
+    "venue_id": "1932-6203",
+    "venue_name": "PLOS ONE",
+    "tier": "Q1_INT",
+    "fallback_tier": 2,
+    "guideline_used": "PRISMA-2020"
+  }
+}

@@ -1,0 +1,96 @@
+metadata:
+  venue_id: cam_sbmac_springer
+  name: "Computational and Applied Mathematics"
+  name_pt: "Computational and Applied Mathematics"
+  publisher: "Sociedade Brasileira de Matemática Aplicada e Computacional (SBMAC) co-publicado com Springer Nature"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q1
+  sjr_quartile: Q2
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 3290
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: "3290"
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: "https://www.springer.com/journal/40314/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://www.springer.com/journal/40314/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Computational and Applied Mathematics (COAM) é periódico oficial da SBMAC, co-publicado pela Springer Nature.
+    Qualis A2 PROVÁVEL em Matemática/Probabilidade e Estatística no 2021-2024.
+    Confirmação Sucupira por ISSN 1807-0302 mandatória.
+    HYBRID OA com APC USD 3.290 para Open Choice. Subscription-only se autor não pagar.
+    Tier-3 do esquema OA-first: Springer hybrid alto-custo. FALLBACK declarado.
+    Companion ao TCAM (também SBMAC, mas TCAM é diamond OA tier-1).
+    Foco em matemática aplicada e computacional; aceita survey papers metodológicos.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MSC2020
+  citation_style:
+    format: amsplain
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methodology
+    - Numerical Results
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+  file_format:
+    accepted: [tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - applied mathematics
+    - numerical analysis
+    - computational mathematics
+    - mathematical modeling
+    - optimization
+
+scope:
+  primary_subjects:
+    - "Matemática Aplicada"
+    - "Análise Numérica"
+    - "Modelagem Matemática"
+  excluded_subjects: []

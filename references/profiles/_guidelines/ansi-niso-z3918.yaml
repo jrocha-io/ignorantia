@@ -1,0 +1,158 @@
+id: ANSI-NISO-Z3918
+name: "ANSI/NISO Z39.18-2005 — Scientific and Technical Reports"
+version: "2005-R2010"
+canonical_url: "https://www.niso.org/publications/z3918-2005-r2010"
+canonical_authors: "ANSI/NISO Z39.18-2005 (R2010) Scientific and Technical Reports — Preparation, Presentation, and Preservation"
+items_total: 14
+applies_to:
+  - technical_report
+note: |
+  ANSI/NISO Z39.18-2005 (Reaffirmed 2010) é o padrão estadunidense canônico para
+  Technical Reports — adotado por NIST, agências federais americanas, e muitos
+  laboratórios de pesquisa institucionais (RAND, MITRE, Brookings).
+
+  Características de Technical Reports:
+  - Não passam por peer review tradicional (são produzidos sob revisão interna).
+  - Têm DOI persistente quando depositados em Zenodo, arXiv, NIST Pubs.
+  - Estrutura padronizada para acessibilidade (Section 508 nos EUA).
+  - Audiência: indústria, formuladores de política, comunidade técnica de uma área específica.
+
+  Camada hierárquica: Secundária (dados, processos, métodos vêm do usuário; ferramenta organiza).
+
+  Venue padrão (OA-gratuito): Zenodo (Technical Report category) ou arXiv (cs.SE/cs.HC/cs.CY).
+  Alternativa institucional: NIST Tech Series para autores afiliados ao NIST.
+
+items:
+  # ==================== METADATA ====================
+  - id: "TR-1"
+    section: "METADATA"
+    title: "Cover/Title page (title, authors, affiliation, date, report number)"
+    automation_level: full
+    detection_method: "title_metadata_present"
+    severity_if_missing: blocking
+
+  - id: "TR-2"
+    section: "METADATA"
+    title: "Abstract (concise summary, 200-500 words)"
+    automation_level: full
+    detection_method: "abstract_present_correct_length"
+    severity_if_missing: blocking
+
+  - id: "TR-3"
+    section: "METADATA"
+    title: "Keywords (max 10 per ANSI/NISO)"
+    automation_level: full
+    detection_method: "keywords_present_max_10"
+    severity_if_missing: major
+
+  # ==================== STRUCTURE ====================
+  - id: "TR-4"
+    section: "STRUCTURE"
+    title: "Executive Summary (high-level findings for non-technical readers)"
+    automation_level: full
+    detection_method: "executive_summary_section"
+    anchors:
+      - "Executive Summary"
+      - "Sumário Executivo"
+      - "Resumo Executivo"
+    severity_if_missing: major
+    note: "Recomendado para Technical Reports voltados a tomadores de decisão; opcional para puramente técnicos."
+
+  - id: "TR-5"
+    section: "STRUCTURE"
+    title: "Introduction (background, scope, objectives, intended audience)"
+    automation_level: full
+    detection_method: "introduction_section_present"
+    anchors:
+      - "^# Introduction"
+      - "^## Introduction"
+      - "^# Introdução"
+    severity_if_missing: blocking
+
+  - id: "TR-6"
+    section: "STRUCTURE"
+    title: "Methodology (data sources, analytical approach, tools used)"
+    automation_level: partial
+    detection_method: "methodology_section_present"
+    anchors:
+      - "^# Methodology"
+      - "^# Methods"
+      - "^# Metodologia"
+      - "^## Methods"
+    severity_if_missing: blocking
+
+  - id: "TR-7"
+    section: "STRUCTURE"
+    title: "Results / Findings (data, observations, measurements)"
+    automation_level: partial
+    detection_method: "results_section_present"
+    severity_if_missing: blocking
+
+  - id: "TR-8"
+    section: "STRUCTURE"
+    title: "Discussion (interpretation, comparison with prior work)"
+    automation_level: partial
+    detection_method: "discussion_section_present"
+    severity_if_missing: major
+
+  - id: "TR-9"
+    section: "STRUCTURE"
+    title: "Conclusion (key findings + implications)"
+    automation_level: partial
+    detection_method: "conclusion_section_present"
+    anchors:
+      - "^# Conclusion"
+      - "^## Conclusion"
+      - "^# Conclusão"
+      - "^## Considerações finais"
+    severity_if_missing: blocking
+
+  - id: "TR-10"
+    section: "STRUCTURE"
+    title: "Recommendations (when applicable to the audience)"
+    automation_level: partial
+    detection_method: "recommendations_section"
+    anchors:
+      - "^# Recommendations"
+      - "^## Recommendations"
+      - "^# Recomendações"
+    severity_if_missing: minor
+    note: "Obrigatório para Technical Reports prescritivos; opcional para descritivos."
+
+  - id: "TR-11"
+    section: "STRUCTURE"
+    title: "References (full citations, accessible by readers)"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  - id: "TR-12"
+    section: "STRUCTURE"
+    title: "Appendices (supplementary material, raw data tables, scripts)"
+    automation_level: partial
+    severity_if_missing: minor
+
+  # ==================== TRANSPARENCY ====================
+  - id: "TR-13"
+    section: "TRANSPARENCY"
+    title: "AI Disclosure (declaration of AI use in writing/analysis)"
+    automation_level: full
+    detection_method: "ai_disclosure_section"
+    severity_if_missing: blocking
+
+  # ==================== ACCESSIBILITY ====================
+  - id: "TR-14"
+    section: "ACCESSIBILITY"
+    title: "Section 508 compliance (built-in headings, alt text for figures, logical reading order)"
+    automation_level: none
+    severity_if_missing: minor
+    needs_human_review: true
+    note: "Específico para depósito em NIST/agências federais EUA; opcional em Zenodo/arXiv."
+
+# Venues compatíveis:
+# - zenodo_technical_report: padrão OA-gratuito ($0 APC; DOI persistente; sem peer review)
+# - arxiv_cs_se: alternativa OA ($0; cs.SE para Software Engineering)
+# - arxiv_cs_hc: alternativa OA ($0; cs.HC para Human-Computer Interaction)
+# - arxiv_cs_cy: alternativa OA ($0; cs.CY para Computers and Society)
+# - osf_preprints_technical: alternativa OA ($0; preprint)
+# - nist_tech_series: institucional (apenas autores NIST); referência canônica de qualidade
+# - institutional_repository: para autores afiliados a universidades/centros de pesquisa

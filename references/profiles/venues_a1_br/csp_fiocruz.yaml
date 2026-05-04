@@ -1,0 +1,110 @@
+metadata:
+  venue_id: csp_fiocruz
+  name: "Cadernos de Saúde Pública"
+  name_pt: "Cadernos de Saúde Pública"
+  publisher: "Escola Nacional de Saúde Pública Sergio Arouca / Fiocruz"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A1
+  qualis_subarea: "QR1-Vida+Saude"
+  jcr_quartile: Q2
+  sjr_quartile: Q2
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://cadernos.ensp.fiocruz.br/ojs/index.php/csp/instrucoes-autores-ojs"
+  archived_url: "https://web.archive.org/web/2026/https://cadernos.ensp.fiocruz.br/ojs/index.php/csp/instrucoes-autores-ojs"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes: [abstract, references, tables, figures]
+  abstract:
+    max_words: 250
+    structured: true
+    structure_headings: [Introduction, Objective, Methods, Results, Discussion]
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver_superscript
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: prospero_registration
+      severity: blocking
+      detection_anchors: ["CRD\\d{6,9}", "PROSPERO"]
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: orcid_all_authors
+      severity: major
+    - id: ai_usage
+      severity: major
+    - id: data_availability
+      severity: major
+  file_format:
+    accepted: [docx, doc]
+  figures:
+    max_count: 5
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: true
+    osf_acceptable: false
+
+soft_signals:
+  scope_keywords:
+    - public health
+    - epidemiology
+    - health policy
+    - health inequality
+    - community health
+    - saúde coletiva
+    - saúde pública
+    - epidemiologia
+  out_of_scope_keywords:
+    - clinical trial reporting only
+    - laboratory bench science
+    - veterinary medicine
+
+scope:
+  thesaurus_descriptors:
+    - "Public Health [MeSH]"
+    - "Epidemiologic Methods [MeSH]"
+    - "Health Services Research [MeSH]"
+    - "Health Policy [MeSH]"
+  areas_qualis:
+    - "Saúde Coletiva (área 22)"
+  excluded_topics: []

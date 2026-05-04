@@ -1,0 +1,6 @@
+- Documento de Área CAPES: consultado
+- CEP/CONEP: N/A (SLR de literatura)
+- LGPD respeitada (nenhum dado pessoal de terceiro em IAG)
+- LDA: licença CC-BY-4.0
+- Vedação a projetos de terceiros em IAG: respeitada (Portaria CNPq art. 9)
+- Fomento: N/A

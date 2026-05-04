@@ -1,0 +1,645 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ignorantia.local/schemas/venue_profile/v1.0.0",
+  "title": "ignorantia Venue Profile",
+  "description": "Schema declarativo de requisitos formais de um venue (revista científica). Compatível com PRISMA-2020, Campbell Standards, MECIR, ACM SIGSOFT Empirical Standards. Usado pelo engine de compliance da ferramenta ignorantia v2.0.",
+  "type": "object",
+  "required": [
+    "metadata",
+    "taxonomy",
+    "hard_requirements"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "venue_id",
+        "name",
+        "profile_version",
+        "source_url",
+        "last_verified"
+      ],
+      "properties": {
+        "venue_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "Identificador máquina-legível do venue, em snake_case ASCII. Ex: csp_fiocruz, tse_ieee."
+        },
+        "name": {
+          "type": "string"
+        },
+        "name_pt": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "Código ISO 3166-1 alpha-2."
+        },
+        "language_acceptance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pt",
+              "en",
+              "es",
+              "fr",
+              "de",
+              "it"
+            ]
+          },
+          "description": "Idiomas aceitos para submissão. Códigos ISO 639-1."
+        },
+        "qualis_stratum": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "A1",
+            "A2",
+            "A3",
+            "A4",
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            null
+          ],
+          "description": "Estrato Qualis CAPES 2021-2024 (null se não classificado ou não-brasileiro). Apenas A1, A2, A3, B1 são alvos do escopo v2.0."
+        },
+        "qualis_subarea": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "QR1-Vida+Saude",
+            "QR1-Exatas+Tecnologicas",
+            "QR2-Humanidades",
+            "Educacao",
+            "Psicologia",
+            "Direito",
+            null
+          ]
+        },
+        "jcr_quartile": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            null
+          ]
+        },
+        "sjr_quartile": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            null
+          ]
+        },
+        "doaj_indexed": {
+          "type": "boolean"
+        },
+        "scielo_indexed": {
+          "type": "boolean"
+        },
+        "open_access": {
+          "type": "string",
+          "enum": [
+            "fully_oa",
+            "hybrid",
+            "subscription"
+          ]
+        },
+        "apc_usd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "submission_system": {
+          "type": "string",
+          "enum": [
+            "scholarone",
+            "editorial_manager",
+            "ojs",
+            "ejournalpress",
+            "sage_track",
+            "wiley_research_exchange",
+            "nejm_native",
+            "lancet_native",
+            "f1000_native",
+            "frontiers_native",
+            "other"
+          ]
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "archived_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "profile_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "SemVer do perfil. Major: mudança breaking nos requisitos. Minor: novo requisito. Patch: correção de extração."
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date"
+        },
+        "last_verified_by": {
+          "type": "string"
+        },
+        "fallback_tier": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "enum": [
+            1,
+            2,
+            3,
+            null
+          ],
+          "description": "Tier OA-first do venue. 1=diamond OA (sem APC, publisher 100% nacional ou cooperativa científica). 2=APC declarado modesto (≤USD 1.500) com publisher comunitário. 3=Springer/Elsevier hybrid alto-custo (>USD 1.500) ou subscription. Ausente = tier-1 default semântico (compatível com perfis pré-v2.2.2)."
+        },
+        "apc_usd_range_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Faixa mínima de APC em USD quando declarado como faixa (e.g., LAJSS EUR 600-1200). Quando apc_usd é único, este campo é null."
+        },
+        "apc_usd_range_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Faixa máxima de APC em USD. Para conversão de moedas, usar taxa do dia da última verificação."
+        },
+        "apc_currency_original": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{3}$",
+          "description": "Moeda original em que o publisher declara o APC (ISO 4217: USD, EUR, GBP, BRL, etc.). Útil quando a conversão para USD pode flutuar."
+        },
+        "apc_amount_original": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Valor literal do APC como declarado pelo publisher na sua moeda original. Ex: '600-1200', '3460', '1695'."
+        }
+      }
+    },
+    "taxonomy": {
+      "type": "object",
+      "properties": {
+        "review_types_accepted": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "systematic_review_strict",
+              "systematic_review_with_2_reviewers",
+              "scoping_review",
+              "rapid_review",
+              "narrative_review",
+              "umbrella_review",
+              "living_review",
+              "mapping_study",
+              "meta_analysis",
+              "qualitative_synthesis",
+              "integrative_review",
+              "realist_review",
+              "software_paper",
+              "position_paper",
+              "theoretical_essay",
+              "technical_report",
+              "white_paper",
+              "policy_brief"
+            ]
+          },
+          "description": "v2.1 expande os tipos para 18 valores cobrindo as três camadas hierárquicas (Primária / Secundária / Terciária). Ver references/modes/MODES_OVERVIEW.md."
+        },
+        "recommended_for_layer": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary",
+            "tertiary",
+            "all"
+          ],
+          "description": "v2.1: indica em qual camada hierárquica o venue é primariamente recomendado. 'all' para venues que aceitam múltiplos tipos cobrindo várias camadas. Ver references/modes/MODES_OVERVIEW.md."
+        },
+        "reporting_guidelines_endorsed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PRISMA-2020",
+              "PRISMA-S",
+              "PRISMA-ScR",
+              "PRISMA-DTA",
+              "PRISMA-NMA",
+              "PRISMA-IPD",
+              "PRISMA-Equity",
+              "PRISMA-Harms",
+              "PRISMA-Abstracts",
+              "MOOSE",
+              "ENTREQ",
+              "AMSTAR-2",
+              "ROBIS",
+              "MECIR",
+              "CAMPBELL-STANDARDS",
+              "SIGSOFT-EMP-STANDARDS",
+              "TRIPOD-AI-2024",
+              "STARD-2015",
+              "CONSORT-2010",
+              "STROBE",
+              "ARRIVE-2.0",
+              "JBI-MANUAL",
+              "PRISMA-RR",
+              "GRADE",
+              "CHART",
+              "PRISMA-AI"
+            ]
+          }
+        },
+        "methodological_standards_endorsed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Padrões adicionais (e.g., ICMJE, COPE, MECCIR)."
+        }
+      }
+    },
+    "hard_requirements": {
+      "type": "object",
+      "description": "Requisitos verificáveis automaticamente (sem julgamento humano).",
+      "properties": {
+        "length": {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "type": "string",
+              "enum": [
+                "words",
+                "characters_with_spaces",
+                "pages"
+              ]
+            },
+            "max": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "min": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "excludes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "abstract",
+                  "references",
+                  "tables",
+                  "figures",
+                  "supplementary"
+                ]
+              }
+            },
+            "review_type_specific": {
+              "type": "object",
+              "description": "Override por tipo de review. Chave = enum review_types_accepted; valor = {max, min, unit}."
+            }
+          }
+        },
+        "abstract": {
+          "type": "object",
+          "properties": {
+            "max_words": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "max_chars": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "structured": {
+              "type": "boolean"
+            },
+            "structure_headings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "max_words": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "max_chars": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "keywords": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            },
+            "controlled_vocabulary": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "MeSH",
+                "DeCS",
+                "ACM-CCS-2012",
+                "IEEE-Thesaurus",
+                "ERIC",
+                "Thesaurus-BR-Educacao",
+                "MSC2020",
+                "PACS",
+                "free",
+                null
+              ]
+            }
+          }
+        },
+        "citation_style": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": [
+                "vancouver",
+                "vancouver_superscript",
+                "ieee",
+                "apa-7",
+                "abnt-nbr-6023",
+                "ama",
+                "harvard",
+                "chicago",
+                "amsplain",
+                "numeric"
+              ]
+            },
+            "references_max": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "mandatory_sections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Lista de seções obrigatórias detectadas por matching de cabeçalhos."
+        },
+        "mandatory_declarations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "severity"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "conflicts_of_interest",
+                  "funding",
+                  "ethics_approval",
+                  "data_availability",
+                  "ai_usage",
+                  "author_contributions_credit",
+                  "orcid_all_authors",
+                  "orcid_corresponding_only",
+                  "prospero_registration",
+                  "trial_registration",
+                  "plain_language_summary",
+                  "preregistration_link",
+                  "reproducibility_package_doi"
+                ]
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "blocking",
+                  "major",
+                  "minor"
+                ]
+              },
+              "detection_anchors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "file_format": {
+          "type": "object",
+          "properties": {
+            "accepted": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "docx",
+                  "doc",
+                  "tex",
+                  "rtf",
+                  "odt",
+                  "pdf"
+                ]
+              }
+            },
+            "template_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri"
+            }
+          }
+        },
+        "figures": {
+          "type": "object",
+          "properties": {
+            "max_count": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "accepted_formats": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dpi_min": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "authorship": {
+          "type": "object",
+          "properties": {
+            "icmje_required": {
+              "type": "boolean"
+            },
+            "orcid_required": {
+              "type": "string",
+              "enum": [
+                "all",
+                "corresponding_only",
+                "optional",
+                "none"
+              ]
+            },
+            "credit_taxonomy_required": {
+              "type": "boolean"
+            },
+            "max_authors": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        },
+        "registration": {
+          "type": "object",
+          "properties": {
+            "prospero_required": {
+              "type": "boolean"
+            },
+            "osf_acceptable": {
+              "type": "boolean"
+            },
+            "three_stage_process": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "soft_signals": {
+      "type": "object",
+      "description": "Sinais semânticos para matching de escopo (não verificáveis como duros).",
+      "properties": {
+        "scope_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "out_of_scope_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "language_quality_threshold": {
+          "type": "string",
+          "enum": [
+            "native_or_polished",
+            "understandable",
+            "lenient"
+          ]
+        },
+        "typical_recent_dois": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "DOIs recentes do venue para citation overlap."
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "thesaurus_descriptors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "areas_qualis": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded_topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

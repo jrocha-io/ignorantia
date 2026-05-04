@@ -1,0 +1,253 @@
+# Compliance ético — manuscritos internacionais (EN)
+
+Aplicável a TODA SLR cujo manuscrito final é em inglês ou destinado a periódico/conferência internacional. Combina diretrizes do COPE, ICMJE, WAME, e políticas dos principais publishers e sociedades acadêmicas.
+
+## 1. Princípio comum a todos: IA não é autor, declaração obrigatória
+
+Há **consenso absoluto** entre COPE, ICMJE, WAME, Elsevier, Springer Nature, Wiley, Taylor & Francis, Sage, IEEE, ACM, Nature, BMJ, JAMA, Cambridge UP, Oxford UP e demais:
+
+> **(a)** AI tools cannot be listed as authors. Authorship requires accountability that AI cannot provide.
+> **(b)** Use of AI must be disclosed at submission, with description of tool, version, and purpose.
+> **(c)** Authors are integrally responsible for accuracy, integrity, and originality of the work, including any errors, hallucinations, or plagiarism produced by the AI tool.
+> **(d)** AI should not be cited as a source.
+> **(e)** Reviewers should not upload manuscripts under review into AI tools (confidentiality).
+
+URLs canônicas:
+- COPE — https://publicationethics.org/guidance/cope-position/authorship-and-ai-tools
+- ICMJE Recommendations (jan 2024) — https://www.icmje.org/recommendations/
+- WAME — https://wame.org/page3.php?id=106
+
+## 2. Declaração de IA — bloco padrão em manuscrito internacional
+
+Inserir em **§03 Methods** ou em seção dedicada **"Declaration of AI use"** logo antes de "Conflicts of Interest":
+
+```
+Declaration of AI use
+
+In line with COPE position on authorship and AI tools (https://publicationethics.org/guidance/cope-position/authorship-and-ai-tools)
+and the ICMJE Recommendations (January 2024 update, Sections II.A.4 and IV.A.3.d), we declare:
+
+1. AI tool(s) used: <model name and version, e.g. "Claude Opus 4.7 (Anthropic)">
+2. Interface: ignorantia skill v<X.Y.Z>
+3. Period of use: <ISO start> to <ISO end>
+4. Stages where AI assistance was used:
+   - [ ] Conceptualization of the research question
+   - [ ] Boolean search string formulation
+   - [ ] Database searching (open APIs)
+   - [ ] Deduplication of records
+   - [ ] Title/abstract screening
+   - [ ] Full-text screening
+   - [ ] Quality appraisal scoring
+   - [ ] Data extraction
+   - [ ] Narrative synthesis
+   - [ ] Manuscript drafting
+   - [ ] Figure and chart generation
+   - [ ] Language editing / translation
+5. Specific purpose of each marked stage: <description>
+6. Human oversight applied: <description>
+7. The author(s) take full responsibility for the accuracy, integrity, and originality
+   of the manuscript, including any errors or plagiarism that may have been introduced
+   by the AI tool. AI is not listed as an author.
+
+Author(s): <name(s)>
+Date: <ISO>
+```
+
+## 3. Variações por publisher / sociedade — pontos críticos
+
+### Elsevier
+- Política: https://www.elsevier.com/about/policies/publishing-ethics/the-use-of-ai-and-ai-assisted-technologies
+- Declaração obrigatória em "AI declaration statement" separada.
+- Permite uso para **language polishing** (com declaração).
+- **Proíbe geração de imagens/figuras por IA**, com exceção restrita para áreas em que a IA é o objeto de estudo.
+- "Basic grammar and spelling checks" (Grammarly nível básico) são exemptos.
+
+### Springer Nature (inclui Nature)
+- Política: https://www.nature.com/nature-portfolio/editorial-policies/ai
+- LLMs não podem ser autores.
+- Uso deve ser declarado em Methods ou em acknowledgments para edição leve.
+- **Imagens geradas por IA são não-aceitáveis** salvo se forem o objeto de estudo.
+- Nature exige declaração explícita.
+
+### Wiley
+- Política: https://authorservices.wiley.com/ethics-guidelines/best-practice-guidelines.html
+- Permite IA para edição linguística.
+- Declaração obrigatória na seção "Methods" ou em "Author Contributions".
+- Cautela com confidencialidade em peer review.
+
+### Taylor & Francis
+- Política: https://taylorandfrancis.com/our-policies/ai-policy/
+- IA não pode ser autor (alinhado com COPE/ICMJE).
+- Autor garante factualidade do output e correção de referências.
+- Proíbe uso de IA por revisores em peer review.
+
+### Sage
+- Política: https://group.sagepub.com/ai-policies-for-authors-reviewers-and-editors
+- Permite "assistive AI" (Grammarly, ortografia) sem declaração.
+- "Generative AI" requer declaração; cabe ao autor verificar referências e factualidade.
+- Proíbe peer review com IA.
+
+### IEEE
+- Política: https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/
+- Conteúdo gerado por IA deve ser **identificado claramente no texto** (em itálico, destacado, ou em quoted form) E declarado no acknowledgment.
+- IEEE exige descrição da extensão e propósito do uso.
+
+### ACM
+- Política: https://www.acm.org/publications/policies/frequently-asked-questions
+- Declaração na seção Methods OU em acknowledgments (se for apenas language polishing).
+- Autores são responsáveis por todo conteúdo, incluindo gerado por IA.
+
+### ACS (American Chemical Society)
+- Permite IA para edição de língua e suporte de redação, com declaração.
+- Imagens experimentais não podem ser geradas por IA.
+
+### RSC (Royal Society of Chemistry)
+- Proíbe IA como autor.
+- Declaração obrigatória em "Author contributions".
+
+### AAAS (Science)
+- Sem permissão prévia, IA não pode ser usada para gerar texto, figuras, imagens ou gráficos.
+- Quando usada (com permissão prévia editorial), deve ser declarada em Methods.
+- Política mais restritiva entre os grandes publishers.
+
+### AMA (JAMA Network)
+- Declaração de uso de IA em Methods.
+- IA não autor.
+- Autor responsável por integridade.
+
+### BMJ
+- Declaração no manuscrito + cover letter.
+- Proíbe IA gerar referências.
+
+### Massachusetts Medical Society (NEJM)
+- Permite IA com declaração e supervisão humana ampla.
+
+### Imprensas universitárias
+
+**Oxford University Press (OUP)** — declaração obrigatória; AI não autor; segue ICMJE para periódicos médicos.
+
+**Cambridge University Press (CUP)** — política específica em https://www.cambridge.org/core/services/authors/publishing-ethics/research-publishing-ethics-guidelines-for-journals/authorship-and-contributorship/ai-contributions-to-research-content — AI não autor; declaração obrigatória.
+
+**MIT Press** — segue COPE; AI não autor; declaração no manuscrito.
+
+## 4. Lista de publishers/instituições de elite — preferência e busca
+
+A skill, na fase 3 (buscas) e na fase 8 (recomendação de venue para submissão), prioriza papers e periódicos das seguintes instituições, agrupadas por área:
+
+### Multidisciplinares de elite
+- Nature (Springer Nature) — https://www.nature.com/
+- Science (AAAS) — https://www.science.org/
+- PNAS (National Academy of Sciences) — https://www.pnas.org/
+- The Lancet (Elsevier) — https://www.thelancet.com/
+- Cell (Elsevier/Cell Press) — https://www.cell.com/
+
+### Medicina e saúde
+- NEJM (Massachusetts Medical Society) — https://www.nejm.org/
+- BMJ (BMJ Group) — https://www.bmj.com/
+- JAMA (American Medical Association) — https://jamanetwork.com/
+- Cochrane Library — https://www.cochranelibrary.com/
+- Lancet specialty journals (Lancet Digital Health, Lancet Healthy Longev, etc.)
+- Annals of Internal Medicine — https://www.acpjournals.org/journal/aim
+
+### Computer Science / Engenharia / Exatas
+- IEEE TVCG, TPAMI, TSE, TC, etc. — https://www.computer.org/csdl
+- ACM TOCHI, TOSEM, TOPLAS, CSUR, TODS, TOG, TOIS — https://dl.acm.org/
+- Journal of Machine Learning Research — https://www.jmlr.org/
+- Communications of the ACM (CACM) — https://cacm.acm.org/
+- Conferences: NeurIPS, ICML, ICLR, ACL, EMNLP, CVPR, ICCV, CHI, UIST, SOSP, SIGGRAPH, ICSE, FSE, OOPSLA, POPL
+
+### Química
+- Journal of the American Chemical Society (JACS) — ACS
+- Angewandte Chemie — Wiley
+- Nature Chemistry — Springer Nature
+- Chemical Society Reviews — RSC
+- Chemical Reviews — ACS
+
+### Física
+- Physical Review Letters, Physical Review X — APS
+- Nature Physics, Nature Communications Physics — Springer Nature
+- Reviews of Modern Physics — APS
+
+### Engenharia
+- ASME journals (Journal of Mechanical Design, etc.)
+- IEEE Transactions on Industrial Electronics, etc.
+- Composites Part A, B (Elsevier)
+
+### Educação
+- Review of Educational Research (AERA / Sage)
+- Educational Researcher (AERA / Sage)
+- American Educational Research Journal (AERA / Sage)
+- Journal of Educational Psychology (APA)
+- Computers & Education (Elsevier)
+- British Journal of Educational Technology (Wiley)
+
+### Psicologia
+- Psychological Review (APA)
+- Psychological Bulletin (APA)
+- Journal of Personality and Social Psychology (APA)
+- Annual Review of Psychology
+- Trends in Cognitive Sciences (Elsevier)
+
+### Ciências sociais
+- American Journal of Sociology (UChicago Press)
+- American Sociological Review (Sage / ASA)
+- Annual Review of Sociology
+
+### Humanidades
+- Oxford journals (várias)
+- Cambridge journals (várias)
+- MIT Press journals — Daedalus, Journal of Cognitive Neuroscience, October
+
+### Acesso aberto de elite
+- PLOS ONE, PLOS Biology, PLOS Medicine
+- eLife (life sciences)
+- Royal Society Open Science
+
+## 5. Recomendação ao usuário — busca e acesso
+
+Na fase 3 (execução das buscas), o skill **prioriza** resultados das seguintes bases pela presença dos publishers/sociedades acima:
+
+1. Scopus e Web of Science cobrem a maioria.
+2. Para CS: ACM Digital Library, IEEE Xplore, dblp.
+3. Para medicina: PubMed/MEDLINE, Cochrane Library.
+4. Para química: SciFinder (ACS), RSC Publishing.
+5. Para física: APS Publications, IOP Science.
+
+Se o usuário **não tiver acesso institucional** a uma base paga relevante, a skill:
+- Gera a string booleana correta para a base.
+- Sugere ao usuário que use o **Portal de Periódicos da CAPES** (com login CAFe) — que cobre a maior parte das bases pagas para vinculados a IES brasileiras.
+- Aciona automaticamente o **Tier 0** (Unpaywall + OAB) para resolver subset OA legítimo (golden, hybrid, green/preprint).
+- Para itens que permanecem inacessíveis após Tier 0, gera o **`gap_report.md`** listando os itens pendentes e **pausa**, permitindo que o usuário providencie o full-text por qualquer meio que escolher. Como o usuário obtém os itens é decisão do usuário; o `ignorantia` não recomenda nem desaconselha plataformas, serviços ou métodos.
+- Fornece um script Python (`scripts/download_via_proxy.py`, gerado sob demanda) que automatiza acesso via proxy institucional, quando o usuário fornece credenciais que ele próprio possui.
+
+## 6. Lista de venues a sugerir para submissão (Fase 8)
+
+Com base na área e qualidade do manuscrito gerado, a skill sugere ao usuário, na Fase 8, **3-5 venues de submissão** preferencialmente do conjunto de elite acima, ordenados por:
+
+1. **Adequação temática** (revista publica regularmente sobre o tema)
+2. **Estrato Qualis** quando pt-BR (A1/A2 para áreas que ainda usam) ou JIF/CiteScore para EN
+3. **Acesso aberto** (preferência por OA Diamond ou Gold com APC negociável via consórcios brasileiros)
+4. **Rotatividade de aceitação** (não apenas top-5; incluir 1-2 opções pragmáticas)
+5. **Adesão a COPE/ICMJE** (todas as listadas acima aderem)
+
+Para cada venue sugerido, fornecer:
+- Nome do periódico/conferência
+- Publisher / sociedade
+- URL da política de IA do publisher
+- ISSN
+- Estrato Qualis (se pt-BR) ou JIF mais recente
+- Ciclo editorial típico (semanas até decisão)
+- APC (se houver) ou modelo de acesso
+
+## 7. Checklist a executar antes de finalizar o pacote (EN)
+
+- [ ] "Declaration of AI use" present in §03 or dedicated section
+- [ ] AI tool, version, and stages of use clearly listed
+- [ ] AI is NOT listed as author
+- [ ] License: CC-BY-4.0 (or compatible)
+- [ ] Conflict of Interest statement present
+- [ ] Funding statement present
+- [ ] References have DOIs / canonical URLs
+- [ ] No images generated by AI (or, if so, declared and justified)
+- [ ] Manuscript meets target publisher's specific AI policy
+- [ ] Suggested venues align with COPE/ICMJE adherence

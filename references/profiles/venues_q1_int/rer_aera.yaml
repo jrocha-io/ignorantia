@@ -1,0 +1,85 @@
+metadata:
+  venue_id: rer_aera
+  name: "Review of Educational Research"
+  publisher: "American Educational Research Association / Sage"
+  country: US
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: hybrid
+  submission_system: sage_track
+  source_url: "https://journals.sagepub.com/author-instructions/RER"
+  archived_url: "https://web.archive.org/web/2026/https://journals.sagepub.com/author-instructions/RER"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - meta_analysis
+    - umbrella_review
+    - narrative_review
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+
+hard_requirements:
+  length:
+    unit: words
+    max: 12000
+    excludes: [abstract, references]
+  abstract:
+    max_words: 200
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: ERIC
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Method
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_all_authors
+      severity: major
+  file_format:
+    accepted: [docx]
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - educational research
+    - educational psychology
+    - learning theory
+    - curriculum studies
+    - educational policy
+    - teacher education
+
+scope:
+  thesaurus_descriptors:
+    - "Education [ERIC]"
+    - "Educational Research [ERIC]"

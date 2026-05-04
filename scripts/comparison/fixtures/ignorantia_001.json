@@ -1,0 +1,17 @@
+{
+  "manuscript_id": "ms_001",
+  "compliance_score": 0.84,
+  "venue_ranking": [
+    {"venue_id": "plos_one", "score": 0.91, "fallback_tier": 2, "rank": 1},
+    {"venue_id": "1932-6203", "score": 0.91, "fallback_tier": 2, "rank": 2,
+     "_note": "ISSN match — same as plos_one"},
+    {"venue_id": "f1000research", "score": 0.84, "fallback_tier": 2, "rank": 3},
+    {"venue_id": "peerj_cs", "score": 0.82, "fallback_tier": 2, "rank": 4},
+    {"venue_id": "rsm_wiley", "score": 0.79, "fallback_tier": 3, "rank": 5},
+    {"venue_id": "campbell_sage", "score": 0.74, "fallback_tier": 1, "rank": 6}
+  ],
+  "gaps": [
+    "Missing PROSPERO registration ID in abstract.",
+    "Risk of bias tool not declared (recommend ROBINS-I or RoB 2)."
+  ]
+}

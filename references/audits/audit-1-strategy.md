@@ -1,0 +1,76 @@
+# Estratégia de Correção da Auditoria v2.18.0
+
+Plano de 4 sprints respondendo aos 17 achados da auditoria. Documento persiste a estratégia para auditoria posterior.
+
+## Mandato
+
+Usuário (2026-05-04 pós-auditoria): *"Crie a estratégia para fazer tudo que precisa ser feito por rodadas e execute."* Autonomia para executar sem interrupção, exceto em (a) erro técnico não-recuperável, (b) descoberta que muda premissa, (c) limite operacional.
+
+## Sprint 1 — Releases v2.18.1 (P0 críticos, vitrine quebrada)
+
+| Fix | O que faz | Como valida |
+|---|---|---|
+| **F1** | `contextual_preamble.py`: User-Agent compliant Wikimedia + busca via `wbsearchentities` para descobrir título correto + redirects + propagação de erros via warnings | Smoke real (com rede): `fetch_wikipedia_context("letramento digital")` retorna ≥1 snippet; bug 403 corrigido |
+| **F2** | `SKILL.md`: nova seção "Arquitetura v2.15-v2.18" documentando cascata KEY→PROXY→FALLBACK_MD, 16 adapters paywall, contextual_preamble, screening_pipeline | grep do SKILL.md retorna ≥10 menções de "paywall", "cascata", "contextual_preamble" |
+| **F3** | `README.md`: atualizar versão para v2.18.1, sair de "alpha" | grep do README retorna v2.18 |
+| **F4 parcial** | Integração de `contextual_preamble` em `render_v2.py` (HTML) com flag opt-in | Render HTML com flag inclui `<section id="contextual-preamble">` |
+
+## Sprint 2 — Release v2.18.2 (P1 integração)
+
+| Fix | O que faz | Como valida |
+|---|---|---|
+| **F4 resto** | Integração contextual_preamble em `render_docx_abnt.py` (Word) e `render_latex.py` (TeX) | Render docx/tex com flag inclui seção "O campo onde este artigo vive" |
+| **F5** | `screening_pipeline.py` integrado a `pipeline_finalize.py`; registro em manifest reproducibility | pipeline_finalize chama screening; manifest tem entrada `screening_runs[]` |
+| **F6** | Bug `grey_lit` no orquestrador: rodar todos 7 providers ou declarar honestamente | Smoke real do orquestrador com area=multi gera 7 results_grey_lit_*.json |
+| **F7** | Mock dos PaywallAdapters com `log_camada1` populado consistentemente com modo real | Schema mock = schema real (chave `log_camada1` presente) |
+
+## Sprint 3 — Release v2.18.3 (P2 limpeza)
+
+| Fix | O que faz | Como valida |
+|---|---|---|
+| **F8** | `datetime.utcnow()` → `datetime.now(timezone.utc)` em 2 lugares | grep retorna 0 ocorrências de `utcnow` |
+| **F9** | Remover `import logging` não-usado de `_adapter_base.py` | grep retorna 0 |
+| **F10** | Corrigir comentário enganoso em `wiley_tdm._proxy_search` | revisão manual |
+| **F11** | Decidir entre `lareferencia` ou `la_referencia` e padronizar | nome único em todo o codebase |
+| **F12** | Documentar honestamente "logs em todos adapters" (asterisco: via orquestrador) em DECISIONS.md DD-10 | DD-10 atualizado |
+| **F13** | Documentar honestamente "implementáveis" para CINAHL/PsycInfo/JSTOR/Hein com asterisco institucional em CHANGELOG | CHANGELOG atualizado |
+
+## Sprint 4 — Release v2.19.0 (P3 escopo maior)
+
+| Fix | O que faz | Esforço |
+|---|---|---|
+| **F14** | Manifest integration completa (already started in S2) | médio |
+| **F15** | Parsers reais para 4-6 dos 18 adapters HTML-cru — priorizar bases ibero-americanas obrigatórias (Decisão 25): `lareferencia` (vufind+OAI-PMH), `scielo` (já tem; verificar), `lilacs` (BVS portal), `redalyc` (OAI-PMH) | grande |
+| **F16** | Testes de integração com `unittest.mock.patch` para `urllib.urlopen` validando schema real esperado | médio |
+
+## Critérios de pausa entre sprints
+
+- Sprint deve fechar com **regressão verde** (todos testes passando).
+- Se descoberta durante sprint sugere mudança de premissa, registrar em DECISIONS.md como nova DD e pausar.
+- Cada sprint termina com 1 release SemVer empacotada no /mnt/user-data/outputs/.
+
+## Cronograma proposto
+
+S1 → v2.18.1 — esta sessão (~30% do orçamento)
+S2 → v2.18.2 — esta sessão (~30%)
+S3 → v2.18.3 — esta sessão (~15%)
+S4 → v2.19.0 — sessão futura (escopo grande)
+
+## Histórico
+
+| Data | Sprint | Status |
+|---|---|---|
+| 2026-05-04 | Plano | criado |
+
+## Histórico (atualizado)
+
+| Data | Sprint | Status |
+|---|---|---|
+| 2026-05-04 | Plano | criado |
+| 2026-05-04 | S1 (F1 a F4 parcial) | ✅ entregue (em v2.19.0) |
+| 2026-05-04 | S2 (F4 resto, F5, F6, F7) | ✅ entregue (em v2.19.0) |
+| 2026-05-04 | S3 (F8 a F13) | ✅ entregue (em v2.19.0) |
+| 2026-05-04 | S4 (F14, F15 parcial, F16) | ✅ entregue (em v2.19.0) |
+| (futuro) | F15 resto (parsers para 17 adapters restantes em _REAL_PARTIAL) | 🔜 v2.20.0+ |
+
+**Estratégia consolidada como release única v2.19.0** ao invés de 4 releases incrementais (v2.18.1, v2.18.2, v2.18.3, v2.19.0). Decisão tomada em meio à execução: as 4 sprints corrigem problemas inter-relacionados, e fazia mais sentido entregar como um pacote auditável único.

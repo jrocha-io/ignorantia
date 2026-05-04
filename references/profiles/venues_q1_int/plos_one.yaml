@@ -1,0 +1,130 @@
+metadata:
+  venue_id: plos_one
+  name: "PLOS ONE"
+  name_pt: "PLOS ONE"
+  publisher: "Public Library of Science (PLOS)"
+  country: US
+  language_acceptance: [en]
+  qualis_stratum: null
+  qualis_subarea: null
+  jcr_quartile: Q2
+  sjr_quartile: Q1
+  doaj_indexed: true
+  scielo_indexed: false
+  open_access: fully_oa
+  apc_usd: 1695
+  apc_currency: USD
+  apc_year: 2026
+  apc_waivers: |
+    Full waivers para corresponding authors em low-income economies (World Bank list).
+    Partial fee assistance para autores que demonstrem necessidade financeira (case-by-case).
+    Brasil é classificado como upper-middle income — NÃO recebe waiver automático.
+    Institutional partnerships disponíveis (e.g., All-In agreements UC, OSU, Duke).
+  submission_system: editorial_manager
+  source_url: "https://journals.plos.org/plosone/s/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://journals.plos.org/plosone/s/submission-guidelines"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    PLOS ONE é megajournal multi-área (saúde, ciências naturais, sociais).
+    APC $1695 (2026) é dos mais baixos entre journals indexados — política consciente de pricing restraint
+    do publisher nonprofit. APC locked at submission date, não acceptance — protege contra aumentos mid-review.
+    Aceita Systematic Reviews, Scoping Reviews, Methods Articles, e a maioria dos modos primários do ignorantia.
+    Cobertura forte em saúde pública, biomedicina, ciências sociais empíricas.
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - systematic_review_with_2_reviewers
+    - scoping_review
+    - rapid_review
+    - meta_analysis
+    - integrative_review
+    - realist_review
+    - qualitative_synthesis
+  recommended_for_layer: all
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - PRISMA-S
+    - PRISMA-ScR
+  primary_subject_areas:
+    - "Multi-disciplinary"
+    - "Health Sciences"
+    - "Life Sciences"
+    - "Social Sciences"
+
+length_constraints_doc: |
+  PLOS ONE não tem limite explícito; recomenda-se 4000-8000 palavras para SR.
+
+hard_requirements:
+  length:
+    unit: words
+    max: null
+    min: null
+    excludes: [abstract, references, tables, figures, supplementary]
+  abstract:
+    max_words: 300
+    structured: false
+  title:
+    max_words: 30
+  keywords:
+    min: 3
+    max: 8
+    controlled_vocabulary: free
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: data_availability
+      severity: blocking
+    - id: ethics_approval
+      severity: blocking
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: major
+    - id: trial_registration
+      severity: major
+    - id: prospero_registration
+      severity: minor
+      detection_anchors: ["CRD\\d{6,9}", "PROSPERO"]
+  file_format:
+    accepted: [docx, tex, pdf]
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://journals.plos.org/plosone/s/ai-policy"
+  notes: |
+    PLOS atualizou sua política de IA em 2024. Disclosure obrigatório de tools usados,
+    onde foram usados, e confirmação de revisão humana. Aceita uso para drafting com
+    transparência total. AI não pode ser listada como autor.
+
+reproducibility:
+  data_availability_statement: required
+  code_availability_statement: required
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: true
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: true
+  apc_waiver_for_brazil: false
+  alternative_to_paywall_for_area: true

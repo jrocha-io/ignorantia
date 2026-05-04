@@ -1,0 +1,99 @@
+metadata:
+  venue_id: emse_springer
+  name: "Empirical Software Engineering"
+  publisher: "Springer Nature"
+  country: NL
+  language_acceptance: [en]
+  qualis_stratum: null
+  jcr_quartile: Q1
+  sjr_quartile: Q1
+  open_access: hybrid
+  submission_system: editorial_manager
+  source_url: "https://link.springer.com/journal/10664/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://link.springer.com/journal/10664/submission-guidelines"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+
+taxonomy:
+  review_types_accepted:
+    - systematic_review_strict
+    - mapping_study
+    - meta_analysis
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+    - SIGSOFT-EMP-STANDARDS
+  methodological_standards_endorsed:
+    - ICMJE
+    - COPE
+    - "ACM SIGSOFT Empirical Standards"
+    - "EMSE Open Science Initiative"
+note: "EMSE não aceita 'tertiary studies' (revisões de revisões) sem contribuição empírica clara. Replication packages com Open Science badge encorajados."
+
+hard_requirements:
+  length:
+    unit: pages
+    max: null
+    excludes: []
+  abstract:
+    max_words: 350
+    structured: true
+    structure_headings: [Context, Objective, Method, Results, Conclusions]
+  title:
+    max_words: 18
+  keywords:
+    min: 4
+    max: 8
+    controlled_vocabulary: ACM-CCS-2012
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Background
+    - Methods
+    - Results
+    - Discussion
+    - Threats to Validity
+    - Related Work
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: data_availability
+      severity: blocking
+    - id: orcid_all_authors
+      severity: blocking
+    - id: reproducibility_package_doi
+      severity: major
+  file_format:
+    accepted: [docx, tex]
+  authorship:
+    icmje_required: true
+    orcid_required: all
+    credit_taxonomy_required: true
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+soft_signals:
+  scope_keywords:
+    - empirical software engineering
+    - experimental software engineering
+    - case study
+    - controlled experiment
+    - software engineering empirical methods
+    - software measurement
+  out_of_scope_keywords:
+    - tertiary studies without empirical contribution
+    - non-empirical software engineering
+
+scope:
+  thesaurus_descriptors:
+    - "Empirical software engineering [ACM CCS]"
+    - "Software engineering methods [ACM CCS]"

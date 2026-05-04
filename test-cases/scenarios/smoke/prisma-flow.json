@@ -1,0 +1,42 @@
+{
+  "identification": {
+    "from_databases": [
+      {"name": "arXiv", "n": 87},
+      {"name": "Semantic Scholar", "n": 412},
+      {"name": "dblp", "n": 156},
+      {"name": "Crossref", "n": 234},
+      {"name": "IEEE Xplore", "n": 198},
+      {"name": "Scopus", "n": 312}
+    ],
+    "from_other": [
+      {"name": "Snowballing", "n": 23},
+      {"name": "Hand-search", "n": 8}
+    ]
+  },
+  "after_dedup": 743,
+  "screening": {
+    "screened": 743,
+    "excluded_title_abstract": 612,
+    "exclusion_reasons": [
+      {"reason": "Off-topic", "n": 380},
+      {"reason": "Not peer-reviewed", "n": 95},
+      {"reason": "Wrong language", "n": 58},
+      {"reason": "Editorial/opinion", "n": 79}
+    ]
+  },
+  "retrieval": {
+    "sought": 131,
+    "not_retrieved": 7
+  },
+  "eligibility": {
+    "assessed": 124,
+    "excluded_full_text": 67,
+    "exclusion_reasons": [
+      {"reason": "Did not address RQ", "n": 28},
+      {"reason": "Below QA threshold", "n": 18},
+      {"reason": "Insufficient methodology", "n": 14},
+      {"reason": "Duplicate of included", "n": 7}
+    ]
+  },
+  "included": {"studies": 57, "reports": 57}
+}

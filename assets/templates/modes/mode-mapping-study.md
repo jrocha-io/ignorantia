@@ -1,0 +1,88 @@
+# Mode template — AI-Assisted Systematic Mapping Study
+
+> Aplica-se quando `review_type: mapping_study` no metadado do manuscrito.
+> Padrão para CS/SE seguindo Petersen et al. 2015 + ACM SIGSOFT Empirical Standards.
+
+## Selo obrigatório no header
+
+```html
+<div class="review-mode-badge mode-mapping" role="status">
+  <strong>AI-Assisted Systematic Mapping Study</strong>
+  <span class="mode-detail">following Petersen et al. 2015 + ACM SIGSOFT Empirical Standards (Systematic Review)</span>
+  <span class="mode-disclaimer">Mapping methodology — categorical synthesis rather than evidence synthesis.</span>
+</div>
+```
+
+CSS sugerido (mapping = roxo):
+```css
+.review-mode-badge.mode-mapping {
+  background: #f3e5f5;
+  border-left: 4px solid #6a1b9a;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+```
+
+## Seções obrigatórias
+
+### §02 — Research questions explícitas (RQ format)
+
+Mapping studies em CS/SE seguem convenção PICOC + RQs numeradas. Exigir:
+
+> "**Research Questions:**
+> RQ1: What [topic dimension 1] are reported in the literature?
+> RQ2: How are [methods / approaches] distributed across [dimension]?
+> RQ3: What gaps exist in the current research landscape?
+> [...]"
+
+Mapping geralmente tem 3-5 RQs descritivas (não causais).
+
+### §03 — Search + Selection (ACM SIGSOFT ESS-3, ESS-6, ESS-7)
+
+Mapping studies em CS/SE devem cobrir ≥3 digital libraries:
+- ACM Digital Library, IEEE Xplore, SpringerLink, Scopus, ScienceDirect (3 mínimo).
+- Snowballing (forward+backward) é fortemente esperado.
+
+Selection process: o ACM SIGSOFT Empirical Standards (item ESS-6) aceita single-reviewer com AI-assistance, MAS a transparência precisa ser total.
+
+### §04 — Classification scheme (NÃO há síntese estatística em mapping)
+
+Texto-padrão obrigatório:
+
+> "Per Petersen et al. 2015, this Mapping Study uses a categorical classification scheme (rather than meta-analytic synthesis). Categories were derived [bottom-up / top-down] from the included primary studies. Inter-classifier agreement: [single-classifier with AI verification / two classifiers with kappa = X]."
+
+### §05.x — Threats to Validity (4 tipos canônicos do SIGSOFT ESS-14)
+
+OBRIGATÓRIO em mapping (não opcional):
+
+> "**Threats to Validity** (per ACM SIGSOFT Empirical Standards, item ESS-14):
+> - **Construct validity:** [how the categorization scheme may not capture all relevant dimensions]
+> - **Internal validity:** [single-classifier limitations; selection bias risks]
+> - **External validity:** [generalizability of the body of evidence to other software contexts]
+> - **Conclusion validity:** [statistical/categorical inference limitations]"
+
+### §06 — Replication Package obrigatório (ESS-15)
+
+> "**Replication Package**: Available at [Zenodo DOI / OSF / GitHub]. Includes search queries, raw search results, screening decisions, classification scheme, and analysis code."
+
+## Reporting guideline aplicável
+
+`SIGSOFT-EMP-STANDARDS` (15 itens) — perfil em `references/profiles/_guidelines/sigsoft-empirical-standards.yaml`.
+
+Adicionalmente, **PRISMA-2020** é frequentemente exigido em paralelo por venues CS/SE (TSE, EMSE).
+
+## Selos no metadado YAML
+
+```yaml
+review_type: mapping_study
+review_purpose: design_foundational  # ou independent_inquiry
+reporting_guideline_primary: SIGSOFT-EMP-STANDARDS
+reporting_guideline_secondary: [PRISMA-2020]
+reviewer_count_human: 1
+reviewer_count_ai: 1
+ai_dual_check_sample_pct: 100
+classification_scheme_origin: "bottom-up" # ou "top-down" ou "hybrid"
+title_must_contain: "Mapping Study"  # ou "Systematic Mapping"
+threats_to_validity_4_types_present: true
+replication_package_doi: ""  # preencher após deposit
+```

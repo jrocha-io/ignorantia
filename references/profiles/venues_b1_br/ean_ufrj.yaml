@@ -1,0 +1,92 @@
+metadata:
+  venue_id: ean_ufrj
+  name: Escola Anna Nery
+  name_pt: Escola Anna Nery — Revista de Enfermagem
+  publisher: Escola de Enfermagem Anna Nery, UFRJ
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: B1
+  qualis_subarea: QR1-Vida+Saude
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://www.scielo.br/j/ean
+  archived_url: https://web.archive.org/web/2026/https://www.scielo.br/j/ean
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    A2 historicamente. PROVÁVEL B1 em 2021-2024 (SciELO ativo).
+    Diamond OA via SciELO Brasil + portal UFRJ, sem APC.
+    Aceita revisões. PRISMA, STROBE, COREQ.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - integrative_review
+  - scoping_review
+  - narrative_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed:
+  - SciELO
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - enfermagem
+  - saúde
+  - cuidado
+  - história da enfermagem
+scope:
+  primary_subjects:
+  - Enfermagem
+  excluded_subjects: []

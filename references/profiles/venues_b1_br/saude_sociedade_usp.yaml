@@ -1,0 +1,93 @@
+metadata:
+  venue_id: saude_sociedade_usp
+  name: Saúde e Sociedade
+  name_pt: Saúde e Sociedade
+  publisher: Faculdade de Saúde Pública USP em conjunto com a ABRASCO
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: B1
+  qualis_subarea: QR1-Vida+Saude
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://www.scielo.br/j/sausoc
+  archived_url: https://web.archive.org/web/2026/https://www.scielo.br/j/sausoc
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    A2 historicamente em Saúde Coletiva e Educação. PROVÁVEL B1 em 2021-2024 na régua QR1.
+    Diamond OA via SciELO Brasil, sem APC.
+    Aceita revisões sistemáticas, narrativas, scoping. PRISMA-2020.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - narrative_review
+  - scoping_review
+  - qualitative_synthesis
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed:
+  - SciELO
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - saúde coletiva
+  - determinantes sociais
+  - saúde e sociedade
+  - saúde pública
+scope:
+  primary_subjects:
+  - Saúde Coletiva
+  - Saúde Pública
+  excluded_subjects: []

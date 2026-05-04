@@ -1,0 +1,127 @@
+# ABNT — Norma brasileira para citações e referências
+
+Conjunto de normas da Associação Brasileira de Normas Técnicas. Para citações e referências, as normas relevantes são:
+
+- **NBR 10520:2023** — Citações em documentos
+- **NBR 6023:2018** — Referências (atualização: 2020)
+- **NBR 14724:2011** — Apresentação de trabalhos acadêmicos
+- **NBR 6022:2018** — Artigo em publicação periódica
+
+Sistema autor-data é o mais comum em artigos. Sistema numérico também é permitido. Default: **autor-data**.
+
+## Citação no texto — sistema autor-data
+
+- Indireta (paráfrase): `(SILVA, 2023)` — sobrenome em maiúsculas dentro de parênteses.
+- Direta curta (até 3 linhas): `"texto citado" (SILVA, 2023, p. 45)`.
+- Direta longa (4+ linhas): recuo de 4 cm da margem esquerda, fonte menor (geralmente 10 pt), espaço simples, sem aspas.
+- Citação narrativa (autor fora de parênteses): `Silva (2023) afirma que...` — apenas inicial maiúscula no nome.
+- Dois autores: `(SILVA; COSTA, 2023)` — ponto-e-vírgula.
+- Três autores: `(SILVA; COSTA; ROCHA, 2023)`.
+- Quatro ou mais: `(SILVA et al., 2023)`.
+- Várias obras de mesmo autor e ano: letras minúsculas — `(SILVA, 2023a)`, `(SILVA, 2023b)`.
+- Várias obras na mesma citação: ordem alfabética/cronológica, separadas por ponto-e-vírgula — `(COSTA, 2022; SILVA, 2023)`.
+- Apud (citação de citação): `(MARX, 1867 apud SILVA, 2023, p. 78)` — usar com parcimônia.
+
+## Lista de referências
+
+**Ordem:** alfabética por sobrenome do primeiro autor. Espaçamento simples dentro de cada referência, espaço duplo entre referências (ou conforme manual da instituição). **Alinhamento à esquerda** (não justificado), recuo zero.
+
+### Artigo de periódico
+
+```
+SOBRENOME, Prenome Abreviado. Título do artigo: subtítulo em minúsculas. 
+   Nome do Periódico em Itálico, Cidade, v. X, n. Y, p. Z–W, mês ano. DOI.
+```
+
+Exemplo:
+```
+SILVA, J. P.; COSTA, A. B. Letramento digital em idosos: uma revisão 
+   sistemática. Educação & Sociedade, Campinas, v. 45, n. 167, p. 145–170, 
+   abr. 2024. DOI: 10.1590/ES.250214.
+```
+
+### Livro
+
+```
+SOBRENOME, Prenome. Título do livro em itálico: subtítulo. Edição. 
+   Cidade: Editora, ano.
+```
+
+### Capítulo de livro
+
+```
+SOBRENOME, Prenome. Título do capítulo. In: SOBRENOME, Prenome (org.). 
+   Título do livro em itálico. Edição. Cidade: Editora, ano. p. X–Y.
+```
+
+### Tese / dissertação
+
+```
+SOBRENOME, Prenome. Título da tese em itálico: subtítulo. Ano. Total de 
+   folhas. Tese (Doutorado em Área) – Faculdade, Universidade, Cidade, ano.
+```
+
+Exemplo:
+```
+COSTA, A. B. Práticas de terapia ocupacional no letramento digital de 
+   idosos. 2023. 198 f. Tese (Doutorado em Terapia Ocupacional) – 
+   Faculdade de Medicina, Universidade de São Paulo, São Paulo, 2023.
+```
+
+### Trabalho em anais de evento
+
+```
+SOBRENOME, Prenome. Título do trabalho. In: NOME DO EVENTO, edição., 
+   ano, Cidade. Anais [...]. Cidade: Editora, ano. p. X–Y.
+```
+
+### Documento eletrônico (site, página, etc.)
+
+```
+SOBRENOME, Prenome. Título do documento em itálico. Cidade, ano. 
+   Disponível em: https://url. Acesso em: dia mês ano.
+```
+
+Exemplo:
+```
+BRASIL. Ministério da Educação. Base Nacional Comum Curricular. 
+   Brasília, 2018. Disponível em: http://basenacionalcomum.mec.gov.br. 
+   Acesso em: 28 abr. 2026.
+```
+
+### Preprint
+
+```
+SOBRENOME, Prenome. Título. ano. Preprint. Disponível em: https://doi.org/...
+   Acesso em: dia mês ano.
+```
+
+### Lei / norma
+
+```
+BRASIL. Lei no X.XXX, de DD de mês de ano. Ementa. Diário Oficial da União: 
+   seção, Brasília, DF, ano.
+```
+
+## Convenções importantes
+
+- **Sobrenome em maiúsculas** sempre na referência (e nas citações entre parênteses).
+- **Itálico** apenas no título do veículo (livro, periódico, anais), não no título do artigo/capítulo.
+- **Meses abreviados** com 3 letras minúsculas em português: jan., fev., mar., abr., maio (não abrevia), jun., jul., ago., set., out., nov., dez.
+- **Acesso em:** obrigatório para documentos online, com data completa.
+- **DOI** quando houver, sem o prefixo `https://doi.org/` — apenas `DOI: 10.xxxx/yyyy`.
+
+## Apresentação geral do trabalho (NBR 14724)
+
+- Fonte: **Times New Roman** ou **Arial**, tamanho **12** para o corpo, **10** para citações longas, notas de rodapé e legendas.
+- Espaçamento entre linhas: **1,5** no corpo; **simples** em citações longas, notas, referências, legendas.
+- Margens: superior 3 cm, esquerda 3 cm, direita 2 cm, inferior 2 cm.
+- Papel: A4 branco.
+- Recuo de parágrafo: 1,25 cm na primeira linha.
+- Numeração de páginas: a partir da introdução, no canto superior direito.
+
+## Gerenciadores
+
+- **Mendeley** e **Zotero** suportam ABNT via CSL. Estilo recomendado: `associacao-brasileira-de-normas-tecnicas-ufrgs.csl` ou similar.
+- **BibTeX** com `abntex2` ou `abntex2cite` — http://www.abntex.net.br.
+- Para LaTeX em ABNT, o pacote `abntex2` é o padrão de fato no Brasil.

@@ -1,0 +1,190 @@
+id: WHITTEMORE-KNAFL
+name: "Integrative Review Methodology — Whittemore & Knafl 2005 + Toronto & Remington 2020"
+version: "Toronto-Remington-2020"
+canonical_doi_whittemore_knafl: "10.1111/j.1365-2648.2005.03621.x"
+canonical_url_whittemore_knafl: "https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2648.2005.03621.x"
+canonical_book_toronto_remington: "Toronto C, Remington R (eds) (2020) A Step-by-Step Guide to Conducting an Integrative Review. Springer."
+canonical_doi_toronto_remington: "10.1007/978-3-030-37504-1"
+items_total: 16
+applies_to:
+  - integrative_review
+note: |
+  Integrative Review é o tipo de revisão concebido por Whittemore & Knafl (2005, J Adv Nurs)
+  com origem na pesquisa em enfermagem. Combina estudos de metodologias diversas
+  (qualitativos, quantitativos, teóricos, mixed-methods) sob uma síntese narrativa unificada.
+  Toronto & Remington (2020) atualizaram para passo-a-passo operacional.
+
+  Diferenças críticas vs Systematic Review:
+  - Aceita estudos quanti + quali + teóricos no mesmo corpus.
+  - Síntese é narrativa-temática, não meta-analítica.
+  - Single-reviewer aceito com transparência total (mas não recomendado para SR clínica).
+  - Foco em conhecimento amplo do tópico, não em efeito de intervenção único.
+
+  Não está formalmente na EQUATOR Network mas é amplamente adotado por:
+  - Cadernos de Saúde Pública (BR)
+  - Revista Brasileira de Enfermagem
+  - Revista Latino-Americana de Enfermagem
+  - Educação e Pesquisa (BR)
+  - Cadernos de Pesquisa (BR)
+
+items:
+  # ==================== STAGE 1: PROBLEM IDENTIFICATION ====================
+  - id: "WK-1"
+    section: "PROBLEM_IDENTIFICATION"
+    title: "Clearly identify the problem and review purpose (PICO/PCC/SPIDER framework)"
+    automation_level: partial
+    detection_method: "review_purpose_explicit"
+    anchors:
+      - "review purpose"
+      - "objetivo desta revisão"
+      - "this integrative review aims"
+      - "purpose of this integrative review"
+    severity_if_missing: blocking
+
+  - id: "WK-2"
+    section: "PROBLEM_IDENTIFICATION"
+    title: "Variables of interest defined operationally"
+    automation_level: partial
+    severity_if_missing: major
+    needs_human_verification: true
+
+  # ==================== STAGE 2: LITERATURE SEARCH ====================
+  - id: "WK-3"
+    section: "LITERATURE_SEARCH"
+    title: "Comprehensive search across multiple databases"
+    automation_level: full
+    detection_method: "databases_listed"
+    anchors:
+      - "PubMed"
+      - "LILACS"
+      - "CINAHL"
+      - "SciELO"
+      - "MEDLINE"
+      - "Embase"
+      - "ERIC"
+      - "BDENF"
+    minimum_count: 3
+    severity_if_missing: blocking
+    note: "Whittemore-Knafl exige busca abrangente; mínimo 3 bases é prática consolidada."
+
+  - id: "WK-4"
+    section: "LITERATURE_SEARCH"
+    title: "Inclusion of theoretical, empirical, and grey literature where appropriate"
+    automation_level: partial
+    detection_method: "diverse_source_types"
+    anchors:
+      - "theoretical paper"
+      - "empirical study"
+      - "grey literature"
+      - "literatura cinzenta"
+      - "estudos teóricos"
+    severity_if_missing: major
+
+  - id: "WK-5"
+    section: "LITERATURE_SEARCH"
+    title: "Search strategy documented per database"
+    automation_level: full
+    detection_method: "search_strategy_block_present"
+    severity_if_missing: blocking
+
+  - id: "WK-6"
+    section: "LITERATURE_SEARCH"
+    title: "Inclusion/exclusion criteria explicit"
+    automation_level: partial
+    severity_if_missing: blocking
+
+  # ==================== STAGE 3: DATA EVALUATION ====================
+  - id: "WK-7"
+    section: "DATA_EVALUATION"
+    title: "Quality appraisal of included studies (using appropriate instruments per study type)"
+    automation_level: partial
+    detection_method: "qa_instruments_used"
+    anchors:
+      - "CASP"
+      - "JBI Critical Appraisal"
+      - "MMAT"
+      - "Joanna Briggs"
+      - "Mixed Methods Appraisal Tool"
+    severity_if_missing: major
+    note: |
+      Integrative reviews exigem QA mas com instrumentos diversos (não único como em SR clínica):
+      CASP para qualitativos, JBI para quantitativos, MMAT para mixed-methods.
+
+  # ==================== STAGE 4: DATA ANALYSIS ====================
+  - id: "WK-8"
+    section: "DATA_ANALYSIS"
+    title: "Data reduction (categorization scheme derived from sources)"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "WK-9"
+    section: "DATA_ANALYSIS"
+    title: "Data display (matrix, table, or figure organizing sources by categories)"
+    automation_level: full
+    detection_method: "extraction_table_present"
+    severity_if_missing: blocking
+
+  - id: "WK-10"
+    section: "DATA_ANALYSIS"
+    title: "Data comparison (cross-tabulation of findings between sources)"
+    automation_level: full
+    detection_method: "cross_tab_density_check"
+    anchors:
+      - "convergem"
+      - "divergem"
+      - "in contrast"
+      - "diferentemente"
+      - "however"
+      - "while .{1,30} found"
+    severity_if_missing: major
+
+  - id: "WK-11"
+    section: "DATA_ANALYSIS"
+    title: "Conclusion drawing and verification (themes derived from synthesis)"
+    automation_level: none
+    severity_if_missing: major
+    needs_human_review: true
+
+  # ==================== STAGE 5: PRESENTATION ====================
+  - id: "WK-12"
+    section: "PRESENTATION"
+    title: "Narrative synthesis with thematic structure"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "WK-13"
+    section: "PRESENTATION"
+    title: "Implications for theory, practice, and future research"
+    automation_level: partial
+    severity_if_missing: major
+
+  - id: "WK-14"
+    section: "PRESENTATION"
+    title: "Limitations explicit (single-reviewer if applicable; heterogeneity of methods)"
+    automation_level: full
+    detection_method: "limitations_section_present"
+    anchors:
+      - "limitations"
+      - "limitações"
+      - "limitação metodológica"
+    severity_if_missing: blocking
+
+  # ==================== OTHER ====================
+  - id: "WK-15"
+    section: "OTHER"
+    title: "Funding declared"
+    automation_level: full
+    detection_method: "funding_section_present"
+    severity_if_missing: blocking
+
+  - id: "WK-16"
+    section: "OTHER"
+    title: "Conflicts of interest declared"
+    automation_level: full
+    detection_method: "coi_section_present"
+    severity_if_missing: blocking
+
+# Resumo de automatizabilidade:
+# full:    7 itens (WK-3, 5, 9, 10, 14, 15, 16)
+# partial: 7 itens (WK-1, 2, 4, 6, 7, 8, 12, 13)
+# none:    1 item  (WK-11)

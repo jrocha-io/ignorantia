@@ -1,0 +1,100 @@
+metadata:
+  venue_id: jcaes_sba_springer
+  name: "Journal of Control, Automation and Electrical Systems"
+  name_pt: "Journal of Control, Automation and Electrical Systems"
+  publisher: "Sociedade Brasileira de Automática (SBA) co-publicado com Springer Nature"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A2
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: Q3
+  sjr_quartile: Q2
+  doaj_indexed: false
+  scielo_indexed: false
+  open_access: hybrid
+  apc_usd: 3460
+  apc_usd_range_min: null
+  apc_usd_range_max: null
+  apc_currency_original: USD
+  apc_amount_original: "3460"
+  fallback_tier: 3
+  submission_system: editorial_manager
+  source_url: "https://www.springer.com/journal/40313/submission-guidelines"
+  archived_url: "https://web.archive.org/web/2026/https://www.springer.com/journal/40313/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-03"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    JCAES é periódico oficial da SBA (Sociedade Brasileira de Automática), co-publicado pela Springer Nature.
+    Qualis A2 PROVÁVEL em Engenharias IV (Elétrica/Biomédica) no 2021-2024; pode ter sido B1 em alguma área-irmã.
+    Confirmação Sucupira por ISSN 2195-3899 mandatória.
+    HYBRID OA com APC USD 3.460 para Open Choice — alto custo. Subscription-only se autor não pagar.
+    Tier-3 do esquema OA-first: Springer hybrid alto-custo. Listado como FALLBACK declarado.
+    Aceita tutorials e survey papers; SLR formal não-explicitamente aceito mas surveys metodológicos passam.
+    Inglês obrigatório.
+
+taxonomy:
+  review_types_accepted:
+    - narrative_review
+    - theoretical_essay
+  recommended_for_layer: secondary
+  reporting_guidelines_endorsed: []
+  methodological_standards_endorsed: []
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 25
+    excludes: [references]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: free
+  citation_style:
+    format: ieee
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methodology
+    - Results
+    - Discussion
+    - Conclusion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+  file_format:
+    accepted: [docx, tex, pdf]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+
+soft_signals:
+  scope_keywords:
+    - control systems
+    - automation
+    - electrical engineering
+    - robotics
+    - power systems
+
+scope:
+  primary_subjects:
+    - "Engenharia Elétrica"
+    - "Engenharia de Controle e Automação"
+    - "Sistemas de Potência"
+  excluded_subjects: []

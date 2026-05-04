@@ -1,0 +1,103 @@
+metadata:
+  venue_id: pope_sobrapo
+  name: "Pesquisa Operacional"
+  name_pt: "Pesquisa Operacional"
+  publisher: "Sociedade Brasileira de Pesquisa Operacional (SOBRAPO), Rio de Janeiro"
+  country: BR
+  language_acceptance: [en]
+  qualis_stratum: A3
+  qualis_subarea: "QR1-Exatas+Tecnologicas"
+  jcr_quartile: null
+  sjr_quartile: Q3
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  submission_system: ojs
+  source_url: "https://www.scielo.br/journal/pope/instructions/"
+  archived_url: "https://web.archive.org/web/2026/https://www.scielo.br/journal/pope/"
+  profile_version: "1.0.0"
+  last_verified: "2026-05-02"
+  last_verified_by: "ignorantia-engine"
+  notes: |
+    Pesquisa Operacional (POPE) é periódico oficial da SOBRAPO (sociedade científica brasileira).
+    A2 PROVÁVEL no Qualis 2021-2024 (área-mãe Engenharias III) — era A2 em 2017-2020.
+    Confirmação Sucupira por ISSN 1678-5142 mandatória.
+    Diamond OA via SciELO: sem APC; CC BY.
+    Inglês obrigatório desde >2010.
+    DESTAQUE: Declaração editorial explícita aceita "revisões bibliográficas e trabalhos
+    sobre metodologia da PO" — único venue brasileiro de Engenharias com aceite explícito de revisões.
+
+
+    ---
+    v2.3 RECALIBRAÇÃO: estrato ajustado de A2 para A3 conforme Pesquisa Qualis 2021-2024. Trajetória B1/B2 em Engenharias e CC (2017-2020); CiteScore Scopus ~1.4. FORTEMENTE PROVÁVEL A3 ou A4 em 2021-2024 dependendo do recorte por área. Registrado conservadoramente como A3.
+taxonomy:
+  review_types_accepted:
+    - systematic_review_with_2_reviewers
+    - narrative_review
+    - mapping_study
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+    - PRISMA-2020
+  methodological_standards_endorsed:
+    - SciELO
+
+hard_requirements:
+  length:
+    unit: pages
+    max: 30
+    excludes: [references]
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 5
+    controlled_vocabulary: free
+  citation_style:
+    format: apa-7
+    references_max: null
+  mandatory_sections:
+    - Introduction
+    - Methods
+    - Results
+    - Discussion
+    - References
+  mandatory_declarations:
+    - id: conflicts_of_interest
+      severity: blocking
+    - id: funding
+      severity: blocking
+    - id: ai_usage
+      severity: blocking
+    - id: orcid_corresponding_only
+      severity: blocking
+  file_format:
+    accepted: [docx, tex]
+  authorship:
+    icmje_required: false
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_acceptable: true
+
+ai_disclosure_policy:
+  declaration_required: true
+  policy_url: "https://www.scielo.br/journal/pope/about/"
+  notes: |
+    Segue diretrizes SciELO — IA com disclosure obrigatório.
+
+reproducibility:
+  data_availability_statement: encouraged
+  code_availability_statement: encouraged
+  preprint_policy: encouraged
+  registration_required_for_clinical_trials: not_applicable
+
+oa_first_compatibility:
+  full_text_oa: true
+  apc_required: false
+  apc_waiver_for_brazil: not_applicable
+  alternative_to_paywall_for_area: true

@@ -1,0 +1,94 @@
+metadata:
+  venue_id: interface_unesp
+  name: Interface — Comunicação, Saúde, Educação
+  name_pt: Interface — Comunicação, Saúde, Educação
+  publisher: Fundação UNI / UNESP-Botucatu
+  country: BR
+  language_acceptance:
+  - pt
+  - en
+  - es
+  qualis_stratum: B1
+  qualis_subarea: QR1-Vida+Saude
+  jcr_quartile: null
+  sjr_quartile: null
+  doaj_indexed: true
+  scielo_indexed: true
+  open_access: fully_oa
+  apc_usd: 0
+  fallback_tier: 1
+  submission_system: ojs
+  source_url: https://www.scielo.br/j/icse
+  archived_url: https://web.archive.org/web/2026/https://www.scielo.br/j/icse
+  profile_version: 1.0.0
+  last_verified: '2026-05-03'
+  last_verified_by: ignorantia-engine
+  notes: |-
+    B1 PROVÁVEL 2021-2024 (B1 historicamente em Saúde Coletiva conforme PUC-Goiás; SciELO ativo).
+    Diamond OA via SciELO Brasil, sem APC.
+    Aceita revisões. PRISMA-2020 para SLRs.
+taxonomy:
+  review_types_accepted:
+  - systematic_review_with_2_reviewers
+  - narrative_review
+  - integrative_review
+  - scoping_review
+  recommended_for_layer: primary
+  reporting_guidelines_endorsed:
+  - PRISMA-2020
+  methodological_standards_endorsed:
+  - SciELO
+hard_requirements:
+  length:
+    unit: words
+    max: 8000
+    excludes:
+    - references
+  abstract:
+    max_words: 250
+    structured: false
+  title:
+    max_words: 18
+  keywords:
+    min: 3
+    max: 6
+    controlled_vocabulary: MeSH
+  citation_style:
+    format: vancouver
+    references_max: null
+  mandatory_sections:
+  - Introduction
+  - Methods
+  - Results
+  - Discussion
+  - References
+  mandatory_declarations:
+  - id: conflicts_of_interest
+    severity: blocking
+  - id: funding
+    severity: blocking
+  - id: ai_usage
+    severity: blocking
+  file_format:
+    accepted:
+    - docx
+    - pdf
+  authorship:
+    icmje_required: true
+    orcid_required: corresponding_only
+    credit_taxonomy_required: false
+  registration:
+    prospero_required: false
+    osf_accepted: true
+soft_signals:
+  scope_keywords:
+  - comunicação em saúde
+  - educação em saúde
+  - saúde coletiva
+  - interdisciplinaridade
+scope:
+  primary_subjects:
+  - Saúde Coletiva
+  - Comunicação em Saúde
+  - Educação em Saúde
+  excluded_subjects: []

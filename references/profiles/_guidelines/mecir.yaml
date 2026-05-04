@@ -1,0 +1,62 @@
+id: MECIR
+name: "Methodological Expectations of Cochrane Intervention Reviews"
+version: "Cochrane Handbook v6.4 (2024)"
+canonical_url: "https://methods.cochrane.org/methodological-expectations-cochrane-intervention-reviews-mecir"
+canonical_handbook: "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current"
+applies_to:
+  - systematic_review_strict
+  - meta_analysis
+note: "MECIR aplica-se a revisões publicadas na Cochrane Database of Systematic Reviews (CDSR). Mais rigoroso que PRISMA-2020 sozinho. Two-reviewer obligation total. Living reviews exigem MECIR-LSR."
+
+items:
+  - id: "MECIR-R1"
+    section: "PROTOCOL"
+    title: "Protocol published in CDSR before review"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "MECIR-R7"
+    section: "SEARCH"
+    title: "Cochrane Central Register of Controlled Trials (CENTRAL) searched"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "MECIR-R8"
+    section: "SEARCH"
+    title: "MEDLINE searched"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "MECIR-R9"
+    section: "SEARCH"
+    title: "Embase searched"
+    automation_level: full
+    severity_if_missing: major
+  - id: "MECIR-R36"
+    section: "SELECTION"
+    title: "Two reviewers screen titles/abstracts independently"
+    automation_level: partial
+    severity_if_missing: blocking
+  - id: "MECIR-R52"
+    section: "EXTRACTION"
+    title: "Two reviewers extract data independently"
+    automation_level: partial
+    severity_if_missing: blocking
+  - id: "MECIR-R56"
+    section: "RoB"
+    title: "RoB 2 used for RCTs (RoB 1 not acceptable for new reviews)"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "MECIR-R67"
+    section: "SYNTHESIS"
+    title: "Forest plot included for each meta-analysis"
+    automation_level: partial
+    severity_if_missing: major
+    only_if_meta_analysis: true
+  - id: "MECIR-R88"
+    section: "GRADE"
+    title: "Summary of Findings (SoF) table using GRADE"
+    automation_level: full
+    severity_if_missing: blocking
+  - id: "MECIR-R96"
+    section: "PLS"
+    title: "Plain Language Summary (PLS) included"
+    automation_level: full
+    severity_if_missing: blocking
