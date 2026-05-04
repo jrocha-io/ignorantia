@@ -59,6 +59,7 @@ include = ["src/ignorantia", "README.md", "LICENSE", "CHANGELOG.md"]
 [tool.pytest.ini_options]
 minversion = "7.4"
 testpaths = ["tests", "scripts/comparison/tests"]
+pythonpath = ["src"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
