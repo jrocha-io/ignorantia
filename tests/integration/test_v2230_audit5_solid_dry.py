@@ -26,7 +26,7 @@ from pathlib import Path
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
@@ -159,7 +159,7 @@ class TestE2UserAgentSingleSource:
         assert all(p.isdigit() for p in parts[:3])
 
     def test_build_user_agent_includes_version(self):
-        from _skill_version import build_user_agent, VERSION
+        from _skill_version import VERSION, build_user_agent
         ua = build_user_agent()
         assert VERSION in ua
         assert "ignorantia-skill" in ua

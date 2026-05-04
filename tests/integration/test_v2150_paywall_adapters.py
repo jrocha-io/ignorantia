@@ -13,7 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
@@ -42,8 +42,7 @@ def _run_fallback(adapter: str, tmp_path) -> dict:
 
 def test_adapter_base_imports():
     """Template arquitetural pode ser importado."""
-    from _adapter_base import (PaywallAdapter, AdapterResult, FetchedItem,
-                                LocalFilter, make_cli)
+    from _adapter_base import AdapterResult, PaywallAdapter
     assert PaywallAdapter is not None
     assert AdapterResult is not None
 

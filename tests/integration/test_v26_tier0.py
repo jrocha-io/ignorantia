@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]  # /home/claude/ignorantia_v2
+ROOT = Path(__file__).resolve().parents[2]  # /home/claude/ignorantia_v2
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
 

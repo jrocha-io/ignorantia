@@ -11,12 +11,12 @@ C8: DD-13 documenta renderer canônico
 from __future__ import annotations
 
 import json
-import sys
 import subprocess
+import sys
 import warnings
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 

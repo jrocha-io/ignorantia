@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 
@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "searches"))
 # ============ R7: Camada 1 — _log_enrichment ============
 
 def test_log_enrichment_imports():
-    from _log_enrichment import enrich_log_camada1, enrich_directory
+    from _log_enrichment import enrich_directory, enrich_log_camada1
     assert enrich_log_camada1 is not None
     assert enrich_directory is not None
 
@@ -100,7 +100,7 @@ def test_log_enrichment_directory_processes_all(tmp_path):
 # ============ R7: Camada 2 — screening_pipeline ============
 
 def test_screening_pipeline_imports():
-    from screening_pipeline import ScreeningPipeline, ScreeningEvent
+    from screening_pipeline import ScreeningPipeline
     assert ScreeningPipeline is not None
 
 
@@ -160,8 +160,7 @@ def test_screening_pipeline_demo_cli(tmp_path):
 # ============ R8: contextual_preamble ============
 
 def test_contextual_preamble_imports():
-    from contextual_preamble import (ContextualPreamble, WikipediaSnippet,
-                                       WikidataEntity)
+    from contextual_preamble import ContextualPreamble
     assert ContextualPreamble is not None
 
 

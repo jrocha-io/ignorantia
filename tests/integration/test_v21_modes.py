@@ -8,17 +8,15 @@ Como rodar:
 import sys
 from pathlib import Path
 
-SCRIPTS_DIR = Path(__file__).parent.parent / "scripts"
+SCRIPTS_DIR = Path(__file__).parent.parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-import pytest
 from assessor.eliminators import (
-    VALID_REVIEW_TYPES_V21,
-    SYSTEMATIC_REVIEW_VALID_VALUES,
     REVIEW_TYPE_TO_LAYER,
+    SYSTEMATIC_REVIEW_VALID_VALUES,
+    VALID_REVIEW_TYPES_V21,
     check_e16_systematic_review_without_two_reviewers,
 )
-
 
 # ============================================================================
 # Contratos de constantes v2.1
@@ -56,7 +54,7 @@ def test_valid_review_types_includes_v20_modes():
 def test_systematic_review_strict_set_has_two_aliases():
     """Apenas dois valores justificam 'Systematic Review' no texto sem violar E16."""
     expected = {"systematic_review_with_2_reviewers", "systematic_review_strict"}
-    assert SYSTEMATIC_REVIEW_VALID_VALUES == expected
+    assert expected == SYSTEMATIC_REVIEW_VALID_VALUES
 
 
 def test_layer_mapping_complete_for_main_modes():
@@ -151,7 +149,7 @@ def test_e16_systematic_review_strict_without_kappa_blocks():
 def test_venue_schema_includes_v21_review_types():
     """O JSON Schema de venue deve incluir os 6 novos review_types."""
     import json
-    schema_path = Path(__file__).parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
+    schema_path = Path(__file__).parent.parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
     with open(schema_path) as f:
         schema = json.load(f)
 
@@ -170,7 +168,7 @@ def test_venue_schema_includes_v21_review_types():
 def test_venue_schema_has_recommended_for_layer():
     """O JSON Schema deve ter o novo campo recommended_for_layer."""
     import json
-    schema_path = Path(__file__).parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
+    schema_path = Path(__file__).parent.parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
     with open(schema_path) as f:
         schema = json.load(f)
     rfl = schema["properties"]["taxonomy"]["properties"].get("recommended_for_layer")
@@ -184,7 +182,7 @@ def test_venue_schema_has_recommended_for_layer():
 
 def test_all_10_mode_profiles_exist():
     """references/modes/mode-XX-*.md deve existir para os 10 modos."""
-    modes_dir = Path(__file__).parent.parent / "references" / "modes"
+    modes_dir = Path(__file__).parent.parent.parent / "references" / "modes"
     expected_files = [
         "mode-01-scoping-review.md",
         "mode-02-rapid-review.md",
@@ -203,7 +201,7 @@ def test_all_10_mode_profiles_exist():
 
 def test_all_10_mode_templates_exist():
     """assets/templates/modes/mode-*.md deve existir para os 10 modos."""
-    tpl_dir = Path(__file__).parent.parent / "assets" / "templates" / "modes"
+    tpl_dir = Path(__file__).parent.parent.parent / "assets" / "templates" / "modes"
     expected_files = [
         "mode-scoping-review.md",
         "mode-rapid-review.md",
@@ -222,7 +220,7 @@ def test_all_10_mode_templates_exist():
 
 def test_modes_overview_lists_10_modes():
     """references/modes/MODES_OVERVIEW.md deve mencionar os 10 modos."""
-    overview = Path(__file__).parent.parent / "references" / "modes" / "MODES_OVERVIEW.md"
+    overview = Path(__file__).parent.parent.parent / "references" / "modes" / "MODES_OVERVIEW.md"
     text = overview.read_text(encoding="utf-8")
     for i in range(1, 11):
         # Aceitar qualquer formato Modo N, Modo 0N, mode-NN, etc.
@@ -235,7 +233,7 @@ def test_modes_overview_lists_10_modes():
 
 def test_oa_tiers_doc_exists():
     """references/databases/oa-tiers.md deve existir e listar 3 tiers."""
-    p = Path(__file__).parent.parent / "references" / "databases" / "oa-tiers.md"
+    p = Path(__file__).parent.parent.parent / "references" / "databases" / "oa-tiers.md"
     assert p.exists()
     text = p.read_text(encoding="utf-8")
     assert "Tier 1" in text
@@ -245,7 +243,7 @@ def test_oa_tiers_doc_exists():
 
 def test_search_orchestrator_exists():
     """scripts/searches/search_orchestrator.py deve existir."""
-    p = Path(__file__).parent.parent / "scripts" / "searches" / "search_orchestrator.py"
+    p = Path(__file__).parent.parent.parent / "scripts" / "searches" / "search_orchestrator.py"
     assert p.exists()
     text = p.read_text(encoding="utf-8")
     assert "TIER_DATABASES" in text
@@ -258,7 +256,7 @@ def test_search_orchestrator_exists():
 
 def test_all_search_scripts_declare_source_tier():
     """Os 5 scripts existentes devem declarar source_tier no item e no envelope."""
-    searches_dir = Path(__file__).parent.parent / "scripts" / "searches"
+    searches_dir = Path(__file__).parent.parent.parent / "scripts" / "searches"
     expected = {
         "search_arxiv.py": "tier1",
         "search_crossref.py": "tier2",
@@ -285,7 +283,7 @@ def test_all_search_scripts_declare_source_tier():
 
 def test_auto_correction_policy_mentions_three_layers():
     """auto-correction-policy.md deve documentar aplicabilidade nas 3 camadas v2.1."""
-    p = Path(__file__).parent.parent / "references" / "auto-correction-policy.md"
+    p = Path(__file__).parent.parent.parent / "references" / "auto-correction-policy.md"
     text = p.read_text(encoding="utf-8")
     # Deve mencionar as três camadas explicitamente
     assert "Camada Primária" in text
@@ -304,7 +302,7 @@ def test_auto_correction_policy_mentions_three_layers():
 
 def test_three_new_oa_int_venues_exist():
     """Os 3 perfis OA INT da v2.2.0 devem existir."""
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles" / "venues_q1_int"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q1_int"
     expected = ["plos_one.yaml", "f1000research.yaml", "frontiers_education.yaml"]
     for f in expected:
         assert (profiles_dir / f).exists(), f"Faltando: {f}"
@@ -313,7 +311,7 @@ def test_three_new_oa_int_venues_exist():
 def test_three_new_oa_int_venues_are_fully_oa():
     """Os 3 venues novos devem declarar fully_oa."""
     import yaml
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles" / "venues_q1_int"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q1_int"
     for fname in ["plos_one.yaml", "f1000research.yaml", "frontiers_education.yaml"]:
         data = yaml.safe_load(Path(profiles_dir / fname).read_text(encoding="utf-8"))
         assert data["metadata"]["open_access"] == "fully_oa", f"{fname} não é fully_oa"
@@ -322,7 +320,7 @@ def test_three_new_oa_int_venues_are_fully_oa():
 def test_three_new_oa_int_venues_have_apc_declared():
     """Os 3 venues novos devem ter apc_usd declarado (não null)."""
     import yaml
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles" / "venues_q1_int"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q1_int"
     for fname in ["plos_one.yaml", "f1000research.yaml", "frontiers_education.yaml"]:
         data = yaml.safe_load(Path(profiles_dir / fname).read_text(encoding="utf-8"))
         apc = data["metadata"].get("apc_usd")
@@ -331,9 +329,12 @@ def test_three_new_oa_int_venues_have_apc_declared():
 
 def test_three_new_oa_int_venues_validate_against_schema():
     """Os 3 venues novos devem validar contra o JSON Schema."""
-    import yaml, json, jsonschema
-    schema_path = Path(__file__).parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles" / "venues_q1_int"
+    import json
+
+    import jsonschema
+    import yaml
+    schema_path = Path(__file__).parent.parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q1_int"
     schema = json.load(open(schema_path))
     for fname in ["plos_one.yaml", "f1000research.yaml", "frontiers_education.yaml"]:
         data = yaml.safe_load(Path(profiles_dir / fname).read_text(encoding="utf-8"))
@@ -345,10 +346,14 @@ def test_three_new_oa_int_venues_validate_against_schema():
 
 def test_all_venue_profiles_validate_against_schema():
     """Os 23 venues totais devem todos validar contra o schema (regressão geral)."""
-    import yaml, json, jsonschema, glob
-    schema_path = Path(__file__).parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
+    import glob
+    import json
+
+    import jsonschema
+    import yaml
+    schema_path = Path(__file__).parent.parent.parent / "references" / "profiles" / "_schema" / "venue_profile.schema.json"
     schema = json.load(open(schema_path))
-    profiles_glob = str(Path(__file__).parent.parent / "references" / "profiles" / "venues_*" / "*.yaml")
+    profiles_glob = str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_*" / "*.yaml")
     files = sorted(glob.glob(profiles_glob))
     assert len(files) == 68, f"Esperado 68 perfis de venue (v2.4.0: 57 da v2.3.0 + 11 Q2 INT), encontrado {len(files)}"
     for fname in files:
@@ -369,7 +374,7 @@ def test_v221_nine_new_a2_br_venues_exist():
     Nota v2.3: pope_sobrapo foi reclassificado de A2 para A3 e movido para venues_a3_br/
     conforme Pesquisa Qualis 2021-2024 (Etapa 1 v2.3). O teste agora verifica nas duas pastas.
     """
-    profiles_root = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_root = Path(__file__).parent.parent.parent / "references" / "profiles"
     expected_in_a1_br = [
         # Educação
         "emaberto_inep.yaml", "rbaad_abed.yaml", "rpem_unespar.yaml",
@@ -387,8 +392,10 @@ def test_v221_nine_new_a2_br_venues_exist():
 
 def test_v221_a2_br_coverage_by_area():
     """Após v2.2.1: ≥3 A2 BR por cada uma das 3 áreas-alvo."""
-    import yaml, glob
-    profiles = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_a1_br" / "*.yaml"))
+    import glob
+
+    import yaml
+    profiles = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_a1_br" / "*.yaml"))
     counts = {"Educacao": 0, "QR1-Vida+Saude": 0, "QR1-Exatas+Tecnologicas": 0}
     for p in profiles:
         data = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -407,7 +414,7 @@ def test_v221_all_new_venues_are_diamond_oa_brazilian():
     Nota v2.3: pope_sobrapo foi recalibrado para A3 e está em venues_a3_br/ — propriedades
     diamond OA + BR são preservadas após a movimentação."""
     import yaml
-    profiles_root = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_root = Path(__file__).parent.parent.parent / "references" / "profiles"
     new_venues_locations = {
         "emaberto_inep": "venues_a1_br",
         "rbaad_abed": "venues_a1_br",
@@ -434,7 +441,7 @@ def test_v221_total_venue_count_is_32():
     Nome do teste preservado por compat com histórico da v2.2.x; assertion atualizado a cada release.
     """
     import glob
-    profiles = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_*" / "*.yaml"))
+    profiles = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_*" / "*.yaml"))
     assert len(profiles) == 68, f"Esperado 68 perfis ao total (v2.4.0), encontrado {len(profiles)}"
 
 
@@ -446,7 +453,7 @@ def test_v222_fallback_folder_exists_and_has_8_profiles():
     """A pasta venues_fallback_br/ deve existir com exatamente 8 perfis."""
     import glob
     fallback_files = sorted(glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
     ))
     assert len(fallback_files) == 8, (
         f"Esperado 8 perfis fallback em venues_fallback_br/, encontrado {len(fallback_files)}"
@@ -455,9 +462,11 @@ def test_v222_fallback_folder_exists_and_has_8_profiles():
 
 def test_v222_all_fallback_profiles_have_explicit_tier():
     """Todo perfil em venues_fallback_br/ deve declarar fallback_tier ∈ {2, 3}."""
-    import yaml, glob
+    import glob
+
+    import yaml
     fallback_files = glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
     )
     for path in fallback_files:
         with open(path) as f:
@@ -469,9 +478,11 @@ def test_v222_all_fallback_profiles_have_explicit_tier():
 
 def test_v222_fallback_tier_2_has_modest_apc():
     """Perfis tier-2 devem ter APC declarado ≤ USD 2000 (publisher comunitário)."""
-    import yaml, glob
+    import glob
+
+    import yaml
     fallback_files = glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
     )
     tier_2_count = 0
     for path in fallback_files:
@@ -491,9 +502,11 @@ def test_v222_fallback_tier_2_has_modest_apc():
 
 def test_v222_fallback_tier_3_has_high_apc_or_subscription():
     """Perfis tier-3 devem ter APC > USD 1500 (Springer hybrid) ou ser subscription."""
-    import yaml, glob
+    import glob
+
+    import yaml
     fallback_files = glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_fallback_br" / "*.yaml")
     )
     tier_3_count = 0
     for path in fallback_files:
@@ -519,9 +532,11 @@ def test_v222_existing_diamond_profiles_default_to_tier_1():
     Lê os perfis de venues_a1_br/ que são fully_oa com apc_usd=0 e confirma que NÃO têm
     fallback_tier explícito (ausente = tier-1 default semântico).
     """
-    import yaml, glob
+    import glob
+
+    import yaml
     a1_br = glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_a1_br" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_a1_br" / "*.yaml")
     )
     diamond_count = 0
     for path in a1_br:
@@ -541,9 +556,11 @@ def test_v222_existing_diamond_profiles_default_to_tier_1():
 
 def test_v222_exatas_subarea_now_has_at_least_8_options():
     """Após v2.2.2, QR1-Exatas+Tecnologicas deve ter ≥ 8 venues (3 tier-1 + ≥5 fallback)."""
-    import yaml, glob
+    import glob
+
+    import yaml
     all_profiles = glob.glob(
-        str(Path(__file__).parent.parent / "references" / "profiles" / "venues_*" / "*.yaml")
+        str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_*" / "*.yaml")
     )
     exatas_count = 0
     for path in all_profiles:
@@ -563,7 +580,7 @@ def test_v222_engine_ranks_tier_1_before_tier_2_before_tier_3():
     Isso é o coração da Decisão 14.
     """
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
     from compliance.engine import VenueAssessment
 
     # Construo 3 assessments fake com scores em ordem inversa ao tier
@@ -599,9 +616,9 @@ def test_v222_engine_ranks_tier_1_before_tier_2_before_tier_3():
 def test_v222_engine_lists_fallback_venues_when_listing():
     """O engine deve listar todos os perfis (61 após v2.3) somando todas as 5 pastas."""
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
     from compliance.engine import VenueComplianceEngine
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles"
     engine = VenueComplianceEngine(profiles_dir=profiles_dir)
     venues = engine.list_known_venues()
     assert len(venues) == 68, f"Esperado 68 venues conhecidos (v2.4.0), encontrado {len(venues)}"
@@ -619,8 +636,8 @@ def test_v222_engine_lists_fallback_venues_when_listing():
 def test_v23_folders_exist_and_have_correct_counts():
     """venues_a3_br/ deve ter 11 perfis; venues_b1_br/ deve ter 10."""
     import glob
-    a3 = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml"))
-    b1 = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
+    a3 = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml"))
+    b1 = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
     assert len(a3) == 11, f"Esperado 11 perfis em venues_a3_br/ (4 movidos + 7 novos), encontrado {len(a3)}"
     assert len(b1) == 10, f"Esperado 10 perfis em venues_b1_br/, encontrado {len(b1)}"
 
@@ -632,8 +649,10 @@ def test_v23_a3_br_coverage_meets_3_per_area_with_declared_gap():
     Saúde: ≥3 esperado e atendido (4 esperados).
     Exatas/Tec: ≥2 esperado (gap estrutural declarado, consistente com Decisão 14).
     """
-    import yaml, glob
-    a3_files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml"))
+    import glob
+
+    import yaml
+    a3_files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml"))
     counts = {"Educacao": 0, "QR1-Vida+Saude": 0, "QR1-Exatas+Tecnologicas": 0}
     for p in a3_files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -651,8 +670,10 @@ def test_v23_a3_br_coverage_meets_3_per_area_with_declared_gap():
 
 def test_v23_b1_br_coverage_meets_3_per_area():
     """B1 BR: meta ≥3 por área-mãe (todas as 3 áreas atendidas com folga via SciELO + SBC)."""
-    import yaml, glob
-    b1_files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
+    import glob
+
+    import yaml
+    b1_files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
     counts = {"Educacao": 0, "QR1-Vida+Saude": 0, "QR1-Exatas+Tecnologicas": 0}
     for p in b1_files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -665,9 +686,11 @@ def test_v23_b1_br_coverage_meets_3_per_area():
 
 def test_v23_all_a3_b1_profiles_are_diamond_oa_brazilian():
     """Todos os 21 perfis A3 e B1 BR (incluindo recalibrados) devem ser fully_oa diamond + country=BR."""
-    import yaml, glob
-    files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml")) + \
-            glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
+    import glob
+
+    import yaml
+    files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_a3_br" / "*.yaml")) + \
+            glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_b1_br" / "*.yaml"))
     for p in files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
         meta = d["metadata"]
@@ -681,7 +704,7 @@ def test_v23_recalibrated_venues_carry_v23_note():
     """Os 4 venues recalibrados (rsp_usp, csc_abrasco, rbie_sbc, pope_sobrapo) devem ter
     nota explicativa v2.3 nas notes — auditabilidade da movimentação."""
     import yaml
-    profiles_root = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_root = Path(__file__).parent.parent.parent / "references" / "profiles"
     recalibrated = ["rsp_usp", "csc_abrasco", "rbie_sbc", "pope_sobrapo"]
     for vid in recalibrated:
         path = profiles_root / "venues_a3_br" / f"{vid}.yaml"
@@ -699,9 +722,9 @@ def test_v23_recalibrated_venues_carry_v23_note():
 def test_v23_engine_loads_a3_and_b1_venues():
     """Engine deve carregar perfis das pastas venues_a3_br/ e venues_b1_br/."""
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
     from compliance.engine import VenueComplianceEngine
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles"
     engine = VenueComplianceEngine(profiles_dir=profiles_dir)
 
     # Sample A3
@@ -722,14 +745,16 @@ def test_v23_engine_loads_a3_and_b1_venues():
 def test_v24_q2_int_folder_has_11_profiles():
     """venues_q2_int/ deve ter 11 perfis novos."""
     import glob
-    files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
+    files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
     assert len(files) == 11, f"Esperado 11 perfis em venues_q2_int/, encontrado {len(files)}"
 
 
 def test_v24_q2_int_coverage_meets_3_per_area():
     """Q2 INT deve cobrir ≥3 venues por área-mãe (Educação, Saúde, CS/SE/Eng)."""
-    import yaml, glob
-    files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
+    import glob
+
+    import yaml
+    files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
     counts_by_subject = {"Education": 0, "Health/Nursing": 0, "CS/SE/Eng": 0}
     for p in files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -750,8 +775,10 @@ def test_v24_q2_int_coverage_meets_3_per_area():
 
 def test_v24_all_q2_int_have_quartile_metadata():
     """Todos os 11 perfis Q2 INT devem ter SJR e/ou JCR quartile declarado (não null)."""
-    import yaml, glob
-    files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
+    import glob
+
+    import yaml
+    files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
     for p in files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
         meta = d["metadata"]
@@ -769,8 +796,10 @@ def test_v24_q2_int_tier_distribution():
     Tier 2: education_sciences_mdpi, peerj_cs, ieee_access, cogent_education.
     Tier 3: bmc_med_education, edu_studies_routledge, nep_elsevier, ist_elsevier, jss_elsevier.
     """
-    import yaml, glob
-    files = glob.glob(str(Path(__file__).parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
+    import glob
+
+    import yaml
+    files = glob.glob(str(Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q2_int" / "*.yaml"))
     counts = {1: 0, 2: 0, 3: 0}
     for p in files:
         d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -785,7 +814,7 @@ def test_v24_rlae_usp_is_brazilian_q2_int_tier_1_anchor():
     """Verifica especificamente que Revista Latino-Americana de Enfermagem é o caso raro
     de Q2 INT + Tier 1 + brasileiro simultaneamente — anchor crítico do catálogo."""
     import yaml
-    p = Path(__file__).parent.parent / "references" / "profiles" / "venues_q2_int" / "rlae_usp.yaml"
+    p = Path(__file__).parent.parent.parent / "references" / "profiles" / "venues_q2_int" / "rlae_usp.yaml"
     assert p.exists(), "rlae_usp.yaml deve existir em venues_q2_int/"
     d = yaml.safe_load(Path(p).read_text(encoding="utf-8"))
     meta = d["metadata"]
@@ -799,9 +828,9 @@ def test_v24_rlae_usp_is_brazilian_q2_int_tier_1_anchor():
 def test_v24_engine_loads_q2_int_venues():
     """Engine deve carregar perfis de venues_q2_int/."""
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
     from compliance.engine import VenueComplianceEngine
-    profiles_dir = Path(__file__).parent.parent / "references" / "profiles"
+    profiles_dir = Path(__file__).parent.parent.parent / "references" / "profiles"
     engine = VenueComplianceEngine(profiles_dir=profiles_dir)
     venues = engine.list_known_venues()
     # 6 pastas agora; total 68

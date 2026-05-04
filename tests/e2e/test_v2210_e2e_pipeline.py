@@ -12,12 +12,12 @@ lacuna.
 from __future__ import annotations
 
 import json
-import sys
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def _setup_fixtures(out_dir: Path) -> None:
@@ -93,9 +93,8 @@ def test_pipeline_finalize_propagates_preamble_to_docx(tmp_path):
     if not docx_path.exists():
         # python-docx pode não estar disponível — neste caso, etapa skipped, ok
         return
-    with zipfile.ZipFile(docx_path) as z:
-        with z.open("word/document.xml") as f:
-            content = f.read().decode("utf-8")
+    with zipfile.ZipFile(docx_path) as z, z.open("word/document.xml") as f:
+        content = f.read().decode("utf-8")
     assert "campo onde este artigo vive" in content, (
         "Preâmbulo ausente em docx gerado pelo pipeline (B1)"
     )

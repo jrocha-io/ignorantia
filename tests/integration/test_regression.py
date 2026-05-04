@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 # Adicionar scripts/ ao path para encontrar o módulo assessor
-SCRIPTS_DIR = Path(__file__).parent.parent / "scripts"
+SCRIPTS_DIR = Path(__file__).parent.parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 import pytest
