@@ -25,10 +25,12 @@ from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
@@ -117,6 +119,18 @@ def _eric_factory() -> AdapterPort:
     return EricAdapter(_StaticHttpClient(_EMPTY_SOLR), max_results=10)
 
 
+_EMPTY_SCOPUS = b'{"search-results": {"entry": [], "opensearch:totalResults": "0"}}'
+_EMPTY_IEEE = b'{"articles": [], "total_records": 0}'
+
+
+def _scopus_full_factory() -> AdapterPort:
+    return ScopusFullAdapter(_StaticHttpClient(_EMPTY_SCOPUS), api_key="K", max_results=10)
+
+
+def _ieee_full_factory() -> AdapterPort:
+    return IeeeFullAdapter(_StaticHttpClient(_EMPTY_IEEE), api_key="K", max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -133,6 +147,8 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _scielo_factory,
     _hal_factory,
     _eric_factory,
+    _scopus_full_factory,
+    _ieee_full_factory,
 )
 
 

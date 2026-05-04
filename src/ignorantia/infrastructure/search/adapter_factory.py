@@ -21,10 +21,12 @@ from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
@@ -42,11 +44,13 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
     "hal": HalAdapter,
+    "ieee_full": IeeeFullAdapter,
     "la_referencia": LaReferenciaAdapter,
     "medrxiv": MedRxivAdapter,
     "openalex": OpenAlexAdapter,
     "pubmed": PubMedAdapter,
     "scielo": ScieloAdapter,
+    "scopus_full": ScopusFullAdapter,
     "semantic_scholar": SemanticScholarAdapter,
     "zenodo": ZenodoAdapter,
 }
