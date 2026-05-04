@@ -26,10 +26,15 @@ from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdap
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.sciencedirect_full import (
+    ScienceDirectFullAdapter,
+)
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
+from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 _AdapterBuilder = Callable[[HttpClient], AdapterPort]
@@ -50,8 +55,11 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "openalex": OpenAlexAdapter,
     "pubmed": PubMedAdapter,
     "scielo": ScieloAdapter,
+    "sciencedirect_full": ScienceDirectFullAdapter,
     "scopus_full": ScopusFullAdapter,
     "semantic_scholar": SemanticScholarAdapter,
+    "springer_full": SpringerFullAdapter,
+    "wos_full": WosFullAdapter,
     "zenodo": ZenodoAdapter,
 }
 
