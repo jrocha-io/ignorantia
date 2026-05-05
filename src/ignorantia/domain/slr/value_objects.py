@@ -92,6 +92,56 @@ class Language:
         return self.value
 
 
+_JCR_QUARTILES: frozenset[str] = frozenset({"Q1", "Q2", "Q3", "Q4"})
+
+
+@dataclass(frozen=True, slots=True)
+class VenueSuggestion:
+    """A ranked venue suggestion for a manuscript awaiting submission.
+
+    Produced by a
+    :class:`~ignorantia.domain.slr.ports.venue_classifier_port.VenueClassifierPort`
+    given the manuscript's title + abstract. The downstream submission
+    workflow consumes a tuple of these to recommend 3-5 candidate venues.
+
+    Attributes:
+        venue: Canonical journal/conference name.
+        score: Similarity score in ``[0.0, 1.0]``; higher is better.
+        ranking: 1-indexed position in the list (rank 1 is best).
+        venue_url: Landing page of the venue, when known.
+        venue_issn: ISSN of the venue, when known.
+        estimated_jcr_quartile: One of ``"Q1"`` / ``"Q2"`` / ``"Q3"``
+            / ``"Q4"``; ``None`` when not estimable.
+        is_oa: Whether the venue is Open Access.
+    """
+
+    venue: str
+    score: float
+    ranking: int
+    venue_url: str | None = None
+    venue_issn: ISSN | None = None
+    estimated_jcr_quartile: str | None = None
+    is_oa: bool = False
+
+    def __post_init__(self) -> None:
+        """Enforce score range, ranking >= 1, and quartile vocabulary."""
+        if not self.venue.strip():
+            raise ValueError("venue must be non-empty")
+        if not 0.0 <= self.score <= 1.0:
+            raise ValueError(f"score must be in [0.0, 1.0]: {self.score!r}")
+        if self.ranking < 1:
+            raise ValueError(f"ranking must be >= 1: {self.ranking!r}")
+        if (
+            self.estimated_jcr_quartile is not None
+            and self.estimated_jcr_quartile not in _JCR_QUARTILES
+        ):
+            raise ValueError(
+                f"estimated_jcr_quartile must be one of "
+                f"{sorted(_JCR_QUARTILES)} or None: "
+                f"{self.estimated_jcr_quartile!r}"
+            )
+
+
 class ScreeningDecision(str, Enum):
     """Outcome of a screening pass on a single :class:`Study`."""
 
