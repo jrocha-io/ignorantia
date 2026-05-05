@@ -34,6 +34,7 @@ from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
@@ -109,6 +110,10 @@ def _europepmc_factory() -> AdapterPort:
 
 def _pubmed_factory() -> AdapterPort:
     return PubMedAdapter(_StaticHttpClient(_EMPTY_PUBMED), max_results=10)
+
+
+def _pubmed_central_factory() -> AdapterPort:
+    return PubMedCentralAdapter(_StaticHttpClient(_EMPTY_PUBMED), max_results=10)
 
 
 def _zenodo_factory() -> AdapterPort:
@@ -200,6 +205,7 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _medrxiv_factory,
     _europepmc_factory,
     _pubmed_factory,
+    _pubmed_central_factory,
     _zenodo_factory,
     _la_referencia_factory,
     _bdtd_factory,
