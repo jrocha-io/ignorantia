@@ -21,13 +21,16 @@ from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
+from ignorantia.infrastructure.search.http.cinahl_full import CinahlFullAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
+from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
+from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
@@ -35,6 +38,7 @@ from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
+from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
@@ -45,6 +49,7 @@ from ignorantia.infrastructure.search.http.sciencedirect_full import (
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
 from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
+from ignorantia.infrastructure.search.http.ssrn_full import SsrnFullAdapter
 from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
 from ignorantia.infrastructure.search.http.wos_full import WosFullAdapter
 from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
@@ -76,6 +81,8 @@ _EMPTY_PHIL = b'{"results": []}'
 _EMPTY_JSTOR_OA = b'{"results": []}'
 _EMPTY_OAPEN = b"[]"
 _EMPTY_SOLR = b'{"response": {"docs": []}}'
+_EMPTY_EMBASE = b'{"results": {"article": []}}'
+_EMPTY_SSRN = b'{"results": [], "meta": {"count": 0}}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -206,6 +213,26 @@ def _edarxiv_factory() -> AdapterPort:
     return EdArxivAdapter(_StaticHttpClient(_EMPTY_OSF), max_results=10)
 
 
+def _cinahl_full_factory() -> AdapterPort:
+    return CinahlFullAdapter(_StaticHttpClient(b""), max_results=10)
+
+
+def _hein_online_factory() -> AdapterPort:
+    return HeinOnlineAdapter(_StaticHttpClient(b""), max_results=10)
+
+
+def _psycinfo_full_factory() -> AdapterPort:
+    return PsycInfoFullAdapter(_StaticHttpClient(b""), max_results=10)
+
+
+def _embase_factory() -> AdapterPort:
+    return EmbaseAdapter(_StaticHttpClient(_EMPTY_EMBASE), api_key="K", max_results=10)
+
+
+def _ssrn_full_factory() -> AdapterPort:
+    return SsrnFullAdapter(_StaticHttpClient(_EMPTY_SSRN), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -237,6 +264,11 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _oapen_factory,
     _osf_preprints_factory,
     _edarxiv_factory,
+    _cinahl_full_factory,
+    _hein_online_factory,
+    _psycinfo_full_factory,
+    _embase_factory,
+    _ssrn_full_factory,
 )
 
 
