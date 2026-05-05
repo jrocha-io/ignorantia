@@ -42,6 +42,9 @@ from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
+from ignorantia.infrastructure.search.http.google_scholar_serpapi import (
+    GoogleScholarSerpApiAdapter,
+)
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
@@ -155,6 +158,15 @@ def _medrxiv_factory() -> AdapterPort:
 
 def _europepmc_factory() -> AdapterPort:
     return EuropePmcAdapter(_StaticHttpClient(_EMPTY_EUROPEPMC), max_results=10)
+
+
+_EMPTY_SERPAPI = b'{"organic_results": []}'
+
+
+def _google_scholar_serpapi_factory() -> AdapterPort:
+    return GoogleScholarSerpApiAdapter(
+        _StaticHttpClient(_EMPTY_SERPAPI), api_key="K", max_results=10
+    )
 
 
 def _pubmed_factory() -> AdapterPort:
@@ -358,6 +370,7 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _biorxiv_factory,
     _medrxiv_factory,
     _europepmc_factory,
+    _google_scholar_serpapi_factory,
     _pubmed_factory,
     _pubmed_central_factory,
     _zenodo_factory,
