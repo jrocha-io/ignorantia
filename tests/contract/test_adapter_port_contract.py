@@ -22,6 +22,7 @@ from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
+from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
@@ -29,6 +30,7 @@ from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
@@ -64,6 +66,8 @@ _EMPTY_EUROPEPMC = b'{"resultList": {"result": []}, "hitCount": 0}'
 _EMPTY_PUBMED = b'{"esearchresult": {"idlist": []}}'
 _EMPTY_ZENODO = b'{"hits": {"hits": [], "total": 0}}'
 _EMPTY_RSS = b"<rss><channel></channel></rss>"
+_EMPTY_DBLP = b'{"result": {"hits": {"hit": []}}}'
+_EMPTY_PHIL = b'{"results": []}'
 _EMPTY_SOLR = b'{"response": {"docs": []}}'
 
 
@@ -166,6 +170,14 @@ def _wiley_tdm_factory() -> AdapterPort:
     return WileyTdmAdapter(_StaticHttpClient(_EMPTY_CROSSREF_MEMBER), api_key="K", max_results=10)
 
 
+def _dblp_factory() -> AdapterPort:
+    return DblpAdapter(_StaticHttpClient(_EMPTY_DBLP), max_per_page=10, max_results=10)
+
+
+def _philarchive_factory() -> AdapterPort:
+    return PhilArchiveAdapter(_StaticHttpClient(_EMPTY_PHIL), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -190,6 +202,8 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _sage_full_factory,
     _acm_full_factory,
     _wiley_tdm_factory,
+    _dblp_factory,
+    _philarchive_factory,
 )
 
 
