@@ -252,15 +252,24 @@ def test_grey_lit_prints_error_on_stderr_for_failed_provider():
 
     Usa um provider real que dá 404 atualmente (ipea).
     Esse teste pode ficar irrelevante se ipea voltar a funcionar — esperado.
+
+    O teste tolera ``TimeoutExpired`` (ipea.gov.br pode estar lento ou
+    bloqueando IPs de runners CI): nesse caso o teste é ``skip``ado, já
+    que o objetivo é validar o comportamento de stderr quando o provider
+    de fato responde com falha — não medir disponibilidade do ipea.
     """
     import tempfile
     out = tempfile.mktemp(suffix=".json")
-    r = subprocess.run([
-        sys.executable, str(ROOT / "scripts" / "searches" / "search_grey_lit.py"),
-        "--query", "test", "--provider", "ipea",
-        "--year-start", "2023", "--year-end", "2024",
-        "--output", out,
-    ], capture_output=True, text=True, timeout=30)
+    try:
+        r = subprocess.run([
+            sys.executable, str(ROOT / "scripts" / "searches" / "search_grey_lit.py"),
+            "--query", "test", "--provider", "ipea",
+            "--year-start", "2023", "--year-end", "2024",
+            "--output", out,
+        ], capture_output=True, text=True, timeout=60)
+    except subprocess.TimeoutExpired:
+        import pytest
+        pytest.skip("ipea.gov.br não respondeu em 60s — flake de rede, teste skipado")
     if r.returncode == 1:
         # Provider falhou (esperado para ipea atualmente) — stderr deve conter mensagem
         assert "error" in r.stderr.lower() or "ipea" in r.stderr.lower()
