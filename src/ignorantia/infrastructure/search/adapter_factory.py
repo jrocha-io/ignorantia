@@ -26,6 +26,7 @@ from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
+from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
@@ -58,6 +59,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "medrxiv": MedRxivAdapter,
     "openalex": OpenAlexAdapter,
     "pubmed": PubMedAdapter,
+    "pubmed_central": PubMedCentralAdapter,
     "sage_full": SageFullAdapter,
     "scielo": ScieloAdapter,
     "sciencedirect_full": ScienceDirectFullAdapter,
