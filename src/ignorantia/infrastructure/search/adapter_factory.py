@@ -24,7 +24,9 @@ from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
+from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
+from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
@@ -57,8 +59,10 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "europepmc": EuropePmcAdapter,
     "hal": HalAdapter,
     "ieee_full": IeeeFullAdapter,
+    "jstor_oa": JstorOaAdapter,
     "la_referencia": LaReferenciaAdapter,
     "medrxiv": MedRxivAdapter,
+    "oapen": OapenAdapter,
     "openalex": OpenAlexAdapter,
     "philarchive": PhilArchiveAdapter,
     "pubmed": PubMedAdapter,
