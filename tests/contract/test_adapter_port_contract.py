@@ -21,7 +21,11 @@ from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
+from ignorantia.infrastructure.search.http.catalogo_teses_capes import (
+    CatalogoTesesCapesAdapter,
+)
 from ignorantia.infrastructure.search.http.cinahl_full import CinahlFullAdapter
+from ignorantia.infrastructure.search.http.clacso import ClacsoAdapter
 from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
     ClinicalTrialsGovAdapter,
 )
@@ -33,6 +37,7 @@ from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.dialnet import DialnetAdapter
 from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.e_lis import ELisAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
@@ -60,9 +65,13 @@ from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAd
 from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.scielo_preprints import (
+    ScieloPreprintsAdapter,
+)
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
     ScienceDirectFullAdapter,
 )
+from ignorantia.infrastructure.search.http.scioteca import SciotecaAdapter
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
 from ignorantia.infrastructure.search.http.spell import SpellAdapter
@@ -320,6 +329,26 @@ def _periodicos_capes_factory() -> AdapterPort:
     return PeriodicosCapesAdapter(_StaticHttpClient(b""))
 
 
+def _clacso_factory() -> AdapterPort:
+    return ClacsoAdapter(_StaticHttpClient(b""))
+
+
+def _e_lis_factory() -> AdapterPort:
+    return ELisAdapter(_StaticHttpClient(b""))
+
+
+def _scielo_preprints_factory() -> AdapterPort:
+    return ScieloPreprintsAdapter(_StaticHttpClient(b""))
+
+
+def _catalogo_teses_capes_factory() -> AdapterPort:
+    return CatalogoTesesCapesAdapter(_StaticHttpClient(b""))
+
+
+def _scioteca_factory() -> AdapterPort:
+    return SciotecaAdapter(_StaticHttpClient(b""))
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -370,6 +399,11 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _dabi_factory,
     _spell_factory,
     _periodicos_capes_factory,
+    _clacso_factory,
+    _e_lis_factory,
+    _scielo_preprints_factory,
+    _catalogo_teses_capes_factory,
+    _scioteca_factory,
 )
 
 

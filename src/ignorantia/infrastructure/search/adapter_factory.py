@@ -17,7 +17,11 @@ from ignorantia.infrastructure.search.http.acm_full import AcmFullAdapter
 from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
+from ignorantia.infrastructure.search.http.catalogo_teses_capes import (
+    CatalogoTesesCapesAdapter,
+)
 from ignorantia.infrastructure.search.http.cinahl_full import CinahlFullAdapter
+from ignorantia.infrastructure.search.http.clacso import ClacsoAdapter
 from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
     ClinicalTrialsGovAdapter,
 )
@@ -29,6 +33,7 @@ from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.dialnet import DialnetAdapter
 from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.e_lis import ELisAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
@@ -56,9 +61,13 @@ from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAd
 from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
+from ignorantia.infrastructure.search.http.scielo_preprints import (
+    ScieloPreprintsAdapter,
+)
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
     ScienceDirectFullAdapter,
 )
+from ignorantia.infrastructure.search.http.scioteca import SciotecaAdapter
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
@@ -78,7 +87,9 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "arxiv": ArxivAdapter,
     "bdtd": BdtdAdapter,
     "biorxiv": BioRxivAdapter,
+    "catalogo_teses_capes": CatalogoTesesCapesAdapter,
     "cinahl_full": CinahlFullAdapter,
+    "clacso": ClacsoAdapter,
     "clinicaltrials_gov": ClinicalTrialsGovAdapter,
     "cochrane_central": CochraneCentralAdapter,
     "core": CoreAdapter,
@@ -88,6 +99,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "dialnet": DialnetAdapter,
     "dimensions": DimensionsAdapter,
     "doaj": DoajAdapter,
+    "e_lis": ELisAdapter,
     "edarxiv": EdArxivAdapter,
     "embase": EmbaseAdapter,
     "eric": EricAdapter,
@@ -114,7 +126,9 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "redalyc": RedalycAdapter,
     "sage_full": SageFullAdapter,
     "scielo": ScieloAdapter,
+    "scielo_preprints": ScieloPreprintsAdapter,
     "sciencedirect_full": ScienceDirectFullAdapter,
+    "scioteca": SciotecaAdapter,
     "scopus_full": ScopusFullAdapter,
     "semantic_scholar": SemanticScholarAdapter,
     "spell": SpellAdapter,
