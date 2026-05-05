@@ -20,6 +20,7 @@ from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxi
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
@@ -28,6 +29,7 @@ from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
@@ -56,6 +58,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "crossref": CrossrefAdapter,
     "dblp": DblpAdapter,
     "doaj": DoajAdapter,
+    "edarxiv": EdArxivAdapter,
     "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
     "hal": HalAdapter,
@@ -65,6 +68,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "medrxiv": MedRxivAdapter,
     "oapen": OapenAdapter,
     "openalex": OpenAlexAdapter,
+    "osf_preprints": OsfPreprintsAdapter,
     "philarchive": PhilArchiveAdapter,
     "pubmed": PubMedAdapter,
     "pubmed_central": PubMedCentralAdapter,

@@ -24,6 +24,7 @@ from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxi
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
+from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
@@ -32,6 +33,7 @@ from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
+from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
@@ -145,6 +147,7 @@ _EMPTY_IEEE = b'{"articles": [], "total_records": 0}'
 _EMPTY_SPRINGER = b'{"records": []}'
 _EMPTY_WOS = b'{"hits": [], "metadata": {"total": 0}}'
 _EMPTY_CROSSREF_MEMBER = b'{"message": {"items": [], "total-results": 0}}'
+_EMPTY_OSF = b'{"data": []}'
 
 
 def _scopus_full_factory() -> AdapterPort:
@@ -195,6 +198,14 @@ def _oapen_factory() -> AdapterPort:
     return OapenAdapter(_StaticHttpClient(_EMPTY_OAPEN), max_results=10)
 
 
+def _osf_preprints_factory() -> AdapterPort:
+    return OsfPreprintsAdapter(_StaticHttpClient(_EMPTY_OSF), max_results=10)
+
+
+def _edarxiv_factory() -> AdapterPort:
+    return EdArxivAdapter(_StaticHttpClient(_EMPTY_OSF), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -224,6 +235,8 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _philarchive_factory,
     _jstor_oa_factory,
     _oapen_factory,
+    _osf_preprints_factory,
+    _edarxiv_factory,
 )
 
 
