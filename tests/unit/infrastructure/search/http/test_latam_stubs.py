@@ -1,4 +1,4 @@
-"""Identity + behaviour tests for the 7 LATAM stub adapters.
+"""Identity + behaviour tests for the LATAM stub adapters.
 
 Each class only sets ``source_id`` and ``source_tier`` on top of
 :class:`_NoApiAdapter`. The base's behaviour (REAL_ERROR + empty
@@ -14,14 +14,23 @@ import pytest
 from ignorantia.domain.search.entities import SearchQuery
 from ignorantia.domain.search.ports.adapter_port import AdapterPort
 from ignorantia.domain.search.value_objects import Method, Tier
+from ignorantia.infrastructure.search.http.catalogo_teses_capes import (
+    CatalogoTesesCapesAdapter,
+)
+from ignorantia.infrastructure.search.http.clacso import ClacsoAdapter
 from ignorantia.infrastructure.search.http.dabi import DabiAdapter
 from ignorantia.infrastructure.search.http.dialnet import DialnetAdapter
+from ignorantia.infrastructure.search.http.e_lis import ELisAdapter
 from ignorantia.infrastructure.search.http.lilacs import LilacsAdapter
 from ignorantia.infrastructure.search.http.pepsic import PepsicAdapter
 from ignorantia.infrastructure.search.http.periodicos_capes import (
     PeriodicosCapesAdapter,
 )
 from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
+from ignorantia.infrastructure.search.http.scielo_preprints import (
+    ScieloPreprintsAdapter,
+)
+from ignorantia.infrastructure.search.http.scioteca import SciotecaAdapter
 from ignorantia.infrastructure.search.http.spell import SpellAdapter
 
 
@@ -43,6 +52,11 @@ _CASES: tuple[tuple[type[AdapterPort], str, Tier], ...] = (
     (DabiAdapter, "dabi", Tier.TIER1),
     (SpellAdapter, "spell", Tier.TIER1),
     (PeriodicosCapesAdapter, "periodicos_capes", Tier.TIER1),
+    (ClacsoAdapter, "clacso", Tier.TIER1),
+    (ELisAdapter, "e_lis", Tier.TIER1),
+    (ScieloPreprintsAdapter, "scielo_preprints", Tier.TIER1),
+    (CatalogoTesesCapesAdapter, "catalogo_teses_capes", Tier.TIER1),
+    (SciotecaAdapter, "scioteca", Tier.TIER1),
 )
 
 
