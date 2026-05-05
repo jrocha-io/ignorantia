@@ -28,7 +28,9 @@ from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
+from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
+from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
@@ -68,6 +70,8 @@ _EMPTY_ZENODO = b'{"hits": {"hits": [], "total": 0}}'
 _EMPTY_RSS = b"<rss><channel></channel></rss>"
 _EMPTY_DBLP = b'{"result": {"hits": {"hit": []}}}'
 _EMPTY_PHIL = b'{"results": []}'
+_EMPTY_JSTOR_OA = b'{"results": []}'
+_EMPTY_OAPEN = b"[]"
 _EMPTY_SOLR = b'{"response": {"docs": []}}'
 
 
@@ -178,6 +182,14 @@ def _philarchive_factory() -> AdapterPort:
     return PhilArchiveAdapter(_StaticHttpClient(_EMPTY_PHIL), max_results=10)
 
 
+def _jstor_oa_factory() -> AdapterPort:
+    return JstorOaAdapter(_StaticHttpClient(_EMPTY_JSTOR_OA), max_results=10)
+
+
+def _oapen_factory() -> AdapterPort:
+    return OapenAdapter(_StaticHttpClient(_EMPTY_OAPEN), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -204,6 +216,8 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _wiley_tdm_factory,
     _dblp_factory,
     _philarchive_factory,
+    _jstor_oa_factory,
+    _oapen_factory,
 )
 
 
