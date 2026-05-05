@@ -2,7 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    # Push trigger inclui feature/** para que branches sem PR aberta (e.g.
+    # cherry-picks pós-merge) gerem checks visíveis na página /branches/active.
+    # ``concurrency: cancel-in-progress`` abaixo evita acúmulo de runs em
+    # WIP rápido.
+    branches: [main, develop, "feature/**"]
   pull_request:
     branches: [main, develop, "feature/**"]
 
