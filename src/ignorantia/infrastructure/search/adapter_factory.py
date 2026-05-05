@@ -59,6 +59,7 @@ from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdap
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
 from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
+from ignorantia.infrastructure.search.http.redib import RedibAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.scielo_preprints import (
@@ -124,6 +125,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "pubmed": PubMedAdapter,
     "pubmed_central": PubMedCentralAdapter,
     "redalyc": RedalycAdapter,
+    "redib": RedibAdapter,
     "sage_full": SageFullAdapter,
     "scielo": ScieloAdapter,
     "scielo_preprints": ScieloPreprintsAdapter,

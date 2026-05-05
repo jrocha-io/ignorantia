@@ -63,6 +63,7 @@ from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdap
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
 from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
+from ignorantia.infrastructure.search.http.redib import RedibAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.scielo_preprints import (
@@ -313,6 +314,13 @@ def _redalyc_factory() -> AdapterPort:
     return RedalycAdapter(_StaticHttpClient(b""))
 
 
+_EMPTY_REDIB = b'{"results": [], "total": 0}'
+
+
+def _redib_factory() -> AdapterPort:
+    return RedibAdapter(_StaticHttpClient(_EMPTY_REDIB), api_key="K", max_results=10)
+
+
 def _dialnet_factory() -> AdapterPort:
     return DialnetAdapter(_StaticHttpClient(b""))
 
@@ -395,6 +403,7 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _lilacs_factory,
     _pepsic_factory,
     _redalyc_factory,
+    _redib_factory,
     _dialnet_factory,
     _dabi_factory,
     _spell_factory,
