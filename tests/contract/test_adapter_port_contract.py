@@ -40,6 +40,9 @@ from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.e_lis import ELisAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
+from ignorantia.infrastructure.search.http.engineering_village import (
+    EngineeringVillageAdapter,
+)
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
@@ -269,6 +272,12 @@ def _embase_factory() -> AdapterPort:
     return EmbaseAdapter(_StaticHttpClient(_EMPTY_EMBASE), api_key="K", max_results=10)
 
 
+def _engineering_village_factory() -> AdapterPort:
+    return EngineeringVillageAdapter(
+        OpenAlexAdapter(_StaticHttpClient(_EMPTY_OPENALEX), max_results=10)
+    )
+
+
 def _ssrn_full_factory() -> AdapterPort:
     return SsrnFullAdapter(_StaticHttpClient(_EMPTY_SSRN), max_results=10)
 
@@ -384,6 +393,7 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _hein_online_factory,
     _psycinfo_full_factory,
     _embase_factory,
+    _engineering_village_factory,
     _ssrn_full_factory,
     _clinicaltrials_gov_factory,
     _cochrane_central_factory,

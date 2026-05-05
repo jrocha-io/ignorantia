@@ -36,6 +36,9 @@ from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.e_lis import ELisAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
+from ignorantia.infrastructure.search.http.engineering_village import (
+    build_engineering_village_adapter,
+)
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
@@ -102,6 +105,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "e_lis": ELisAdapter,
     "edarxiv": EdArxivAdapter,
     "embase": EmbaseAdapter,
+    "engineering_village": build_engineering_village_adapter,
     "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
     "hal": HalAdapter,
