@@ -22,6 +22,10 @@ from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.cinahl_full import CinahlFullAdapter
+from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
+    ClinicalTrialsGovAdapter,
+)
+from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
@@ -32,12 +36,15 @@ from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
+from ignorantia.infrastructure.search.http.jstor_full import JstorFullAdapter
 from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
+from ignorantia.infrastructure.search.http.proquest_full import ProquestFullAdapter
+from ignorantia.infrastructure.search.http.proquest_oa import ProquestOaAdapter
 from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
@@ -83,6 +90,7 @@ _EMPTY_OAPEN = b"[]"
 _EMPTY_SOLR = b'{"response": {"docs": []}}'
 _EMPTY_EMBASE = b'{"results": {"article": []}}'
 _EMPTY_SSRN = b'{"results": [], "meta": {"count": 0}}'
+_EMPTY_CTGOV = b'{"studies": [], "totalCount": 0}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -233,6 +241,26 @@ def _ssrn_full_factory() -> AdapterPort:
     return SsrnFullAdapter(_StaticHttpClient(_EMPTY_SSRN), max_results=10)
 
 
+def _clinicaltrials_gov_factory() -> AdapterPort:
+    return ClinicalTrialsGovAdapter(_StaticHttpClient(_EMPTY_CTGOV), max_results=10)
+
+
+def _cochrane_central_factory() -> AdapterPort:
+    return CochraneCentralAdapter(_StaticHttpClient(b""))
+
+
+def _proquest_oa_factory() -> AdapterPort:
+    return ProquestOaAdapter(_StaticHttpClient(b""))
+
+
+def _proquest_full_factory() -> AdapterPort:
+    return ProquestFullAdapter(_StaticHttpClient(b""), max_results=10)
+
+
+def _jstor_full_factory() -> AdapterPort:
+    return JstorFullAdapter(_StaticHttpClient(b""), max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -269,6 +297,11 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _psycinfo_full_factory,
     _embase_factory,
     _ssrn_full_factory,
+    _clinicaltrials_gov_factory,
+    _cochrane_central_factory,
+    _proquest_oa_factory,
+    _proquest_full_factory,
+    _jstor_full_factory,
 )
 
 
