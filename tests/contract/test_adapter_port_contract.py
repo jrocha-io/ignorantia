@@ -28,7 +28,9 @@ from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
 from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
 from ignorantia.infrastructure.search.http.core import CoreAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
+from ignorantia.infrastructure.search.http.dabi import DabiAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
+from ignorantia.infrastructure.search.http.dialnet import DialnetAdapter
 from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
@@ -41,15 +43,21 @@ from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.jstor_full import JstorFullAdapter
 from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
+from ignorantia.infrastructure.search.http.lilacs import LilacsAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
+from ignorantia.infrastructure.search.http.pepsic import PepsicAdapter
+from ignorantia.infrastructure.search.http.periodicos_capes import (
+    PeriodicosCapesAdapter,
+)
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.proquest_full import ProquestFullAdapter
 from ignorantia.infrastructure.search.http.proquest_oa import ProquestOaAdapter
 from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
+from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
@@ -57,6 +65,7 @@ from ignorantia.infrastructure.search.http.sciencedirect_full import (
 )
 from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import SemanticScholarAdapter
+from ignorantia.infrastructure.search.http.spell import SpellAdapter
 from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
 from ignorantia.infrastructure.search.http.ssrn_full import SsrnFullAdapter
 from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
@@ -283,6 +292,34 @@ def _dimensions_factory() -> AdapterPort:
     return DimensionsAdapter(_StaticHttpClient(_EMPTY_DIMENSIONS), api_key="K", max_results=10)
 
 
+def _lilacs_factory() -> AdapterPort:
+    return LilacsAdapter(_StaticHttpClient(b""))
+
+
+def _pepsic_factory() -> AdapterPort:
+    return PepsicAdapter(_StaticHttpClient(b""))
+
+
+def _redalyc_factory() -> AdapterPort:
+    return RedalycAdapter(_StaticHttpClient(b""))
+
+
+def _dialnet_factory() -> AdapterPort:
+    return DialnetAdapter(_StaticHttpClient(b""))
+
+
+def _dabi_factory() -> AdapterPort:
+    return DabiAdapter(_StaticHttpClient(b""))
+
+
+def _spell_factory() -> AdapterPort:
+    return SpellAdapter(_StaticHttpClient(b""))
+
+
+def _periodicos_capes_factory() -> AdapterPort:
+    return PeriodicosCapesAdapter(_StaticHttpClient(b""))
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -326,6 +363,13 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _jstor_full_factory,
     _core_factory,
     _dimensions_factory,
+    _lilacs_factory,
+    _pepsic_factory,
+    _redalyc_factory,
+    _dialnet_factory,
+    _dabi_factory,
+    _spell_factory,
+    _periodicos_capes_factory,
 )
 
 

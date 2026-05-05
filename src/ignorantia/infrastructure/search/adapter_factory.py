@@ -24,7 +24,9 @@ from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
 from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
 from ignorantia.infrastructure.search.http.core import CoreAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
+from ignorantia.infrastructure.search.http.dabi import DabiAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
+from ignorantia.infrastructure.search.http.dialnet import DialnetAdapter
 from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
@@ -37,15 +39,21 @@ from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
 from ignorantia.infrastructure.search.http.jstor_full import JstorFullAdapter
 from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
+from ignorantia.infrastructure.search.http.lilacs import LilacsAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
+from ignorantia.infrastructure.search.http.pepsic import PepsicAdapter
+from ignorantia.infrastructure.search.http.periodicos_capes import (
+    PeriodicosCapesAdapter,
+)
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
 from ignorantia.infrastructure.search.http.proquest_full import ProquestFullAdapter
 from ignorantia.infrastructure.search.http.proquest_oa import ProquestOaAdapter
 from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
+from ignorantia.infrastructure.search.http.redalyc import RedalycAdapter
 from ignorantia.infrastructure.search.http.sage_full import SageFullAdapter
 from ignorantia.infrastructure.search.http.scielo import ScieloAdapter
 from ignorantia.infrastructure.search.http.sciencedirect_full import (
@@ -55,6 +63,7 @@ from ignorantia.infrastructure.search.http.scopus_full import ScopusFullAdapter
 from ignorantia.infrastructure.search.http.semantic_scholar import (
     SemanticScholarAdapter,
 )
+from ignorantia.infrastructure.search.http.spell import SpellAdapter
 from ignorantia.infrastructure.search.http.springer_full import SpringerFullAdapter
 from ignorantia.infrastructure.search.http.ssrn_full import SsrnFullAdapter
 from ignorantia.infrastructure.search.http.wiley_tdm import WileyTdmAdapter
@@ -74,7 +83,9 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "cochrane_central": CochraneCentralAdapter,
     "core": CoreAdapter,
     "crossref": CrossrefAdapter,
+    "dabi": DabiAdapter,
     "dblp": DblpAdapter,
+    "dialnet": DialnetAdapter,
     "dimensions": DimensionsAdapter,
     "doaj": DoajAdapter,
     "edarxiv": EdArxivAdapter,
@@ -87,21 +98,26 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "jstor_full": JstorFullAdapter,
     "jstor_oa": JstorOaAdapter,
     "la_referencia": LaReferenciaAdapter,
+    "lilacs": LilacsAdapter,
     "medrxiv": MedRxivAdapter,
     "oapen": OapenAdapter,
     "openalex": OpenAlexAdapter,
     "osf_preprints": OsfPreprintsAdapter,
+    "pepsic": PepsicAdapter,
+    "periodicos_capes": PeriodicosCapesAdapter,
     "philarchive": PhilArchiveAdapter,
     "proquest_full": ProquestFullAdapter,
     "proquest_oa": ProquestOaAdapter,
     "psycinfo_full": PsycInfoFullAdapter,
     "pubmed": PubMedAdapter,
     "pubmed_central": PubMedCentralAdapter,
+    "redalyc": RedalycAdapter,
     "sage_full": SageFullAdapter,
     "scielo": ScieloAdapter,
     "sciencedirect_full": ScienceDirectFullAdapter,
     "scopus_full": ScopusFullAdapter,
     "semantic_scholar": SemanticScholarAdapter,
+    "spell": SpellAdapter,
     "springer_full": SpringerFullAdapter,
     "ssrn_full": SsrnFullAdapter,
     "wiley_tdm": WileyTdmAdapter,
