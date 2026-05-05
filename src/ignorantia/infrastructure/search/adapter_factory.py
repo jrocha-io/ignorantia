@@ -22,8 +22,10 @@ from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
     ClinicalTrialsGovAdapter,
 )
 from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
+from ignorantia.infrastructure.search.http.core import CoreAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
+from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
@@ -70,8 +72,10 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "cinahl_full": CinahlFullAdapter,
     "clinicaltrials_gov": ClinicalTrialsGovAdapter,
     "cochrane_central": CochraneCentralAdapter,
+    "core": CoreAdapter,
     "crossref": CrossrefAdapter,
     "dblp": DblpAdapter,
+    "dimensions": DimensionsAdapter,
     "doaj": DoajAdapter,
     "edarxiv": EdArxivAdapter,
     "embase": EmbaseAdapter,

@@ -26,8 +26,10 @@ from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
     ClinicalTrialsGovAdapter,
 )
 from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
+from ignorantia.infrastructure.search.http.core import CoreAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
+from ignorantia.infrastructure.search.http.dimensions import DimensionsAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
 from ignorantia.infrastructure.search.http.edarxiv import EdArxivAdapter
 from ignorantia.infrastructure.search.http.embase import EmbaseAdapter
@@ -63,13 +65,23 @@ from ignorantia.infrastructure.search.http.zenodo import ZenodoAdapter
 
 
 class _StaticHttpClient:
-    """Test double that always returns the same canned body."""
+    """Test double that always returns the same canned body for GET or POST."""
 
     def __init__(self, body: bytes) -> None:
         self._body = body
 
     def get(self, url: str, headers: object | None = None) -> bytes:
         del url, headers
+        return self._body
+
+    def post(
+        self,
+        url: str,
+        *,
+        data: bytes,
+        headers: object | None = None,
+    ) -> bytes:
+        del url, data, headers
         return self._body
 
 
@@ -91,6 +103,8 @@ _EMPTY_SOLR = b'{"response": {"docs": []}}'
 _EMPTY_EMBASE = b'{"results": {"article": []}}'
 _EMPTY_SSRN = b'{"results": [], "meta": {"count": 0}}'
 _EMPTY_CTGOV = b'{"studies": [], "totalCount": 0}'
+_EMPTY_CORE = b'{"results": [], "totalHits": 0}'
+_EMPTY_DIMENSIONS = b'{"publications": []}'
 
 
 def _arxiv_factory() -> AdapterPort:
@@ -261,6 +275,14 @@ def _jstor_full_factory() -> AdapterPort:
     return JstorFullAdapter(_StaticHttpClient(b""), max_results=10)
 
 
+def _core_factory() -> AdapterPort:
+    return CoreAdapter(_StaticHttpClient(_EMPTY_CORE), max_results=10)
+
+
+def _dimensions_factory() -> AdapterPort:
+    return DimensionsAdapter(_StaticHttpClient(_EMPTY_DIMENSIONS), api_key="K", max_results=10)
+
+
 _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _arxiv_factory,
     _crossref_factory,
@@ -302,6 +324,8 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _proquest_oa_factory,
     _proquest_full_factory,
     _jstor_full_factory,
+    _core_factory,
+    _dimensions_factory,
 )
 
 
