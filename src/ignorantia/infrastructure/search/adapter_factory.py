@@ -41,6 +41,9 @@ from ignorantia.infrastructure.search.http.engineering_village import (
 )
 from ignorantia.infrastructure.search.http.eric import EricAdapter
 from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
+from ignorantia.infrastructure.search.http.google_scholar_serpapi import (
+    GoogleScholarSerpApiAdapter,
+)
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
@@ -109,6 +112,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "engineering_village": build_engineering_village_adapter,
     "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
+    "google_scholar_serpapi": GoogleScholarSerpApiAdapter,
     "hal": HalAdapter,
     "hein_online": HeinOnlineAdapter,
     "ieee_full": IeeeFullAdapter,
