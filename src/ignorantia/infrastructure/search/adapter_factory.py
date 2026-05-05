@@ -18,6 +18,10 @@ from ignorantia.infrastructure.search.http.arxiv import ArxivAdapter
 from ignorantia.infrastructure.search.http.bdtd import BdtdAdapter
 from ignorantia.infrastructure.search.http.biorxiv import BioRxivAdapter, MedRxivAdapter
 from ignorantia.infrastructure.search.http.cinahl_full import CinahlFullAdapter
+from ignorantia.infrastructure.search.http.clinicaltrials_gov import (
+    ClinicalTrialsGovAdapter,
+)
+from ignorantia.infrastructure.search.http.cochrane_central import CochraneCentralAdapter
 from ignorantia.infrastructure.search.http.crossref import CrossrefAdapter
 from ignorantia.infrastructure.search.http.dblp import DblpAdapter
 from ignorantia.infrastructure.search.http.doaj import DoajAdapter
@@ -28,12 +32,15 @@ from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
+from ignorantia.infrastructure.search.http.jstor_full import JstorFullAdapter
 from ignorantia.infrastructure.search.http.jstor_oa import JstorOaAdapter
 from ignorantia.infrastructure.search.http.la_referencia import LaReferenciaAdapter
 from ignorantia.infrastructure.search.http.oapen import OapenAdapter
 from ignorantia.infrastructure.search.http.openalex import OpenAlexAdapter
 from ignorantia.infrastructure.search.http.osf_preprints import OsfPreprintsAdapter
 from ignorantia.infrastructure.search.http.philarchive import PhilArchiveAdapter
+from ignorantia.infrastructure.search.http.proquest_full import ProquestFullAdapter
+from ignorantia.infrastructure.search.http.proquest_oa import ProquestOaAdapter
 from ignorantia.infrastructure.search.http.psycinfo_full import PsycInfoFullAdapter
 from ignorantia.infrastructure.search.http.pubmed import PubMedAdapter
 from ignorantia.infrastructure.search.http.pubmed_central import PubMedCentralAdapter
@@ -61,6 +68,8 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "bdtd": BdtdAdapter,
     "biorxiv": BioRxivAdapter,
     "cinahl_full": CinahlFullAdapter,
+    "clinicaltrials_gov": ClinicalTrialsGovAdapter,
+    "cochrane_central": CochraneCentralAdapter,
     "crossref": CrossrefAdapter,
     "dblp": DblpAdapter,
     "doaj": DoajAdapter,
@@ -71,6 +80,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "hal": HalAdapter,
     "hein_online": HeinOnlineAdapter,
     "ieee_full": IeeeFullAdapter,
+    "jstor_full": JstorFullAdapter,
     "jstor_oa": JstorOaAdapter,
     "la_referencia": LaReferenciaAdapter,
     "medrxiv": MedRxivAdapter,
@@ -78,6 +88,8 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "openalex": OpenAlexAdapter,
     "osf_preprints": OsfPreprintsAdapter,
     "philarchive": PhilArchiveAdapter,
+    "proquest_full": ProquestFullAdapter,
+    "proquest_oa": ProquestOaAdapter,
     "psycinfo_full": PsycInfoFullAdapter,
     "pubmed": PubMedAdapter,
     "pubmed_central": PubMedCentralAdapter,
