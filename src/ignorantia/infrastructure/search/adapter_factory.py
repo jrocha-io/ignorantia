@@ -44,6 +44,7 @@ from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.google_scholar_serpapi import (
     GoogleScholarSerpApiAdapter,
 )
+from ignorantia.infrastructure.search.http.grey_lit import GreyLitAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
@@ -113,6 +114,7 @@ _REGISTRY: dict[str, _AdapterBuilder] = {
     "eric": EricAdapter,
     "europepmc": EuropePmcAdapter,
     "google_scholar_serpapi": GoogleScholarSerpApiAdapter,
+    "grey_lit": GreyLitAdapter,
     "hal": HalAdapter,
     "hein_online": HeinOnlineAdapter,
     "ieee_full": IeeeFullAdapter,
