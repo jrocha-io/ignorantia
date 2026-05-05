@@ -48,6 +48,7 @@ from ignorantia.infrastructure.search.http.europepmc import EuropePmcAdapter
 from ignorantia.infrastructure.search.http.google_scholar_serpapi import (
     GoogleScholarSerpApiAdapter,
 )
+from ignorantia.infrastructure.search.http.grey_lit import GreyLitAdapter
 from ignorantia.infrastructure.search.http.hal import HalAdapter
 from ignorantia.infrastructure.search.http.hein_online import HeinOnlineAdapter
 from ignorantia.infrastructure.search.http.ieee_full import IeeeFullAdapter
@@ -171,6 +172,13 @@ def _google_scholar_serpapi_factory() -> AdapterPort:
     return GoogleScholarSerpApiAdapter(
         _StaticHttpClient(_EMPTY_SERPAPI), api_key="K", max_results=10
     )
+
+
+_EMPTY_DSPACE = b"[]"
+
+
+def _grey_lit_factory() -> AdapterPort:
+    return GreyLitAdapter(_StaticHttpClient(_EMPTY_DSPACE), max_results=10)
 
 
 def _pubmed_factory() -> AdapterPort:
@@ -388,6 +396,7 @@ _ADAPTER_FACTORIES: tuple[Callable[[], AdapterPort], ...] = (
     _medrxiv_factory,
     _europepmc_factory,
     _google_scholar_serpapi_factory,
+    _grey_lit_factory,
     _pubmed_factory,
     _pubmed_central_factory,
     _zenodo_factory,
