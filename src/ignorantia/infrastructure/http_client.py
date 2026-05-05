@@ -102,16 +102,47 @@ class HttpClient:
                 retries.
         """
         _validate_http_url(url)
-        request = self._build_request(url, headers)
+        request = self._build_request(url, headers, data=None)
         self._wait_for_throttle()
         return self._do_with_retry(request)
 
-    def _build_request(self, url: str, headers: Mapping[str, str] | None) -> urllib.request.Request:
+    def post(
+        self,
+        url: str,
+        *,
+        data: bytes,
+        headers: Mapping[str, str] | None = None,
+    ) -> bytes:
+        """POST ``data`` to ``url`` and return the response body as bytes.
+
+        Same throttle/retry/User-Agent invariants as :meth:`get`. The
+        caller is responsible for setting ``Content-Type`` (e.g.
+        ``application/json``) via ``headers``.
+
+        Raises:
+            ValueError: if ``url`` is empty or uses a non-HTTP scheme.
+            urllib.error.HTTPError: on a non-retryable HTTP error or
+                after retries are exhausted.
+            urllib.error.URLError: when network errors persist after
+                retries.
+        """
+        _validate_http_url(url)
+        request = self._build_request(url, headers, data=data)
+        self._wait_for_throttle()
+        return self._do_with_retry(request)
+
+    def _build_request(
+        self,
+        url: str,
+        headers: Mapping[str, str] | None,
+        *,
+        data: bytes | None,
+    ) -> urllib.request.Request:
         merged: dict[str, str] = dict(headers or {})
         merged["User-Agent"] = self._user_agent
         # Scheme is validated by ``_validate_http_url`` upstream of every
         # caller, so ``Request`` only ever sees ``http(s)://`` URLs.
-        return urllib.request.Request(url, headers=merged)  # noqa: S310
+        return urllib.request.Request(url, data=data, headers=merged)  # noqa: S310
 
     def _wait_for_throttle(self) -> None:
         if self._throttle_s <= 0 or self._last_request_at is None:
