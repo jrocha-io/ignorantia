@@ -29,8 +29,14 @@ class _StubFormatter(CitationFormatterPort):
     def format_reference(self, ref: Reference) -> str:
         return ref.title
 
-    def format_inline_citation(self, ref: Reference, *, page: str | None = None) -> str:
-        del page
+    def format_inline_citation(
+        self,
+        ref: Reference,
+        *,
+        page: str | None = None,
+        index: int | None = None,
+    ) -> str:
+        del page, index
         return ref.title
 
 
@@ -68,3 +74,8 @@ class TestStubSatisfiesContract:
         formatter = _StubFormatter()
         ref = Reference(type="article", title="Hello", authors=())
         assert formatter.format_inline_citation(ref, page="42") == "Hello"
+
+    def test_format_inline_citation_accepts_index_keyword(self) -> None:
+        formatter = _StubFormatter()
+        ref = Reference(type="article", title="Hello", authors=())
+        assert formatter.format_inline_citation(ref, index=1) == "Hello"

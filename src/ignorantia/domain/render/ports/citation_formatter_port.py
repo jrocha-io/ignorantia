@@ -28,7 +28,13 @@ class CitationFormatterPort(ABC):
         """Return the reference-list entry for ``ref`` as a single string."""
 
     @abstractmethod
-    def format_inline_citation(self, ref: Reference, *, page: str | None = None) -> str:
+    def format_inline_citation(
+        self,
+        ref: Reference,
+        *,
+        page: str | None = None,
+        index: int | None = None,
+    ) -> str:
         """Return the inline citation for ``ref``.
 
         Args:
@@ -36,4 +42,7 @@ class CitationFormatterPort(ABC):
             page: Optional page number for direct quotations. Author-date
                 styles (ABNT, APA) include it; numeric styles (IEEE,
                 Vancouver) typically ignore it.
+            index: 1-based position in the manuscript reference list.
+                Numeric styles (IEEE, Vancouver) require it; author-date
+                styles ignore it.
         """
