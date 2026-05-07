@@ -138,3 +138,92 @@ class ManuscriptDoc:
         """Manuscripts without a title are not renderable."""
         if not self.title:
             raise ValueError("ManuscriptDoc.title must be a non-empty string")
+
+    @classmethod
+    def builder(cls) -> ManuscriptDocBuilder:
+        """Return a fresh :class:`ManuscriptDocBuilder`.
+
+        The Builder offers a fluent way to assemble a manuscript when
+        sections and references arrive incrementally — instead of
+        accumulating ``list``s and converting them to tuples at the
+        end, callers chain ``add_section`` / ``add_reference`` calls.
+        """
+        return ManuscriptDocBuilder()
+
+
+class ManuscriptDocBuilder:
+    """Fluent builder producing :class:`ManuscriptDoc` instances.
+
+    All setters return ``self`` so calls can be chained. The Builder
+    keeps mutable internal state for sections, references and
+    keywords; :meth:`build` snapshots that state into the immutable
+    frozen ``ManuscriptDoc`` and the Builder remains reusable
+    afterwards (useful when assembling related documents that share
+    most metadata).
+    """
+
+    __slots__ = (
+        "_abstract",
+        "_keywords",
+        "_language",
+        "_references",
+        "_sections",
+        "_title",
+    )
+
+    def __init__(self) -> None:
+        """Start with empty fields; ``title`` is required by :meth:`build`."""
+        self._title: str = ""
+        self._abstract: str = ""
+        self._language: str = "en"
+        self._sections: list[Section] = []
+        self._references: list[Reference] = []
+        self._keywords: list[str] = []
+
+    def title(self, value: str) -> ManuscriptDocBuilder:
+        """Set the manuscript title."""
+        self._title = value
+        return self
+
+    def abstract(self, value: str) -> ManuscriptDocBuilder:
+        """Set the abstract."""
+        self._abstract = value
+        return self
+
+    def language(self, code: str) -> ManuscriptDocBuilder:
+        """Set the ISO 639-1 / locale code."""
+        self._language = code
+        return self
+
+    def keywords(self, values: tuple[str, ...]) -> ManuscriptDocBuilder:
+        """Replace the keyword list."""
+        self._keywords = list(values)
+        return self
+
+    def add_keyword(self, value: str) -> ManuscriptDocBuilder:
+        """Append a single keyword."""
+        if not value:
+            raise ValueError("keyword must be a non-empty string")
+        self._keywords.append(value)
+        return self
+
+    def add_section(self, section: Section) -> ManuscriptDocBuilder:
+        """Append a body section in insertion order."""
+        self._sections.append(section)
+        return self
+
+    def add_reference(self, reference: Reference) -> ManuscriptDocBuilder:
+        """Append a reference in citation order."""
+        self._references.append(reference)
+        return self
+
+    def build(self) -> ManuscriptDoc:
+        """Snapshot the current state into a frozen :class:`ManuscriptDoc`."""
+        return ManuscriptDoc(
+            title=self._title,
+            abstract=self._abstract,
+            sections=tuple(self._sections),
+            references=tuple(self._references),
+            language=self._language,
+            keywords=tuple(self._keywords),
+        )
