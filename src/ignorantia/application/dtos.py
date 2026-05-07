@@ -1,0 +1,77 @@
+"""Data Transfer Objects between layers.
+
+This module hosts the typed DTOs that flow across the application
+boundary. Per ``V3_ARCHITECTURE_PLAN.md`` the rule is *no domain leak
+to CLI* — interfaces (CLI, HTTP, etc.) only ever see DTOs from this
+module, never raw domain entities or value objects.
+
+DTOs are frozen dataclasses with ``slots=True`` (search-context
+convention). They are intentionally simple shape-only carriers — no
+business logic, no validation beyond "non-empty identity field".
+That belongs in the domain.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True, slots=True)
+class StepResultDto:
+    """DTO for one step's outcome inside a :class:`FinalizePipelineResult`.
+
+    Mirrors :class:`StepResult` from the pipeline domain, with
+    ``status`` flattened to a string so interface-layer JSON
+    serialisation is transparent.
+    """
+
+    name: str
+    status: str
+    message: str = ""
+    artifact: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class FinalizePipelineCommand:
+    """Input DTO for :class:`FinalizePipelineUseCase`.
+
+    The actual pipeline step registry is injected at use-case
+    construction (DIP), so the command only conveys *runtime* hints
+    callers want to surface in the manifest / summary. Today that's
+    just the ``actor`` field — flags such as ``--skip-pdf`` will be
+    added here when CLI wiring needs them.
+    """
+
+    actor: str
+
+    def __post_init__(self) -> None:
+        """Empty actor breaks audit replay; reject early."""
+        if not self.actor:
+            raise ValueError("FinalizePipelineCommand.actor must be a non-empty string")
+
+
+@dataclass(frozen=True, slots=True)
+class FinalizePipelineResult:
+    """Output DTO for :class:`FinalizePipelineUseCase`.
+
+    Attributes:
+        started_at_iso8601: When the pipeline began.
+        finished_at_iso8601: When the pipeline finished.
+        steps: Per-step outcomes in execution order.
+        n_ok: Steps that completed successfully.
+        n_skipped: Steps that were deliberately skipped.
+        n_errors: Steps that errored.
+        final_artifacts: Paths of artefacts produced by ``OK`` steps,
+            in execution order. Skipped / errored steps' artefacts
+            are excluded — they may be partial or absent on disk.
+        is_successful: ``True`` when no step errored.
+    """
+
+    started_at_iso8601: str
+    finished_at_iso8601: str
+    steps: tuple[StepResultDto, ...]
+    n_ok: int
+    n_skipped: int
+    n_errors: int
+    final_artifacts: tuple[str, ...]
+    is_successful: bool
