@@ -37,7 +37,7 @@ class DecisionStatus(str, Enum):
     ``json.dumps(DecisionStatus.PASS) == '"pass"'``.
     """
 
-    PASS = "pass"  # noqa: S105 — bandit false-positive on the literal "pass"
+    PASS = "pass"  # noqa: S105  # nosec B105 — false-positive on the literal "pass"
     """Rule satisfied. Counts as a green check in the report."""
 
     FAIL = "fail"
