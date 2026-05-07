@@ -25,7 +25,13 @@ from typing import Any
 
 import click
 
-from ignorantia.application.dtos import RunAuditCommand
+from ignorantia.application.dtos import (
+    FinalizePipelineCommand,
+    RunAuditCommand,
+)
+from ignorantia.application.use_cases.finalize_pipeline import (
+    FinalizePipelineUseCase,
+)
 from ignorantia.application.use_cases.run_audit import RunAuditUseCase
 from ignorantia.interface.cli import main as _main
 
@@ -38,6 +44,7 @@ def register(cli: click.Group) -> None:
     discoverable in one place.
     """
     cli.add_command(audit)
+    cli.add_command(finalize)
 
 
 @click.command(
@@ -111,4 +118,57 @@ def _resolve_audit_use_case(ctx: click.Context) -> RunAuditUseCase:
         return cached
     use_case = _main.build_audit_use_case()
     obj["audit_use_case"] = use_case
+    return use_case
+
+
+@click.command(
+    "finalize",
+    help="Run the pipeline finalisation steps and emit a JSON summary.",
+    context_settings={"help_option_names": ["-h", "--help"]},
+)
+@click.option(
+    "--actor",
+    default="cli",
+    show_default=True,
+    help="Who is running the pipeline.",
+)
+@click.pass_context
+def finalize(ctx: click.Context, actor: str) -> None:
+    """Run :class:`FinalizePipelineUseCase` and print the result DTO."""
+    use_case = _resolve_finalize_use_case(ctx)
+    command = FinalizePipelineCommand(actor=actor)
+    result = use_case.execute(command)
+    click.echo(
+        json.dumps(
+            {
+                "started_at_iso8601": result.started_at_iso8601,
+                "finished_at_iso8601": result.finished_at_iso8601,
+                "n_ok": result.n_ok,
+                "n_skipped": result.n_skipped,
+                "n_errors": result.n_errors,
+                "final_artifacts": list(result.final_artifacts),
+                "is_successful": result.is_successful,
+                "steps": [
+                    {
+                        "name": s.name,
+                        "status": s.status,
+                        "message": s.message,
+                        "artifact": s.artifact,
+                    }
+                    for s in result.steps
+                ],
+            },
+            ensure_ascii=False,
+        )
+    )
+
+
+def _resolve_finalize_use_case(ctx: click.Context) -> FinalizePipelineUseCase:
+    """Same injection seam as :func:`_resolve_audit_use_case`."""
+    obj: dict[str, Any] = ctx.ensure_object(dict)
+    cached = obj.get("finalize_use_case")
+    if isinstance(cached, FinalizePipelineUseCase):
+        return cached
+    use_case = _main.build_finalize_pipeline_use_case()
+    obj["finalize_use_case"] = use_case
     return use_case

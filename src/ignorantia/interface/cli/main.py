@@ -19,8 +19,13 @@ from datetime import datetime, timezone
 import click
 
 from ignorantia import __version__
+from ignorantia.application.use_cases.finalize_pipeline import (
+    FinalizePipelineUseCase,
+)
 from ignorantia.application.use_cases.run_audit import RunAuditUseCase
 from ignorantia.domain.audit.services import ManifestService
+from ignorantia.domain.pipeline.services import PipelineExecutor
+from ignorantia.domain.pipeline.value_objects import PipelineStep
 
 
 def _real_clock() -> str:
@@ -42,6 +47,27 @@ def build_audit_use_case() -> RunAuditUseCase:
     persisted manifest from disk) lives in one obvious place.
     """
     return RunAuditUseCase(service=ManifestService(clock=_real_clock))
+
+
+def build_pipeline_steps() -> tuple[PipelineStep, ...]:
+    """Return the concrete pipeline-step registry the CLI runs.
+
+    Empty for now: the v3 step library (cross-tab, render, screening,
+    ...) is being migrated from ``scripts/pipeline_finalize.py`` into
+    ``infrastructure/pipeline/`` incrementally. As each step lands as
+    a :class:`PipelineStep` factory, append it here. Keeping the
+    registry centralised in the composition root preserves the
+    Open/Closed property.
+    """
+    return ()
+
+
+def build_finalize_pipeline_use_case() -> FinalizePipelineUseCase:
+    """Construct :class:`FinalizePipelineUseCase` with production wiring."""
+    return FinalizePipelineUseCase(
+        executor=PipelineExecutor(clock=_real_clock),
+        steps=build_pipeline_steps(),
+    )
 
 
 @click.group(
