@@ -210,3 +210,45 @@ class TestEmptyDocCorners:
         assert "</html>" in out
         # No reference section, no keywords, no body sections, but valid HTML
         assert re.search(r"</body>\s*</html>", out)
+
+
+class TestRenderSection:
+    def test_returns_bytes(self, renderer: HtmlRenderer) -> None:
+        section = Section(id="intro", title="Introduction", body_md="Hello.")
+        out = renderer.render_section(section)
+        assert isinstance(out, bytes)
+
+    def test_emits_section_block_with_id(self, renderer: HtmlRenderer) -> None:
+        section = Section(id="methods", title="Methods", body_md="x")
+        out = renderer.render_section(section).decode("utf-8")
+        assert '<section id="methods">' in out
+        assert "</section>" in out
+
+    def test_emits_h2_title(self, renderer: HtmlRenderer) -> None:
+        section = Section(id="results", title="Results", body_md="x")
+        out = renderer.render_section(section).decode("utf-8")
+        assert "<h2>Results</h2>" in out
+
+    def test_emits_no_document_scaffold(self, renderer: HtmlRenderer) -> None:
+        # render_section returns a fragment; no <html>, <body>, or <h1>.
+        section = Section(id="intro", title="Introduction", body_md="x")
+        out = renderer.render_section(section).decode("utf-8")
+        assert "<html" not in out
+        assert "<body" not in out
+        assert "<h1" not in out
+        assert "<!DOCTYPE" not in out
+
+    def test_converts_markdown_subset(self, renderer: HtmlRenderer) -> None:
+        section = Section(
+            id="intro",
+            title="Introduction",
+            body_md="A **bold** and *italic* text.",
+        )
+        out = renderer.render_section(section).decode("utf-8")
+        assert "<strong>bold</strong>" in out
+        assert "<em>italic</em>" in out
+
+    def test_escapes_html_in_section_title(self, renderer: HtmlRenderer) -> None:
+        section = Section(id="intro", title="A & B", body_md="x")
+        out = renderer.render_section(section).decode("utf-8")
+        assert "<h2>A &amp; B</h2>" in out

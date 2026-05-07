@@ -13,7 +13,49 @@ That belongs in the domain.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
+
+
+@dataclass(frozen=True, slots=True)
+class RunAuditCommand:
+    """Input DTO for :class:`RunAuditUseCase`.
+
+    Attributes:
+        action: Stable action identifier
+            (e.g. ``"search.run"``, ``"compliance.evaluate"``).
+        actor: Who is recording the entry. CLI wiring sets this to
+            ``"cli"``; engine code uses ``"ignorantia-engine"``.
+        payload: Free-form details about the event.
+    """
+
+    action: str
+    actor: str
+    payload: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        """Empty action / actor break audit replay; reject early."""
+        if not self.action:
+            raise ValueError("RunAuditCommand.action must be a non-empty string")
+        if not self.actor:
+            raise ValueError("RunAuditCommand.actor must be a non-empty string")
+
+
+@dataclass(frozen=True, slots=True)
+class RunAuditResult:
+    """Output DTO for :class:`RunAuditUseCase`.
+
+    Attributes:
+        timestamp_iso8601: When the entry was recorded.
+        action: The action recorded (echoed from the command for
+            convenience — saves callers a lookup).
+        manifest_size: Number of entries in the manifest *after* the
+            new entry was appended. Useful for progress logging.
+    """
+
+    timestamp_iso8601: str
+    action: str
+    manifest_size: int
 
 
 @dataclass(frozen=True, slots=True)

@@ -19,12 +19,20 @@ import re
 
 from ignorantia.domain.render.entities import ManuscriptDoc, Reference, Section
 from ignorantia.domain.render.ports.citation_formatter_port import CitationFormatterPort
-from ignorantia.domain.render.ports.renderer_port import RendererPort
+from ignorantia.domain.render.ports.interactive_renderer_port import (
+    InteractiveRendererPort,
+)
 from ignorantia.domain.render.value_objects import OutputFormat
 
 
-class HtmlRenderer(RendererPort):
-    """Render :class:`ManuscriptDoc` as a self-contained HTML5 document."""
+class HtmlRenderer(InteractiveRendererPort):
+    """Render :class:`ManuscriptDoc` as a self-contained HTML5 document.
+
+    HTML is the only v3 format that benefits from incremental rendering
+    (analogue of v2's chunks pipeline, Decision 18), so this renderer
+    additionally satisfies :class:`InteractiveRendererPort` and exposes
+    :meth:`render_section` for section-at-a-time output.
+    """
 
     def __init__(self, *, formatter: CitationFormatterPort) -> None:
         """Wire the renderer to a citation formatter (Strategy)."""
@@ -34,6 +42,16 @@ class HtmlRenderer(RendererPort):
     def output_format(self) -> OutputFormat:
         """Return :class:`OutputFormat.HTML`."""
         return OutputFormat.HTML
+
+    def render_section(self, section: Section) -> bytes:
+        """Render a single :class:`Section` as an HTML fragment.
+
+        Returns the section's ``<section id="...">`` block as UTF-8
+        bytes — no surrounding ``<html>`` / ``<body>`` scaffold. The
+        output reuses the same Markdown subset (paragraphs, ``**``,
+        ``*``) and HTML escaping as the full :meth:`render` path.
+        """
+        return _render_section(section).encode("utf-8")
 
     def render(self, doc: ManuscriptDoc) -> bytes:
         """Render ``doc`` and return the HTML5 document as UTF-8 bytes."""
