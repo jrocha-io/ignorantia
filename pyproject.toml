@@ -151,7 +151,7 @@ module = "scripts.*"
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = ["pytest", "hypothesis", "hypothesis.*"]
+module = ["pytest", "hypothesis", "hypothesis.*", "docx", "docx.*"]
 ignore_missing_imports = true
 
 # ----------------------------------------------------------------------
