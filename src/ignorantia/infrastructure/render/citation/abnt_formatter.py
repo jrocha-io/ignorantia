@@ -61,8 +61,15 @@ class AbntCitationFormatter(CitationFormatterPort):
         # any unhandled branch is a programming error in this module.
         raise RuntimeError(f"unhandled reference type: {ref.type!r}")
 
-    def format_inline_citation(self, ref: Reference, *, page: str | None = None) -> str:
+    def format_inline_citation(
+        self,
+        ref: Reference,
+        *,
+        page: str | None = None,
+        index: int | None = None,
+    ) -> str:
         """Return the NBR 10520:2023 inline (author-data) citation for ``ref``."""
+        del index
         sn = _inline_authors(ref.authors)
         year = str(ref.year) if ref.year else "[s.d.]"
         if page:
