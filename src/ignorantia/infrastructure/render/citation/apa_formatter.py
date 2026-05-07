@@ -48,8 +48,15 @@ class ApaCitationFormatter(CitationFormatterPort):
             return _format_av_resource(ref, authors, year)
         raise RuntimeError(f"unhandled reference type: {ref.type!r}")
 
-    def format_inline_citation(self, ref: Reference, *, page: str | None = None) -> str:
+    def format_inline_citation(
+        self,
+        ref: Reference,
+        *,
+        page: str | None = None,
+        index: int | None = None,
+    ) -> str:
         """Return the APA 7th author-date inline citation for ``ref``."""
+        del index
         sn = _inline_authors(ref.authors)
         year = str(ref.year) if ref.year else "n.d."
         if page:
