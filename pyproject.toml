@@ -43,7 +43,12 @@ dev = [
     "jsonschema>=4.0",
 ]
 docx = ["python-docx>=1.0"]
-all = ["ignorantia[dev,docx]"]
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.24",
+]
+all = ["ignorantia[dev,docx,docs]"]
 
 [project.scripts]
 ignorantia = "ignorantia.interface.cli.main:cli"
