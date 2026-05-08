@@ -15,6 +15,7 @@ console script in ``pyproject.toml``. Subcommands live in
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from pathlib import Path
 
 import click
 
@@ -32,6 +33,7 @@ from ignorantia.application.use_cases.search_for_studies import (
 from ignorantia.domain.audit.services import ManifestService
 from ignorantia.domain.pipeline.services import PipelineExecutor
 from ignorantia.domain.pipeline.value_objects import PipelineStep
+from ignorantia.domain.render.entities import ManuscriptDoc
 from ignorantia.domain.render.ports.citation_formatter_port import (
     CitationFormatterPort,
 )
@@ -41,6 +43,11 @@ from ignorantia.domain.search.services.search_orchestrator import (
     SearchOrchestrator,
 )
 from ignorantia.infrastructure.http_client import HttpClient
+from ignorantia.infrastructure.pipeline.render_steps import (
+    build_docx_render_step,
+    build_html_render_step,
+    build_latex_render_step,
+)
 from ignorantia.infrastructure.render.citation.factory import (
     citation_formatter_for,
 )
@@ -71,23 +78,100 @@ def build_audit_use_case() -> RunAuditUseCase:
 
 
 def build_pipeline_steps() -> tuple[PipelineStep, ...]:
-    """Return the concrete pipeline-step registry the CLI runs.
+    """Return the empty default pipeline-step registry.
 
-    Empty for now: the v3 step library (cross-tab, render, screening,
-    ...) is being migrated from ``scripts/pipeline_finalize.py`` into
-    ``infrastructure/pipeline/`` incrementally. As each step lands as
-    a :class:`PipelineStep` factory, append it here. Keeping the
-    registry centralised in the composition root preserves the
-    Open/Closed property.
+    Used when ``ignorantia finalize`` runs without ``--input`` /
+    ``--output-dir``. With those flags the CLI calls
+    :func:`build_render_pipeline_steps` instead, which produces the
+    HTML / LaTeX / DOCX render registry. Future steps (cross-tab,
+    screening) append here as they migrate from
+    ``scripts/pipeline_finalize.py``.
     """
     return ()
 
 
+def build_render_pipeline_steps(
+    *,
+    manuscript: ManuscriptDoc,
+    output_dir: Path,
+    citation_style: CitationStyle,
+    skip_html: bool = False,
+    skip_latex: bool = False,
+    skip_docx: bool = False,
+) -> tuple[PipelineStep, ...]:
+    """Return the render-pipeline registry for a single manuscript.
+
+    Each requested format becomes one :class:`PipelineStep` that
+    closes over the manuscript, the output directory, and the
+    formatter so the executor can run them as zero-argument
+    callables. Skip flags drop a format from the registry entirely
+    (vs running it and returning :attr:`StepStatus.SKIPPED` — the
+    Open/Closed contract is "the registry contains exactly the
+    work to do").
+    """
+    formatter = citation_formatter_for(citation_style)
+    steps: list[PipelineStep] = []
+    if not skip_html:
+        steps.append(
+            build_html_render_step(
+                manuscript=manuscript,
+                output_dir=output_dir,
+                formatter=formatter,
+            )
+        )
+    if not skip_latex:
+        steps.append(
+            build_latex_render_step(
+                manuscript=manuscript,
+                output_dir=output_dir,
+                formatter=formatter,
+            )
+        )
+    if not skip_docx:
+        steps.append(
+            build_docx_render_step(
+                manuscript=manuscript,
+                output_dir=output_dir,
+                formatter=formatter,
+            )
+        )
+    return tuple(steps)
+
+
 def build_finalize_pipeline_use_case() -> FinalizePipelineUseCase:
-    """Construct :class:`FinalizePipelineUseCase` with production wiring."""
+    """Construct :class:`FinalizePipelineUseCase` with the empty registry."""
     return FinalizePipelineUseCase(
         executor=PipelineExecutor(clock=_real_clock),
         steps=build_pipeline_steps(),
+    )
+
+
+def build_render_pipeline_use_case(
+    *,
+    manuscript: ManuscriptDoc,
+    output_dir: Path,
+    citation_style: CitationStyle,
+    skip_html: bool = False,
+    skip_latex: bool = False,
+    skip_docx: bool = False,
+) -> FinalizePipelineUseCase:
+    """Construct :class:`FinalizePipelineUseCase` configured for render output.
+
+    Production wiring used by ``ignorantia finalize`` when ``--input``
+    is supplied: builds the render-step registry pinned to the given
+    manuscript + output directory + citation style, then wraps it in
+    a :class:`PipelineExecutor` with the real clock.
+    """
+    return FinalizePipelineUseCase(
+        executor=PipelineExecutor(clock=_real_clock),
+        steps=build_render_pipeline_steps(
+            manuscript=manuscript,
+            output_dir=output_dir,
+            citation_style=citation_style,
+            skip_html=skip_html,
+            skip_latex=skip_latex,
+            skip_docx=skip_docx,
+        ),
     )
 
 

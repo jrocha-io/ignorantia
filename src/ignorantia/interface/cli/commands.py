@@ -41,6 +41,7 @@ from ignorantia.application.use_cases.run_audit import RunAuditUseCase
 from ignorantia.application.use_cases.search_for_studies import (
     SearchForStudiesUseCase,
 )
+from ignorantia.domain.render.entities import ManuscriptDoc, Reference, Section
 from ignorantia.domain.render.value_objects import CitationStyle, OutputFormat
 from ignorantia.interface.cli import main as _main
 from ignorantia.interface.manifests import validate_manifest
@@ -164,10 +165,87 @@ def _resolve_audit_use_case(ctx: click.Context) -> RunAuditUseCase:
     show_default=True,
     help="Who is running the pipeline.",
 )
+@click.option(
+    "--input",
+    "input_path",
+    type=click.Path(exists=True, dir_okay=False, readable=True, path_type=Path),
+    default=None,
+    help=(
+        "Optional manuscript spec (JSON, same shape as `render --input`). "
+        "When supplied, the pipeline runs the HTML / LaTeX / DOCX render steps."
+    ),
+)
+@click.option(
+    "--output-dir",
+    "output_dir",
+    type=click.Path(file_okay=False, writable=True, path_type=Path),
+    default=None,
+    help="Output directory for render artefacts. Required with --input.",
+)
+@click.option(
+    "--citation-style",
+    "citation_style",
+    type=click.Choice([s.value for s in CitationStyle], case_sensitive=False),
+    default=CitationStyle.APA.value,
+    show_default=True,
+    help="Citation style used by every render step.",
+)
+@click.option(
+    "--skip-html",
+    is_flag=True,
+    default=False,
+    help="Drop the HTML render step from the registry.",
+)
+@click.option(
+    "--skip-latex",
+    is_flag=True,
+    default=False,
+    help="Drop the LaTeX render step from the registry.",
+)
+@click.option(
+    "--skip-docx",
+    is_flag=True,
+    default=False,
+    help="Drop the DOCX render step (use this when [docx] extra not installed).",
+)
 @click.pass_context
-def finalize(ctx: click.Context, actor: str) -> None:
-    """Run :class:`FinalizePipelineUseCase` and print the result DTO."""
-    use_case = _resolve_finalize_use_case(ctx)
+def finalize(
+    ctx: click.Context,
+    actor: str,
+    input_path: Path | None,
+    output_dir: Path | None,
+    citation_style: str,
+    skip_html: bool,
+    skip_latex: bool,
+    skip_docx: bool,
+) -> None:
+    """Run :class:`FinalizePipelineUseCase` and print the result DTO.
+
+    Two modes:
+
+    * Without ``--input``: runs the empty step registry — useful as a
+      smoke check that the executor + clock + JSON schema validation
+      are wired correctly.
+    * With ``--input`` + ``--output-dir``: runs the render pipeline
+      (HTML / LaTeX / DOCX, minus the ``--skip-*`` formats) over the
+      manuscript at ``--input``, writing artefacts under
+      ``--output-dir``.
+    """
+    if input_path is not None and output_dir is None:
+        raise click.BadParameter(
+            "--output-dir is required when --input is supplied.",
+            param_hint="--output-dir",
+        )
+
+    use_case = _resolve_finalize_use_case(
+        ctx,
+        input_path=input_path,
+        output_dir=output_dir,
+        citation_style=CitationStyle(citation_style.lower()),
+        skip_html=skip_html,
+        skip_latex=skip_latex,
+        skip_docx=skip_docx,
+    )
     command = FinalizePipelineCommand(actor=actor)
     result = use_case.execute(command)
     _emit(
@@ -193,15 +271,89 @@ def finalize(ctx: click.Context, actor: str) -> None:
     )
 
 
-def _resolve_finalize_use_case(ctx: click.Context) -> FinalizePipelineUseCase:
-    """Same injection seam as :func:`_resolve_audit_use_case`."""
+def _resolve_finalize_use_case(
+    ctx: click.Context,
+    *,
+    input_path: Path | None = None,
+    output_dir: Path | None = None,
+    citation_style: CitationStyle = CitationStyle.APA,
+    skip_html: bool = False,
+    skip_latex: bool = False,
+    skip_docx: bool = False,
+) -> FinalizePipelineUseCase:
+    """Resolve the pre-injected use case OR build one for the requested mode.
+
+    Tests inject under ``ctx.obj["finalize_use_case"]``. Production
+    chooses between the empty registry (no ``--input``) and the
+    render registry pinned to the supplied manuscript.
+    """
     obj: dict[str, Any] = ctx.ensure_object(dict)
     cached = obj.get("finalize_use_case")
     if isinstance(cached, FinalizePipelineUseCase):
         return cached
+    if input_path is not None and output_dir is not None:
+        spec = _read_manuscript_spec(input_path)
+        manuscript = _spec_to_manuscript(spec)
+        return _main.build_render_pipeline_use_case(
+            manuscript=manuscript,
+            output_dir=output_dir,
+            citation_style=citation_style,
+            skip_html=skip_html,
+            skip_latex=skip_latex,
+            skip_docx=skip_docx,
+        )
     use_case = _main.build_finalize_pipeline_use_case()
     obj["finalize_use_case"] = use_case
     return use_case
+
+
+def _spec_to_manuscript(spec: dict[str, Any]) -> ManuscriptDoc:
+    """Translate a wire-format manuscript JSON into a domain :class:`ManuscriptDoc`.
+
+    Reuses :func:`_build_render_command` so the manuscript shape is
+    identical to what the ``render`` subcommand consumes — the
+    ``finalize`` and ``render`` paths cannot drift.
+    """
+    command = _build_render_command(spec)
+    builder = (
+        ManuscriptDoc.builder()
+        .title(command.title)
+        .abstract(command.abstract)
+        .language(command.language)
+        .keywords(command.keywords)
+    )
+    for section in command.sections:
+        builder = builder.add_section(_section_dto_to_section(section))
+    for reference in command.references:
+        builder = builder.add_reference(_reference_dto_to_reference(reference))
+    return builder.build()
+
+
+def _section_dto_to_section(dto: SectionInputDto) -> Section:
+    return Section(id=dto.id, title=dto.title, body_md=dto.body_md)
+
+
+def _reference_dto_to_reference(dto: ReferenceInputDto) -> Reference:
+    return Reference(
+        type=dto.type,
+        title=dto.title,
+        authors=dto.authors,
+        year=dto.year,
+        venue=dto.venue,
+        volume=dto.volume,
+        issue=dto.issue,
+        pages=dto.pages,
+        doi=dto.doi,
+        url=dto.url,
+        accessed=dto.accessed,
+        location=dto.location,
+        publisher=dto.publisher,
+        chapter_title=dto.chapter_title,
+        book_editors=dto.book_editors,
+        program=dto.program,
+        institution=dto.institution,
+        language=dto.language,
+    )
 
 
 # ---------------------------------------------------------------------------
