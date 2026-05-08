@@ -8,10 +8,6 @@ Each subcommand:
 3. Calls ``use_case.execute(command)``.
 4. Prints the Result DTO in a stable, machine-readable form.
 
-The pattern is the same across subcommands so subsequent F7 PRs
-(``search``, ``render``, ``finalize``) just append a new command
-function.
-
 Test seam: each subcommand checks ``ctx.obj`` for a pre-wired use
 case before calling the production ``build_*`` factory. This lets
 tests inject a deterministic instance (frozen clock, stub services)
@@ -21,6 +17,7 @@ without monkey-patching the composition root.
 from __future__ import annotations
 
 import json
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +28,7 @@ from ignorantia.application.dtos import (
     ReferenceInputDto,
     RenderManuscriptCommand,
     RunAuditCommand,
+    SearchForStudiesCommand,
     SectionInputDto,
 )
 from ignorantia.application.use_cases.finalize_pipeline import (
@@ -40,6 +38,9 @@ from ignorantia.application.use_cases.render_manuscript import (
     RenderManuscriptUseCase,
 )
 from ignorantia.application.use_cases.run_audit import RunAuditUseCase
+from ignorantia.application.use_cases.search_for_studies import (
+    SearchForStudiesUseCase,
+)
 from ignorantia.domain.render.value_objects import CitationStyle, OutputFormat
 from ignorantia.interface.cli import main as _main
 
@@ -54,6 +55,12 @@ def register(cli: click.Group) -> None:
     cli.add_command(audit)
     cli.add_command(finalize)
     cli.add_command(render)
+    cli.add_command(search)
+
+
+# ---------------------------------------------------------------------------
+# audit
+# ---------------------------------------------------------------------------
 
 
 @click.command(
@@ -130,6 +137,11 @@ def _resolve_audit_use_case(ctx: click.Context) -> RunAuditUseCase:
     return use_case
 
 
+# ---------------------------------------------------------------------------
+# finalize
+# ---------------------------------------------------------------------------
+
+
 @click.command(
     "finalize",
     help="Run the pipeline finalisation steps and emit a JSON summary.",
@@ -181,6 +193,11 @@ def _resolve_finalize_use_case(ctx: click.Context) -> FinalizePipelineUseCase:
     use_case = _main.build_finalize_pipeline_use_case()
     obj["finalize_use_case"] = use_case
     return use_case
+
+
+# ---------------------------------------------------------------------------
+# render
+# ---------------------------------------------------------------------------
 
 
 @click.command(
@@ -337,3 +354,103 @@ def _resolve_render_use_case(
     if isinstance(cached, RenderManuscriptUseCase):
         return cached
     return _main.build_render_manuscript_use_case(output_format, citation_style)
+
+
+# ---------------------------------------------------------------------------
+# search
+# ---------------------------------------------------------------------------
+
+
+@click.command(
+    "search",
+    help="Run a multi-source search and emit a JSON summary.",
+    context_settings={"help_option_names": ["-h", "--help"]},
+)
+@click.option("--text", required=True, help="Free-text query string.")
+@click.option(
+    "--source",
+    "source_ids",
+    multiple=True,
+    required=True,
+    help="Adapter id (repeat to query multiple sources, e.g. --source arxiv --source openalex).",
+)
+@click.option(
+    "--year-start",
+    type=int,
+    default=None,
+    help="Inclusive lower bound on publication year.",
+)
+@click.option(
+    "--year-end",
+    type=int,
+    default=None,
+    help="Inclusive upper bound on publication year.",
+)
+@click.option(
+    "--language",
+    "languages",
+    multiple=True,
+    help="ISO 639-1 code (repeat for multiple). Empty means any language.",
+)
+@click.option(
+    "--output",
+    "output_path",
+    type=click.Path(dir_okay=False, writable=True, path_type=Path),
+    default=None,
+    help="Optional path to write the full per-source + dedup'd item list as JSON.",
+)
+@click.pass_context
+def search(
+    ctx: click.Context,
+    text: str,
+    source_ids: tuple[str, ...],
+    year_start: int | None,
+    year_end: int | None,
+    languages: tuple[str, ...],
+    output_path: Path | None,
+) -> None:
+    """Run :class:`SearchForStudiesUseCase` and print the result DTO."""
+    use_case = _resolve_search_use_case(ctx)
+    command = SearchForStudiesCommand(
+        text=text,
+        source_ids=tuple(source_ids),
+        year_start=year_start,
+        year_end=year_end,
+        languages=tuple(languages),
+    )
+    result = use_case.execute(command)
+
+    summary = {
+        "n_sources_ok": result.n_sources_ok,
+        "n_sources_errored": result.n_sources_errored,
+        "n_items_total": result.n_items_total,
+        "n_items_deduplicated": result.n_items_deduplicated,
+        "per_source_status": [
+            {
+                "source": s.source,
+                "method": s.method,
+                "n_items": len(s.items),
+                "total_results": s.total_results,
+            }
+            for s in result.per_source
+        ],
+    }
+    click.echo(json.dumps(summary, ensure_ascii=False))
+
+    if output_path is not None:
+        full = {
+            "per_source": [asdict(s) for s in result.per_source],
+            "deduplicated_items": [asdict(i) for i in result.deduplicated_items],
+        }
+        output_path.write_text(json.dumps(full, ensure_ascii=False), encoding="utf-8")
+
+
+def _resolve_search_use_case(ctx: click.Context) -> SearchForStudiesUseCase:
+    """Same injection seam as :func:`_resolve_audit_use_case`."""
+    obj: dict[str, Any] = ctx.ensure_object(dict)
+    cached = obj.get("search_use_case")
+    if isinstance(cached, SearchForStudiesUseCase):
+        return cached
+    use_case = _main.build_search_for_studies_use_case()
+    obj["search_use_case"] = use_case
+    return use_case
