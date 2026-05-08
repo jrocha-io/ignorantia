@@ -27,6 +27,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from _reference_helpers import render_reference_string  # noqa: E402
+
 try:
     from docx import Document
     from docx.shared import Cm, Pt, Inches
@@ -277,7 +280,7 @@ def render_docx_abnt(content: dict, output_path: Path,
         h = doc.add_paragraph(); h.add_run("Referências")
         _set_paragraph_abnt_heading(h)
         for r in refs:
-            p = doc.add_paragraph(r)
+            p = doc.add_paragraph(render_reference_string(r))
             _set_paragraph_abnt_reference(p)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)

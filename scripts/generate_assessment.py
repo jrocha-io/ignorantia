@@ -33,6 +33,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from _reference_helpers import extract_doi, extract_url  # noqa: E402
+
 # ── gate (Fix 9, RS-42 dogfood remediation) ──────────────────────────────────
 #
 # The assessor used to always exit 0, even when reporting eliminatórios or
@@ -355,7 +358,7 @@ def assess_d2_compliance(args, ctx):
 
         # 0.2 — citations have DOI
         refs = content.get("references", [])
-        with_doi = sum(1 for r in refs if r.get("doi") or r.get("url"))
+        with_doi = sum(1 for r in refs if extract_doi(r) or extract_url(r))
         if refs and with_doi / len(refs) >= 0.9:
             points += 0.2
             crit.append((f"0.2/0.2", f"Citations with DOI/URL: {with_doi}/{len(refs)}"))
