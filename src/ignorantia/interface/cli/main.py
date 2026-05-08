@@ -22,6 +22,9 @@ from ignorantia import __version__
 from ignorantia.application.use_cases.finalize_pipeline import (
     FinalizePipelineUseCase,
 )
+from ignorantia.application.use_cases.render_manuscript import (
+    RenderManuscriptUseCase,
+)
 from ignorantia.application.use_cases.run_audit import RunAuditUseCase
 from ignorantia.application.use_cases.search_for_studies import (
     SearchForStudiesUseCase,
@@ -29,10 +32,20 @@ from ignorantia.application.use_cases.search_for_studies import (
 from ignorantia.domain.audit.services import ManifestService
 from ignorantia.domain.pipeline.services import PipelineExecutor
 from ignorantia.domain.pipeline.value_objects import PipelineStep
+from ignorantia.domain.render.ports.citation_formatter_port import (
+    CitationFormatterPort,
+)
+from ignorantia.domain.render.ports.renderer_port import RendererPort
+from ignorantia.domain.render.value_objects import CitationStyle, OutputFormat
 from ignorantia.domain.search.services.search_orchestrator import (
     SearchOrchestrator,
 )
 from ignorantia.infrastructure.http_client import HttpClient
+from ignorantia.infrastructure.render.citation.factory import (
+    citation_formatter_for,
+)
+from ignorantia.infrastructure.render.html_renderer import HtmlRenderer
+from ignorantia.infrastructure.render.latex_renderer import LatexRenderer
 from ignorantia.infrastructure.search.adapter_factory import AdapterFactory
 
 
@@ -76,6 +89,45 @@ def build_finalize_pipeline_use_case() -> FinalizePipelineUseCase:
         executor=PipelineExecutor(clock=_real_clock),
         steps=build_pipeline_steps(),
     )
+
+
+def build_renderer(
+    output_format: OutputFormat,
+    formatter: CitationFormatterPort,
+) -> RendererPort:
+    """Map :class:`OutputFormat` to a concrete :class:`RendererPort`.
+
+    DOCX is behind the optional ``[docx]`` extra; importing the
+    DOCX renderer here is deferred until the user actually asks for
+    it so the CLI works end-to-end without ``python-docx`` installed
+    as long as the user does not pass ``--format docx``.
+    """
+    if output_format is OutputFormat.HTML:
+        return HtmlRenderer(formatter=formatter)
+    if output_format is OutputFormat.LATEX:
+        return LatexRenderer(formatter=formatter)
+    if output_format is OutputFormat.DOCX:
+        # Imported lazily so a deployment without python-docx still
+        # enjoys the HTML / LaTeX paths.
+        from ignorantia.infrastructure.render.docx_renderer import DocxRenderer
+
+        return DocxRenderer(formatter=formatter)
+    raise ValueError(f"unsupported output format: {output_format!r}")
+
+
+def build_render_manuscript_use_case(
+    output_format: OutputFormat,
+    citation_style: CitationStyle,
+) -> RenderManuscriptUseCase:
+    """Construct :class:`RenderManuscriptUseCase` with production wiring.
+
+    The format and citation style come from CLI options; the factory
+    threads them through the renderer / formatter ports without the
+    interface layer touching domain entities directly.
+    """
+    formatter = citation_formatter_for(citation_style)
+    renderer = build_renderer(output_format, formatter)
+    return RenderManuscriptUseCase(renderer=renderer, formatter=formatter)
 
 
 def _user_agent() -> str:
