@@ -500,6 +500,144 @@ A v2.8.0 aplicou esta decisão limpando:
 
 Releases futuras (v2.9.0+) farão varredura sistemática nos demais templates de modo (`assets/templates/modes/*.md`) e nos prompts gerados.
 
+### Decisão 34 — Protocolo de chunked write para SLRs grandes (registrado em v2.23.1, urgência alta)
+
+A Decisão 18 (v2.10.0) implementou renderização incremental em
+`scripts/render_chunks.py`, mas o uso operacional pelo Claude na
+sessão de chat ainda assumia produção do HTML completo numa única
+passada de resposta. Em SLRs com >5 seções OU >20 referências, a
+soma de (a) resultados de buscas web, (b) verificação de DOIs, (c)
+extração + síntese e (d) geração de prosa em uma única resposta
+estoura o budget de contexto antes de qualquer arquivo ser escrito
+em disco. Sintoma observado em RS-42 (2026-05-08): a sessão aborta
+com "Esta conversa não pode ser compactada ainda mais. Inicie um
+novo chat para continuar." sem produzir nenhum artefato.
+
+**Regra operacional vinculante**: SLRs que satisfaçam **qualquer**
+critério abaixo seguem o protocolo de chunked write:
+
+- ≥5 seções no manuscrito (introdução + métodos + resultados +
+  discussão + conclusão já satisfaz);
+- ≥20 referências no corpus final;
+- ≥3 web searches projetadas para a Fase 3;
+- modo `systematic_review_strict` (sempre).
+
+**Protocolo (vincula `Claude` em sessão chat, não código Python)**:
+
+1. **Persistir `searches.json` ANTES da síntese.** Toda Fase 3
+   (busca) escreve `<output_dir>/searches.json` em disco antes de
+   qualquer prosa ser gerada na resposta. O conteúdo do JSON
+   nunca volta para o contexto da resposta — apenas o
+   `searches.json` path é referenciado a partir da Fase 4.
+
+2. **Persistir `extraction.csv` e `quality-appraisal.csv` antes
+   da síntese narrativa.** A Fase 5/6 grava em CSV; a Fase 7 lê
+   o CSV via `python3 scripts/...` e produz prosa **uma seção
+   por vez**.
+
+3. **Renderização HTML por seções (chunked append).** Para cada
+   seção §00, §01, …, §N, invocar em chamada separada:
+
+   ```bash
+   python3 scripts/render_chunks.py \
+       --output-dir <out> \
+       --section §<N> \
+       --append \
+       --content <out>/content-section-<N>.json
+   ```
+
+   Cada chamada é uma round-trip independente. O HTML completo
+   nunca está no contexto da conversa — só o chunk corrente.
+
+4. **Render LaTeX/DOCX/PDF é uma única chamada de pipeline** que
+   lê `<out>/content.json` consolidado em disco (não o contexto):
+
+   ```bash
+   python3 scripts/pipeline_finalize.py \
+       --output-dir <out> \
+       --skip-html-chunks  # já gerados acima
+   ```
+
+5. **NUNCA acumular HTML completo no contexto da conversa.** Se a
+   resposta tiver mais de ~10 KB de prosa renderizada, particionar
+   antes de continuar. O Claude deve preferir "vou gerar a próxima
+   seção em uma chamada separada" a "vou continuar a redação aqui".
+
+**Verificação mecânica**: o pipeline_summary.json gerado deve
+mostrar `"steps": [...]` com `"render_html_chunks"` chamado N
+vezes (uma por seção) **OU** o Claude deve emitir a sequência
+correspondente de subprocess calls visíveis na transcrição.
+Sessões que produzem 0 chamadas a `render_chunks.py --append`
+mas alegam ter renderizado HTML são suspeitas — o usuário deve
+validar.
+
+Esta decisão **não substitui** a Decisão 18; ela formaliza o
+protocolo operacional que Claude segue para *invocar* o mecanismo
+incremental que a Decisão 18 já tinha disponível em código mas
+não estava sendo acionado.
+
+### Decisão 35 — Budget guardrails operacionais por fase (registrado em v2.23.1)
+
+Complementa a Decisão 34 (chunked write) com **limites mecânicos
+por fase** que o Claude verifica em sessão de chat antes de
+prosseguir. O objetivo não é blindar o pipeline contra abuso (não
+há atacante); é dar ao Claude pontos de decisão claros onde optar
+por externalizar trabalho em vez de continuar acumulando no
+contexto.
+
+#### Fase 3 — Buscas web
+
+* **Máximo 5 web searches por execução de SLR** quando a sessão
+  está conduzindo o pipeline diretamente. SLRs maiores devem
+  receber a lista de queries pré-pesquisada via
+  `<output_dir>/searches.json` gerado em sessão anterior.
+* Se a Fase 3 efetiva exigir >5 queries, parar, escrever a lista
+  em `<output_dir>/queries-pending.txt`, recomendar ao usuário
+  rodar `python3 scripts/searches/search_orchestrator.py --batch
+  <queries-pending.txt>` em terminal (subprocess longo fora do
+  chat), e aguardar o `searches.json` consolidado.
+
+#### Fase 6 — Extração
+
+* **Máximo 30 referências processadas em uma única resposta**.
+  Para >30, processar em lotes de 25 escrevendo
+  `extraction.csv` incrementalmente (modo `--append`); cada lote
+  é uma chamada subprocess separada, não uma resposta longa.
+* O CSV vai pra disco a cada lote; o contexto da conversa
+  guarda só o caminho `<output_dir>/extraction.csv`, não os
+  registros.
+
+#### Fase 7 — Síntese narrativa
+
+* **Máximo 1 seção por resposta**. Cada `<section>` HTML é uma
+  chamada subprocess a `render_chunks.py --append --section §<N>`
+  conforme Decisão 34.
+* Se a resposta corrente já tem >10 KB de prosa renderizada,
+  parar antes de iniciar a próxima seção e ceder o controle de
+  volta ao usuário com a próxima seção como próximo passo
+  explicitado.
+
+#### Fase 8 — Empacotamento Zenodo
+
+* Empacotamento final é uma única chamada a
+  `python3 scripts/slr_to_package.py --output-dir <out>`. O
+  conteúdo do ZIP nunca volta ao contexto da conversa — apenas
+  o caminho do `.zip` e o SHA-256 calculado.
+
+#### Verificação mecânica
+
+A Decisão 35 é vinculante mas **não tem teste pytest** — é uma
+diretriz operacional para sessões interativas. A verificação é
+indireta:
+
+* **`pipeline_summary.json`** mostra quantas chamadas a
+  `render_chunks.py --append` ocorreram. Sessões que afirmam ter
+  processado SLR grande mas mostram <N seções no summary são
+  suspeitas.
+* **Logs de adapter (Camada 1, DD-10)** registram timestamps das
+  buscas. Mais de 5 timestamps próximos numa SLR pequena indica
+  que a Fase 3 não foi externalizada.
+
 ## Infraestrutura de comparação automatizada (v2.5.0 — Etapa 4b)
 
 A v2.5.0 adicionou `scripts/comparison/` — andaime reprodutível para comparar a `ignorantia` contra baselines de SLR tooling (B!SON, JANE, ASReview LAB v2, Penelope.ai e snapshots manuais de recommenders comerciais). Conforme `scripts/comparison/PROTOCOL.md`:
