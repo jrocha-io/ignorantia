@@ -27,7 +27,9 @@ classifiers = [
     "Topic :: Text Processing :: Markup :: HTML",
     "Topic :: Text Processing :: Markup :: LaTeX",
 ]
-dependencies = []
+dependencies = [
+    "click>=8.1",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -42,6 +44,9 @@ dev = [
 ]
 docx = ["python-docx>=1.0"]
 all = ["ignorantia[dev,docx]"]
+
+[project.scripts]
+ignorantia = "ignorantia.interface.cli.main:cli"
 
 [project.urls]
 Repository = "https://github.com/jrocha-io/ignorantia"
@@ -151,8 +156,18 @@ module = "scripts.*"
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = ["pytest", "hypothesis", "hypothesis.*", "docx", "docx.*"]
+module = ["pytest", "hypothesis", "hypothesis.*", "docx", "docx.*", "click", "click.*"]
 ignore_missing_imports = true
+
+# Click decorators erase function type information under
+# ignore_missing_imports — untyped-decorator fires on every @click
+# call. The interface/cli module is the *only* place we use Click,
+# and its public surface is the CliRunner-driven test suite, so we
+# accept untyped decorators locally and keep the rest of the project
+# strict.
+[[tool.mypy.overrides]]
+module = ["ignorantia.interface.cli.*"]
+disallow_untyped_decorators = false
 
 # ----------------------------------------------------------------------
 # coverage
