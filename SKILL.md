@@ -324,7 +324,15 @@ Esta decisão é vinculante e mecanicamente verificável. A v2.8.0 limpou:
 - `assets/templates/manuscript-template.html`: removido `<title>... ignorantia v...`, `<meta generator="ignorantia v...">`, brand "ignorantia" no topbar e footer.
 - `scripts/render_manuscript.py`: removido default `"ignorantia v..."` no campo `interface` do AI disclosure (substituído pelo padrão segredo industrial).
 
-A v2.10.0 adicionará teste mecânico `test_decision_19_no_skill_leakage_in_manuscript` que parseia o `manuscript.html` final e falha o build se qualquer dos termos proibidos aparecer no output renderizado.
+A v2.10.0 adicionou teste mecânico que parseia o template final e falha o build se a string literal `"ignorantia"` aparecer. **A v2.23.1 (Fix 10 do RS-42 remediation) expande o escopo** com `scripts/check_decision_19_vocabulary.py`, que vetta uma **família** de leakages encontrados no dogfood RS-42 v1.0.0:
+
+- **SemVer rhetoric** (`v1.0.0`, `v1.1.0`) — texto acadêmico diz "future work", não "v1.1.0".
+- **Referência procedural interna** (`Decisão 8 do protocolo`, `Decisão 22`) — atribui as escolhas metodológicas a um item de checklist em vez do pesquisador.
+- **Classificação interna** (`Categoria A`, `Categoria B`) — taxonomia de mitigações é metadado, não prosa.
+- **Nomes literais de campos JSON** (`review_purpose`, `purpose_per_stage`, `human_oversight`, `execution_method`, etc.) — pertencem ao metadado, não à voz acadêmica.
+- **Brand `ignorantia`** consolidado sob o mesmo verificador.
+
+O verificador é binding: exit code 2 quando há qualquer violação. Deve ser encadeado via `&&` antes do empacotamento Zenodo. Cobertura mecânica em `tests/integration/test_v2231_decision_19_vocabulary.py` (17 casos, incluindo regressão direta com frases extraídas literalmente do RS-42 v1.0.0). LaTeX preamble é ignorado para não falsificar com `\\usepackage[utf8]`.
 
 ### Decisão 20 — Voz autoral padrão (persona) registrada (v2.8.0)
 
@@ -757,6 +765,7 @@ INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
 GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo.
+EXECUTE antes do empacotamento Zenodo `python3 scripts/check_decision_19_vocabulary.py <output_dir>/manuscript.tex` — gate de Decisão 19 (Fix 10 do RS-42 remediation) que vetta SemVer rhetoric, referências `Decisão N do protocolo`, classificação `Categoria A/B` e nomes literais de campos JSON na voz acadêmica. Exit code 2 em qualquer violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com 28 violações.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
 DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
 DECLARE no metadado o `review_purpose` (design_foundational | design_validation | design_correction | independent_inquiry) — Decisão 8 v2.0.
