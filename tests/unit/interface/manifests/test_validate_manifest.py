@@ -26,13 +26,14 @@ from ignorantia.interface.manifests import (
 
 
 class TestKnownManifests:
-    def test_all_four_subcommand_manifests_registered(self) -> None:
+    def test_all_subcommand_manifests_registered(self) -> None:
         names = set(known_manifests())
         assert names == {
             "audit_result",
             "finalize_pipeline_result",
             "render_result",
             "search_result",
+            "search_full_result",
         }
 
 

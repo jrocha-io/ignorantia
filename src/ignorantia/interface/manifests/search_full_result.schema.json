@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/blob/main/src/ignorantia/interface/manifests/search_full_result.schema.json",
+  "title": "SearchFullResultManifest",
+  "description": "Stable wire format for the JSON file written by `ignorantia search --output PATH`. Carries the per-source + deduplicated DTOs in their full DTO shape (vs the stdout-summary covered by search_result.schema.json).",
+  "type": "object",
+  "required": ["per_source", "deduplicated_items"],
+  "additionalProperties": false,
+  "properties": {
+    "per_source": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/source_result"}
+    },
+    "deduplicated_items": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/fetched_item"}
+    }
+  },
+  "$defs": {
+    "source_result": {
+      "type": "object",
+      "required": ["source", "source_tier", "method", "items", "total_results"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "source_tier": {"type": "string", "enum": ["tier0", "tier1", "tier2", "tier3"]},
+        "method": {"type": "string", "enum": ["mock", "real", "real_partial", "real_error"]},
+        "total_results": {"type": "integer", "minimum": 0},
+        "items": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/fetched_item"}
+        }
+      }
+    },
+    "fetched_item": {
+      "type": "object",
+      "required": ["title", "source_tier"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "source_tier": {"type": "string", "enum": ["tier0", "tier1", "tier2", "tier3"]},
+        "authors": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "year": {"type": ["integer", "null"]},
+        "doi": {"type": ["string", "null"]},
+        "issn": {"type": ["string", "null"]},
+        "isbn": {"type": ["string", "null"]},
+        "venue": {"type": ["string", "null"]},
+        "language": {"type": "string"},
+        "is_oa": {"type": "boolean"},
+        "url": {"type": ["string", "null"]},
+        "url_for_pdf": {"type": ["string", "null"]},
+        "abstract": {"type": "string"},
+        "publication_type": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

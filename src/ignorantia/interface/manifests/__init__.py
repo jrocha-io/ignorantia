@@ -37,6 +37,7 @@ _SCHEMA_FILES: dict[str, str] = {
     "finalize_pipeline_result": "finalize_pipeline_result.schema.json",
     "render_result": "render_result.schema.json",
     "search_result": "search_result.schema.json",
+    "search_full_result": "search_full_result.schema.json",
 }
 
 
