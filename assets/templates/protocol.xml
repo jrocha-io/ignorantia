@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="protocol" path="assets/templates/protocol.md" type="template" lang="pt-BR">
+  <title>Protocolo de Revisão Sistemática — Template</title>
+  <markdown><![CDATA[
 # Protocolo de Revisão Sistemática — Template
 
 **Título:** [Título da SLR]
@@ -217,3 +221,6 @@ Qualquer alteração após o pré-registro deve ser registrada nesta seção com
 | Versão | Data | Mudança | Justificativa |
 |--------|------|---------|---------------|
 | 1.0 | | Protocolo inicial | — |
+
+  ]]></markdown>
+</doc>

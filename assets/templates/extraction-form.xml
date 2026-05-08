@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="extraction-form" path="assets/templates/extraction-form.md" type="template" lang="pt-BR">
+  <title>Formulário de extração — Template</title>
+  <markdown><![CDATA[
 # Formulário de extração — Template
 
 Um registro por estudo incluído. Salvar como CSV (ou XLSX) com colunas correspondentes a cada campo. Para SLRs grandes, usar planilha com filtros.
@@ -58,3 +62,6 @@ Adicionar conforme natureza do tema:
 study_id,citation,doi,year,venue,country,study_type,design,population,sample_size,intervention,comparator,outcomes_primary,methods,limitations_declared,qa_score,rq_addressed
 S01,"Silva JP et al. ...",10.1590/ES.250214,2024,Educação & Sociedade,Brasil,Empírico-quantitativo,RCT,"Idosos 65+ alfabetizados",120,"Curso de informática básica via celular","Curso tradicional em laboratório","Adesão 87% vs 64%; ganho médio em letramento digital +18pp (p<0.001)","RCT 12 semanas; pré/pós com escala validada","Amostra única-cidade; sem follow-up >3 meses",4.5,"RQ1, RQ2.1"
 ```
+
+  ]]></markdown>
+</doc>

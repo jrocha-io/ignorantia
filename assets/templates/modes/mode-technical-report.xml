@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-technical-report" path="assets/templates/modes/mode-technical-report.md" type="template" lang="pt-BR">
+  <title>Mode template — Technical Report</title>
+  <markdown><![CDATA[
 # Mode template — Technical Report
 
 > Aplica-se quando `review_type: technical_report` no metadado.
@@ -151,3 +155,6 @@ section_508_compliant: false
 - Technical Reports têm DOI persistente quando depositados em Zenodo/arXiv — são citáveis como referência.
 - O padrão ANSI/NISO Z39.18 é o de fato no mundo NIST/agências federais EUA. Adotá-lo dá ao relatório aparência profissional consistente.
 - Não confundir com White Paper: White Paper é mais prescritivo, dirigido a formuladores de política. Technical Report é mais documental, dirigido a comunidade técnica.
+
+  ]]></markdown>
+</doc>

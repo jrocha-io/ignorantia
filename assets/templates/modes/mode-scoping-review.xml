@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-scoping-review" path="assets/templates/modes/mode-scoping-review.md" type="template" lang="pt-BR">
+  <title>Mode template — AI-Assisted Scoping Review</title>
+  <markdown><![CDATA[
 # Mode template — AI-Assisted Scoping Review
 
 > Aplica-se quando `review_type: scoping_review` no metadado do manuscrito.
@@ -62,3 +66,6 @@ ai_dual_check_sample_pct: 15  # mínimo recomendado
 two_reviewer_kappa_documented: false
 title_must_contain: "Scoping Review"  # ou "scoping" em PT/ES
 ```
+
+  ]]></markdown>
+</doc>

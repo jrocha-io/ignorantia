@@ -204,19 +204,22 @@ def test_all_10_mode_profiles_exist():
 
 
 def test_all_10_mode_templates_exist():
-    """assets/templates/modes/mode-*.md deve existir para os 10 modos."""
+    """assets/templates/modes/mode-*.xml deve existir para os 10 modos.
+
+    Fix 18 / Phase 5: source-of-truth migrated from .md to .xml.
+    """
     tpl_dir = Path(__file__).parent.parent.parent / "assets" / "templates" / "modes"
     expected_files = [
-        "mode-scoping-review.md",
-        "mode-rapid-review.md",
-        "mode-mapping-study.md",
-        "mode-systematic-review-strict.md",
-        "mode-software-paper.md",
-        "mode-position-paper.md",
-        "mode-technical-report.md",
-        "mode-white-paper.md",
-        "mode-integrative-review.md",
-        "mode-realist-review.md",
+        "mode-scoping-review.xml",
+        "mode-rapid-review.xml",
+        "mode-mapping-study.xml",
+        "mode-systematic-review-strict.xml",
+        "mode-software-paper.xml",
+        "mode-position-paper.xml",
+        "mode-technical-report.xml",
+        "mode-white-paper.xml",
+        "mode-integrative-review.xml",
+        "mode-realist-review.xml",
     ]
     for f in expected_files:
         assert (tpl_dir / f).exists(), f"Faltando: {f}"

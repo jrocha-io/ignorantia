@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-rapid-review" path="assets/templates/modes/mode-rapid-review.md" type="template" lang="pt-BR">
+  <title>Mode template — AI-Assisted Rapid Review</title>
+  <markdown><![CDATA[
 # Mode template — AI-Assisted Rapid Review
 
 > Aplica-se quando `review_type: rapid_review` no metadado do manuscrito.
@@ -71,3 +75,6 @@ intended_for_decision_context: "[specify]"
 ## Importante
 
 Rapid Review é o modo de uso provável mais comum em projetos evidence-led com prazo apertado de decisão. Mas o termo "rapid" NÃO autoriza relaxamento metodológico — autoriza apenas single-reviewer + busca limitada + appraisal simplificado, todos com transparência total. Os 5 pontos da §03.x acima são parte indissociável do que torna o rapid honesto.
+
+  ]]></markdown>
+</doc>

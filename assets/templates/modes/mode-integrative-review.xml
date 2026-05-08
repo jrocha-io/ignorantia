@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-integrative-review" path="assets/templates/modes/mode-integrative-review.md" type="template" lang="pt-BR">
+  <title>Mode template — Integrative Review</title>
+  <markdown><![CDATA[
 # Mode template — Integrative Review
 
 > Aplica-se quando `review_type: integrative_review` no metadado.
@@ -142,3 +146,6 @@ prospero_or_osf_registration_id: ""  # opcional mas recomendado
 - Para temas brasileiros, é frequentemente o **formato mais publicável** dada a escassez de A1 internacionais OA-gratuitos e a frequência com que a literatura mistura tipos de estudo.
 - Diferença vs Scoping Review: Scoping mapeia extensão (descritivo); Integrative sintetiza substantivamente (interpretativo).
 - Diferença vs SR: SR exige homogeneidade metodológica + 2 revisores humanos; Integrative aceita heterogeneidade + single-reviewer.
+
+  ]]></markdown>
+</doc>
