@@ -43,6 +43,19 @@ from ignorantia.application.use_cases.search_for_studies import (
 )
 from ignorantia.domain.render.value_objects import CitationStyle, OutputFormat
 from ignorantia.interface.cli import main as _main
+from ignorantia.interface.manifests import validate_manifest
+
+
+def _emit(manifest_name: str, payload: dict[str, Any]) -> None:
+    """Validate ``payload`` against ``manifest_name``'s schema, then echo it.
+
+    Per ``V3_ARCHITECTURE_PLAN.md``: every CLI subcommand validates
+    its JSON output before printing it. Drift in the DTO surface
+    (or its serialisation) trips the validator and fails the run
+    loudly rather than shipping a new wire format silently.
+    """
+    validate_manifest(manifest_name, payload)
+    click.echo(json.dumps(payload, ensure_ascii=False))
 
 
 def register(cli: click.Group) -> None:
@@ -109,15 +122,13 @@ def audit(ctx: click.Context, action: str, actor: str, payload: str) -> None:
     use_case = _resolve_audit_use_case(ctx)
     command = RunAuditCommand(action=action, actor=actor, payload=payload_obj)
     result = use_case.execute(command)
-    click.echo(
-        json.dumps(
-            {
-                "timestamp_iso8601": result.timestamp_iso8601,
-                "action": result.action,
-                "manifest_size": result.manifest_size,
-            },
-            ensure_ascii=False,
-        )
+    _emit(
+        "audit_result",
+        {
+            "timestamp_iso8601": result.timestamp_iso8601,
+            "action": result.action,
+            "manifest_size": result.manifest_size,
+        },
     )
 
 
@@ -159,28 +170,26 @@ def finalize(ctx: click.Context, actor: str) -> None:
     use_case = _resolve_finalize_use_case(ctx)
     command = FinalizePipelineCommand(actor=actor)
     result = use_case.execute(command)
-    click.echo(
-        json.dumps(
-            {
-                "started_at_iso8601": result.started_at_iso8601,
-                "finished_at_iso8601": result.finished_at_iso8601,
-                "n_ok": result.n_ok,
-                "n_skipped": result.n_skipped,
-                "n_errors": result.n_errors,
-                "final_artifacts": list(result.final_artifacts),
-                "is_successful": result.is_successful,
-                "steps": [
-                    {
-                        "name": s.name,
-                        "status": s.status,
-                        "message": s.message,
-                        "artifact": s.artifact,
-                    }
-                    for s in result.steps
-                ],
-            },
-            ensure_ascii=False,
-        )
+    _emit(
+        "finalize_pipeline_result",
+        {
+            "started_at_iso8601": result.started_at_iso8601,
+            "finished_at_iso8601": result.finished_at_iso8601,
+            "n_ok": result.n_ok,
+            "n_skipped": result.n_skipped,
+            "n_errors": result.n_errors,
+            "final_artifacts": list(result.final_artifacts),
+            "is_successful": result.is_successful,
+            "steps": [
+                {
+                    "name": s.name,
+                    "status": s.status,
+                    "message": s.message,
+                    "artifact": s.artifact,
+                }
+                for s in result.steps
+            ],
+        },
     )
 
 
@@ -259,15 +268,13 @@ def render(
     use_case = _resolve_render_use_case(ctx, fmt, style)
     result = use_case.execute(command)
     output_path.write_bytes(result.artifact_bytes)
-    click.echo(
-        json.dumps(
-            {
-                "output_format": result.output_format,
-                "byte_size": result.byte_size,
-                "output_path": str(output_path),
-            },
-            ensure_ascii=False,
-        )
+    _emit(
+        "render_result",
+        {
+            "output_format": result.output_format,
+            "byte_size": result.byte_size,
+            "output_path": str(output_path),
+        },
     )
 
 

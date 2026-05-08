@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/blob/main/src/ignorantia/interface/manifests/render_result.schema.json",
+  "title": "RenderResultManifest",
+  "description": "Stable wire format for the JSON line emitted by `ignorantia render` after writing the artefact bytes to --output.",
+  "type": "object",
+  "required": ["output_format", "byte_size", "output_path"],
+  "additionalProperties": false,
+  "properties": {
+    "output_format": {
+      "type": "string",
+      "enum": ["html", "docx", "latex"]
+    },
+    "byte_size": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Length of the artefact in bytes."
+    },
+    "output_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Filesystem path the artefact was written to."
+    }
+  }
+}

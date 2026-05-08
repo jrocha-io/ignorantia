@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/blob/main/src/ignorantia/interface/manifests/search_result.schema.json",
+  "title": "SearchResultManifest",
+  "description": "Stable wire format for the JSON summary emitted by `ignorantia search` on stdout. The full --output payload uses the per-source DTO shape; this schema covers the on-stdout summary only.",
+  "type": "object",
+  "required": [
+    "n_sources_ok",
+    "n_sources_errored",
+    "n_items_total",
+    "n_items_deduplicated",
+    "per_source_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "n_sources_ok": {"type": "integer", "minimum": 0},
+    "n_sources_errored": {"type": "integer", "minimum": 0},
+    "n_items_total": {"type": "integer", "minimum": 0},
+    "n_items_deduplicated": {"type": "integer", "minimum": 0},
+    "per_source_status": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "method", "n_items", "total_results"],
+        "additionalProperties": false,
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "method": {
+            "type": "string",
+            "enum": ["mock", "real", "real_partial", "real_error"]
+          },
+          "n_items": {"type": "integer", "minimum": 0},
+          "total_results": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}
