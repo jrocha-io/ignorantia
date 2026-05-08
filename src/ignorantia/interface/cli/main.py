@@ -23,9 +23,17 @@ from ignorantia.application.use_cases.finalize_pipeline import (
     FinalizePipelineUseCase,
 )
 from ignorantia.application.use_cases.run_audit import RunAuditUseCase
+from ignorantia.application.use_cases.search_for_studies import (
+    SearchForStudiesUseCase,
+)
 from ignorantia.domain.audit.services import ManifestService
 from ignorantia.domain.pipeline.services import PipelineExecutor
 from ignorantia.domain.pipeline.value_objects import PipelineStep
+from ignorantia.domain.search.services.search_orchestrator import (
+    SearchOrchestrator,
+)
+from ignorantia.infrastructure.http_client import HttpClient
+from ignorantia.infrastructure.search.adapter_factory import AdapterFactory
 
 
 def _real_clock() -> str:
@@ -68,6 +76,36 @@ def build_finalize_pipeline_use_case() -> FinalizePipelineUseCase:
         executor=PipelineExecutor(clock=_real_clock),
         steps=build_pipeline_steps(),
     )
+
+
+def _user_agent() -> str:
+    """Return the User-Agent string the production HTTP client uses."""
+    return f"ignorantia/{__version__} (+https://github.com/jrocha-io/ignorantia)"
+
+
+def build_http_client() -> HttpClient:
+    """Construct a production :class:`HttpClient`.
+
+    Defaults are conservative: 30s timeout, 1s minimum throttle
+    between requests, 3 retries. CLI / pipeline knobs to override
+    these can be added when the use case demands.
+    """
+    return HttpClient(
+        user_agent=_user_agent(),
+        timeout_s=30.0,
+        throttle_s=1.0,
+        max_retries=3,
+    )
+
+
+def build_search_for_studies_use_case() -> SearchForStudiesUseCase:
+    """Construct :class:`SearchForStudiesUseCase` with production wiring.
+
+    Wires the real :class:`AdapterFactory` (which exposes every
+    registered search adapter) behind a :class:`SearchOrchestrator`.
+    """
+    factory = AdapterFactory(http=build_http_client())
+    return SearchForStudiesUseCase(orchestrator=SearchOrchestrator(factory))
 
 
 @click.group(
