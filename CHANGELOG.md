@@ -87,19 +87,19 @@ para a verificação mecânica detalhada. Resumo:
 - ✅ CHANGELOG completo com migration guide v2 → v3
 - ✅ Tutorial: SLR do zero compila em <30 minutos
 - ✅ Cowork mencionado como roadmap v4, não implementado
-- ⚠️ 58 / 62 adapters migrados (4 carry-over para v3.0.0 stable)
+- ✅ 58 search adapters (`AdapterFactory`) + 2 Tier-0 OA resolvers
+  (`OaResolverFactory`) — paridade com v2 (a contagem v2 original
+  de "62 adapters" misturava as duas portas; em v3 estão separadas)
 - ⚠️ RS-42 dogfooding: deferido para sprint entre rc1 e estável
 
 ### Pendências para v3.0.0 estável
 
-1. Migrar os 4 adapters restantes (`dimensions`, `oa_button`,
-   `embase_full`, `latindex`) para o registry v3.
-2. Sprint de dogfooding RS-42 — execução real-network dos 58
+1. Sprint de dogfooding RS-42 — execução real-network dos 58
    adapters + ciclo `render` → `finalize` completo.
-3. Migrar steps concretos do `scripts/pipeline_finalize.py` para
+2. Migrar steps concretos do `scripts/pipeline_finalize.py` para
    `infrastructure/pipeline/` (v3 `finalize` roda registry vazio
    no rc1).
-4. Bump de `version` em `pyproject.toml` de `2.23.0` para `3.0.0`
+3. Bump de `version` em `pyproject.toml` de `2.23.0` para `3.0.0`
    após dogfooding sign-off.
 
 ### Métricas
