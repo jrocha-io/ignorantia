@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/blob/main/src/ignorantia/interface/manifests/audit_result.schema.json",
+  "title": "AuditResultManifest",
+  "description": "Stable wire format for the JSON line emitted by `ignorantia audit`. Mirrors application.dtos.RunAuditResult.",
+  "type": "object",
+  "required": ["timestamp_iso8601", "action", "manifest_size"],
+  "additionalProperties": false,
+  "properties": {
+    "timestamp_iso8601": {
+      "type": "string",
+      "minLength": 1,
+      "description": "When the entry was recorded (ISO-8601 UTC, e.g. 2026-05-07T22:30:00Z)."
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable action identifier (e.g. 'search.run')."
+    },
+    "manifest_size": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of entries in the manifest after the new entry was appended."
+    }
+  }
+}

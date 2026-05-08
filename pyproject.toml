@@ -29,6 +29,7 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.1",
+    "jsonschema>=4.0",
 ]
 
 [project.optional-dependencies]
@@ -40,7 +41,6 @@ dev = [
     "bandit>=1.7",
     "pip-audit>=2.7",
     "hypothesis>=6.92",
-    "jsonschema>=4.0",
 ]
 docx = ["python-docx>=1.0"]
 all = ["ignorantia[dev,docx]"]
@@ -156,7 +156,7 @@ module = "scripts.*"
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = ["pytest", "hypothesis", "hypothesis.*", "docx", "docx.*", "click", "click.*"]
+module = ["pytest", "hypothesis", "hypothesis.*", "docx", "docx.*", "click", "click.*", "jsonschema", "jsonschema.*"]
 ignore_missing_imports = true
 
 # Click decorators erase function type information under

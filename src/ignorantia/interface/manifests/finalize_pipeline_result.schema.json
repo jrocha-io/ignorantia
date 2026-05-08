@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/blob/main/src/ignorantia/interface/manifests/finalize_pipeline_result.schema.json",
+  "title": "FinalizePipelineResultManifest",
+  "description": "Stable wire format for the JSON line emitted by `ignorantia finalize`. Mirrors application.dtos.FinalizePipelineResult.",
+  "type": "object",
+  "required": [
+    "started_at_iso8601",
+    "finished_at_iso8601",
+    "n_ok",
+    "n_skipped",
+    "n_errors",
+    "final_artifacts",
+    "is_successful",
+    "steps"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "started_at_iso8601": {"type": "string", "minLength": 1},
+    "finished_at_iso8601": {"type": "string", "minLength": 1},
+    "n_ok": {"type": "integer", "minimum": 0},
+    "n_skipped": {"type": "integer", "minimum": 0},
+    "n_errors": {"type": "integer", "minimum": 0},
+    "final_artifacts": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "is_successful": {"type": "boolean"},
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "message", "artifact"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "status": {
+            "type": "string",
+            "enum": ["ok", "skipped", "error"]
+          },
+          "message": {"type": "string"},
+          "artifact": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}
