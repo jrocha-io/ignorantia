@@ -344,6 +344,13 @@ A skill opera como ghostwriter sob uma voz autoral padrão registrada. Esta voz 
 
 A persona é instrução para o ghostwriter, não personagem do paper. O pesquisador real (declarado no protocolo) é quem assina; a persona é o estilo do raciocínio textual.
 
+**Adendo de manutenção (v2.23.1, Fix 12 do RS-42 remediation):** o dogfood de 2026-05-08 revelou que a Decisão 20 era seguida só intermitentemente — o consumidor lia o texto descritivo e ainda escrevia `Phase 3 invocou search_orchestrator.py` no manuscrito. A causa: nada na skill tornava a persona mecanicamente acionável. A correção introduziu duas camadas (não documentadas aqui na seção descritiva, mas no corpo operacional da skill):
+
+- `assets/templates/persona-voice.md` — scaffold pareado anti-padrão ↔ persona, lido pelo consumidor na Fase 7. Operação detalhada em `<mandatories>` e na seção de fluxo de trabalho.
+- `scripts/check_persona_voice.py` — verificador heurístico advisory/strict. Operação detalhada em `<mandatories>`.
+
+**Para quem mantém esta skill:** a Decisão 20 sozinha não bloqueia o vazamento de voz; o scaffold + verificador são o caminho mecânico. Remover qualquer um deles re-abre o anti-padrão observado no dogfood RS-42 v1.0.0.
+
 ### Decisão 21 — Spot-check humano da Fase 4 = aceite implícito ao prosseguir (registrado em v2.8.0)
 
 A rubrica de qualidade anterior penalizava o autor por "não conduzir spot-check humano nas exclusões da Fase 4 (screening de título/abstract)". Essa exigência é redundante: ao prosseguir do screening para a extração, o usuário **já está revisando manualmente** os elegíveis e **já está aceitando** as exclusões. Tornar isso explícito como auditoria separada é burocracia sem ganho de qualidade.
@@ -756,6 +763,8 @@ PERGUNTE ao usuário, no início, se há acesso institucional a Scopus/WoS/IEEE 
 INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN) em §03 ou §03.x do manuscrito, listando ferramenta, versão, etapas e responsabilidade humana.
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
+LEIA `assets/templates/persona-voice.md` no início da Fase 7, **antes de gerar `content.json`** (Decisão 40, Fix 12 do RS-42 remediation). O scaffold contém anti-padrões pareados extraídos do dogfood RS-42 e checklist pré/pós-escrita de 5 perguntas que torna a Decisão 20 acionável. Não copiar trechos para o manuscrito — o scaffold é instrução, não conteúdo.
+EXECUTE durante a Fase 7 `python3 scripts/check_persona_voice.py <output_dir>/manuscript.tex` em modo advisory para diagnosticar warnings de voz; reescrever os parágrafos sinalizados antes de prosseguir. Adicionar `--strict` ao chain pré-empacotamento (Fase 8) para falhar com exit 2 se a voz ainda vazar.
 GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
 DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
