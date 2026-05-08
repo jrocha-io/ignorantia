@@ -2,9 +2,12 @@
 
 > Construção de revisões sistemáticas de literatura (SLR) PRISMA-2020 do mais alto nível, com saída em HTML interativo auto-contido, versionada e auditável.
 
-**Versão:** 2.23.0 · **Status:** estável (cobertura premium completa; pipeline integra preâmbulo contextual; schema unificado mock vs real; source_tier Liskov-conforme; USER_AGENT centralizado; orquestrador gera summary; pipeline com registry de steps)
+**Versão:** 2.23.0 (estável) + v3.0.0-alpha (Clean Architecture em integração — domain/application/infrastructure/interface bounded contexts, Click CLI, JSON-schema validados em runtime).
 
-**Estado quantitativo:** 62 adapters de busca · 57 TIER1_RUNNERS · 7 áreas · 16 paywall com cascata legal · 6 etapas no pipeline_finalize · 13 DDs (todas implementadas) · 33 decisões editoriais · 359+ testes regressão verde.
+**Estado quantitativo (v2):** 62 adapters de busca · 57 TIER1_RUNNERS · 7 áreas · 16 paywall com cascata legal · 6 etapas no `pipeline_finalize` · 13 DDs · 33 decisões editoriais.
+**Estado quantitativo (v3):** 4 bounded contexts · 4 use cases · 4 subcomandos CLI · 4 JSON-schemas · 2127+ testes verde.
+
+➡️ Migrando da v2? Comece por **[`docs/MIGRATION_v2_TO_v3.md`](docs/MIGRATION_v2_TO_v3.md)**.
 
 ## O que é
 
@@ -21,7 +24,46 @@ Diferenciais:
 - **SemVer imutável.** Cada saída é uma versão fechada. Versões antigas permanecem como registro histórico.
 - **Compliance acadêmica completa.** Portaria CNPq 2.664/2026, COPE, ICMJE, LGPD, CEP/CONEP, declarações obrigatórias de uso de IA.
 
-## Quickstart
+## Quickstart (v3 CLI — recomendado)
+
+Instalação e primeiro uso em <5 minutos:
+
+```bash
+# 1. Instalar (com extras opcionais — [docx] ativa exportação .docx)
+pip install -e '.[dev,docx]'
+
+# 2. Verificar instalação
+ignorantia --version
+ignorantia --help
+
+# 3. Renderizar um manuscrito JSON em HTML (escolha citation-style)
+ignorantia render \
+    --input meu-manuscrito.json \
+    --output meu-manuscrito.html \
+    --format html \
+    --citation-style abnt
+# → {"output_format": "html", "byte_size": 12345, "output_path": "meu-manuscrito.html"}
+
+# 4. Buscar literatura em múltiplos adapters (with year window)
+ignorantia search \
+    --text "evidence synthesis methodology" \
+    --source openalex --source crossref --source arxiv \
+    --year-start 2020 --year-end 2025 \
+    --output resultados.json
+
+# 5. Registrar uma entrada no manifest de reprodutibilidade
+ignorantia audit \
+    --action search.run \
+    --actor cli \
+    --payload '{"n_results": 87}'
+```
+
+Cada subcomando emite uma linha JSON validada contra um schema em
+`src/ignorantia/interface/manifests/`. Detalhes do shape de
+`--input` para `render`, opções avançadas e API programática em
+[`docs/MIGRATION_v2_TO_v3.md`](docs/MIGRATION_v2_TO_v3.md).
+
+## Quickstart (v2 scripts — legacy)
 
 Em 5 linhas, do tema à avaliação:
 
