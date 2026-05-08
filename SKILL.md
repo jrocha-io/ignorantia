@@ -756,7 +756,7 @@ PERGUNTE ao usuário, no início, se há acesso institucional a Scopus/WoS/IEEE 
 INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN) em §03 ou §03.x do manuscrito, listando ferramenta, versão, etapas e responsabilidade humana.
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
-GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo.
+GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo. **A partir de v2.23.1 (Decisão 38, Fix 9 do RS-42 remediation)** o assessor é vinculante: exit code 2 quando há eliminatórios OU nota < 7.0 (configurável via `--gate-min-score`); o sidecar `assessment_gate.json` em `<output_dir>/` registra `passed`/`score`/`eliminatory_count`. Pacote Zenodo **não pode ser empacotado** com `passed: false`. `--no-gate` existe apenas para triagem em sessões de debug; nunca em fluxo de produção.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
 DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
 DECLARE no metadado o `review_purpose` (design_foundational | design_validation | design_correction | independent_inquiry) — Decisão 8 v2.0.
@@ -814,6 +814,32 @@ Após o incidente RS-42 (dogfood falhou com "Esta conversa não pode ser compact
 4. O HTML é distribuído separadamente (site institucional, blog, redes acadêmicas) como divulgação didática.
 
 Esta decisão fecha o laço aberto pela Decisão 36 (Fix 5 — HTML reclassificado como secundário) ao explicitar **onde no fluxo** o HTML é gerado: nunca dentro do pipeline canônico, sempre como subcomando opt-in posterior. Decisão 18 (chunks) e Decisão 34 (chunked-write) permanecem aplicáveis mas escopadas ao subcomando.
+
+### Decisão 38 — Avaliador automático é gate vinculante para empacotamento Zenodo (registrado em v2.23.1, Fix 9 do RS-42 remediation)
+
+O dogfood RS-42 v1.0.0 (2026-05-08) foi empacotado e entregue mesmo após `scripts/generate_assessment.py` reportar **4.0/10.0** com **três eliminatórios** (cobertura insuficiente, declaração de IA ausente, IA possivelmente listada como autora). O assessor sempre saía com exit code 0; nada programático impedia o empacotamento de um artefato que o próprio sistema marcou como `"INACEITÁVEL para submissão"`. Resultado: usuário recebeu pacote ruim e teve que rejeitar manualmente.
+
+**Regra (vinculante a partir de v2.23.1):** o avaliador é um **gate**. Comportamento padrão:
+
+1. Exit code **2** quando há **qualquer** eliminatório, OU quando a nota final < `--gate-min-score` (default `7.0`).
+2. Sidecar `<package_dir>/assessment_gate.json` sempre escrito, com `{passed, score, min_score, eliminatory_count, eliminatory_failed, score_failed, report_path, version}` para consumo programático por wrappers.
+3. Relatório markdown em `--out` continua sendo escrito mesmo em falha — o gate não suprime a saída humana.
+4. Flag `--no-gate` existe **apenas** para triagem em sessão de debug; nunca em fluxo de produção. Wrappers que invoquem `--no-gate` em produção devem ser tratados como bug.
+
+**Implicações operacionais:**
+
+- Toda chamada do avaliador na Fase 8 deve ser encadeada via shell short-circuit:
+  ```bash
+  python3 scripts/generate_assessment.py ... && \
+      python3 scripts/zenodo/build_package.py ...
+  ```
+  O `&&` honra o exit code 2 e impede a montagem do ZIP quando o gate falha.
+- O Claude, em sessão de chat, deve ler `assessment_gate.json` antes de declarar a entrega como concluída. Se `passed: false`, a próxima ação obrigatória é endereçar os itens da seção "Crítico" do `avaliacao_v<X.Y.Z>.md`, **não** empacotar.
+- Pacote Zenodo com nota baixa só é admissível como artefato de **versão preview/draft** (ex.: `v0.x.y` ou tag `-rc`), nunca como release final.
+
+**Verificação mecânica:** suite em `tests/integration/test_v2231_assessment_gate.py` cobre exit-code 2 em falha por eliminatório, exit-code 2 em falha por score, escrita do sidecar JSON em ambos os casos, escrita do relatório markdown mesmo em falha, e bypass via `--no-gate`. Releases futuras devem manter o gate como invariante de design — relaxar `--gate-min-score` é decisão consciente do operador, não um default.
+
+Esta decisão **complementa** a Decisão 8 (mitigações Categoria A obrigatórias) e a Decisão 19 (anti-vazamento de meta-discurso) ao adicionar o último elo da cadeia: depois de gerar o relatório de qualidade, **respeitar** o relatório.
 
 ## Saídas secundárias (geradas em paralelo)
 
