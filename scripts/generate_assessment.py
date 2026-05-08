@@ -3,7 +3,7 @@
 generate_assessment.py — Generate the avaliacao_v<X.Y.Z>.md report.
 
 Inspects the package artifacts and produces a graded assessment per
-references/quality-rubric.md. The score is an internal estimate that
+references/quality-rubric.xml. The score is an internal estimate that
 helps the human author know how far they are from elite-venue submission.
 
 It does NOT replace peer review. It DOES catch missing artifacts,
@@ -111,7 +111,7 @@ def assess_d1_methodology(args, ctx):
         notes.append("Completar protocolo com PICO/PICOC explícito, critérios CI1...CIn e CE1...CEn, e strings booleanas literais por base.")
     else:
         crit.append(("0.0/0.6", "Protocolo ausente (protocol.md não encontrado)"))
-        notes.append("Gerar protocol.md a partir de assets/templates/protocol.md.")
+        notes.append("Gerar protocol.md a partir de assets/templates/protocol.xml.")
 
     # 0.5 — PRISMA flow with coherent numbers
     prisma_path = Path(args.package_dir) / "prisma-flow.svg"
@@ -431,7 +431,7 @@ def assess_d3_corpus(args, ctx):
         notes.append(f"Buscar mais ativamente em IEEE Xplore, ACM DL, Nature/Springer, Elsevier flagship, Wiley flagship, etc. Atual: {elite_count}/{n_inc} = {pct_elite:.0f}% (alvo: ≥{threshold_pct}%).")
     else:
         crit.append((f"0.0/0.4", f"Quase nenhum venue de elite ({pct_elite:.0f}%)"))
-        notes.append(f"CRÍTICO — apenas {elite_count}/{n_inc} estudos de venues de elite. Para nota 10, buscar mais nas bases dos publishers de elite (`references/compliance-international.md`).")
+        notes.append(f"CRÍTICO — apenas {elite_count}/{n_inc} estudos de venues de elite. Para nota 10, buscar mais nas bases dos publishers de elite (`references/compliance-international.xml`).")
 
     # 0.3 — temporal window respected (proxy: years vary)
     years = [r.get("year") for r in extr_rows if r.get("year")]
@@ -954,14 +954,14 @@ def render_report(args, results, total, eliminatory, bonus_pts, bonus_applied,
     parts.append(f"\n## {section_titles[5]}\n")
     if is_ptbr:
         parts.append("Esta avaliação é gerada automaticamente pelo skill `ignorantia` "
-                     "com base na rubrica documentada em `references/quality-rubric.md`. "
+                     "com base na rubrica documentada em `references/quality-rubric.xml`. "
                      "Serve como autocheck antes da submissão. A decisão editorial final "
                      "é dos revisores humanos do periódico-alvo. A nota 10.0 não garante "
                      "aceitação — significa apenas que o manuscrito atende aos requisitos "
                      "formais e metodológicos para ser ELEGÍVEL a um venue de elite.\n")
     else:
         parts.append("This assessment is generated automatically by the `ignorantia` skill "
-                     "based on the rubric in `references/quality-rubric.md`. It serves as a "
+                     "based on the rubric in `references/quality-rubric.xml`. It serves as a "
                      "self-check before submission. Editorial decisions are made by human "
                      "reviewers at the target journal. A 10.0 does not guarantee acceptance — "
                      "it means the manuscript meets the formal and methodological requirements "

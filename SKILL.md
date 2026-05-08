@@ -19,7 +19,7 @@ description: Constrói base de conhecimento via revisão sistemática/scoping/ra
 
 ## Auditoria sistemática
 
-A skill é mantida via auditorias iterativas. Para evitar redescoberta de categorias de bugs, **`references/audits/AUDIT_PROCEDURE.md`** documenta as **27 dimensões conhecidas** de erro em 7 camadas (correção, convenções, especificação, reprodutibilidade, compatibilidade, segurança, lifecycle). Uma rodada de auditoria que cubra todas as dimensões substitui ~5 rodadas improvisadas. Histórico das auditorias em `references/audits/AUDIT_LOG.md`.
+A skill é mantida via auditorias iterativas. Para evitar redescoberta de categorias de bugs, **`references/audits/AUDIT_PROCEDURE.xml`** documenta as **27 dimensões conhecidas** de erro em 7 camadas (correção, convenções, especificação, reprodutibilidade, compatibilidade, segurança, lifecycle). Uma rodada de auditoria que cubra todas as dimensões substitui ~5 rodadas improvisadas. Histórico das auditorias em `references/audits/AUDIT_LOG.xml`.
 
 ## Estado quantitativo da skill (v2.20.0)
 
@@ -30,7 +30,7 @@ A skill em sua versão atual (v2.20.0) tem o seguinte estado quantitativo, expos
 - **7 áreas** suportadas: saude, educacao, cs_se, ciencias_sociais, humanidades, business, multi.
 - **6 etapas** no `pipeline_finalize.py` (cross_tab, format_abnt, render_html_chunks, render_docx_abnt, render_latex, screening_pipeline). A Etapa 6 foi adicionada em v2.19.0 (F5 da auditoria).
 - **291+ testes** com regressão verde a cada release (v2.18.0: 243; v2.18.1: +16 = 259; v2.19.0: +7 = 266; v2.20.0: +25 = 291; v2.21.0: +16 = 307; v2.22.0: +18 = 325).
-- **33 decisões editoriais** em `references/DECISIONS.md` (Decisões 1-33).
+- **33 decisões editoriais** em `references/DECISIONS.xml` (Decisões 1-33).
 - **13 decisões de design (DD)** todas implementadas (DD-1 a DD-13). DD-10 (logs em duas camadas) tem asterisco honesto: Camada 1 nativa só nos 16 paywall; legados via pós-processador do orquestrador. DD-13 (v2.22.0) consolida decisão sobre renderer HTML canônico (`render_chunks.py`) vs alternativo (`render_v2.py`).
 - **3 módulos auxiliares** em `scripts/searches/`: `_adapter_base.py`, `_log_enrichment.py`. Mais 2 standalone em `scripts/`: `screening_pipeline.py`, `contextual_preamble.py`.
 
@@ -79,7 +79,7 @@ Mensagem pré-busca declara 4 categorias:
 
 ## Decisões editoriais v2.0 — três modos de saída e mitigações
 
-> **Registro central de decisões:** Para o registro canônico de **todas** as decisões editoriais e de design da skill (incluindo decisões de arquitetura de adapters, ToS, e estratégia de implementação), consultar `references/DECISIONS.md`. Para o registro de plataformas que NÃO serão implementadas e razões técnicas, consultar `references/WONT_IMPLEMENT.md`. Para a estratégia de rodadas em curso, consultar `references/IMPLEMENTATION_STRATEGY.md`.
+> **Registro central de decisões:** Para o registro canônico de **todas** as decisões editoriais e de design da skill (incluindo decisões de arquitetura de adapters, ToS, e estratégia de implementação), consultar `references/DECISIONS.xml`. Para o registro de plataformas que NÃO serão implementadas e razões técnicas, consultar `references/WONT_IMPLEMENT.xml`. Para a estratégia de rodadas em curso, consultar `references/IMPLEMENTATION_STRATEGY.xml`.
 
 Estas decisões são **vinculantes em toda execução do skill em modo v2.0**:
 
@@ -143,7 +143,7 @@ A Forma muda; o Conteúdo (rigor metodológico, PRISMA itens) é invariante.
 
 ### Decisão 5 — Monitoramento EQUATOR Network
 
-O arquivo `references/equator-monitoring.md` lista as guidelines de IA emergentes (PRISMA-AI, TRIPOD-AI, CHART, CONSORT-AI, SPIRIT-AI, etc.). Job mensal verifica atualizações. Quando uma guideline relevante for publicada, abrir issue obrigatória para incorporação à v2.x.
+O arquivo `references/equator-monitoring.xml` lista as guidelines de IA emergentes (PRISMA-AI, TRIPOD-AI, CHART, CONSORT-AI, SPIRIT-AI, etc.). Job mensal verifica atualizações. Quando uma guideline relevante for publicada, abrir issue obrigatória para incorporação à v2.x.
 
 ### Decisão 6 — "Living review" reservado a protocolo formal
 
@@ -165,11 +165,11 @@ Toda revisão produzida pelo skill deve incluir, sem exceção:
 4. **Categorização `review_purpose`** no metadado: `design_foundational | design_validation | design_correction | independent_inquiry`.
 5. **Pacote de reprodutibilidade Zenodo** completo (Decisão 2).
 
-Mitigações de Categoria B (vinculação bidirecional, auditoria periódica, open peer review) são **decisões editoriais do autor**, fora do escopo do skill. Documentadas em `references/user-guidance/post-deposit-actions.md`.
+Mitigações de Categoria B (vinculação bidirecional, auditoria periódica, open peer review) são **decisões editoriais do autor**, fora do escopo do skill. Documentadas em `references/user-guidance/post-deposit-actions.xml`.
 
 ### Decisão 9 — Sprint Badge marcado como experimental/preview
 
-O Sprint Badge atual (calibrado com n=187 SLRs em v1.x) é mantido na v2.0 mas explicitamente rotulado como **experimental/preview**. Calibração definitiva (regressiva SJR+JIF, n=1.600-3.200) é alvo da v3.0 no Cowork. O whitepaper preliminar está em `references/draft/whitepaper-PRELIMINARY.md` com aviso explícito.
+O Sprint Badge atual (calibrado com n=187 SLRs em v1.x) é mantido na v2.0 mas explicitamente rotulado como **experimental/preview**. Calibração definitiva (regressiva SJR+JIF, n=1.600-3.200) é alvo da v3.0 no Cowork. O whitepaper preliminar está em `references/draft/whitepaper-PRELIMINARY.xml` com aviso explícito.
 
 ### Decisão 10 — Dez modos de saída em hierarquia tripla (v2.1)
 
@@ -193,7 +193,7 @@ A v2.1 expande de 4 para 10 modos de saída do ghostwriter, organizados em três
 
 A ferramenta NÃO oferece o Modo 4 como recomendação default. Ele só é apresentado quando o usuário declara explicitamente que tem segundo revisor humano qualificado disponível, ou quando pergunta especificamente sobre SR estrita. O eliminatório E16 garante essa separação computacionalmente.
 
-Cada modo tem perfil individual detalhado em três layers (modo + reporting guideline + venue padrão+alternativas) em `references/modes/mode-XX-*.md`. O panorama master está em `references/modes/MODES_OVERVIEW.md`.
+Cada modo tem perfil individual detalhado em três layers (modo + reporting guideline + venue padrão+alternativas) em `references/modes/mode-XX-*.md`. O panorama master está em `references/modes/MODES_OVERVIEW.xml`.
 
 ### Decisão 11 — Política OA-first (3 tiers de bases)
 
@@ -203,7 +203,7 @@ A v2.1 formaliza a constraint operacional de que o ghostwriter SÓ consulta base
 - **Tier 2 — metadados livres, full-text pode requerer fornecimento.** Crossref geral, OpenAlex geral, Semantic Scholar, PubMed completo, etc. O ghostwriter declara explicitamente quando full-text não acessível.
 - **Tier 3 — apenas via material fornecido pelo usuário.** Scopus, Web of Science, Embase, IEEE Xplore subset paywall, ACM DL subset paywall, Elsevier ScienceDirect, etc.
 
-Cada modo declara os mínimos esperados de bases Tier 1 (e quando aplicável, se Tier 3 via fornecimento é praticamente exigido). O orquestrador `scripts/searches/search_orchestrator.py` aplica a política e gera disclosure ao usuário pré- e pós-busca. Detalhes completos em `references/databases/oa-tiers.md`.
+Cada modo declara os mínimos esperados de bases Tier 1 (e quando aplicável, se Tier 3 via fornecimento é praticamente exigido). O orquestrador `scripts/searches/search_orchestrator.py` aplica a política e gera disclosure ao usuário pré- e pós-busca. Detalhes completos em `references/databases/oa-tiers.xml`.
 
 ### Decisão 12 — Padrão de venues OA-first com alternativas explicadas
 
@@ -219,7 +219,7 @@ Tempo estimado típico de produção do ghostwriter para qualquer modo: ~15 minu
 
 ### Decisão 13 — Qualis CAPES em transição (registrado em v2.2.0)
 
-A CAPES anunciou em janeiro/2026 que **a classificação conceitual A1-C do Qualis Periódicos será descontinuada para o quadriênio 2025-2028**. Os perfis YAML do ignorantia v2.x usam o quadriênio 2021-2024 (último válido com classificação conceitual) como referência canônica. Quando o novo modelo de avaliação CAPES for publicado, será necessário ciclo de migração dos perfis YAML — registrado como gap em `references/equator-monitoring.md` para revisão futura. A ferramenta declara explicitamente o quadriênio referenciado ao apresentar Qualis ao usuário.
+A CAPES anunciou em janeiro/2026 que **a classificação conceitual A1-C do Qualis Periódicos será descontinuada para o quadriênio 2025-2028**. Os perfis YAML do ignorantia v2.x usam o quadriênio 2021-2024 (último válido com classificação conceitual) como referência canônica. Quando o novo modelo de avaliação CAPES for publicado, será necessário ciclo de migração dos perfis YAML — registrado como gap em `references/equator-monitoring.xml` para revisão futura. A ferramenta declara explicitamente o quadriênio referenciado ao apresentar Qualis ao usuário.
 
 ### Decisão 14 — Vocabulário de tiers OA-first (registrado em v2.2.2)
 
@@ -354,7 +354,7 @@ A persona é instrução para o ghostwriter, não personagem do paper. O pesquis
 
 **Adendo de manutenção (v2.23.1, Fix 12 do RS-42 remediation):** o dogfood de 2026-05-08 revelou que a Decisão 20 era seguida só intermitentemente — o consumidor lia o texto descritivo e ainda escrevia `Phase 3 invocou search_orchestrator.py` no manuscrito. A causa: nada na skill tornava a persona mecanicamente acionável. A correção introduziu duas camadas (não documentadas aqui na seção descritiva, mas no corpo operacional da skill):
 
-- `assets/templates/persona-voice.md` — scaffold pareado anti-padrão ↔ persona, lido pelo consumidor na Fase 7. Operação detalhada em `<mandatories>` e na seção de fluxo de trabalho.
+- `assets/templates/persona-voice.xml` — scaffold pareado anti-padrão ↔ persona, lido pelo consumidor na Fase 7. Operação detalhada em `<mandatories>` e na seção de fluxo de trabalho.
 - `scripts/check_persona_voice.py` — verificador heurístico advisory/strict. Operação detalhada em `<mandatories>`.
 
 **Para quem mantém esta skill:** a Decisão 20 sozinha não bloqueia o vazamento de voz; o scaffold + verificador são o caminho mecânico. Remover qualquer um deles re-abre o anti-padrão observado no dogfood RS-42 v1.0.0.
@@ -431,7 +431,7 @@ A heurística "extrair só o núcleo (5-10 estudos)" foi eliminada. O critério 
 
 A rubrica antiga marcava "(Polimento) Idiomas restritos a EN/PT/ES" como lacuna a declarar. Erro: a skill **suporta esses três idiomas por design** (Decisão 7 v2.0). Cumprimento da especificação não é limitação a declarar.
 
-**A v2.9.0 remove** quaisquer linguagens em `references/quality-rubric.md` ou na seção §09 gerada do manuscrito que tratem EN/PT/ES como restrição. Idiomas adicionais (mandarim, francês, alemão) ficam como roadmap declarado para v3.0+/Cowork.
+**A v2.9.0 remove** quaisquer linguagens em `references/quality-rubric.xml` ou na seção §09 gerada do manuscrito que tratem EN/PT/ES como restrição. Idiomas adicionais (mandarim, francês, alemão) ficam como roadmap declarado para v3.0+/Cowork.
 
 ### Decisão 28 — Formatação ABNT NBR 6023:2018 + NBR 10520:2023 obrigatória em pt-BR (registrado em v2.9.0)
 
@@ -771,13 +771,13 @@ PERGUNTE ao usuário, no início, se há acesso institucional a Scopus/WoS/IEEE 
 INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN) em §03 ou §03.x do manuscrito, listando ferramenta, versão, etapas e responsabilidade humana.
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
-LEIA `assets/templates/persona-voice.md` no início da Fase 7, **antes de gerar `content.json`** (Decisão 40, Fix 12 do RS-42 remediation). O scaffold contém anti-padrões pareados extraídos do dogfood RS-42 e checklist pré/pós-escrita de 5 perguntas que torna a Decisão 20 acionável. Não copiar trechos para o manuscrito — o scaffold é instrução, não conteúdo.
+LEIA `assets/templates/persona-voice.xml` no início da Fase 7, **antes de gerar `content.json`** (Decisão 40, Fix 12 do RS-42 remediation). O scaffold contém anti-padrões pareados extraídos do dogfood RS-42 e checklist pré/pós-escrita de 5 perguntas que torna a Decisão 20 acionável. Não copiar trechos para o manuscrito — o scaffold é instrução, não conteúdo.
 EXECUTE durante a Fase 7 `python3 scripts/check_persona_voice.py <output_dir>/manuscript.tex` em modo advisory para diagnosticar warnings de voz; reescrever os parágrafos sinalizados antes de prosseguir. Adicionar `--strict` ao chain pré-empacotamento (Fase 8) para falhar com exit 2 se a voz ainda vazar.
-GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo. **A partir de v2.23.1 (Decisão 38, Fix 9 do RS-42 remediation)** o assessor é vinculante: exit code 2 quando há eliminatórios OU nota < 7.0 (configurável via `--gate-min-score`); o sidecar `assessment_gate.json` em `<output_dir>/` registra `passed`/`score`/`eliminatory_count`. Pacote Zenodo **não pode ser empacotado** com `passed: false`. `--no-gate` existe apenas para triagem em sessões de debug; nunca em fluxo de produção.
+GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.xml`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo. **A partir de v2.23.1 (Decisão 38, Fix 9 do RS-42 remediation)** o assessor é vinculante: exit code 2 quando há eliminatórios OU nota < 7.0 (configurável via `--gate-min-score`); o sidecar `assessment_gate.json` em `<output_dir>/` registra `passed`/`score`/`eliminatory_count`. Pacote Zenodo **não pode ser empacotado** com `passed: false`. `--no-gate` existe apenas para triagem em sessões de debug; nunca em fluxo de produção.
 EXECUTE antes do empacotamento Zenodo `python3 scripts/check_pipeline_invariants.py <output_dir>` — gate de invariantes (Decisão 39, Fix 11 do RS-42 remediation): I1 rejeita `execution_method=single_session_ad_hoc_web_search` sem `--accept-ad-hoc-search`, I2 exige ≥3 bases referenciadas, I3 rejeita steps com `status: ERROR` no `pipeline_summary.json`. Exit code 2 em violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com I1.
 EXECUTE antes do empacotamento Zenodo `python3 scripts/check_decision_19_vocabulary.py <output_dir>/manuscript.tex` — gate de Decisão 19 (Fix 10 do RS-42 remediation) que vetta SemVer rhetoric, referências `Decisão N do protocolo`, classificação `Categoria A/B` e nomes literais de campos JSON na voz acadêmica. Exit code 2 em qualquer violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com 28 violações.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
-DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
+DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.xml` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
 DECLARE no metadado o `review_purpose` (design_foundational | design_validation | design_correction | independent_inquiry) — Decisão 8 v2.0.
 GERE pacote de reprodutibilidade via `scripts/zenodo/` antes do depósito Zenodo, com DOIs verificados via Crossref+Retraction Watch+OpenAlex — Decisão 2 v2.0.
 APLIQUE engine de compliance via `scripts/compliance/` contra venue alvo (se declarado) e produza `compliance_report.json` com aggregate_score + dimensões + gaps priorizados + venues alternativos ranqueados.
@@ -886,7 +886,7 @@ Comportamento: deve ser encadeado via `&&` antes do ZIP, igual à Decisão 38 (a
 
 Acompanham o pipeline canônico (PDF + DOCX), no mesmo pacote versionado depositado no Zenodo:
 
-- `protocol.md` — protocolo pré-registrado da SLR (template em `assets/templates/protocol.md`).
+- `protocol.md` — protocolo pré-registrado da SLR (template em `assets/templates/protocol.xml`).
 - `searches.json` — strings booleanas, datas, hits brutos por base.
 - `screening.csv` — cada paper com decisão (incluir/excluir/dúvida) e CI/CE invocado.
 - `quality-appraisal.csv` — pontuação CASP/DARE/Kitchenham por estudo, por questão.
@@ -917,7 +917,7 @@ Aplicar **simultaneamente**:
 - **LGPD (Lei 13.709/2018)** — não inserir dados pessoais de terceiros em IAG. Cuidado especial com temas de saúde, menores, dados sensíveis.
 - **Lei de Direitos Autorais (Lei 9.610/1998)** — citação com atribuição (já garantida pelos DOI/URL clicáveis), paráfrase como padrão, não reproduzir figuras de outras obras.
 
-Carregue `references/compliance-ptbr.md` para detalhes operacionais e o checklist completo. Esse arquivo contém também o **bloco padrão da declaração de IA** que deve entrar tanto no HTML quanto no manuscrito formal.
+Carregue `references/compliance-ptbr.xml` para detalhes operacionais e o checklist completo. Esse arquivo contém também o **bloco padrão da declaração de IA** que deve entrar tanto no HTML quanto no manuscrito formal.
 
 ### Manuscritos internacionais (EN)
 
@@ -927,7 +927,7 @@ Aplicar **simultaneamente**:
 - **ICMJE Recommendations (jan 2024 update)** — Sections II.A.3-4 e IV.A.3.d: declaração no submission cover letter e no manuscript; AI não citável como fonte; revisores não fazem upload de manuscritos a LLMs.
 - **Política específica do publisher-alvo** quando conhecido. As principais (Elsevier, Springer Nature, Wiley, Taylor & Francis, Sage, IEEE, ACM, AAAS/Science, Nature, BMJ, JAMA, OUP, CUP, MIT Press, ACS, RSC, APS, ASME, AMA) têm políticas alinhadas com COPE/ICMJE mas com variações específicas — consultar.
 
-Carregue `references/compliance-international.md` para detalhes operacionais, lista de venues de elite por área, política específica de cada publisher, e o **bloco padrão "Declaration of AI use"** em inglês.
+Carregue `references/compliance-international.xml` para detalhes operacionais, lista de venues de elite por área, política específica de cada publisher, e o **bloco padrão "Declaration of AI use"** em inglês.
 
 ### Preferência por publishers/instituições de elite
 
@@ -944,7 +944,7 @@ Tanto na fase 3 (busca) quanto na fase 8 (recomendação de venue para submissã
 - Imprensas universitárias: OUP, CUP, MIT Press.
 - OA de elite: PLOS, eLife, Royal Society Open Science.
 
-A lista completa por área, com URLs e ISSNs, está em `references/compliance-international.md`. Na **Fase 8**, a skill produz uma lista de **3-5 venues sugeridos** para submissão, com nome, publisher, URL da política de IA do publisher, ISSN, JIF/CiteScore mais recente, ciclo editorial típico, e modelo de acesso.
+A lista completa por área, com URLs e ISSNs, está em `references/compliance-international.xml`. Na **Fase 8**, a skill produz uma lista de **3-5 venues sugeridos** para submissão, com nome, publisher, URL da política de IA do publisher, ISSN, JIF/CiteScore mais recente, ciclo editorial típico, e modelo de acesso.
 
 ### Acesso legítimo a bases pagas
 
@@ -968,7 +968,7 @@ A skill pode gerar, sob demanda, um script Python (`scripts/download_via_proxy.p
 
 A primeira saída completa é **v1.0.0**. Cada saída posterior é um pacote novo (HTML + secundários + flow + bib + readme), com seu próprio número de versão e data ISO. **Saídas antigas não são editadas — elas permanecem como registro histórico.** O `README.md` de cada versão lista o que mudou em relação à anterior, com link ao pacote anterior se houver.
 
-A ler obrigatoriamente: `references/semver-policy.md` antes de qualquer publicação de versão.
+A ler obrigatoriamente: `references/semver-policy.xml` antes de qualquer publicação de versão.
 
 ## PRISMA-2020 — execução completa, não apenas documentação
 
@@ -979,8 +979,8 @@ Estes elementos são todos **executados**, com artefato real saindo do pipeline:
 3. **Strings booleanas por base** — uma por base na sintaxe correta (ACM, IEEE Xplore, Scopus, WoS, dblp, SciELO, CAPES, etc.). (`searches.json`)
 4. **Critérios de inclusão/exclusão** numerados, aplicados, decisão registrada para cada paper. (`screening.csv`)
 5. **PRISMA flow diagram** com números reais — identificados, deduplicados, screened, full-text avaliados, incluídos. (`prisma-flow.svg/pdf`, gerado por `scripts/prisma_flow.py`)
-6. **Quality appraisal** CASP ou DARE para cada estudo incluído. (`quality-appraisal.csv`, instrumento descrito em `assets/templates/quality-appraisal.md`)
-7. **Extração de dados** num formulário pré-definido. (`extraction.csv`, schema em `assets/templates/extraction-form.md`)
+6. **Quality appraisal** CASP ou DARE para cada estudo incluído. (`quality-appraisal.csv`, instrumento descrito em `assets/templates/quality-appraisal.xml`)
+7. **Extração de dados** num formulário pré-definido. (`extraction.csv`, schema em `assets/templates/extraction-form.xml`)
 8. **Reprodutibilidade** — outro pesquisador que rode o pipeline com o protocolo chega ao mesmo conjunto de papers (sujeito a atualizações dos índices). Pacote completo no Zenodo.
 
 **Cohen's kappa entre dois revisores:** o skill **não simula** o segundo revisor. O pacote vai ao Zenodo, dois professores humanos fazem a revisão independente, e o kappa é computado por eles. O skill produz a primeira passagem e a infraestrutura para a segunda.
@@ -1015,11 +1015,11 @@ Pergunte cobrindo as 8 dimensões abaixo. Use `ask_user_input_v0` quando o ambie
 9. **Venue-alvo (opcional).** Se o usuário já tem um periódico/conferência em mente para submissão, registre — a skill ajusta norma de citação, comprimento, e estrutura ao máximo. Se não tem, a Fase 8 sugere 3-5 venues. Em pt-BR, perguntar também se há programa de pós-graduação stricto sensu vinculado (Plataforma Sucupira). Em EN, perguntar a área-foco para alinhar com o publisher de elite mais adequado.
 10. **Vinculação a financiador.** Se o usuário recebe fomento CNPq/CAPES/FAP, informar — afeta as declarações obrigatórias e o local de pré-registro do protocolo (Zenodo serve em todos os casos; PROSPERO se for SLR de saúde).
 
-Carregue `references/interview-protocol.md` para o checklist completo.
+Carregue `references/interview-protocol.xml` para o checklist completo.
 
 ### Fase 2 — Protocolo pré-registrado
 
-Use `assets/templates/protocol.md`. Valide explicitamente com o usuário antes de qualquer busca. Salve como `protocol-v<X.Y.Z>.md`.
+Use `assets/templates/protocol.xml`. Valide explicitamente com o usuário antes de qualquer busca. Salve como `protocol-v<X.Y.Z>.md`.
 
 ### Fase 3 — Execução das buscas
 
@@ -1027,7 +1027,7 @@ Use `assets/templates/protocol.md`. Valide explicitamente com o usuário antes d
 
 **Bases guiadas** (Scopus, WoS, IEEE Xplore, ScienceDirect, Springer Link, Portal CAPES): gerar string booleana correta + instruções; se acesso institucional, gerar Python script via proxy. Nunca burlar paywall.
 
-Carregue `references/databases/international.md` ou `references/databases/portuguese.md`.
+Carregue `references/databases/international.xml` ou `references/databases/portuguese.xml`.
 
 Para cada base: data, string usada, hits brutos. Salvar em `searches.json`.
 
@@ -1037,11 +1037,11 @@ Para cada base: data, string usada, hits brutos. Salvar em `searches.json`.
 
 ### Fase 5 — Quality appraisal
 
-CASP ou DARE para todos. Kitchenham QA1–QA8 adicional se SE. Score por estudo. Threshold: estudos abaixo do corte ficam sinalizados na síntese, mas a inclusão/exclusão pelo QA é registrada. Saída: `quality-appraisal.csv`. Carregue `assets/templates/quality-appraisal.md`.
+CASP ou DARE para todos. Kitchenham QA1–QA8 adicional se SE. Score por estudo. Threshold: estudos abaixo do corte ficam sinalizados na síntese, mas a inclusão/exclusão pelo QA é registrada. Saída: `quality-appraisal.csv`. Carregue `assets/templates/quality-appraisal.xml`.
 
 ### Fase 6 — Extração
 
-Formulário pré-definido (`assets/templates/extraction-form.md`). Saída: `extraction.csv`.
+Formulário pré-definido (`assets/templates/extraction-form.xml`). Saída: `extraction.csv`.
 
 ### Fase 7 — Síntese e geração do HTML interativo
 
@@ -1055,9 +1055,9 @@ A geração do HTML usa `assets/templates/manuscript-template.html` como base e 
 - Renderizar referências como `[n]` com `<a href="DOI">` e `<span class="ref-tooltip">` para o tooltip.
 - Renderizar a camada de anotações como `<aside class="annotation" data-anchor="paragraph-id">` que aparece via toggle.
 - Aplicar a paleta correspondente à área (dark mode opcional).
-- **Inserir o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN)** em §03.x, conforme `references/compliance-ptbr.md` ou `references/compliance-international.md`.
+- **Inserir o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN)** em §03.x, conforme `references/compliance-ptbr.xml` ou `references/compliance-international.xml`.
 
-Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|vancouver|apa|abnt}.md`. Carregue `references/output-design-patterns.md` para detalhes de layout, paleta, e padrões de interação.
+Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|vancouver|apa|abnt}.md`. Carregue `references/output-design-patterns.xml` para detalhes de layout, paleta, e padrões de interação.
 
 ### Fase 8 — Manuscrito formal opcional + sugestão de venues + empacotamento
 
@@ -1076,7 +1076,7 @@ Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|va
 - Estimativa de ciclo editorial (semanas até primeira decisão)
 - Justificativa breve da adequação ao tema
 
-Lista canônica das instituições/publishers a priorizar, por área, em `references/compliance-international.md`. Para pt-BR, complementar com a verificação dos Documentos de Área CAPES (`references/compliance-ptbr.md`).
+Lista canônica das instituições/publishers a priorizar, por área, em `references/compliance-international.xml`. Para pt-BR, complementar com a verificação dos Documentos de Área CAPES (`references/compliance-ptbr.xml`).
 
 Salve em `venue-suggestions.md` no pacote.
 
@@ -1090,7 +1090,7 @@ Salve em `venue-suggestions.md` no pacote.
 - `venue-suggestions.md` — lista de 3-5 venues
 - `ai-declaration.md` — cópia standalone da declaração de uso de IA (pt-BR ou EN)
 - `compliance-checklist.md` — checklist com cada item marcado (CNPq art. 9, COPE/ICMJE quando EN, LGPD, CEP/CONEP, LDA, periódicos prioritários consultados)
-- **`avaliacao_v<X.Y.Z>.md`** — relatório de avaliação automática contra a rubrica de qualidade. Gerado obrigatoriamente por `scripts/generate_assessment.py` ao final da Fase 8. Contém: nota final 0.0–10.0, notas por dimensão (D1 metodologia, D2 compliance, D3 corpus, D4 textual, D5 apresentação), bonificadores aplicados, eliminatórios verificados, **lista priorizada do que falta para nota 10.0** (separada em Crítico / Importante / Polimento), e veículo-alvo recomendado conforme a faixa de nota. **Critério essencial:** a nota 10.0 só é atingida quando o manuscrito está pronto para submissão a pelo menos UM venue de elite máxima (Elsevier/Nature/Wiley/T&F/Sage flagships, IEEE/ACM Transactions, ASME, APS, ACS, RSC, AAAS, AMA/JAMA, BMJ, NEJM/MMS, OUP, CUP, MIT Press) ou Qualis A1 nacional para pt-BR. A nota é arredondada SEMPRE para baixo. Detalhes da rubrica em `references/quality-rubric.md`.
+- **`avaliacao_v<X.Y.Z>.md`** — relatório de avaliação automática contra a rubrica de qualidade. Gerado obrigatoriamente por `scripts/generate_assessment.py` ao final da Fase 8. Contém: nota final 0.0–10.0, notas por dimensão (D1 metodologia, D2 compliance, D3 corpus, D4 textual, D5 apresentação), bonificadores aplicados, eliminatórios verificados, **lista priorizada do que falta para nota 10.0** (separada em Crítico / Importante / Polimento), e veículo-alvo recomendado conforme a faixa de nota. **Critério essencial:** a nota 10.0 só é atingida quando o manuscrito está pronto para submissão a pelo menos UM venue de elite máxima (Elsevier/Nature/Wiley/T&F/Sage flagships, IEEE/ACM Transactions, ASME, APS, ACS, RSC, AAAS, AMA/JAMA, BMJ, NEJM/MMS, OUP, CUP, MIT Press) ou Qualis A1 nacional para pt-BR. A nota é arredondada SEMPRE para baixo. Detalhes da rubrica em `references/quality-rubric.xml`.
 - `README.md` com SemVer, datas, hashes SHA-256, link para versão anterior se houver, e resumo do checklist + nota da avaliação automática
 - `LICENSE` (CC-BY-4.0 default, confirmado com usuário)
 
@@ -1108,7 +1108,7 @@ Salve em `venue-suggestions.md` no pacote.
 
 > Aplica-se **apenas** quando o subcomando opcional de renderização HTML é invocado (Decisão 37). O pipeline canônico (PDF + DOCX) não usa estes padrões — usa LaTeX puro com BibTeX externo (Fix 6).
 
-A leitura completa está em `references/output-design-patterns.md`. Pontos críticos:
+A leitura completa está em `references/output-design-patterns.xml`. Pontos críticos:
 
 - **Numeração de seções** explícita (§00–§N), igual aos documentos de referência do projeto.
 - **Tiers/categorias com cor temática.** Ex.: tier A vermelho, B laranja, C azul, D verde, E cinza. Definir paleta no início do template, derivar do tema da área.
@@ -1131,20 +1131,20 @@ A leitura completa está em `references/output-design-patterns.md`. Pontos crít
 
 ### Existentes desde v1.x
 
-- `references/interview-protocol.md` — checklist da entrevista
-- `references/prisma-2020.md` — checklist PRISMA-2020 e diagrama
-- `references/kitchenham.md` — guidelines Kitchenham
+- `references/interview-protocol.xml` — checklist da entrevista
+- `references/prisma-2020.xml` — checklist PRISMA-2020 e diagrama
+- `references/kitchenham.xml` — guidelines Kitchenham
 - `references/citation-styles/{ieee,vancouver,apa,abnt}.md` — exemplos por tipo de fonte
-- `references/databases/international.md` — sintaxe de busca por base internacional
-- `references/databases/portuguese.md` — sintaxe de busca por base lusófona
-- `references/output-design-patterns.md` — padrões de design do HTML interativo
-- `references/semver-policy.md` — política de versionamento SemVer das saídas
-- `references/compliance-ptbr.md` — Portaria CNPq nº 2.664/2026, CAPES, CEP/CONEP, LGPD, LDA
-- `references/compliance-international.md` — COPE, ICMJE, políticas dos publishers de elite
-- `references/quality-rubric.md` — rubrica de avaliação 0.0-10.0 com 5 dimensões
-- `assets/templates/protocol.md` — template de protocolo pré-registrado
-- `assets/templates/extraction-form.md` — schema de extração
-- `assets/templates/quality-appraisal.md` — instrumentos CASP/DARE/Kitchenham
+- `references/databases/international.xml` — sintaxe de busca por base internacional
+- `references/databases/portuguese.xml` — sintaxe de busca por base lusófona
+- `references/output-design-patterns.xml` — padrões de design do HTML interativo
+- `references/semver-policy.xml` — política de versionamento SemVer das saídas
+- `references/compliance-ptbr.xml` — Portaria CNPq nº 2.664/2026, CAPES, CEP/CONEP, LGPD, LDA
+- `references/compliance-international.xml` — COPE, ICMJE, políticas dos publishers de elite
+- `references/quality-rubric.xml` — rubrica de avaliação 0.0-10.0 com 5 dimensões
+- `assets/templates/protocol.xml` — template de protocolo pré-registrado
+- `assets/templates/extraction-form.xml` — schema de extração
+- `assets/templates/quality-appraisal.xml` — instrumentos CASP/DARE/Kitchenham
 - `assets/templates/manuscript-template.html` — template HTML interativo
 
 ### Novos na v2.0
@@ -1153,13 +1153,13 @@ A leitura completa está em `references/output-design-patterns.md`. Pontos crít
 - `references/profiles/_guidelines/{prisma-2020,prisma-s,prisma-scr,prisma-rr,mecir,campbell-standards,sigsoft-empirical-standards}.yaml` — perfis declarativos das reporting guidelines
 - `references/profiles/venues_a1_br/{csp_fiocruz,rsp_usp,csc_abrasco,ep_usp,rbe_anped,cp_fcc,jbcs_sbc,jistem_usp,rbie_sbc}.yaml` — 9 venues brasileiros
 - `references/profiles/venues_q1_int/{nejm,lancet,bmj,cdsr,tse_ieee,tosem_acm,emse_springer,err_elsevier,rer_aera,campbell_sage,rsm_wiley}.yaml` — 11 venues Q1 internacionais
-- `references/equator-monitoring.md` — monitoramento de guidelines de IA emergentes
-- `references/claude-chat-tasks/c7-semantic-review.md` — prompt estruturado para C7 (releitura semântica) — *presente no full package; removido do dist por limite de 200 arquivos*
-- `references/claude-chat-tasks/c8-originality-check.md` — prompt para C8 (originalidade real) — *idem*
-- `references/claude-chat-tasks/c9-linguistic-quality.md` — prompt para C9 (qualidade linguística) — *idem*
-- `references/claude-chat-tasks/c10-t4-depth-and-temperature.md` — prompts para C10 (profundidade) e T4 (agregação) — *idem*
-- `references/draft/whitepaper-PRELIMINARY.md` — whitepaper preliminar do Sprint Badge (rotulado como rascunho até v3.0) — *presente no full package; removido do dist*
-- `references/user-guidance/post-deposit-actions.md` — orientações ao usuário sobre mitigações Cat. B (vinculação bidirecional, auditoria periódica, open peer review) — fora do escopo do skill
+- `references/equator-monitoring.xml` — monitoramento de guidelines de IA emergentes
+- `references/claude-chat-tasks/c7-semantic-review.xml` — prompt estruturado para C7 (releitura semântica) — *presente no full package; removido do dist por limite de 200 arquivos*
+- `references/claude-chat-tasks/c8-originality-check.xml` — prompt para C8 (originalidade real) — *idem*
+- `references/claude-chat-tasks/c9-linguistic-quality.xml` — prompt para C9 (qualidade linguística) — *idem*
+- `references/claude-chat-tasks/c10-t4-depth-and-temperature.xml` — prompts para C10 (profundidade) e T4 (agregação) — *idem*
+- `references/draft/whitepaper-PRELIMINARY.xml` — whitepaper preliminar do Sprint Badge (rotulado como rascunho até v3.0) — *presente no full package; removido do dist*
+- `references/user-guidance/post-deposit-actions.xml` — orientações ao usuário sobre mitigações Cat. B (vinculação bidirecional, auditoria periódica, open peer review) — fora do escopo do skill
 
 ### Scripts
 

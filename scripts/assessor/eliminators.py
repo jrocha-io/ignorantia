@@ -633,7 +633,7 @@ def check_e16_systematic_review_without_two_reviewers(content: dict, html_conten
             detail=(
                 f"Metadado declara review_type='{review_type_meta}' que não está "
                 f"no enum válido v2.1. Valores aceitos: "
-                f"{sorted(VALID_REVIEW_TYPES_V21)}. Ver references/modes/MODES_OVERVIEW.md."
+                f"{sorted(VALID_REVIEW_TYPES_V21)}. Ver references/modes/MODES_OVERVIEW.xml."
             ),
         )
 
@@ -719,7 +719,7 @@ def check_e16_systematic_review_without_two_reviewers(content: dict, html_conten
         detail=("WARN — manuscrito legacy sem 'review_type' declarado. Reivindica 'systematic review' "
                 "mas Decisão 1 da v2.0 não estava em vigor. Recomenda-se redepósito como "
                 "'AI-Assisted Scoping Review' ou outro modo da v2.1 conforme apropriado "
-                "(ver references/modes/MODES_OVERVIEW.md para os 10 modos disponíveis)."),
+                "(ver references/modes/MODES_OVERVIEW.xml para os 10 modos disponíveis)."),
     )
 
 
