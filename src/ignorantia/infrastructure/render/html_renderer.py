@@ -53,6 +53,45 @@ class HtmlRenderer(InteractiveRendererPort):
         """
         return _render_section(section).encode("utf-8")
 
+    def render_opening(self, doc: ManuscriptDoc) -> bytes:
+        """Render the document head + title + abstract + keywords as bytes.
+
+        Used by incremental writers (Fix 3, Decisão 34) that emit
+        ``<head>`` and pre-section content before streaming sections
+        and references one at a time. The tail counterpart is
+        :meth:`render_closing`.
+        """
+        title = html.escape(doc.title)
+        parts: list[str] = [
+            "<!DOCTYPE html>",
+            f'<html lang="{html.escape(doc.language)}">',
+            "<head>",
+            '<meta charset="utf-8">',
+            f"<title>{title}</title>",
+            "</head>",
+            "<body>",
+            f"<h1>{title}</h1>",
+            _render_abstract(doc),
+        ]
+        if doc.keywords:
+            parts.append(_render_keywords(doc.keywords))
+        return ("\n".join(parts) + "\n").encode("utf-8")
+
+    def render_references_section(self, references: tuple[Reference, ...]) -> bytes:
+        """Render the ``<section class="references">`` block as bytes.
+
+        Empty ``references`` returns an empty ``b""`` so callers can
+        skip the block without conditional logic.
+        """
+        if not references:
+            return b""
+        return (self._render_references(references) + "\n").encode("utf-8")
+
+    @staticmethod
+    def render_closing() -> bytes:
+        """Return the trailing ``</body></html>`` bytes."""
+        return b"</body>\n</html>\n"
+
     def render(self, doc: ManuscriptDoc) -> bytes:
         """Render ``doc`` and return the HTML5 document as UTF-8 bytes."""
         title = html.escape(doc.title)
