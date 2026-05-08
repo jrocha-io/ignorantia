@@ -109,6 +109,13 @@ SCRIPTS_TOP_GLOB: tuple[tuple[str, str], ...] = (
 )
 SCRIPTS_SUBDIR_GLOB: tuple[tuple[str, str], ...] = (
     ("scripts/searches", "*.py"),
+    # Fix 15 — scripts/assessor/ is required at runtime by render_v2.py
+    # (which imports from assessor.visual_aids) and unified_assessment.py.
+    # Excluding it broke both modules in deployed skills until v2.23.x;
+    # the dogfood RS-42 transcripts diagnosed this as a packaging bug,
+    # not a code bug. Adding the directory ships the ~10 modules that
+    # the renderers and assessor entry points actually need.
+    ("scripts/assessor", "*.py"),
 )
 
 # Upstream Anthropic skill packaging is documented to accept several
