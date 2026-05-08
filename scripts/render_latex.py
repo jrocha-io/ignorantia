@@ -332,15 +332,22 @@ def render_tex(content: dict, output_path: Path,
             ptype = para.get("type", "body")
             if not text.strip():
                 continue
-            escaped = _escape_latex(text)
-            if ptype == "long_quote":
+            # Fix 14 (RS-42 remediation): body and long_quote paragraphs
+            # may contain Markdown markers (**bold**, *italic*, [text](url))
+            # in the manuscript voice. Convert to LaTeX commands instead of
+            # leaving asterisks literal in the PDF. References are already
+            # ABNT-formatted strings — keep the bare escape for them.
+            if ptype == "reference":
+                rendered = _escape_latex(text)
+                parts.append(rendered + "\n")
+            elif ptype == "long_quote":
+                rendered = _markdown_to_latex(text)
                 parts.append("\\begin{longquote}")
-                parts.append(escaped)
+                parts.append(rendered)
                 parts.append("\\end{longquote}")
-            elif ptype == "reference":
-                parts.append(escaped + "\n")
             else:
-                parts.append(escaped)
+                rendered = _markdown_to_latex(text)
+                parts.append(rendered)
             parts.append("")
 
     # Referências

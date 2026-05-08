@@ -108,6 +108,53 @@ def _set_paragraph_abnt_heading(paragraph) -> None:
         run.bold = True
 
 
+def _add_runs_with_markdown(paragraph, text: str) -> None:
+    """Fix 14 (RS-42 remediation): apply Markdown formatting to a docx paragraph.
+
+    Parses ``**bold**``, ``*italic*``, and ``[text](url)`` and adds appropriate
+    ``add_run()`` calls to ``paragraph`` with ``bold=True`` / ``italic=True``
+    flags (links are not rendered as hyperlinks here — python-docx's hyperlink
+    API requires XML manipulation; for now they render as the link text only,
+    with the URL stripped).
+
+    Plain segments are added as runs without formatting flags. The font name /
+    size are not set here; callers are expected to apply formatting via
+    ``_set_paragraph_abnt_*`` helpers afterwards (which iterate ``paragraph.runs``).
+    """
+    import re
+
+    # Tokenize: split into a sequence of (kind, text) tuples
+    # where kind ∈ {"plain", "bold", "italic", "link_text"}.
+    # Order matters: links first (so [...](url) doesn't get parsed as italic),
+    # then bold (**...**) before italic (*...*) to avoid greedy capture.
+    pos = 0
+    pattern = re.compile(
+        r"\[([^\]]+?)\]\((https?://[^)]+)\)"  # link
+        r"|\*\*([^*]+?)\*\*"                   # bold
+        r"|(?<![\w*])\*([^*\n]+?)\*(?![\w*])"  # italic (word-boundary aware)
+    )
+    for m in pattern.finditer(text):
+        if m.start() > pos:
+            paragraph.add_run(text[pos:m.start()])
+        if m.group(1) is not None:
+            # link: render as the link text (URL stripped — python-docx
+            # hyperlinks require xml plumbing not done here).
+            paragraph.add_run(m.group(1))
+        elif m.group(3) is not None:
+            run = paragraph.add_run(m.group(3))
+            run.bold = True
+        elif m.group(4) is not None:
+            run = paragraph.add_run(m.group(4))
+            run.italic = True
+        pos = m.end()
+    if pos < len(text):
+        paragraph.add_run(text[pos:])
+    # Edge case: if no markdown matched and text wasn't empty, ensure at least
+    # one run exists so callers can apply font formatting.
+    if not paragraph.runs and text:
+        paragraph.add_run(text)
+
+
 def _add_page_numbers(document) -> None:
     """Adiciona numeração de página no canto superior direito (NBR 14724:2011 §5.4)."""
     section = document.sections[0]
@@ -262,13 +309,20 @@ def render_docx_abnt(content: dict, output_path: Path,
             ptype = para.get("type", "body")
             if not text.strip():
                 continue
-            p = doc.add_paragraph(text)
-            if ptype == "long_quote":
+            # Fix 14 (RS-42 remediation): body and long_quote paragraphs may
+            # contain Markdown markers in the manuscript voice. Parse them
+            # into formatted runs instead of leaving asterisks literal.
+            # References are already-formatted ABNT strings — keep plain.
+            p = doc.add_paragraph()
+            if ptype == "reference":
+                p.add_run(text)
+                _set_paragraph_abnt_reference(p)
+            elif ptype == "long_quote":
+                _add_runs_with_markdown(p, text)
                 _set_paragraph_abnt_long_quote(p)
                 n_long_quotes += 1
-            elif ptype == "reference":
-                _set_paragraph_abnt_reference(p)
             else:
+                _add_runs_with_markdown(p, text)
                 _set_paragraph_abnt_body(p)
 
     # Referências
