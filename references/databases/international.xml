@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="international" path="references/databases/international.md" type="database-catalog" lang="pt-BR">
+  <title>International databases — search syntax and access</title>
+  <markdown><![CDATA[
 # International databases — search syntax and access
 
 For each database: Boolean syntax, access notes, export format, and execution mode (skill executes directly vs. user executes manually).
@@ -118,3 +122,6 @@ If the user confirms access to Scopus / WoS / IEEE Xplore / ScienceDirect / Spri
 2. Mark the base as "documented but executed manually by user" or "not executed".
 3. Recommend the user use other free bases (arXiv, Semantic Scholar, dblp, Crossref) intensively.
 4. Suggest snowballing from a high-quality seed paper as a complement.
+
+  ]]></markdown>
+</doc>

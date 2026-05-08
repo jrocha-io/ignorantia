@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="portuguese" path="references/databases/portuguese.md" type="database-catalog" lang="pt-BR">
+  <title>Bases de dados lusófonas — sintaxe e acesso</title>
+  <markdown><![CDATA[
 # Bases de dados lusófonas — sintaxe e acesso
 
 Bases prioritárias quando o manuscrito é em português brasileiro. ABNT é a norma. Idioma das strings de busca: **português** (com sinônimos em inglês para aumentar recall).
@@ -94,3 +98,6 @@ Para uma SLR em português brasileiro, ordem recomendada:
 - Sempre incluir sinônimos em inglês para artigos brasileiros que indexam em inglês também (ex.: "letramento digital" OR "digital literacy").
 - Cuidado com termos polissêmicos — use frases ou modificadores (ex.: "letramento digital" em vez de só "letramento", que pega alfabetização escolar genérica).
 - Use truncamento `*` quando a base suporta — `idos*` pega idoso/idosa/idosos/idosas.
+
+  ]]></markdown>
+</doc>

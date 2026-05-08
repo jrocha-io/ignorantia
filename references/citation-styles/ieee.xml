@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="ieee" path="references/citation-styles/ieee.md" type="citation-style" lang="pt-BR">
+  <title>IEEE citation style</title>
+  <markdown><![CDATA[
 # IEEE citation style
 
 Used in computer science, electrical engineering, math, physics, and most exact-sciences journals/conferences. Citations are numbered in order of first appearance, in square brackets `[1]`, `[2,3]`, `[4–6]`. The reference list is in **citation order, not alphabetical**.
@@ -107,3 +111,6 @@ For LaTeX, IEEE's official `IEEEtran.cls` + `IEEEtran.bst` (BibTeX style) handle
 ```
 
 Always recommend to the user to download `IEEEtran.cls` from CTAN: https://mirrors.ctan.org/macros/latex/contrib/IEEEtran/.
+
+  ]]></markdown>
+</doc>

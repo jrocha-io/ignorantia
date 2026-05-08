@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c8-originality-check" path="references/claude-chat-tasks/c8-originality-check.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C8: Verificação de Originalidade Real</title>
+  <markdown><![CDATA[
 # Prompt — C8: Verificação de Originalidade Real
 
 > **Contexto.** Critério C8 da rubrica: originalidade real do manuscrito. Na v3.0 será substituído por modelo linguístico (similaridade semântica vs corpus). Na v2.0, é delegado ao Claude Chat com este prompt.
@@ -97,3 +101,6 @@ Você é avaliador de originalidade do manuscrito anexado. Sua função é detec
 ## Nota crítica
 
 C8 NÃO substitui detecção de plágio (camada 1 do assessor já cobre isso por similaridade textual). C8 cobre **originalidade conceitual**, que é diferente de **originalidade textual**.
+
+  ]]></markdown>
+</doc>

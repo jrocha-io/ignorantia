@@ -232,8 +232,13 @@ def test_modes_overview_lists_10_modes():
 
 
 def test_oa_tiers_doc_exists():
-    """references/databases/oa-tiers.md deve existir e listar 3 tiers."""
-    p = Path(__file__).parent.parent.parent / "references" / "databases" / "oa-tiers.md"
+    """references/databases/oa-tiers.xml deve existir e listar 3 tiers.
+
+    Fix 18 / Phase 2: source-of-truth migrated from .md to .xml. The Markdown
+    body is preserved inside a CDATA section, so the textual assertions still
+    hold against the raw file text.
+    """
+    p = Path(__file__).parent.parent.parent / "references" / "databases" / "oa-tiers.xml"
     assert p.exists()
     text = p.read_text(encoding="utf-8")
     assert "Tier 1" in text

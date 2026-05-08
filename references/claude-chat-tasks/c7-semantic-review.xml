@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c7-semantic-review" path="references/claude-chat-tasks/c7-semantic-review.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C7: Releitura Crítica Semântica do Manuscrito</title>
+  <markdown><![CDATA[
 # Prompt — C7: Releitura Crítica Semântica do Manuscrito
 
 > **Contexto.** Este prompt é executado pelo Claude Chat dentro do pipeline `ignorantia` v2.0 quando o assessor está rodando em modo Chat. Ele substitui o que na v3.0 será um modelo linguístico treinado.
@@ -104,3 +108,6 @@ Você está atuando como avaliador semântico do manuscrito anexado. Seu trabalh
 - Não invente trechos. Se não encontrar evidência para uma alegação, declare `"evidence_excerpts": []`.
 - Manuscritos em PT-BR: avalie em PT-BR. Manuscritos em EN: avalie em EN.
 - Se o manuscrito tem áreas mistas (e.g., metodologia em EN, análise em PT-BR), siga o idioma da seção avaliada.
+
+  ]]></markdown>
+</doc>
