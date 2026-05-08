@@ -4,6 +4,115 @@ Todas as mudanças notáveis serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 Versionamento [SemVer 2.0.0](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [3.0.0-rc1] — 2026-05-07
+
+**Release candidate da reescrita Clean Architecture v3.** Reorganiza
+o pacote em quatro camadas (`domain/` · `application/` ·
+`infrastructure/` · `interface/`) com cinco bounded contexts isolados
+(search · render · pipeline · compliance · audit), CLI Click com
+quatro subcomandos schema-validados, e camada de compatibilidade
+para chamadas v2.
+
+A v2.x continua funcionando inalterada durante a transição —
+`scripts/` não foi removido. O cronograma de descontinuação está em
+[`docs/MIGRATION_v2_TO_v3.md`](docs/MIGRATION_v2_TO_v3.md).
+
+### Adicionado
+
+- **Quatro camadas Clean Architecture** sob `src/ignorantia/`:
+  `domain/` (cinco bounded contexts), `application/` (use cases +
+  DTOs), `infrastructure/` (adapters concretos, 58 search adapters
+  + 4 renderers + 4 citation formatters), `interface/` (Click CLI).
+- **CLI Click** com quatro subcomandos: `audit`, `finalize`,
+  `render`, `search`. Cada subcomando emite uma linha JSON validada
+  contra um JSON-schema em `src/ignorantia/interface/manifests/`.
+- **Quatro use cases** em `application/use_cases/`: `RunAuditUseCase`,
+  `FinalizePipelineUseCase`, `RenderManuscriptUseCase`,
+  `SearchForStudiesUseCase`. Cada um traduz Command DTO ↔ domínio
+  via portas (DIP).
+- **Strategy pattern de citações**: `CitationFormatterPort` com
+  quatro implementações (ABNT NBR 6023:2018, APA 7th, IEEE numeric,
+  Vancouver/ICMJE) + `citation_formatter_for(style)` factory.
+- **Strategy pattern de renderers**: `RendererPort` com três
+  implementações (HTML, LaTeX, DOCX). DOCX gated no extra opcional
+  `[docx]`. `InteractiveRendererPort` para incrementação por seção
+  (HTML).
+- **`ManuscriptDoc.builder()`** — builder fluente para montagem
+  incremental de manuscritos.
+- **`PipelineExecutor` + `PipelineStep`** — registry pattern do v2
+  (E10) reescrito como serviço de domínio tipado.
+- **`ComplianceEngine`** — sucessor do `scripts/compliance/engine.py`
+  com `Decision`/`DesignDecision`/`Severity` value objects e
+  `VenueProfile`/`ComplianceReport` agregados.
+- **`ManifestService`** + `ReproducibilityManifest` — sucessor de
+  `scripts/manifest_helpers.py` (Decisões 21+22) como persistent
+  data structure.
+- **`ignorantia.legacy`** — pacote de compatibilidade que emite
+  `DeprecationWarning` no import e expõe `migration_guide()` com
+  o mapeamento v2→v3.
+- **Documentação completa**: `README` v3 quickstart,
+  `docs/TUTORIAL.md` (<30 min), `docs/architecture/C4_DIAGRAMS.md`
+  (Mermaid), API reference scaffold MkDocs + mkdocstrings em
+  `docs/api/`, `docs/MIGRATION_v2_TO_v3.md`, anexo v3 em
+  `references/audits/AUDIT_PROCEDURE.md`.
+
+### Mudanças (vs v2.x)
+
+- **Injeção de relógio (issue #13)**: zero `datetime.now()` em
+  `domain/` ou `application/`. Toda chamada centralizada em
+  `interface/cli/main._real_clock()` e injetada via `clock`
+  callable nos serviços que dependem dela.
+- **HTTP centralizado**: `infrastructure/http_client.py` único.
+  Adapters de busca não chamam `urllib.request.urlopen` diretamente.
+  USER_AGENT, throttle, retry, timeout configurados centralmente.
+- **Schemas runtime (issue #14)**: cada saída JSON do CLI é
+  validada contra Draft 2020-12 schema em
+  `interface/manifests/*.schema.json` antes do `click.echo`. Drift
+  do DTO falha o build.
+- **Bounded contexts isolados**: contextos `domain/<ctx>` não
+  importam de outros contextos `domain/`. Comunicação cross-context
+  passa por DTOs em `application/`.
+
+### Critérios de aceitação v3.0.0 — status
+
+Veja
+[`docs/RELEASE_READINESS_v3.0.0-rc1.md`](docs/RELEASE_READINESS_v3.0.0-rc1.md)
+para a verificação mecânica detalhada. Resumo:
+
+- ✅ `mypy --strict` verde em `domain/` + `application/`
+- ✅ Cobertura ≥ 90% em `domain/` (98.72%) + `application/` (100%)
+- ✅ Zero `urllib.request` fora de `infrastructure/http_client.py`
+- ✅ Zero `argparse` fora de `interface/cli/`
+- ✅ Zero `datetime.now()` em `domain/`
+- ✅ CHANGELOG completo com migration guide v2 → v3
+- ✅ Tutorial: SLR do zero compila em <30 minutos
+- ✅ Cowork mencionado como roadmap v4, não implementado
+- ⚠️ 58 / 62 adapters migrados (4 carry-over para v3.0.0 stable)
+- ⚠️ RS-42 dogfooding: deferido para sprint entre rc1 e estável
+
+### Pendências para v3.0.0 estável
+
+1. Migrar os 4 adapters restantes (`dimensions`, `oa_button`,
+   `embase_full`, `latindex`) para o registry v3.
+2. Sprint de dogfooding RS-42 — execução real-network dos 58
+   adapters + ciclo `render` → `finalize` completo.
+3. Migrar steps concretos do `scripts/pipeline_finalize.py` para
+   `infrastructure/pipeline/` (v3 `finalize` roda registry vazio
+   no rc1).
+4. Bump de `version` em `pyproject.toml` de `2.23.0` para `3.0.0`
+   após dogfooding sign-off.
+
+### Métricas
+
+- **2146** testes verde, 1 skipped (DocxRenderer atrás do extra
+  `[docx]`; CI roda).
+- **58** adapters de busca registrados no `AdapterFactory`.
+- **5** bounded contexts (`audit`, `compliance`, `pipeline`,
+  `render`, `search`).
+- **4** subcomandos CLI, **4** JSON-schemas, **4** citation styles,
+  **3** renderers, **4** use cases.
+- Cobertura geral do pacote v3: **87%**.
+
 ## [2.23.0] — 2026-05-04
 
 **Release de auditoria iterativa #5 + análise SOLID/DRY.** Foco principal: **paridade mock vs real** (D3, raiz da #5), **Liskov substitution** em adapters (E1), **DRY de USER_AGENT** (E2), **Open/Closed em pipeline** (E10), **stderr informativo** (D5), **orquestrador summary** (D6). Aplicação rigorosa de TDD: 34 testes escritos ANTES dos fixes.
