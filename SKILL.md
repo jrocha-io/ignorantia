@@ -293,7 +293,7 @@ O test `test_decision_17_excluded_platforms` em `tests/test_v26_tier0.py` valida
 - Retome com `--resume-after-gap-report`.
 - OU pule a resolução com `--skip-gap-resolution` — itens não providenciados serão registrados como "excluídos por inacessibilidade" no PRISMA flow diagram, com motivo declarado para auditoria.
 
-### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0)
+### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0; **rebaixada a artefato secundário** em v2.23.1, Decisão 36)
 
 A renderização anterior fazia uma única passada com substituição de placeholders. Falha em qualquer seção invalidava todo o trabalho. A v2.10.0 implementa renderização incremental em `scripts/render_chunks.py`:
 
@@ -448,7 +448,7 @@ Feature anteriormente prevista (camada decorativa de anotações vermelhas estil
 
 **Test-cases legados** (`test-cases/scenarios/{ghostwriter,smoke,corpus18}/manuscript.html`) ainda contêm a feature renderizada — são snapshots históricos de regressão da v1.x e **não vão para o pacote dist**. Não serão reescritos porque sua função é congelar o comportamento histórico para detecção de regressão.
 
-### Decisão 31 — Geração `.docx` ABNT obrigatória (registrado em v2.10.0)
+### Decisão 31 — Geração `.docx` ABNT obrigatória (registrado em v2.10.0; redefinida via `pandoc` a partir do `.tex` em v2.23.1, Fix 7)
 
 Output `.docx` no padrão ABNT (NBR 14724:2011 + NBR 6023:2018 + NBR 10520:2023) é parte obrigatória do pacote final em pt-BR. Implementação em `scripts/render_docx_abnt.py` usando `python-docx`.
 
@@ -463,7 +463,7 @@ Padrões aplicados:
 
 Coopera com `scripts/format_abnt.py` (Decisão 28) — referências e citações já formatadas como string entram como `paragraphs[i].type = "reference"` ou `"long_quote"` no content.json e o renderer aplica a tipografia correta.
 
-### Decisão 32 — Geração `.tex` + `.pdf` obrigatória (registrado em v2.10.0)
+### Decisão 32 — Geração `.tex` + `.pdf` obrigatória (registrado em v2.10.0; reclassificada como **artefato canônico** em v2.23.1, Decisão 36)
 
 Output `.tex` (LaTeX) é parte obrigatória do pacote final. Compilação para `.pdf` é opcional (depende de `pdflatex` ou `xelatex` no PATH). Implementação em `scripts/render_latex.py`.
 
@@ -635,6 +635,75 @@ indireta:
 * **Logs de adapter (Camada 1, DD-10)** registram timestamps das
   buscas. Mais de 5 timestamps próximos numa SLR pequena indica
   que a Fase 3 não foi externalizada.
+
+### Decisão 36 — Reclassificação do HTML como artefato secundário; PDF/DOCX como artefatos acadêmicos canônicos (registrado em v2.23.1)
+
+**Reclassificação de hierarquia de saída**. A v2.10.0 / Decisão 18
+estabeleceu o `manuscript.html` como "renderer canônico" via
+`scripts/render_chunks.py`. Operacionalmente, em uso real
+(RS-42 dogfood, 2026-05-08), ficou claro que o HTML não é o
+artefato acadêmico — é um relatório informativo estilo Wikipedia
+com design instrucional, útil para banca, white paper e leitura
+de divulgação, mas **não é o que vai pro Zenodo como depósito de
+IP**. Para registro acadêmico (proteção contra roubo de ideias,
+citação canônica em catálogos), o que conta é PDF compilado de
+LaTeX + BibTeX.
+
+**Nova hierarquia (vinculante a partir de v2.23.1):**
+
+| Artefato | Papel | Geração default? |
+|---|---|---|
+| `manuscript.tex` | **Source-of-truth** do artigo | ✅ sim |
+| `bibliography.bib` | BibTeX entries (referenciado por `\bibliography{}`) | ✅ sim (após Fix 6) |
+| `manuscript.pdf` | **Citação canônica do depósito Zenodo** (compilado por `pdflatex+bibtex`) | ✅ sim |
+| `manuscript.docx` | Formato secundário para revisores que pedem `.docx` (convertido via `pandoc -s manuscript.tex -o manuscript.docx`) | ✅ sim |
+| `manuscript.html` | Relatório informativo Wikipedia-style (TOC, dark mode, design instrucional) | ❌ **não — só com flag explícita** |
+
+**Implicações operacionais:**
+
+1. **Skill **não** gera HTML por padrão.** O HTML continua acessível
+   mas exige requisição explícita do usuário ("quero o HTML
+   também", "gere a versão Wikipedia", `--with-html` no CLI).
+   Sem isso, o pipeline produz apenas `.tex` + `.bib` + `.pdf` +
+   `.docx`.
+
+2. **HTML, quando pedido, roda em sessão separada.** O HTML
+   chunked-write (Decisão 34) acontece numa invocação
+   independente, depois que o artigo acadêmico (`.pdf`) já
+   foi gerado e salvo. Nunca na mesma sessão de chat. Isso
+   alinha com Fix 8 (relocação do protocolo de chunked render
+   para subcomando separado).
+
+3. **Decisões 18, 31, 32 permanecem em vigor** para os
+   respectivos artefatos, mas a **canonicidade** muda: o
+   "renderer canônico" agora é `render_latex.py` → PDF
+   (Decisão 32 reclassificada). O HTML chunked
+   (`render_chunks.py`, Decisão 18) continua sendo o **canônico
+   para o caminho HTML** quando o caminho HTML é pedido — só
+   que esse caminho deixou de ser default.
+
+4. **Pacote Zenodo**: `manuscript.pdf` + `manuscript.docx` +
+   `manuscript.tex` + `bibliography.bib` + protocolos +
+   logs + declarações. `manuscript.html` permanece em
+   **arquivo separado**, não no ZIP de depósito acadêmico.
+   (Detalhe completo em `docs/MIGRATION_v2_TO_v3.md` e
+   subsequentes notas de release.)
+
+**Justificativa de IP** (motivação primária da Decisão):
+o depósito Zenodo serve para **timestamping autoral imutável** —
+DOI emitido pelo Zenodo + SHA-256 do ZIP + carimbo de data.
+Cumpre a função de *proof-of-anteriority*. PDF é o formato
+universalmente aceito por revisores e catálogos como evidência
+de autoria; HTML não tem essa convenção (cada Zenodo
+landing-page renderiza HTML diferentemente). A escolha
+operacional é gerar primeiro o que protege a IP, depois o que
+diverge para divulgação.
+
+**Migração**: Fixes 6 e 7 (BibTeX como first-class + pipeline
+de compilação PDF/DOCX) fornecem o código que torna esta
+Decisão executável. Até Fix 6 lançar, `manuscript.tex`
+continua emitindo `\thebibliography` inline (compila pra PDF
+mas não gera `.bib` separado).
 
 ## Infraestrutura de comparação automatizada (v2.5.0 — Etapa 4b)
 
