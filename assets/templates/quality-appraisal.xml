@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="quality-appraisal" path="assets/templates/quality-appraisal.md" type="template" lang="pt-BR">
+  <title>Quality appraisal — Template</title>
+  <markdown><![CDATA[
 # Quality appraisal — Template
 
 Aplicado a cada estudo incluído. Escolher UM instrumento na fase de protocolo; mantê-lo até o fim. Mudar de instrumento meio da SLR invalida a pré-registro.
@@ -101,3 +105,6 @@ Salvar como `quality-appraisal.csv`:
 ```csv
 study_id,reviewer1_QA1,reviewer1_QA2,...,reviewer1_total,reviewer2_QA1,...,reviewer2_total,consensus_QA1,...,consensus_total,passed_threshold,notes
 ```
+
+  ]]></markdown>
+</doc>

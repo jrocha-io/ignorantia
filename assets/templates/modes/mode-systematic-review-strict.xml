@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-systematic-review-strict" path="assets/templates/modes/mode-systematic-review-strict.md" type="template" lang="pt-BR">
+  <title>Mode template — Systematic Review (with two human reviewers)</title>
+  <markdown><![CDATA[
 # Mode template — Systematic Review (with two human reviewers)
 
 > Aplica-se APENAS quando `review_type: systematic_review_with_2_reviewers` E `two_reviewer_kappa_documented: true` no metadado do manuscrito.
@@ -81,3 +85,6 @@ prospero_or_osf_registration_id: "CRDXXXXXXXXX"  # OBRIGATÓRIO preenchido
 ## Nota crítica sobre escala
 
 Este modo é o único que justifica o termo "Systematic Review", mas exige dois revisores humanos qualificados. Para o projeto base do usuário (5-200 RS), este modo será raro — viável apenas para revisões de altíssima prioridade onde valha a pena envolver um segundo revisor humano qualificado. A maior parte da produção será em modos scoping, rapid e mapping.
+
+  ]]></markdown>
+</doc>

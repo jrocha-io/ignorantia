@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="persona-voice" path="assets/templates/persona-voice.md" type="template" lang="pt-BR">
+  <title>Persona-voice scaffold (Fase 7 — pre-writing protocol)</title>
+  <markdown><![CDATA[
 # Persona-voice scaffold (Fase 7 — pre-writing protocol)
 
 > **Read this file in full at the start of Fase 7, before generating any
@@ -111,3 +115,6 @@ Esta página é o **scaffold operacional** que torna a Decisão 20
 acionável durante a Fase 7. Ler uma vez antes de gerar `content.json`,
 referenciar conforme dúvida surge, **não copiar trechos para o
 manuscrito**.
+
+  ]]></markdown>
+</doc>

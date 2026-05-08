@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-white-paper" path="assets/templates/modes/mode-white-paper.md" type="template" lang="pt-BR">
+  <title>Mode template — White Paper / Policy Brief</title>
+  <markdown><![CDATA[
 # Mode template — White Paper / Policy Brief
 
 > Aplica-se quando `review_type: white_paper` ou `review_type: policy_brief` no metadado.
@@ -157,3 +161,6 @@ plain_language_summary_present: false
 - White Papers TÊM impacto político/social maior que papers acadêmicos quando bem feitos e bem distribuídos.
 - White Paper é o formato natural para o caso "IA e jogos educacionais não substituem professor" do projeto base — defesa de posição de política pública educacional brasileira, audiência primária formuladores de política e gestores educacionais.
 - Para o caso brasileiro, considerar adicionalmente versão em PT-BR depositada em SciELO Preprints + repositório universitário, para máximo alcance da audiência alvo.
+
+  ]]></markdown>
+</doc>

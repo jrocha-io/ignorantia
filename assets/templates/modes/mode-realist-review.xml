@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-realist-review" path="assets/templates/modes/mode-realist-review.md" type="template" lang="pt-BR">
+  <title>Mode template — Realist Review</title>
+  <markdown><![CDATA[
 # Mode template — Realist Review
 
 > Aplica-se quando `review_type: realist_review` no metadado.
@@ -173,3 +177,6 @@ prospero_or_osf_registration_id: ""
 - Realist Review é metodologicamente **mais apropriada** que SR estrito para perguntas sobre programas complexos onde "efeito médio" não responde à pergunta.
 - Para o projeto base: o tema **"IA na educação não substitui professor — em que contextos, por quê?"** é caso paradigmático onde Realist Review é metodologicamente superior a outros modos.
 - Single-reviewer é aceitável em RAMESES II com transparência total (diferente de SR estrito que exige 2 revisores).
+
+  ]]></markdown>
+</doc>

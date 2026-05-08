@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-position-paper" path="assets/templates/modes/mode-position-paper.md" type="template" lang="pt-BR">
+  <title>Mode template — Position Paper / Theoretical Essay</title>
+  <markdown><![CDATA[
 # Mode template — Position Paper / Theoretical Essay
 
 > Aplica-se quando `review_type: position_paper` ou `review_type: theoretical_essay` no metadado.
@@ -130,3 +134,6 @@ conflicts_of_interest: ""
 - Position Paper NÃO substitui pesquisa empírica — é honesto sobre ser argumentação informada por evidência, não evidência primária.
 - Não confundir com Editorial: Editorial é mais curto e geralmente é convite. Position Paper tem estrutura argumentativa formal (~3000-10000 palavras conforme venue).
 - Não confundir com Theoretical Essay: Theoretical Essay tipicamente foca mais em desenvolvimento conceitual; Position Paper foca em defender uma posição específica. A ferramenta trata ambos como variantes do mesmo modo (`theoretical_essay` é alias de `position_paper`).
+
+  ]]></markdown>
+</doc>
