@@ -187,13 +187,23 @@ def render_tex(content: dict, output_path: Path,
                abstract: str | None = None,
                keywords: list[str] | None = None,
                lang: str = "brazilian",
-               contextual_preamble_markdown: str | None = None
+               contextual_preamble_markdown: str | None = None,
+               paper_mode: bool = True,
                ) -> LatexRenderResult:
     """Renderiza o manuscrito como arquivo .tex.
 
     Args:
         contextual_preamble_markdown: F4 (v2.18.1, DD-11) — se fornecido, gera
             seção "O campo onde este artigo vive" antes da Introdução.
+        paper_mode: Fix 13 (v2.23.x, RS-42 remediation). Quando True (default
+            a partir da Fix 13), o renderer ignora ``section.id`` e emite
+            ``\\section{Título}`` (auto-numerado pelo LaTeX como "1 Título",
+            "2 Título"...). Quando False, preserva o comportamento legacy
+            ``\\section*{§<id> Título}`` que era apropriado para o modo
+            HTML-wiki mas vazava §1, §2 literal nos PDFs acadêmicos. O
+            content.json deve ser construído sem ``section.id`` para o
+            caminho paper, ou o usuário pode invocar com paper_mode=False
+            para manter compatibilidade com fluxos antigos.
     """
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -317,13 +327,19 @@ def render_tex(content: dict, output_path: Path,
         if in_list:
             parts.append("\\end{itemize}")
 
-    # Seções
+    # Seções — Fix 13 (RS-42 remediation): paper_mode controla a forma da seção.
+    # Em paper_mode=True (default), emite \section{...} numerado automaticamente
+    # pelo LaTeX (sem prefixo §-id). Em paper_mode=False, mantém o comportamento
+    # legacy \section*{§<id> ...} apropriado para o caminho HTML wiki-style.
     sections = content.get("sections", [])
     for s in sections:
         sec_id = s.get("id", "")
         sec_title = _escape_latex(s.get("title", ""))
-        prefix = f"\\S{sec_id} " if sec_id else ""
-        parts.append(f"\\section*{{{prefix}{sec_title}}}")
+        if paper_mode:
+            parts.append(f"\\section{{{sec_title}}}")
+        else:
+            prefix = f"\\S{sec_id} " if sec_id else ""
+            parts.append(f"\\section*{{{prefix}{sec_title}}}")
         paragraphs = s.get("paragraphs", [])
         if not paragraphs and s.get("content_html"):
             paragraphs = [{"text": _strip_html(s["content_html"]), "type": "body"}]
@@ -414,13 +430,20 @@ def render_tex_and_pdf(content: dict, tex_path: Path,
                        keywords: list[str] | None = None,
                        compile_to_pdf: bool = True,
                        engine: str = "pdflatex",
-                       contextual_preamble_markdown: str | None = None
+                       contextual_preamble_markdown: str | None = None,
+                       paper_mode: bool = True,
                        ) -> LatexRenderResult:
-    """Pipeline completo: tex + (opcional) pdf."""
+    """Pipeline completo: tex + (opcional) pdf.
+
+    Args:
+        paper_mode: Fix 13. Repassa para render_tex (default True). Quando
+            False, mantém o comportamento legacy ``\\section*{§<id> ...}``.
+    """
     tex_result = render_tex(
         content, tex_path,
         title=title, authors=authors, abstract=abstract, keywords=keywords,
         contextual_preamble_markdown=contextual_preamble_markdown,
+        paper_mode=paper_mode,
     )
     if not compile_to_pdf:
         return tex_result
@@ -448,6 +471,11 @@ def _cli() -> int:
     p.add_argument("--preamble-area", default="multi")
     p.add_argument("--preamble-language", default="pt-BR")
     p.add_argument("--preamble-mock", action="store_true")
+    # Fix 13 (RS-42 remediation)
+    p.add_argument("--legacy-wiki-prefix", action="store_true",
+                   help="(Compatibilidade) Restaura o comportamento legacy "
+                        "\\section*{§<id> Título} apropriado para HTML wiki-style. "
+                        "Default agora é paper-mode (\\section{Título} numerado).")
     args = p.parse_args()
     content = json.loads(Path(args.content_json).read_text(encoding="utf-8"))
 
@@ -478,6 +506,7 @@ def _cli() -> int:
         compile_to_pdf=not args.no_pdf,
         engine=args.engine,
         contextual_preamble_markdown=preamble_md,
+        paper_mode=not args.legacy_wiki_prefix,
     )
     print(f"[render_latex] tex: {result.tex_path} ({result.n_sections} seções, "
           f"{result.n_references} refs)")
