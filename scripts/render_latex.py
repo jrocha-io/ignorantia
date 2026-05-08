@@ -32,6 +32,9 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from _reference_helpers import render_reference_string  # noqa: E402
+
 LATEX_PREAMBLE = r"""\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -372,7 +375,7 @@ def render_tex(content: dict, output_path: Path,
         parts.append("\\section*{Referências}")
         parts.append("\\begin{singlespace}")
         for r in refs:
-            parts.append(_escape_latex(r))
+            parts.append(_escape_latex(render_reference_string(r)))
             parts.append("")
         parts.append("\\end{singlespace}")
 

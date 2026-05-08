@@ -44,6 +44,11 @@ from assessor.visual_aids import (
     render_tldr_cards_html,
     decorate_section,
 )
+from _reference_helpers import (
+    extract_doi as ref_extract_doi,
+    extract_url as ref_extract_url,
+    render_reference_string,
+)
 
 
 def html_escape(s: str) -> str:
@@ -577,14 +582,20 @@ def build_audit_html(audit: dict, lang: str = "pt-BR") -> str:
 # ── References list ─────────────────────────────────────────────────────
 
 
-def build_references_list(refs: list[dict]) -> str:
+def build_references_list(refs: list) -> str:
+    """Render references as <li> entries.
+
+    Accepts both legacy ``list[str]`` and canonical ``list[dict]`` shapes
+    (Fix 17 / RS-42). String entries render as plain citation text without a
+    follow-on link unless an inline DOI/URL is detected.
+    """
     if not refs:
         return ""
     out = []
     for r in refs:
-        text = r.get("citation", "") or r.get("text", "")
-        doi = r.get("doi", "")
-        url = r.get("url", "") or (f"https://doi.org/{doi}" if doi else "")
+        text = render_reference_string(r)
+        doi = ref_extract_doi(r) or ""
+        url = ref_extract_url(r) or (f"https://doi.org/{doi}" if doi else "")
         link = ""
         if url:
             link = f' <a href="{html_escape(url)}" target="_blank" rel="noopener">{html_escape(url)}</a>'
@@ -802,8 +813,15 @@ def rq_options(rqs):
     )
 
 
-def replace_inline_ref_markers(html_text: str, refs: list[dict]) -> str:
-    """Faz [n] → <a href="#ref-n">[n]</a>"""
+def replace_inline_ref_markers(html_text: str, refs: list) -> str:
+    """Faz [n] → <a href="#ref-n">[n]</a>.
+
+    The ``refs`` parameter is accepted for call-site uniformity (the canonical
+    references list flows through here); it is intentionally unused — anchor
+    targets are derived from the marker number alone, not the entry shape.
+    Accepts ``list[str]`` or ``list[dict]`` (Fix 17 / RS-42).
+    """
+    del refs  # unused, kept for call-site uniformity
     def replace(match):
         n = match.group(1)
         return f'<a href="#ref-{n}" class="cite">[{n}]</a>'
