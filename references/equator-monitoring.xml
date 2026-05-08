@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="equator-monitoring" path="references/equator-monitoring.md" type="document" lang="pt-BR">
+  <title>Monitoramento de Reporting Guidelines — EQUATOR Network</title>
+  <markdown><![CDATA[
+# Monitoramento de Reporting Guidelines — EQUATOR Network
+
+> **Propósito.** Acompanhar guidelines de reporting científico relevantes para o ghostwriter `ignorantia` v2.0, especialmente as emergentes para uso de IA em pesquisa (PRISMA-AI, CHART, CONSORT-AI, etc.). Quando uma guideline relevante for publicada ou atualizada, abrir issue obrigatória para incorporação à v2.x.
+>
+> **Política de revisão.** Verificação mensal manual ou via job automatizado contra a página oficial da EQUATOR Network. Quando houver mudança detectada, atualizar este arquivo + criar issue no repositório.
+
+**Última verificação:** 2026-05-02
+**Próxima verificação prevista:** 2026-06-02
+
+---
+
+## Guidelines aplicáveis e estado atual
+
+### Estabelecidas e implementadas em ignorantia v2.0
+
+| ID | Nome | Versão atual | URL | Implementado em |
+|---|---|---|---|---|
+| PRISMA-2020 | Preferred Reporting Items for Systematic Reviews and Meta-Analyses | 2020 | http://www.prisma-statement.org/ | `references/profiles/_guidelines/prisma-2020.yaml` |
+| PRISMA-S | PRISMA Search Extension | 2021 | https://prisma-statement.org/Extensions/Searching | `references/profiles/_guidelines/prisma-s.yaml` |
+| PRISMA-ScR | PRISMA Extension for Scoping Reviews | 2018 | http://www.prisma-statement.org/Extensions/ScopingReviews | `references/profiles/_guidelines/prisma-scr.yaml` |
+| PRISMA-RR | PRISMA Extension for Rapid Reviews | 2024 | https://www.equator-network.org/reporting-guidelines/prisma-rr/ | `references/profiles/_guidelines/prisma-rr.yaml` |
+| MECIR | Methodological Expectations of Cochrane Intervention Reviews | Cochrane Handbook v6.4 | https://methods.cochrane.org/methodological-expectations-cochrane-intervention-reviews-mecir | `references/profiles/_guidelines/mecir.yaml` |
+| CAMPBELL-STANDARDS | Campbell Collaboration Methods Standards | 1.8 (Feb 2021) | https://www.campbellcollaboration.org/methods/standards/ | `references/profiles/_guidelines/campbell-standards.yaml` |
+| SIGSOFT-EMP-STANDARDS | ACM SIGSOFT Empirical Standards: Systematic Review | 2024 | https://acmsigsoft.github.io/EmpiricalStandards/ | `references/profiles/_guidelines/sigsoft-empirical-standards.yaml` |
+
+### Estabelecidas mas ainda NÃO implementadas (alvo v2.x)
+
+| ID | Nome | Versão atual | URL | Prioridade |
+|---|---|---|---|---|
+| MOOSE | Meta-analysis of Observational Studies in Epidemiology | 2000 (revisão em desenvolvimento) | https://www.equator-network.org/reporting-guidelines/meta-analysis-of-observational-studies-in-epidemiology-a-proposal-for-reporting-meta-analysis-of-observational-studies-in-epidemiology-moose-group/ | média |
+| ENTREQ | Enhancing Transparency in Reporting Synthesis of Qualitative Research | 2012 | https://www.equator-network.org/reporting-guidelines/entreq/ | média |
+| AMSTAR-2 | A MeaSurement Tool to Assess Systematic Reviews 2 | 2017 | https://amstar.ca/Amstar-2.php | alta (uso para auditoria de SLRs existentes) |
+| ROBIS | Risk of Bias in Systematic Reviews | 2016 | http://www.bristol.ac.uk/population-health-sciences/projects/robis/ | alta |
+| GRADE | Grading of Recommendations Assessment, Development and Evaluation | continuamente atualizado | https://www.gradeworkinggroup.org/ | alta |
+| CONSORT-2010 | CONSORT statement for RCTs | 2010 (CONSORT 2025 em desenvolvimento) | http://www.consort-statement.org/ | média |
+| STARD-2015 | Standards for Reporting Diagnostic Accuracy | 2015 (STARD 2.0 em desenvolvimento) | https://www.equator-network.org/reporting-guidelines/stard/ | baixa |
+| STROBE | Strengthening the Reporting of Observational studies in Epidemiology | 2007 (atualização 2025-2026 em desenvolvimento) | https://www.strobe-statement.org/ | baixa |
+
+### Em desenvolvimento (relevantes para IA — monitoramento crítico)
+
+| ID | Nome | Estado em 2026-05 | URL | Ação esperada |
+|---|---|---|---|---|
+| PRISMA-AI | PRISMA Extension for AI-assisted reviews | **EM DESENVOLVIMENTO** — protocolo registrado em EQUATOR; sem statement final publicado | https://www.equator-network.org/library/reporting-guidelines-under-development/ | Quando publicado, criar `_guidelines/prisma-ai.yaml` e atualizar todos os perfis de venue. Crítico. |
+| CHART | CHAtbot Reporting Tool | Publicado 2024 (Tomas et al.); monitoramento de adoção | https://www.equator-network.org/reporting-guidelines/chart/ | Avaliar adoção em venues de IA |
+| TRIPOD+AI | TRIPOD extension for prediction models that use AI | **PUBLICADO** 2024 (Collins et al. BMJ 2024;385:e078378) | https://www.tripod-statement.org/ | Implementar em v2.x quando v3.0 (classificador regressivo) for desenvolvido |
+| CONSORT-AI | CONSORT extension for AI-based clinical trials | Publicado 2020 (Liu et al.); atualização planejada para 2026 | https://www.equator-network.org/reporting-guidelines/consort-ai/ | Monitorar atualização |
+| SPIRIT-AI | SPIRIT extension for AI trial protocols | Publicado 2020; atualização planejada para 2026 | https://www.equator-network.org/reporting-guidelines/spirit-ai/ | Monitorar atualização |
+| STARD-AI | STARD extension for AI-based diagnostic studies | Em desenvolvimento | https://www.equator-network.org/library/reporting-guidelines-under-development/ | Implementar quando publicado |
+| DECIDE-AI | Diagnostic and clinical implementation of AI guidelines | Publicado 2022 (Vasey et al. BMJ) | https://www.equator-network.org/reporting-guidelines/decide-ai/ | Avaliar relevância para escopo |
+| CHEERS-AI | CHEERS extension for AI economic evaluations | Em desenvolvimento | https://www.equator-network.org/library/reporting-guidelines-under-development/ | Fora do escopo prioritário |
+| CANGARU | Consensus on Guidelines for AI in Research and Use of academic publishing | Publicado 2024 (Nature Medicine) | https://cangaru.org/ | Implementar como guideline transversal de disclosure de IA |
+
+---
+
+## Procedimento de atualização
+
+Quando uma guideline da lista "Em desenvolvimento" for publicada ou uma da lista "Estabelecidas mas não implementadas" for marcada como prioritária:
+
+1. **Obter o documento canônico** (PDF + checklist em formato máquina-legível se disponível).
+2. **Criar `references/profiles/_guidelines/{guideline-id}.yaml`** seguindo o template de PRISMA-2020.
+3. **Classificar cada item por automation_level** (full / partial / none).
+4. **Atualizar perfis de venue** que endossem a guideline (campo `taxonomy.reporting_guidelines_endorsed`).
+5. **Atualizar este arquivo** movendo a entrada da seção apropriada.
+6. **Bump de versão da skill** (minor, e.g., v2.0.0 → v2.1.0).
+7. **Atualizar journal.txt e CHANGELOG.md**.
+
+---
+
+## Histórico de atualizações deste documento
+
+| Data | Mudança |
+|---|---|
+| 2026-05-02 | Criação inicial. 7 guidelines implementadas (PRISMA-2020, PRISMA-S, PRISMA-ScR, PRISMA-RR, MECIR, Campbell, SIGSOFT). 8 conhecidas + não implementadas. 9 monitoradas em desenvolvimento ou recém-publicadas. |
+| 2026-05-02 | v2.1.0: 6 guidelines novas adicionadas (Whittemore-Knafl, RAMESES II, Software Paper Generic, Position Paper Generic, ANSI/NISO Z39.18, White Paper Generic). Total: 13 guidelines implementadas. |
+| 2026-05-02 | v2.2.0: registro de gap "Qualis CAPES em transição" — CAPES anunciou em janeiro/2026 a descontinuação da classificação conceitual A1-C para o quadriênio 2025-2028. Perfis YAML continuam usando 2021-2024 como referência canônica. Quando novo modelo CAPES for publicado, ciclo de migração será necessário. |
+
+## Gaps editoriais em monitoramento (não-EQUATOR)
+
+Esta seção registra gaps editoriais que afetam o ignorantia mas não são guidelines EQUATOR.
+
+### Qualis CAPES — descontinuação da classificação conceitual
+
+- **Status**: Anunciado pela CAPES em janeiro/2026 junto com o resultado do quadriênio 2021-2024.
+- **Impacto**: O quadriênio 2025-2028 NÃO terá classificação A1-C. Novo modelo de avaliação a ser publicado.
+- **Implicação para o ignorantia**: Os campos `qualis_stratum` e `qualis_subarea` nos perfis YAML usam a referência 2021-2024 (último quadriênio válido com classificação conceitual). Quando o novo modelo for publicado:
+  1. Avaliar se faz sentido manter campos `qualis_stratum` ou substituir por nova métrica CAPES
+  2. Fazer ciclo de migração dos 12 perfis BR atuais
+  3. Atualizar `venue-criteria-qualis-a1.md` e `venue-stratum-mapping.json`
+- **Próxima revisão**: quando CAPES publicar o novo modelo (esperado 2026-2027).
+
+
+  ]]></markdown>
+</doc>

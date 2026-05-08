@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="audit-2-strategy" path="references/audits/audit-2-strategy.md" type="document" lang="pt-BR">
+  <title>Estratégia auditoria #2 — fixes A1 a A9</title>
+  <markdown><![CDATA[
+# Estratégia auditoria #2 — fixes A1 a A9
+
+Plano de 3 sprints respondendo aos 9 achados da auditoria #2 da v2.19.0. Consolidação em release única **v2.20.0**.
+
+## Mandato
+
+Usuário (2026-05-04 pós-auditoria #2): *"Sim. Prossiga."* Autonomia para executar sem interrupção, exceto em (a) erro técnico não-recuperável, (b) descoberta que muda premissa, (c) limite operacional.
+
+Princípio reforçado: **toda correção precisa de regressão E smoke real**.
+
+## Sprint H1 — P0 críticos (vitrine quebrada introduzida pela v2.19.0)
+
+| Fix | O que faz | Smoke validation |
+|---|---|---|
+| **A1** | version stamps: `README.md` → 2.20.0; `contextual_preamble.py` VERSION → "2.20.0" | `grep "Versão.*2.19.1\|VERSION.*2.18.1"` retorna 0 |
+| **A2** | F4 LaTeX bug: implementar conversor `_markdown_to_latex()` completo. Trata: `*italic*` → `\textit{}`, `**bold**` → `\textbf{}`, `- item` → `\begin{itemize}\item ... \end{itemize}`, `[text](url)` → `\href{url}{text}`. Ordem importa: links primeiro, depois bold (** antes de *), depois italic, depois listas. | Rodar `render_latex.py --contextual-preamble --preamble-mock` e verificar TeX gerado tem `\textit{}` e `\textbf{}` ao invés de `*texto*` |
+| **A3** | arxiv argparse: aceitar `--year-start`/`--year-end` (compatível com orquestrador) E manter `--start-date`/`--end-date` (retrocompat). Convert year→date YYYY-01-01/YYYY-12-31 internamente. | `search_arxiv.py --query test --year-start 2023 --year-end 2024 --output ...` exit 0 |
+
+## Sprint H2 — P1 coerência
+
+| Fix | O que faz | Smoke validation |
+|---|---|---|
+| **A4** | SKILL.md: nova seção "Estado quantitativo da skill (v2.20.0)" listando 57 TIER1_RUNNERS, 266+ testes, 61 adapters totais, 6 etapas do pipeline_finalize, 16 paywall, 7 áreas, 33 decisões editoriais, 12 DDs. | grep do SKILL.md retorna 5+ destes números |
+| **A5** | search_la_referencia.py: DOIs mock `lareferencia-mock-XXX` → `la_referencia-mock-XXX`. URLs literais do site (lareferencia.info) ficam (domínio real). | grep `lareferencia-mock` retorna 0 ocorrências |
+| **A6** | 4 adapters legacy (`search_arxiv`, `search_crossref`, `search_dblp`, `search_semantic_scholar`): adicionar `--mock` no argparse + função `_mock_results()` determinística. | Rodar `search_arxiv.py --query x --mock --output y.json` retorna JSON válido com fixtures |
+
+## Sprint H3 — P2/P3 refinamento
+
+| Fix | O que faz | Esforço |
+|---|---|---|
+| **A7** | grey_lit `_cli`: imprimir error em stderr antes de `return 1`. Permite orquestrador mostrar mensagem útil. | leve |
+| **A8** | arxiv: backoff exponencial em 429. urllib retry 3x com `time.sleep(2**attempt)`. | leve |
+| **A9** | F15 resto: parser real para `search_lilacs.py` (BVS portal RSS/JSON) e `search_redalyc.py` (OAI-PMH). Adicionar 4 testes de integração com mock urllib. | médio |
+
+## Critérios de pausa entre sprints
+
+- Sprint deve fechar com **regressão verde** (todos testes passando).
+- Smoke real após cada fix P0 (A1, A2, A3).
+- Empacotar como **v2.20.0 consolidada** ao final dos 3 sprints, não 3 releases separadas.
+
+## Cronograma proposto
+
+H1 → A1+A2+A3 — esta sessão (~30%)
+H2 → A4+A5+A6 — esta sessão (~25%)
+H3 → A7+A8+A9 — esta sessão (~25%)
+Empacotamento + CHANGELOG + journal + MODES_OVERVIEW — esta sessão (~20%)
+
+## Histórico
+
+| Data | Sprint | Status |
+|---|---|---|
+| 2026-05-04 | Plano auditoria #2 | criado |
+
+## Histórico (atualizado)
+
+| Data | Sprint | Status |
+|---|---|---|
+| 2026-05-04 | Plano auditoria #2 | criado |
+| 2026-05-04 | H1 (A1, A2, A3) | ✅ entregue (em v2.20.0) |
+| 2026-05-04 | H2 (A4, A5, A6) | ✅ entregue (em v2.20.0) |
+| 2026-05-04 | H3 (A7, A8, A9) | ✅ entregue (em v2.20.0) |
+| (futuro) | A9 resto (parsers para 16 adapters restantes em _REAL_PARTIAL) | 🔜 v2.21.0+ |
+
+**Estratégia consolidada como release única v2.20.0** seguindo o padrão da v2.19.0. 25 testes adicionais cobrindo todos os 9 achados (smoke E2E de TeX gerado, CLI subprocess dos 4 adapters retrofitted, parser LILACS via mock urllib).
+
+  ]]></markdown>
+</doc>

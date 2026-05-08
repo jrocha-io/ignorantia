@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="v1-0-2026-04-29" path="references/calibrations/v1.0-2026-04-29.md" type="document" lang="pt-BR">
+  <title>Calibração v1.0 — 2026-04-29</title>
+  <markdown><![CDATA[
+# Calibração v1.0 — 2026-04-29
+
+**Status**: ativa | **Versão**: 1.0-2026-04-29 | **Geração**: Rodada N
+
+## TIER_TABLE (modo texto integral, default)
+
+Calibrada em 4 cenários canônicos durante desenvolvimento. **Validação empírica em FT real pendente** (planejada para Rodada S).
+
+```python
+TIER_TABLE = [
+    (6.0, "C",  "Below Q4",       "(local presentation level)",         "#9090a8"),
+    (6.3, "B4", "Q4 (lower)",     "0-12.5 percentile (Q4 inferior)",    "#7878a0"),
+    (6.6, "B3", "Q4 (upper)",     "12.5-25 percentile (Q4 superior)",   "#5a8090"),
+    (7.0, "B2", "Q3 (lower)",     "25-37.5 percentile (Q3 inferior)",   "#4a8585"),
+    (8.0, "B1", "Q3 (upper)",     "37.5-50 percentile (Q3 superior)",   "#4a9070"),
+    (8.5, "A4", "Q2 (lower)",     "50-62.5 percentile (Q2 inferior)",   "#588060"),
+    (9.0, "A3", "Q2 (upper)",     "62.5-75 percentile (Q2 superior)",   "#688058"),
+    (9.5, "A2", "Q1 (lower)",     "75-87.5 percentile (Q1 inferior)",   "#787850"),
+    (10.0, "A1", "Q1 (upper)",    "87.5-100 percentile (Q1 superior)",  "#806848"),
+]
+```
+
+## TIER_TABLE_MIN (modo pacote mínimo)
+
+Calibrada empiricamente em 187 SLRs reais (Rodada N).
+
+```python
+TIER_TABLE_MIN = [
+    (3.8, "SUB-Q4",   "Below Q4",       "(perfil insuficiente)",                                "#d68a1e"),
+    (4.3, "Q2-Q3",    "Q2-Q3 range",    "(perfil compatível com Q2-Q3 / A3-B1)",                "#4a8585"),
+    (10.0, "Q1",      "Q1 range",       "(perfil compatível com Q1 / A1-A2 — alta precisão)",   "#787850"),
+]
+```
+
+### Métricas
+
+| Métrica | Valor |
+|---|---|
+| **Precision Q1** | 97.6% |
+| Recall Q1 | 55.7% |
+| Acurácia útil | 59.5% |
+| FPR | 10.5% |
+| AUC binária A1+A2 vs A3+B1 | 0.848 |
+
+### Corpus
+
+- 187 SLRs reais coletadas via Crossref + OpenAlex
+- 86 A1, 82 A2, 2 A3, 17 B1
+- 130 PT, 57 EN
+- 121 saúde, 46 educação, 12 psicologia, 8 computação
+
+### Limitações declaradas
+
+1. Calibração feita em **pacotes proxy** (sintetizados a partir de abstracts), não em SLRs com texto integral real.
+2. n A3 = 2 estatisticamente irrelevante.
+3. Sem dados B2-B4 — extrapolação.
+4. 19 degraded predominantemente JAMA Network — viés sistemático.
+5. Validação direta texto integral vs pacote mínimo no MESMO estudo pendente.
+
+## Histórico de mudanças
+
+- **1.0-2026-04-29**: primeira calibração formal (Rodada N do Sprint formal J-P).
+
+## Próximas calibrações planejadas
+
+- **Rodada S**: validação empírica de TIER_TABLE em texto integral real (3-5 Cochrane OA inicialmente; idealmente 80+ pares minimal+integral).
+- **Rodada T**: expansão A3+B1 para N≥80 cada; cross-validation 5-fold.
+- **Rodada U**: calibração separada PT vs EN.
+
+  ]]></markdown>
+</doc>

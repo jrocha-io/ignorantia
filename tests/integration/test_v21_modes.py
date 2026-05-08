@@ -295,8 +295,13 @@ def test_all_search_scripts_declare_source_tier():
 # ============================================================================
 
 def test_auto_correction_policy_mentions_three_layers():
-    """auto-correction-policy.md deve documentar aplicabilidade nas 3 camadas v2.1."""
-    p = Path(__file__).parent.parent.parent / "references" / "auto-correction-policy.md"
+    """auto-correction-policy.xml deve documentar aplicabilidade nas 3 camadas v2.1.
+
+    Fix 18 / Phase 4: source-of-truth migrated from .md to .xml. The
+    Markdown body is preserved verbatim inside CDATA, so textual assertions
+    still match.
+    """
+    p = Path(__file__).parent.parent.parent / "references" / "auto-correction-policy.xml"
     text = p.read_text(encoding="utf-8")
     # Deve mencionar as três camadas explicitamente
     assert "Camada Primária" in text
