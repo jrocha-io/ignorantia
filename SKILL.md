@@ -765,6 +765,7 @@ INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
 GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo. **A partir de v2.23.1 (Decisão 38, Fix 9 do RS-42 remediation)** o assessor é vinculante: exit code 2 quando há eliminatórios OU nota < 7.0 (configurável via `--gate-min-score`); o sidecar `assessment_gate.json` em `<output_dir>/` registra `passed`/`score`/`eliminatory_count`. Pacote Zenodo **não pode ser empacotado** com `passed: false`. `--no-gate` existe apenas para triagem em sessões de debug; nunca em fluxo de produção.
+EXECUTE antes do empacotamento Zenodo `python3 scripts/check_pipeline_invariants.py <output_dir>` — gate de invariantes (Decisão 39, Fix 11 do RS-42 remediation): I1 rejeita `execution_method=single_session_ad_hoc_web_search` sem `--accept-ad-hoc-search`, I2 exige ≥3 bases referenciadas, I3 rejeita steps com `status: ERROR` no `pipeline_summary.json`. Exit code 2 em violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com I1.
 EXECUTE antes do empacotamento Zenodo `python3 scripts/check_decision_19_vocabulary.py <output_dir>/manuscript.tex` — gate de Decisão 19 (Fix 10 do RS-42 remediation) que vetta SemVer rhetoric, referências `Decisão N do protocolo`, classificação `Categoria A/B` e nomes literais de campos JSON na voz acadêmica. Exit code 2 em qualquer violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com 28 violações.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
 DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
@@ -849,6 +850,28 @@ O dogfood RS-42 v1.0.0 (2026-05-08) foi empacotado e entregue mesmo após `scrip
 **Verificação mecânica:** suite em `tests/integration/test_v2231_assessment_gate.py` cobre exit-code 2 em falha por eliminatório, exit-code 2 em falha por score, escrita do sidecar JSON em ambos os casos, escrita do relatório markdown mesmo em falha, e bypass via `--no-gate`. Releases futuras devem manter o gate como invariante de design — relaxar `--gate-min-score` é decisão consciente do operador, não um default.
 
 Esta decisão **complementa** a Decisão 8 (mitigações Categoria A obrigatórias) e a Decisão 19 (anti-vazamento de meta-discurso) ao adicionar o último elo da cadeia: depois de gerar o relatório de qualidade, **respeitar** o relatório.
+
+### Decisão 39 — Invariantes de pipeline são gate vinculante para empacotamento (registrado em v2.23.1, Fix 11 do RS-42 remediation)
+
+O dogfood RS-42 v1.0.0 (2026-05-08) declarou em `searches.json.metadata.execution_method` o valor `single_session_ad_hoc_web_search` — Claude executou 5 queries via Google SERP em sessão de chat em vez de invocar o `search_orchestrator.py` com as 14+ bases Tier 1+Tier 2 que a SKILL.md prescreve. O pacote foi finalizado mesmo assim porque nada programático bloqueou.
+
+**Regra (vinculante a partir de v2.23.1):** três invariantes mecânicos são verificados antes do empacotamento Zenodo via `scripts/check_pipeline_invariants.py`:
+
+- **I1 — método de execução não-ad-hoc.** `searches.json.metadata.execution_method` não pode ser `single_session_ad_hoc_web_search` em fluxo de produção. Operador pode passar `--accept-ad-hoc-search` para aceitar conscientemente uma cobertura parcial (preview/draft), mas isso é decisão deliberada e nunca o default.
+- **I2 — cobertura mínima de bases.** ≥3 bases distintas em `metadata.tier1_databases_actually_queried` (ou layout legado `per_database`). PRISMA-2020 espera múltiplas bases; pipelines com 0–2 violam o protocolo.
+- **I3 — sem steps em ERROR.** Quando `pipeline_summary.json` existe, nenhum step pode ter `status: ERROR`. Steps com falha devem ser resolvidos antes do empacotamento.
+
+Exit code do verificador:
+
+| Código | Significado |
+|---|---|
+| 0 | Todos os invariantes passam — pacote pode ser empacotado |
+| 1 | Input ausente ou inválido (`searches.json` faltando ou JSON quebrado) |
+| 2 | Pelo menos um invariante falhou |
+
+Comportamento: deve ser encadeado via `&&` antes do ZIP, igual à Decisão 38 (assessor gate) e à expansão da Decisão 19 (vocabulário). A combinação dos três gates fecha o caminho que permitiu RS-42 v1.0.0 ser entregue como pacote final.
+
+**Verificação mecânica:** suite em `tests/integration/test_v2231_pipeline_invariants.py` (17 casos) cobre cada invariante isoladamente, o bypass via flag explícita, layouts v3 e v2 do `searches.json`, e regressão direta com payload extraído do RS-42 v1.0.0.
 
 ## Saídas secundárias (geradas em paralelo)
 
