@@ -293,7 +293,7 @@ O test `test_decision_17_excluded_platforms` em `tests/test_v26_tier0.py` valida
 - Retome com `--resume-after-gap-report`.
 - OU pule a resolução com `--skip-gap-resolution` — itens não providenciados serão registrados como "excluídos por inacessibilidade" no PRISMA flow diagram, com motivo declarado para auditoria.
 
-### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0)
+### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0; escopo limitado ao subcomando `html-wiki` em v3.0.0-rc1)
 
 A renderização anterior fazia uma única passada com substituição de placeholders. Falha em qualquer seção invalidava todo o trabalho. A v2.10.0 implementa renderização incremental em `scripts/render_chunks.py`:
 
@@ -304,6 +304,8 @@ A renderização anterior fazia uma única passada com substituição de placeho
 5. Se uma seção falha, o usuário pode reprocessar só aquela seção sem perder as demais (`--resume-from-chunk N`).
 
 Smoke test `test_render_chunks_does_not_leak_skill_brand` valida que o HTML produzido pelo render incremental também não vaza nome do skill (Decisão 19).
+
+**Escopo (v3.0.0-rc1 — RS-42 remediation):** este protocolo aplica-se **apenas** ao subcomando `ignorantia render --format html-wiki` (Decisão 37). O pipeline canônico (LaTeX → BibTeX → PDF → DOCX) não invoca chunked-render — o `.tex` é gravado em uma única operação porque seu peso é uma ordem de grandeza menor que o HTML auto-contido. A Decisão 34 (Fix 1 do remediation) refina o protocolo de write incremental e também é escopada ao subcomando.
 
 ### Decisão 19 — Anti-vazamento de meta-discurso do skill no manuscrito (registrado em v2.8.0)
 
@@ -536,8 +538,8 @@ NUNCA omita as 5 mitigações Categoria A de CoI (Decisão 8): pré-registro, de
 </prohibitions>
 
 <mandatories>
-GERE sempre os 8 artefatos secundários: protocol.md, searches.json, screening.csv, quality-appraisal.csv, extraction.csv, prisma-flow.svg, references.bib, README.md.
-GERE sempre o HTML interativo, mesmo quando o usuário pede também .docx ou .tex/.pdf.
+GERE sempre os 8 artefatos secundários: protocol.md, searches.json, screening.csv, quality-appraisal.csv, extraction.csv, prisma-flow.svg, bibliography.bib, README.md.
+GERE sempre o pacote acadêmico canônico: manuscript.tex + bibliography.bib → manuscript.pdf (Zenodo) + manuscript.docx (revisão Word). HTML Wiki-style **NÃO** é gerado pelo fluxo padrão — só quando o usuário invoca explicitamente o subcomando `ignorantia render --format html-wiki` (Decisão 37).
 NOMEIE o pacote como ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip.
 INCLUA hash SHA-256 de cada artefato no README.md.
 APLIQUE a norma de citação correta automaticamente: PT-BR→ABNT; EN+exatas→IEEE; EN+saúde→Vancouver; EN+psicologia/educação→APA.
@@ -573,11 +575,13 @@ O pacote contém `avaliacao_v<X.Y.Z>.md` com nota numérica 0.0-10.0, ponto-a-po
 
 </critical_rules>
 
-## Saída primária: HTML único auto-contido
+## Saída opcional: HTML Wiki-style (subcomando dedicado)
 
-O artefato principal deste skill é **um arquivo HTML** que reúne, num só documento navegável, o manuscrito completo (introdução → método → resultados → discussão → conclusão), o diagrama PRISMA, a tabela interativa de estudos incluídos, gráficos D3.js dinâmicos, a camada de anotações de professor, e a lista de referências clicáveis.
+> **NÃO é o artefato acadêmico canônico.** O artefato canônico para depósito Zenodo / proteção de IP é o **PDF compilado a partir de `manuscript.tex` + `bibliography.bib`** (ver Decisão 32 e Decisão 36 — a serem mescladas pelas Fixes 5/7 do remediation RS-42). O DOCX é secundário (mesma estrutura, formato compatível com revisão Word). O HTML descrito nesta seção é **opt-in**, gerado apenas quando o usuário invoca explicitamente o subcomando `ignorantia render --format html-wiki` — nunca faz parte do pacote acadêmico depositado no Zenodo.
 
-Características obrigatórias do HTML:
+A saída HTML, quando invocada, reúne num só documento navegável o manuscrito completo (introdução → método → resultados → discussão → conclusão), o diagrama PRISMA, a tabela interativa de estudos incluídos, gráficos D3.js dinâmicos, a camada de anotações de professor, e a lista de referências clicáveis. Funciona como artigo no estilo Wikipedia/divulgação técnica — distribuição didática, não registro acadêmico de prioridade. Por causa do seu peso (200-260 KB de tokens em renderização single-pass), depende obrigatoriamente do **protocolo de chunked-render** descrito na Decisão 18 (e refinado pela Decisão 34, a ser mesclada pela Fix 1 do RS-42).
+
+Características obrigatórias quando o subcomando é invocado:
 
 - **Toolbar fixa** com busca textual, filtros por seção/RQ/ano/tipo de estudo, toggles de dark mode e camada de anotações.
 - **Estrutura modular numerada** (§00 prólogo, §01 introdução, ..., §N referências), no estilo dos documentos de referência do projeto. Cada seção é colapsável.
@@ -591,9 +595,22 @@ Características obrigatórias do HTML:
 
 O HTML é **auto-contido**: CSS inline em `<style>`, JS inline em `<script>`, sem dependências externas exceto D3.js v7 carregado via CDN com fallback local opcional. Funciona offline depois de carregado.
 
+### Decisão 37 — HTML Wiki-style segregado em subcomando dedicado (registrado em v3.0.0-rc1)
+
+Após o incidente RS-42 (dogfood falhou com "Esta conversa não pode ser compactada ainda mais" antes de qualquer artefato ser gravado), ficou claro que o pipeline padrão **não pode** assumir geração de HTML como passo obrigatório. O HTML é pesado (200-260 KB de tokens), depende de chunked-render (Decisão 18) e não é o artefato acadêmico — é divulgação. Mistura-lo no fluxo canônico fazia o pipeline falhar antes de produzir o PDF acadêmico, que é o que de fato precisa ser depositado no Zenodo.
+
+**Regra:** o pipeline default da skill produz `manuscript.tex` + `bibliography.bib` → PDF (canônico) + DOCX (secundário). HTML Wiki-style **só é gerado** quando o usuário invoca `ignorantia render --format html-wiki` separadamente, **após** o pipeline canônico ter terminado com sucesso. Implicações:
+
+1. Quando o subcomando `html-wiki` é invocado, o protocolo de chunked-render (Decisão 18, refinado pela Decisão 34 a ser mesclada da Fix 1) é obrigatório.
+2. Falha na renderização HTML **não invalida** o pacote acadêmico (PDF + DOCX já estão em disco).
+3. O HTML gerado **não vai** para Zenodo — o pacote depositado contém apenas o PDF, DOCX, telemetria, declarações éticas e dados de reprodutibilidade.
+4. O HTML é distribuído separadamente (site institucional, blog, redes acadêmicas) como divulgação didática.
+
+Esta decisão fecha o laço aberto pela Decisão 36 (Fix 5 — HTML reclassificado como secundário) ao explicitar **onde no fluxo** o HTML é gerado: nunca dentro do pipeline canônico, sempre como subcomando opt-in posterior. Decisão 18 (chunks) e Decisão 34 (chunked-write) permanecem aplicáveis mas escopadas ao subcomando.
+
 ## Saídas secundárias (geradas em paralelo)
 
-Sempre acompanham o HTML, no mesmo pacote versionado:
+Acompanham o pipeline canônico (PDF + DOCX), no mesmo pacote versionado depositado no Zenodo:
 
 - `protocol.md` — protocolo pré-registrado da SLR (template em `assets/templates/protocol.md`).
 - `searches.json` — strings booleanas, datas, hits brutos por base.
@@ -601,13 +618,16 @@ Sempre acompanham o HTML, no mesmo pacote versionado:
 - `quality-appraisal.csv` — pontuação CASP/DARE/Kitchenham por estudo, por questão.
 - `extraction.csv` — formulário de extração preenchido.
 - `prisma-flow.svg` e `prisma-flow.pdf` — diagrama PRISMA (gerado por `scripts/prisma_flow.py`).
-- `references.bib` — bibliografia em BibTeX para reuso em LaTeX.
+- `bibliography.bib` — bibliografia em BibTeX, consumida tanto pela compilação canônica do PDF (via `\bibliography{}` no `.tex`) quanto pela conversão DOCX via pandoc.
 - `README.md` — versão, hashes, instruções de reprodução.
 
-**Manuscrito formal opcional:**
-- `manuscript.tex` + `manuscript.pdf` — quando exatas e idioma EN (norma IEEE).
-- `manuscript.docx` — quando humanas/saúde, ou quando idioma é PT-BR (ABNT).
-- O HTML interativo é sempre gerado, independentemente da saída formal.
+**Manuscrito acadêmico canônico (default, sempre gerado):**
+- `manuscript.tex` — fonte LaTeX que importa `bibliography.bib`.
+- `manuscript.pdf` — PDF compilado por `pdflatex + bibtex + pdflatex × 2` (Fix 7). **Este é o artefato depositado no Zenodo.**
+- `manuscript.docx` — DOCX convertido do mesmo `.tex` via pandoc (Fix 7), estruturalmente idêntico ao PDF, para revisão Word.
+
+**Distribuição didática opcional (subcomando separado):**
+- `manuscript.html` — HTML Wiki-style auto-contido. Gerado **apenas** quando `ignorantia render --format html-wiki` é invocado explicitamente. **Não vai** para o pacote Zenodo. Ver Decisão 37.
 
 ## Compliance ético e legal
 
@@ -810,7 +830,9 @@ Salve em `venue-suggestions.md` no pacote.
 6. Para SLRs em saúde, considerar pré-registro adicional no PROSPERO (https://www.crd.york.ac.uk/prospero/).
 7. Para vinculados a programa de pós-graduação stricto sensu brasileiro, declarar a publicação na Plataforma Sucupira após o aceite do periódico-alvo.
 
-## Padrões de design do HTML — referência rápida
+## Padrões de design do HTML — referência rápida (subcomando `html-wiki`)
+
+> Aplica-se **apenas** quando o subcomando opcional de renderização HTML é invocado (Decisão 37). O pipeline canônico (PDF + DOCX) não usa estes padrões — usa LaTeX puro com BibTeX externo (Fix 6).
 
 A leitura completa está em `references/output-design-patterns.md`. Pontos críticos:
 
