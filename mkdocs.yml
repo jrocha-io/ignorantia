@@ -1,0 +1,70 @@
+site_name: Ignorantia
+site_description: PRISMA-2020 systematic literature review skill — v3 API reference + tutorials.
+site_url: https://github.com/jrocha-io/ignorantia
+repo_url: https://github.com/jrocha-io/ignorantia
+repo_name: jrocha-io/ignorantia
+
+# Source layout: pyproject pins pythonpath=["src"] for tests; mirror that
+# here so mkdocstrings can resolve the `ignorantia.*` import paths.
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_signature_annotations: true
+            separate_signature: true
+            members_order: source
+            heading_level: 2
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Migration guide: MIGRATION_v2_TO_v3.md
+  - Tutorial: TUTORIAL.md
+  - Architecture:
+      - C4 diagrams: architecture/C4_DIAGRAMS.md
+  - API reference:
+      - Overview: api/index.md
+      - Domain:
+          - audit: api/domain_audit.md
+          - compliance: api/domain_compliance.md
+          - pipeline: api/domain_pipeline.md
+          - render: api/domain_render.md
+          - search: api/domain_search.md
+      - Application: api/application.md
+      - Interface: api/interface.md
+      - Legacy: api/legacy.md
