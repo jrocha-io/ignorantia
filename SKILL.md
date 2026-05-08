@@ -574,6 +574,68 @@ protocolo operacional que Claude segue para *invocar* o mecanismo
 incremental que a Decisão 18 já tinha disponível em código mas
 não estava sendo acionado.
 
+### Decisão 35 — Budget guardrails operacionais por fase (registrado em v2.23.1)
+
+Complementa a Decisão 34 (chunked write) com **limites mecânicos
+por fase** que o Claude verifica em sessão de chat antes de
+prosseguir. O objetivo não é blindar o pipeline contra abuso (não
+há atacante); é dar ao Claude pontos de decisão claros onde optar
+por externalizar trabalho em vez de continuar acumulando no
+contexto.
+
+#### Fase 3 — Buscas web
+
+* **Máximo 5 web searches por execução de SLR** quando a sessão
+  está conduzindo o pipeline diretamente. SLRs maiores devem
+  receber a lista de queries pré-pesquisada via
+  `<output_dir>/searches.json` gerado em sessão anterior.
+* Se a Fase 3 efetiva exigir >5 queries, parar, escrever a lista
+  em `<output_dir>/queries-pending.txt`, recomendar ao usuário
+  rodar `python3 scripts/searches/search_orchestrator.py --batch
+  <queries-pending.txt>` em terminal (subprocess longo fora do
+  chat), e aguardar o `searches.json` consolidado.
+
+#### Fase 6 — Extração
+
+* **Máximo 30 referências processadas em uma única resposta**.
+  Para >30, processar em lotes de 25 escrevendo
+  `extraction.csv` incrementalmente (modo `--append`); cada lote
+  é uma chamada subprocess separada, não uma resposta longa.
+* O CSV vai pra disco a cada lote; o contexto da conversa
+  guarda só o caminho `<output_dir>/extraction.csv`, não os
+  registros.
+
+#### Fase 7 — Síntese narrativa
+
+* **Máximo 1 seção por resposta**. Cada `<section>` HTML é uma
+  chamada subprocess a `render_chunks.py --append --section §<N>`
+  conforme Decisão 34.
+* Se a resposta corrente já tem >10 KB de prosa renderizada,
+  parar antes de iniciar a próxima seção e ceder o controle de
+  volta ao usuário com a próxima seção como próximo passo
+  explicitado.
+
+#### Fase 8 — Empacotamento Zenodo
+
+* Empacotamento final é uma única chamada a
+  `python3 scripts/slr_to_package.py --output-dir <out>`. O
+  conteúdo do ZIP nunca volta ao contexto da conversa — apenas
+  o caminho do `.zip` e o SHA-256 calculado.
+
+#### Verificação mecânica
+
+A Decisão 35 é vinculante mas **não tem teste pytest** — é uma
+diretriz operacional para sessões interativas. A verificação é
+indireta:
+
+* **`pipeline_summary.json`** mostra quantas chamadas a
+  `render_chunks.py --append` ocorreram. Sessões que afirmam ter
+  processado SLR grande mas mostram <N seções no summary são
+  suspeitas.
+* **Logs de adapter (Camada 1, DD-10)** registram timestamps das
+  buscas. Mais de 5 timestamps próximos numa SLR pequena indica
+  que a Fase 3 não foi externalizada.
+
 ## Infraestrutura de comparação automatizada (v2.5.0 — Etapa 4b)
 
 A v2.5.0 adicionou `scripts/comparison/` — andaime reprodutível para comparar a `ignorantia` contra baselines de SLR tooling (B!SON, JANE, ASReview LAB v2, Penelope.ai e snapshots manuais de recommenders comerciais). Conforme `scripts/comparison/PROTOCOL.md`:
