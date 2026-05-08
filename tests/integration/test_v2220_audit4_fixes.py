@@ -243,8 +243,13 @@ def test_grey_lit_declares_real_partial_when_no_parser():
 # ============ C8: DD-13 ============
 
 def test_dd13_documented():
-    """C8: DD-13 documentada em DECISIONS.md."""
-    content = (ROOT / "references" / "DECISIONS.md").read_text(encoding="utf-8")
+    """C8: DD-13 documentada em DECISIONS.xml.
+
+    Fix 18 / Phase 4: source-of-truth migrated from .md to .xml. The
+    Markdown body is preserved verbatim inside CDATA, so textual assertions
+    still match.
+    """
+    content = (ROOT / "references" / "DECISIONS.xml").read_text(encoding="utf-8")
     assert "### DD-13" in content
     assert "Renderer HTML canônico" in content or "render_chunks" in content
 
