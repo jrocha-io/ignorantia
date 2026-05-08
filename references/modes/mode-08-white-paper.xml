@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-08-white-paper" path="references/modes/mode-08-white-paper.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 08 — White Paper / Policy Brief</title>
+  <markdown><![CDATA[
 # Modo 08 — White Paper / Policy Brief
 
 > Camada hierárquica: **SECUNDÁRIA** (você sozinho + problema + recomendações fornecidas).
@@ -107,3 +111,6 @@ White Paper é o **formato natural** para o caso "IA e jogos educacionais não s
 - Documento descritivo sem prescrição → Modo 7 (Technical Report)
 - Argumentação filosófica acadêmica → Modo 6 (Position Paper) com submissão a venue peer-reviewed
 - Síntese sistemática de evidência → modos primários (1-3, 9, 10) — pode preceder o White Paper
+
+  ]]></markdown>
+</doc>

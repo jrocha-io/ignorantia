@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-06-position-paper" path="references/modes/mode-06-position-paper.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 06 — Position Paper / Theoretical Essay</title>
+  <markdown><![CDATA[
 # Modo 06 — Position Paper / Theoretical Essay
 
 > Camada hierárquica: **SECUNDÁRIA** (você sozinho + tese argumentativa fornecida).
@@ -101,3 +105,6 @@ Cada uma seria Position Paper distinto, com argumentação específica.
 - Sem tese clara para defender → fazer trabalho prévio de formulação
 - Pergunta exige evidência empírica → modos primários (Scoping/Rapid/Mapping/Integrative/Realist)
 - Documento prescritivo de política pública → Modo 8 (White Paper)
+
+  ]]></markdown>
+</doc>

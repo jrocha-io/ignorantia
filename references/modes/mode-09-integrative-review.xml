@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-09-integrative-review" path="references/modes/mode-09-integrative-review.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 09 — AI-Assisted Integrative Review</title>
+  <markdown><![CDATA[
 # Modo 09 — AI-Assisted Integrative Review
 
 > Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
@@ -120,3 +124,6 @@ Combinação possível: Integrative Review + Modo 10 (Realist Review) para mesmo
 - Pergunta sobre mecanismos causais ("por que funciona") → Modo 10 (Realist Review)
 - Decisão urgente com prazo curto → Modo 2 (Rapid Review)
 - CS/SE com classificação categórica → Modo 3 (Mapping Study)
+
+  ]]></markdown>
+</doc>

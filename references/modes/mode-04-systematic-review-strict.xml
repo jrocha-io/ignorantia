@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-04-systematic-review-strict" path="references/modes/mode-04-systematic-review-strict.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 04 — Systematic Review (estrito, com 2 revisores humanos)</title>
+  <markdown><![CDATA[
 # Modo 04 — Systematic Review (estrito, com 2 revisores humanos)
 
 > Camada hierárquica: **TERCIÁRIA** (você + ≥1 humano qualificado adicional obrigatório).
@@ -102,3 +106,6 @@ Este é o ÚNICO modo no qual `review_type: systematic_review_with_2_reviewers` 
 - **Pergunta sobre mecanismos causais** → Modo 10 (Realist Review)
 - **Decisão urgente** → Modo 2 (Rapid Review) com upgrade futuro se necessário
 - **Mistura quanti/quali/teórica** → Modo 9 (Integrative Review)
+
+  ]]></markdown>
+</doc>

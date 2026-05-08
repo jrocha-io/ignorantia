@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-10-realist-review" path="references/modes/mode-10-realist-review.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 10 — AI-Assisted Realist Review</title>
+  <markdown><![CDATA[
 # Modo 10 — AI-Assisted Realist Review
 
 > Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
@@ -150,3 +154,6 @@ Esta IPT seria refinada durante a revisão.
 - Decisão urgente sem tempo para iteração → Modo 2 (Rapid Review)
 - Síntese de evidência heterogênea sem foco causal → Modo 9 (Integrative Review)
 - Documento prescritivo de política pública → Modo 8 (White Paper)
+
+  ]]></markdown>
+</doc>

@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-07-technical-report" path="references/modes/mode-07-technical-report.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 07 — Technical Report</title>
+  <markdown><![CDATA[
 # Modo 07 — Technical Report
 
 > Camada hierárquica: **SECUNDÁRIA** (você sozinho + dados/processos/métodos fornecidos).
@@ -90,3 +94,6 @@ Variável. Não há mínimo formal — depende da natureza do relatório.
 - Documento sobre software → Modo 5 (Software Paper)
 - Argumentação filosófica → Modo 6 (Position Paper)
 - Síntese sistemática de literatura → modos primários (1-3, 9, 10)
+
+  ]]></markdown>
+</doc>
