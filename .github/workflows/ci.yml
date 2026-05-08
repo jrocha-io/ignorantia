@@ -11,7 +11,12 @@ on:
     branches: [main, develop, "feature/**"]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Include event_name in the group so the push and pull_request triggers
+  # do NOT cancel each other (they fire in parallel for any branch with
+  # an open PR; the prior shared group was recording cancellations as
+  # job-level "failures" that surfaced in <15 seconds with no step
+  # output — Fix 18 phase 8 / RS-42 dogfood).
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -67,7 +72,12 @@ jobs:
       - name: Run bandit
         run: bandit -r src -c pyproject.toml
       - name: Run pip-audit
-        run: pip-audit --strict
+        # --skip-editable is required because we install ignorantia via
+        # `pip install -e .`. pip-audit >=2.10 errors out under --strict
+        # when an editable package can't be resolved on PyPI; we audit
+        # only third-party dependencies, not the package under
+        # development.
+        run: pip-audit --strict --skip-editable
 
   test:
     name: Test (pytest, py${{ matrix.python }})
