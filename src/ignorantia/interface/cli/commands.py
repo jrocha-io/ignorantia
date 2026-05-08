@@ -43,6 +43,7 @@ from ignorantia.application.use_cases.search_for_studies import (
 )
 from ignorantia.domain.render.entities import ManuscriptDoc, Reference, Section
 from ignorantia.domain.render.value_objects import CitationStyle, OutputFormat
+from ignorantia.infrastructure.persistence.json_writer import JsonWriter
 from ignorantia.interface.cli import main as _main
 from ignorantia.interface.manifests import validate_manifest
 
@@ -594,14 +595,17 @@ def search(
             for s in result.per_source
         ],
     }
-    click.echo(json.dumps(summary, ensure_ascii=False))
+    _emit("search_result", summary)
 
     if output_path is not None:
+        # Full payload — per-source + dedup'd items in their DTO
+        # shape — goes through JsonWriter so the schema is enforced
+        # before bytes hit disk.
         full = {
             "per_source": [asdict(s) for s in result.per_source],
             "deduplicated_items": [asdict(i) for i in result.deduplicated_items],
         }
-        output_path.write_text(json.dumps(full, ensure_ascii=False), encoding="utf-8")
+        JsonWriter().write_json(full, schema_name="search_full_result", path=output_path)
 
 
 def _resolve_search_use_case(ctx: click.Context) -> SearchForStudiesUseCase:
