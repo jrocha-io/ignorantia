@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-03-mapping-study" path="references/modes/mode-03-mapping-study.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 03 — AI-Assisted Systematic Mapping Study</title>
+  <markdown><![CDATA[
 # Modo 03 — AI-Assisted Systematic Mapping Study
 
 > Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
@@ -92,3 +96,6 @@ Tipicamente **50-300 estudos incluídos**. Mapping studies são por natureza amp
 - Saúde com mistura quanti/quali → Modo 9 (Integrative Review)
 - Sem foco classificatório → Modo 1 (Scoping)
 - Exige meta-análise → Modo 4 (SR estrito)
+
+  ]]></markdown>
+</doc>

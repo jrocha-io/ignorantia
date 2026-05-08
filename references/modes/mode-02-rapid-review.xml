@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-02-rapid-review" path="references/modes/mode-02-rapid-review.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 02 — AI-Assisted Rapid Review</title>
+  <markdown><![CDATA[
 # Modo 02 — AI-Assisted Rapid Review
 
 > Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
@@ -99,3 +103,6 @@ Tipicamente **10-50 estudos incluídos**. Rapid review é por definição limita
 - Sem urgência decisional → Modo 1 (Scoping Review)
 - Pergunta exige meta-análise → Modo 4 (SR estrito) com 2 revisores
 - Pergunta sobre mecanismos causais → Modo 10 (Realist Review)
+
+  ]]></markdown>
+</doc>

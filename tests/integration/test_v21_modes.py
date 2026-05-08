@@ -181,19 +181,23 @@ def test_venue_schema_has_recommended_for_layer():
 # ============================================================================
 
 def test_all_10_mode_profiles_exist():
-    """references/modes/mode-XX-*.md deve existir para os 10 modos."""
+    """references/modes/mode-XX-*.xml deve existir para os 10 modos.
+
+    Fix 18 / Phase 3: source-of-truth migrated from .md to .xml. The
+    Markdown bodies are preserved verbatim inside CDATA sections.
+    """
     modes_dir = Path(__file__).parent.parent.parent / "references" / "modes"
     expected_files = [
-        "mode-01-scoping-review.md",
-        "mode-02-rapid-review.md",
-        "mode-03-mapping-study.md",
-        "mode-04-systematic-review-strict.md",
-        "mode-05-software-paper.md",
-        "mode-06-position-paper.md",
-        "mode-07-technical-report.md",
-        "mode-08-white-paper.md",
-        "mode-09-integrative-review.md",
-        "mode-10-realist-review.md",
+        "mode-01-scoping-review.xml",
+        "mode-02-rapid-review.xml",
+        "mode-03-mapping-study.xml",
+        "mode-04-systematic-review-strict.xml",
+        "mode-05-software-paper.xml",
+        "mode-06-position-paper.xml",
+        "mode-07-technical-report.xml",
+        "mode-08-white-paper.xml",
+        "mode-09-integrative-review.xml",
+        "mode-10-realist-review.xml",
     ]
     for f in expected_files:
         assert (modes_dir / f).exists(), f"Faltando: {f}"
@@ -219,8 +223,12 @@ def test_all_10_mode_templates_exist():
 
 
 def test_modes_overview_lists_10_modes():
-    """references/modes/MODES_OVERVIEW.md deve mencionar os 10 modos."""
-    overview = Path(__file__).parent.parent.parent / "references" / "modes" / "MODES_OVERVIEW.md"
+    """references/modes/MODES_OVERVIEW.xml deve mencionar os 10 modos.
+
+    Fix 18 / Phase 3: MODES_OVERVIEW migrated to XML. The textual assertions
+    still match because the Markdown body is preserved inside CDATA.
+    """
+    overview = Path(__file__).parent.parent.parent / "references" / "modes" / "MODES_OVERVIEW.xml"
     text = overview.read_text(encoding="utf-8")
     for i in range(1, 11):
         # Aceitar qualquer formato Modo N, Modo 0N, mode-NN, etc.

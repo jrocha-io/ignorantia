@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-01-scoping-review" path="references/modes/mode-01-scoping-review.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 01 — AI-Assisted Scoping Review</title>
+  <markdown><![CDATA[
 # Modo 01 — AI-Assisted Scoping Review
 
 > Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
@@ -122,3 +126,6 @@ Tipicamente **30-200 estudos incluídos** após filtragem. Scoping reviews são 
 - Literatura mista quanti/quali/teórica em saúde/educação → Modo 9 (Integrative Review)
 - Preciso meta-análise com 2 revisores → Modo 4 (SR estrito)
 - CS/SE com classificação categórica → Modo 3 (Mapping Study)
+
+  ]]></markdown>
+</doc>

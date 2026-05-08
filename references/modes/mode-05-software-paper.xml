@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-05-software-paper" path="references/modes/mode-05-software-paper.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 05 — Software Paper</title>
+  <markdown><![CDATA[
 # Modo 05 — Software Paper
 
 > Camada hierárquica: **SECUNDÁRIA** (você sozinho + software pronto fornecido).
@@ -94,3 +98,6 @@ Se o objetivo é escrever software paper sobre o ignorantia v2.4:
 - Sem uso real demonstrado → adiar até v2.4 + 3-6 RS produzidas
 - Contribuição é conceitual sobre software, não sobre código → Modo 6 (Position Paper)
 - Documento técnico extenso, sem peer review → Modo 7 (Technical Report)
+
+  ]]></markdown>
+</doc>
