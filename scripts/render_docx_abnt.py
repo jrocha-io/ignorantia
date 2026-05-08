@@ -133,7 +133,8 @@ def render_docx_abnt(content: dict, output_path: Path,
                      *, title: str, authors: list[str] | None = None,
                      abstract: str | None = None,
                      keywords: list[str] | None = None,
-                     contextual_preamble_markdown: str | None = None
+                     contextual_preamble_markdown: str | None = None,
+                     paper_mode: bool = True,
                      ) -> DocxRenderResult:
     """Renderiza o manuscrito completo como .docx ABNT.
 
@@ -245,11 +246,18 @@ def render_docx_abnt(content: dict, output_path: Path,
         spacer.paragraph_format.space_after = Pt(18)
 
     sections = content.get("sections", [])
-    for s in sections:
+    for idx, s in enumerate(sections, start=1):
         sec_id = s.get("id", "")
         sec_title = s.get("title", "")
         heading = doc.add_paragraph()
-        heading.add_run(f"§{sec_id} {sec_title}".strip())
+        # Fix 13 (RS-42 remediation): paper_mode controla a forma do título.
+        # Em paper_mode=True (default), emite "<N> Título" com numeração
+        # acadêmica. Em paper_mode=False, mantém o legacy "§<id> Título"
+        # apropriado para o caminho HTML wiki-style.
+        if paper_mode:
+            heading.add_run(f"{idx} {sec_title}".strip())
+        else:
+            heading.add_run(f"§{sec_id} {sec_title}".strip())
         _set_paragraph_abnt_heading(heading)
 
         paragraphs = s.get("paragraphs", [])
@@ -314,6 +322,11 @@ def _cli() -> int:
     p.add_argument("--preamble-area", default="multi")
     p.add_argument("--preamble-language", default="pt-BR")
     p.add_argument("--preamble-mock", action="store_true")
+    # Fix 13 (RS-42 remediation)
+    p.add_argument("--legacy-wiki-prefix", action="store_true",
+                   help="(Compatibilidade) Restaura o prefixo legacy '§<id> Título' nas "
+                        "seções (apropriado para HTML wiki-style). Default agora é "
+                        "paper-mode (numeração acadêmica '1 Título', '2 Título'...).")
     args = p.parse_args()
     content = json.loads(Path(args.content_json).read_text(encoding="utf-8"))
 
@@ -339,7 +352,8 @@ def _cli() -> int:
                   "renderizando sem preâmbulo.", file=sys.stderr)
 
     result = render_docx_abnt(content, Path(args.output), title=args.title,
-                                contextual_preamble_markdown=preamble_md)
+                                contextual_preamble_markdown=preamble_md,
+                                paper_mode=not args.legacy_wiki_prefix)
     print(f"[render_docx_abnt] {result.n_sections} seções, "
           f"{result.n_references} refs, {result.n_long_quotes} citações longas, "
           f"{result.file_size_bytes} bytes → {result.output_path}")
