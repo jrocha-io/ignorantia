@@ -212,6 +212,62 @@ class TestEmptyDocCorners:
         assert re.search(r"</body>\s*</html>", out)
 
 
+class TestRenderOpening:
+    def test_returns_bytes(self, renderer: HtmlRenderer) -> None:
+        out = renderer.render_opening(_doc())
+        assert isinstance(out, bytes)
+
+    def test_starts_with_doctype(self, renderer: HtmlRenderer) -> None:
+        out = renderer.render_opening(_doc()).decode("utf-8")
+        assert out.startswith("<!DOCTYPE html>")
+
+    def test_contains_title_and_abstract_but_not_section_or_close(
+        self, renderer: HtmlRenderer
+    ) -> None:
+        out = renderer.render_opening(
+            _doc(
+                title="My SLR",
+                sections=(Section(id="s1", title="S1", body_md="x"),),
+            )
+        ).decode("utf-8")
+        assert "<h1>My SLR</h1>" in out
+        assert '<section class="abstract">' in out
+        assert '<section id="s1">' not in out
+        assert "</body>" not in out
+
+    def test_keywords_block_when_present(self, renderer: HtmlRenderer) -> None:
+        out = renderer.render_opening(_doc(keywords=("evidence",))).decode("utf-8")
+        assert '<p class="keywords">' in out
+
+    def test_keywords_block_omitted_when_empty(self, renderer: HtmlRenderer) -> None:
+        out = renderer.render_opening(_doc(keywords=())).decode("utf-8")
+        assert "keywords" not in out
+
+
+class TestRenderReferencesSection:
+    def test_empty_refs_returns_empty_bytes(self, renderer: HtmlRenderer) -> None:
+        assert renderer.render_references_section(()) == b""
+
+    def test_non_empty_refs_emits_block(self, renderer: HtmlRenderer) -> None:
+        refs = (
+            Reference(type="article", title="Paper A", authors=("X",)),
+            Reference(type="article", title="Paper B", authors=("Y",)),
+        )
+        out = renderer.render_references_section(refs).decode("utf-8")
+        assert '<section class="references">' in out
+        assert "<h2>References</h2>" in out
+        # The stub formatter labels each reference REF[<title>].
+        assert "REF[Paper A]" in out
+        assert "REF[Paper B]" in out
+
+
+class TestRenderClosing:
+    def test_returns_body_and_html_close(self) -> None:
+        out = HtmlRenderer.render_closing()
+        assert b"</body>" in out
+        assert b"</html>" in out
+
+
 class TestRenderSection:
     def test_returns_bytes(self, renderer: HtmlRenderer) -> None:
         section = Section(id="intro", title="Introduction", body_md="Hello.")
