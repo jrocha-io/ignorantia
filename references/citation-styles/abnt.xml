@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="abnt" path="references/citation-styles/abnt.md" type="citation-style" lang="pt-BR">
+  <title>ABNT — Norma brasileira para citações e referências</title>
+  <markdown><![CDATA[
 # ABNT — Norma brasileira para citações e referências
 
 Conjunto de normas da Associação Brasileira de Normas Técnicas. Para citações e referências, as normas relevantes são:
@@ -125,3 +129,6 @@ BRASIL. Lei no X.XXX, de DD de mês de ano. Ementa. Diário Oficial da União:
 - **Mendeley** e **Zotero** suportam ABNT via CSL. Estilo recomendado: `associacao-brasileira-de-normas-tecnicas-ufrgs.csl` ou similar.
 - **BibTeX** com `abntex2` ou `abntex2cite` — http://www.abntex.net.br.
 - Para LaTeX em ABNT, o pacote `abntex2` é o padrão de fato no Brasil.
+
+  ]]></markdown>
+</doc>

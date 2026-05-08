@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c9-linguistic-quality" path="references/claude-chat-tasks/c9-linguistic-quality.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C9: Qualidade Linguística do Manuscrito</title>
+  <markdown><![CDATA[
 # Prompt — C9: Qualidade Linguística do Manuscrito
 
 > **Contexto.** Critério C9: qualidade da escrita acadêmica (gramática, fluência, coerência). Na v3.0 será substituído por scorer linguístico treinado. Na v2.0, é delegado ao Claude Chat.
@@ -107,3 +111,6 @@ Você é avaliador de qualidade linguística do manuscrito anexado. Avalie na li
   "recommended_action": "ready_for_submission" | "minor_revision" | "major_revision" | "professional_proofreading_recommended"
 }
 ```
+
+  ]]></markdown>
+</doc>

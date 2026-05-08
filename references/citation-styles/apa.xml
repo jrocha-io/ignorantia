@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="apa" path="references/citation-styles/apa.md" type="citation-style" lang="pt-BR">
+  <title>APA citation style (7th edition, 2020)</title>
+  <markdown><![CDATA[
 # APA citation style (7th edition, 2020)
 
 Used in psychology, education, and most social sciences. Author-date in-text, alphabetical reference list. The 7th edition introduced significant changes from the 6th — always use 7th unless explicitly told otherwise.
@@ -114,3 +118,6 @@ APA 7 has detailed table/figure formatting:
 - Zotero / Mendeley: select "American Psychological Association 7th edition".
 - BibTeX with `apacite` or `biblatex-apa` package.
 - Official CSL: https://www.zotero.org/styles/apa.
+
+  ]]></markdown>
+</doc>

@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="vancouver" path="references/citation-styles/vancouver.md" type="citation-style" lang="pt-BR">
+  <title>Vancouver citation style</title>
+  <markdown><![CDATA[
 # Vancouver citation style
 
 Used in medicine, nursing, public health, and most biomedical sciences. Defined by the **International Committee of Medical Journal Editors (ICMJE)** and aligned with NLM (National Library of Medicine) format. Reference list is **numbered in order of first appearance**, like IEEE — but with different in-text and formatting conventions.
@@ -104,3 +108,6 @@ Include when available, lowercase `doi:` prefix.
 - **EndNote** — Vancouver style is built-in.
 - **BibTeX** — use `\bibliographystyle{vancouver}` (requires `vancouver.bst` from CTAN).
 - **CSL** — Citation Style Language file `vancouver.csl` from https://www.zotero.org/styles?q=vancouver.
+
+  ]]></markdown>
+</doc>

@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="post-deposit-actions" path="references/user-guidance/post-deposit-actions.md" type="user-guidance" lang="pt-BR">
+  <title>Próximos Passos pós-Depósito Zenodo: Mitigações de Longo Prazo de Conflito de Interesse</title>
+  <markdown><![CDATA[
 # Próximos Passos pós-Depósito Zenodo: Mitigações de Longo Prazo de Conflito de Interesse
 
 > **Escopo deste documento.** Este arquivo é uma orientação ao **operador humano** (você, autor) da ferramenta `ignorantia`, não instruções ao Claude Chat executando o pipeline. As ações descritas aqui ocorrem **fora do ghostwriter**: depois que a Revisão Sistemática (ou Scoping/Rapid/Mapping Review) já está depositada no Zenodo e em preprint server.
@@ -241,3 +245,6 @@ Estes riscos não são endereçáveis pela ferramenta ghostwriter; são limites 
 | Versão | Data | Mudança |
 |---|---|---|
 | 1.0 | 2026-05-02 | Criação inicial. Cobre Mitigações A (vinculação bidirecional), B (auditoria periódica) e C (open peer review pós-Zenodo) — não pertencentes ao escopo do ghostwriter mas críticas para credibilidade científica do conjunto de Revisões. |
+
+  ]]></markdown>
+</doc>

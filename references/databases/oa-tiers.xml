@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="oa-tiers" path="references/databases/oa-tiers.md" type="database-catalog" lang="pt-BR">
+  <title>Tiers Open Access — política de acesso a bases bibliográficas</title>
+  <markdown><![CDATA[
 # Tiers Open Access — política de acesso a bases bibliográficas
 
 > **Constraint operacional v2.1:** O ghostwriter ignorantia SÓ consulta bases gratuitas (Tier 1) e bases com metadados livres (Tier 2). Material atrás de paywall (Tier 3) só é acessado via fornecimento manual pelo usuário (e.g., upload de PDF, exportação de citação, fornecimento de DOI específico).
@@ -155,3 +159,6 @@ Após busca:
 | Versão | Data | Mudança |
 |---|---|---|
 | 1.0 | 2026-05-02 | Criação. 3-tier architecture. Lista de bases por tier. Política operacional de transparência. |
+
+  ]]></markdown>
+</doc>

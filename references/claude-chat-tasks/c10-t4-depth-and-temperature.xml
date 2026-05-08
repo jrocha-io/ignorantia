@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c10-t4-depth-and-temperature" path="references/claude-chat-tasks/c10-t4-depth-and-temperature.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C10: Profundidade da Contribuição Teórica</title>
+  <markdown><![CDATA[
 # Prompt — C10: Profundidade da Contribuição Teórica
 
 > **Contexto.** Critério C10: profundidade teórica do manuscrito. Na v3.0 substituído por modelo. Na v2.0, delegado ao Claude Chat.
@@ -88,3 +92,6 @@ T4_score = (
   "rationale": "..."
 }
 ```
+
+  ]]></markdown>
+</doc>
