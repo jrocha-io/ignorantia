@@ -4,6 +4,86 @@ Todas as mudanças notáveis serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 Versionamento [SemVer 2.0.0](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [2.23.1] — 2026-05-08
+
+**Patch RS-42 dogfood remediation.** Série de oito correções
+endereçando o incidente em que a SLR RS-42, gerada na sessão de
+chat, abortou com "Esta conversa não pode ser compactada ainda
+mais" antes de qualquer artefato ser gravado em disco. Os fixes
+realocam HTML para subcomando opt-in, promovem PDF (compilado de
+LaTeX+BibTeX) ao papel de artefato acadêmico canônico para depósito
+Zenodo, e formalizam protocolo de chunked-write + budget guardrails
+operacionais que o Claude verifica em sessão antes de prosseguir.
+
+### Adicionado
+
+- **Decisão 34** — Protocolo de chunked write para SLRs grandes
+  (Fix 1, PR #82). Regra operacional vinculante: SLRs com ≥5
+  seções OU ≥20 referências OU ≥3 web searches persistem
+  `searches.json`/`extraction.csv`/`quality-appraisal.csv` em
+  disco antes da síntese narrativa, e renderizam HTML por seções
+  via `render_chunks.py --append` em chamadas separadas.
+- **Decisão 35** — Budget guardrails operacionais por fase (Fix 4,
+  PR #85). Limites mecânicos: ≤5 web searches/SLR na Fase 3;
+  ≤30 referências processadas em uma resposta na Fase 6;
+  ≤1 seção HTML por resposta na Fase 7; empacotamento Zenodo é
+  uma única chamada subprocess.
+- **Decisão 36** — HTML reclassificado como artefato secundário
+  (Fix 5, PR #86); PDF/DOCX promovidos a artefatos acadêmicos
+  canônicos. PDF compilado de LaTeX+BibTeX é o que vai pro
+  depósito Zenodo (proteção de IP por timestamping autoral
+  imutável); HTML deixa de ser default.
+- **Decisão 37** — HTML Wiki-style segregado em subcomando
+  dedicado `ignorantia render --format html-wiki` (Fix 8,
+  PR #89). Pipeline canônico (LaTeX → BibTeX → PDF → DOCX) não
+  invoca chunked-render; HTML só é gerado opt-in, depois do
+  pacote acadêmico estar em disco.
+- **`build_pre_render_search_step`** (Fix 2, PR #83) — pipeline
+  step que executa `SearchForStudiesUseCase` por comando, faz
+  dedup cross-query por título, escreve `searches.json` validado
+  contra schema antes da Fase 4.
+- **`build_incremental_html_render_step`** (Fix 3, PR #84) —
+  pipeline step para escrita HTML chunked: `render_opening` →
+  loop por seções com flush — `render_references_section` →
+  `render_closing`. Helpers públicos correspondentes em
+  `HtmlRenderer`.
+- **BibTeX como output de primeira classe** (Fix 6, PR #87) —
+  novo `BibTexEntryFormatterPort` com quatro adapters (plain,
+  unsrt, abntex2-num, IEEEtran), `BibFileRenderer` com chave de
+  citação determinística (`<surname><year><first-significant-word>`,
+  diacríticos removidos, stop-words PT/EN puladas, sufixos
+  `a`/`b`/`c` em colisão), `build_bibtex_render_step` factory.
+  `LatexRenderer` ganha modo external-BibTeX (parâmetros
+  `bib_file=` + `bibliography_style=`) que emite
+  `\bibliographystyle{}` + `\bibliography{}` no lugar do
+  `\thebibliography` inline.
+- **Pipeline de compilação PDF + DOCX** (Fix 7, PR #88) —
+  `build_pdf_compile_step` invoca o ciclo canônico
+  `pdflatex + bibtex + pdflatex × 2` via subprocess; falha
+  graciosa (`StepStatus.SKIPPED`) se `pdflatex`/`bibtex` não
+  estiverem no PATH. `build_docx_from_latex_step` converte o
+  mesmo `.tex` para `.docx` via pandoc com `--bibliography=`.
+  Logs de cada passe gravados em `<base>.compile.log`.
+
+### Mudou
+
+- **`<mandatories>` da SKILL.md** — substituída a regra "GERE
+  sempre o HTML interativo" por "GERE sempre PDF+DOCX (Zenodo);
+  HTML é subcomando-only".
+- **Decisão 18** — escopo limitado ao subcomando `html-wiki`
+  (Fix 8); rebaixada a artefato secundário pela Decisão 36.
+- **Decisão 31 / Decisão 32** — `.docx` agora vem do mesmo `.tex`
+  via pandoc (estruturalmente idêntico ao PDF); `.tex` + `.pdf`
+  reclassificados como artefato canônico.
+
+### Operacional
+
+A v2.23.1 é o pacote operativo até a v3.0.0-rc1 (instalada em
+paralelo) absorver a versão Clean Architecture do pipeline. As
+Decisões 34–37 são vinculantes mecânicas para o Claude na sessão
+de chat; o `pipeline_summary.json` registra as chamadas
+subprocess para verificação a posteriori.
+
 ## [3.0.0-rc1] — 2026-05-07
 
 **Release candidate da reescrita Clean Architecture v3.** Reorganiza

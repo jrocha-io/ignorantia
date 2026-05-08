@@ -29,8 +29,23 @@ import csv
 import hashlib
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+# ── gate (Fix 9, RS-42 dogfood remediation) ──────────────────────────────────
+#
+# The assessor used to always exit 0, even when reporting eliminatórios or
+# scores far below submission threshold. RS-42 v1.0.0 was packaged and shipped
+# with a 4.0/10.0 grade and three eliminatórios because nothing programmatic
+# blocked it. Fix 9 turns the assessor into a gate: it still always writes the
+# Markdown report, but it also writes a machine-readable `assessment_gate.json`
+# sidecar and exits non-zero (code 2) when the gate fails, so any wrapper that
+# chains "assess && package" short-circuits correctly.
+
+_DEFAULT_GATE_MIN_SCORE = 7.0
+_GATE_EXIT_CODE = 2
+_GATE_SIDECAR_FILENAME = "assessment_gate.json"
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -987,6 +1002,25 @@ def main():
     ap.add_argument("--is-health", action="store_true",
                     help="Tema é saúde / medicina / enfermagem")
     ap.add_argument("--out", required=True)
+    ap.add_argument(
+        "--gate-min-score",
+        type=float,
+        default=_DEFAULT_GATE_MIN_SCORE,
+        help=(
+            f"Minimum score required to pass the gate (default: "
+            f"{_DEFAULT_GATE_MIN_SCORE}). Below this, the script exits "
+            f"non-zero. Eliminatórios always fail the gate regardless."
+        ),
+    )
+    ap.add_argument(
+        "--no-gate",
+        action="store_true",
+        help=(
+            "Disable the exit-code gate. Report and JSON sidecar are still "
+            "written, but the script exits 0 even on assessment failure. "
+            "Use only for triage / partial-package debugging."
+        ),
+    )
     args = ap.parse_args()
 
     content = load_json(args.content) or {}
@@ -1025,6 +1059,45 @@ def main():
                            recommendation)
     Path(args.out).write_text(report, encoding="utf-8")
     print(f"Wrote {args.out}  (score: {total:.1f}/10.0)")
+
+    # Gate evaluation (Fix 9): write JSON sidecar and decide exit code.
+    gate_failed_eliminatory = bool(eliminatory)
+    gate_failed_score = total < args.gate_min_score
+    gate_passed = not (gate_failed_eliminatory or gate_failed_score)
+
+    sidecar_path = Path(args.package_dir) / _GATE_SIDECAR_FILENAME
+    sidecar_path.write_text(
+        json.dumps(
+            {
+                "passed": gate_passed,
+                "score": total,
+                "min_score": args.gate_min_score,
+                "eliminatory_count": len(eliminatory),
+                "eliminatory_failed": gate_failed_eliminatory,
+                "score_failed": gate_failed_score,
+                "report_path": str(Path(args.out).resolve()),
+                "version": args.version,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(f"Wrote {sidecar_path}  (gate: {'PASS' if gate_passed else 'FAIL'})")
+
+    if not gate_passed and not args.no_gate:
+        reasons = []
+        if gate_failed_eliminatory:
+            reasons.append(f"{len(eliminatory)} eliminatório(s)")
+        if gate_failed_score:
+            reasons.append(f"score {total:.1f} < {args.gate_min_score:.1f}")
+        print(
+            f"GATE FAILED: {' + '.join(reasons)}. Pacote NÃO deve ser finalizado.",
+            file=sys.stderr,
+        )
+        sys.exit(_GATE_EXIT_CODE)
+
     return total
 
 
