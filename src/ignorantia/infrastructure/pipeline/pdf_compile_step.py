@@ -25,7 +25,7 @@ in ``output_dir`` so post-mortem debugging works without re-running.
 from __future__ import annotations
 
 import shutil
-import subprocess
+import subprocess  # nosec B404 — pdflatex/bibtex invocation, args list, no shell
 from collections.abc import Callable
 from pathlib import Path
 
@@ -101,11 +101,11 @@ def build_pdf_compile_step(
         sequence = _compile_sequence(use_bibtex=use_bibtex)
         for label, args_template in sequence:
             binary = pdflatex if label.startswith("pdflatex") else bibtex
-            assert binary is not None  # noqa: S101 — narrowed by SKIPPED guards above
+            assert binary is not None  # noqa: S101  # nosec B101 — narrowed by SKIPPED guards above
             cmd: list[str] = [binary, *args_template(tex_filename, base)]
             log_lines.append(f"=== {label} ===\n$ {' '.join(str(a) for a in cmd)}")
             timeout = _BIBTEX_TIMEOUT_S if label == "bibtex" else _PDFLATEX_TIMEOUT_S
-            completed = subprocess.run(  # noqa: S603 — args list, no shell
+            completed = subprocess.run(  # noqa: S603  # nosec B603 — args list, no shell
                 cmd,
                 cwd=output_dir,
                 capture_output=True,

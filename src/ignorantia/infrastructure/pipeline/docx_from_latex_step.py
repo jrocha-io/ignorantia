@@ -20,7 +20,7 @@ structurally from the PDF but compiles without external tools.
 from __future__ import annotations
 
 import shutil
-import subprocess
+import subprocess  # nosec B404 — pandoc invocation, args list, no shell
 from pathlib import Path
 
 from ignorantia.domain.pipeline.value_objects import (
@@ -100,7 +100,7 @@ def build_docx_from_latex_step(
                 )
             cmd.extend(["--bibliography", bib_path.name])
 
-        completed = subprocess.run(  # noqa: S603 — args list, no shell
+        completed = subprocess.run(  # noqa: S603  # nosec B603 — args list, no shell
             cmd,
             cwd=output_dir,
             capture_output=True,
