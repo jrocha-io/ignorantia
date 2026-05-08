@@ -352,3 +352,144 @@ for name, err in errors[:5]: print(f'  {name}: {err}')
 Os 27 itens são o estado atual do conhecimento. **Auditoria #6 que use este manual e ache bugs em dimensões não listadas indica gap deste documento** — atualizar este arquivo nesse caso.
 
 Sistemas de software não convergem para "zero bugs" — convergem para "bugs apenas nas dimensões ainda não conceitualizadas". Este manual é uma **vacina contra reaprendizado**: futuras auditorias não precisam redescobrir as dimensões que já conhecemos.
+
+---
+
+## Anexo — Dimensões de auditoria v3 (Clean Architecture)
+
+A reorganização v3 (issues #4 a #8) introduziu invariantes
+arquiteturais que são *novas dimensões* a auditar, ortogonais às
+27 dimensões v2 acima. Auditorias futuras devem cobrir AMBOS os
+eixos.
+
+### Dimensão V1 — Isolamento de bounded contexts
+
+Cada contexto sob `src/ignorantia/domain/<contexto>/` deve importar
+apenas de:
+
+* o próprio contexto (`from ignorantia.domain.<este>.…`)
+* a stdlib
+
+Imports cruzados (`domain/render → domain/search`,
+`domain/compliance → domain/render`, etc.) são erro de design e
+devem virar DTOs em `application/`. Verificar com:
+
+```bash
+for ctx in audit compliance pipeline render search; do
+    echo "=== $ctx ==="
+    grep -rE "from ignorantia\.domain\.(?!$ctx)" src/ignorantia/domain/$ctx/ || echo "ok"
+done
+```
+
+### Dimensão V2 — Portas concretas vivem em `infrastructure/`
+
+`domain/<ctx>/ports/*.py` define apenas ABCs. Implementações
+concretas vivem em `infrastructure/<ctx>/`. Auditar:
+
+```bash
+grep -rE "import urllib\.request|import requests|httpx" src/ignorantia/domain/
+# → deve retornar 0 linhas
+```
+
+### Dimensão V3 — Sem leak de domínio para `interface/`
+
+A camada de interface (`interface/cli/`, futuro `interface/http/`)
+só consome DTOs de `application/dtos.py`. Nunca constrói nem
+recebe entidades de `domain/` — exceto value-object enums usados
+como tipos de Click.Choice (`CitationStyle`, `OutputFormat`).
+Auditar:
+
+```bash
+grep -rE "from ignorantia\.domain" src/ignorantia/interface/cli/
+# → deve mostrar apenas value-object enums
+```
+
+### Dimensão V4 — Injeção de clock (issue #13)
+
+Nenhum módulo em `src/ignorantia/{domain,application}/` deve
+chamar `datetime.now()`. O *único* lugar autorizado é
+`interface/cli/main._real_clock()`. Auditar:
+
+```bash
+grep -rE "datetime\.(now|utcnow|today)" src/ignorantia/domain/ src/ignorantia/application/
+# → deve retornar 0 linhas
+```
+
+### Dimensão V5 — Validação JSON-schema runtime (issue #14)
+
+Toda saída JSON do CLI passa por `validate_manifest()` antes do
+`click.echo`. Auditar:
+
+```bash
+grep -nE "click\.echo\(json\.dumps" src/ignorantia/interface/cli/commands.py
+# → toda ocorrência deve estar dentro de _emit() OU ser precedida
+#    de uma chamada explícita a validate_manifest()
+```
+
+Cada subcomando deve ter um schema correspondente em
+`src/ignorantia/interface/manifests/*.schema.json`,
+`additionalProperties: false` em todos. Enums (`output_format`,
+`method`, `status`) devem refletir os valores canônicos dos enums
+em `domain/`.
+
+### Dimensão V6 — Compatibilidade legacy (issue #8)
+
+`src/ignorantia/legacy/__init__.py` deve emitir `DeprecationWarning`
+no import e `migration_guide()` deve listar todo entry-point v2.
+Auditar:
+
+```bash
+python3 -c "
+import warnings, sys
+sys.modules.pop('ignorantia.legacy', None)
+with warnings.catch_warnings(record=True) as w:
+    warnings.simplefilter('always')
+    import ignorantia.legacy
+    assert any(issubclass(item.category, DeprecationWarning) for item in w), \\
+        'legacy package must emit DeprecationWarning on import'
+print('OK')
+"
+```
+
+### Dimensão V7 — Cobertura por camada
+
+Os critérios de aceitação das fases F4-F8 fixam thresholds
+diferentes por camada:
+
+| Camada | Cobertura mínima | Status atual |
+|---|---|---|
+| `domain/<contexto>/` | 90% | 100% (todos os contextos) |
+| `application/` | 90% | 100% |
+| `interface/` | 70% | ≥95% |
+| `infrastructure/` | 70% | 86% (render); demais variam |
+
+Auditar (substituir `<contexto>` pela camada-alvo):
+
+```bash
+pytest tests/unit/domain/<contexto>/ \
+    --cov=ignorantia.domain.<contexto> \
+    --cov-fail-under=90
+```
+
+### Dimensão V8 — Strict mypy
+
+Todo módulo em `src/ignorantia/` (exceto `interface/cli/*` que tem
+override documentado para decorators do Click) deve passar
+`mypy --strict` sem `# type: ignore` ad-hoc. Auditar:
+
+```bash
+mypy --strict src/ignorantia
+# → deve retornar 0 errors
+grep -rn "# type: ignore" src/ignorantia/ | grep -v "interface/cli"
+# → cada ocorrência deve ter um motivo justificado em comentário ao lado
+```
+
+### Como atualizar este anexo
+
+Quando uma auditoria v3+ achar um bug em dimensão *não listada*
+acima:
+
+1. Documentar o bug em `audit-N-strategy.md`.
+2. Adicionar a nova dimensão (V9, V10, …) a este anexo com o
+   comando de verificação `grep` / `pytest` correspondente.
+3. Nunca renumerar — auditorias antigas referenciam por número.
