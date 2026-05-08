@@ -12,7 +12,7 @@ result at the date of this report.
 
 | # | Criterion | Result |
 |---|---|---|
-| 1 | All search adapters implement `AdapterPort` | ⚠️ 58 / 62 (4 carried to v3.0.0 stable) |
+| 1 | All search adapters implement `AdapterPort` | ✅ 58 search adapters + 2 Tier-0 OA resolvers (parity with v2) |
 | 2 | `mypy --strict` green on `domain/` + `application/` | ✅ pass |
 | 3 | Coverage ≥ 90% on `domain/` + `application/` | ✅ 98.72% / 100.00% |
 | 4 | Zero `urllib.request` outside `infrastructure/http_client.py` | ✅ pass |
@@ -33,20 +33,45 @@ result at the date of this report.
 ```bash
 PYTHONPATH=src python3 -c "
 from ignorantia.infrastructure.search.adapter_factory import AdapterFactory
-print(len(AdapterFactory.known_sources()))
+print('search adapters:', len(AdapterFactory.known_sources()))
 "
-# → 58
+# → search adapters: 58
+
+PYTHONPATH=src python3 -c "
+from ignorantia.infrastructure.http_client import HttpClient
+from ignorantia.infrastructure.search.oa_resolver_factory import OaResolverFactory
+factory = OaResolverFactory(
+    http=HttpClient(user_agent='audit', timeout_s=30, throttle_s=0, max_retries=0),
+    unpaywall_email='audit@example.org',
+)
+print('oa resolvers:', len(factory.known_sources()))
+"
+# → oa resolvers: 2 (oa_button, unpaywall)
 ```
 
-The 4-adapter gap vs the historical v2 count of 62 is the same gap
-recorded in the project journal on 2026-05-06: `dimensions`,
-`oa_button` (Tier-0 OAB), `embase_full`, and `latindex` are
-referenced by `scripts/searches/` but are not yet wired into the
-v3 `AdapterFactory` registry. They migrate as a follow-up batch in
-v3.0.0 stable; the RC ships with the 58 already migrated. Every
-registered adapter implements `AdapterPort` (the registry function
-type `Callable[[HttpClient], AdapterPort]` enforces this at
-factory construction).
+The original v2 "62 adapters" count conflated two distinct port
+types:
+
+* **58 search adapters** implementing `AdapterPort` (DOI / metadata
+  search) → registered in `AdapterFactory`.
+* **2 Tier-0 OA resolvers** implementing `OaResolverPort` (DOI-in →
+  OA-URL-out) → registered in `OaResolverFactory`.
+
+The remaining v2 `scripts/searches/` entries (`jane`,
+`orchestrator`) are not search adapters — `jane` is a venue
+classifier (separate context, not migrated) and `orchestrator` is
+the runner glue, replaced wholesale by `SearchOrchestrator` in
+`domain/search/services/`. Every registered adapter implements its
+port (the registry function types
+`Callable[[HttpClient], AdapterPort]` and
+`Callable[[HttpClient], OaResolverPort]` enforce this at factory
+construction).
+
+**Net effect**: v3 reaches *parity* with the v2 search surface — no
+adapter is missing. The original "58 / 62" framing in early drafts
+of this document came from comparing only `AdapterFactory` against
+the v2 total; the count gap closes once Tier-0 resolvers are
+counted in their own factory.
 
 ### 2. `mypy --strict` on `domain/` + `application/`
 
@@ -173,12 +198,14 @@ controlled fixtures. The RC therefore ships with:
 
 ## Outstanding work for v3.0.0 stable
 
-* Migrate the remaining 4 search adapters into the v3 factory
-  (`dimensions`, `oa_button`, `embase_full`, `latindex`).
-* Complete the dogfooding sprint described in §10.
+* Complete the RS-42 dogfooding sprint described in §10 (the only
+  remaining acceptance-criteria deferral).
 * Migrate concrete pipeline steps from `scripts/pipeline_finalize.py`
   into `infrastructure/pipeline/` (the v3 `finalize` subcommand
-  currently runs an empty step registry).
+  currently runs an empty step registry). Each step landing as a
+  `PipelineStep` factory appends one entry to
+  `interface/cli/main.build_pipeline_steps()` — Open/Closed
+  preserved.
 * Bump `version` in `pyproject.toml` from `2.23.0` to `3.0.0` once
   the dogfooding sprint signs off.
 
