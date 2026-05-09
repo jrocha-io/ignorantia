@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-realist-review" path="assets/templates/modes/mode-realist-review.md" type="template" lang="pt-BR">
+  <title>Mode template — Realist Review</title>
+  <markdown><![CDATA[
+# Mode template — Realist Review
+
+> Aplica-se quando `review_type: realist_review` no metadado.
+> Camada hierárquica: **Primária** (pesquisa bibliográfica autônoma em bases OA).
+> Combinar com o template-base.
+
+## Selo obrigatório no header
+
+```html
+<div class="review-mode-badge mode-realist" role="status">
+  <strong>AI-Assisted Realist Review</strong>
+  <span class="mode-detail">following RAMESES II (Wong et al. 2013, BMC Med 11:21)</span>
+  <span class="mode-disclaimer">Synthesis explaining what works, for whom, in what contexts, and why (CMO configurations).</span>
+</div>
+```
+
+CSS sugerido (realist = âmbar profundo):
+```css
+.review-mode-badge.mode-realist {
+  background: #fff8e1;
+  border-left: 4px solid #f57f17;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+```
+
+## Quando faz sentido este modo
+
+Realist Review é apropriado quando:
+- A pergunta de pesquisa é **"o que funciona, para quem, em que contextos, e por quê?"**
+- Foco em **mecanismos causais** (Context-Mechanism-Outcome configurations), não em efeitos médios.
+- Avaliação de **programas complexos** (educacionais, de política pública, organizacionais).
+- Avaliação de **tecnologias em uso** (IA em educação, intervenções digitais em saúde).
+- Especialmente apropriado para o tema do projeto base: **"IA e jogos educacionais não substituem professor — em que contextos, por quê?"** é pergunta realist por excelência.
+
+Não é apropriado quando:
+- O objetivo é apenas medir efeito médio de intervenção → Modo 4 (SR estrito) com meta-análise.
+- Apenas mapear a literatura → Modo 1 (Scoping Review).
+
+## Pré-requisitos
+
+ANTES de iniciar este modo, o usuário deve declarar:
+
+1. **Programa/intervenção/tecnologia** sendo avaliado.
+2. **Pergunta realist** estruturada ("o que funciona, para quem, em que contextos, por quê").
+3. **Initial program theory (IPT)** — hipótese inicial sobre como o programa funciona (será refinada durante a revisão).
+4. **CMO configurations candidatas** — tentativas iniciais de identificar Context-Mechanism-Outcome.
+
+## Venue padrão e alternativas (OA-first)
+
+**Padrão**: **Zenodo** + preprint em SciELO Preprints (PT-BR) ou medRxiv/EdArXiv conforme área. $0 APC. Coerente com OA-first.
+
+**Alternativas explicadas**:
+- **BMC Medicine** (mesma editora do RAMESES II): $4290 APC, fully OA, alto impacto. Alto custo mas é o lar histórico do método.
+- **Cadernos de Saúde Pública (Fiocruz)**: A1 saúde BR, OJS, $0, EN. Aceita realist reviews em saúde.
+- **Educação e Pesquisa (USP)**: A1 educação BR, OJS, $0, PT/EN/ES. Aceita realist reviews em educação.
+- **Implementation Science (Springer)**: hybrid, $4790 APC para OA, alto impacto, tradicional para realist reviews em implementação.
+
+A ferramenta apresenta a escolha ao usuário no início. Para autores brasileiros sem orçamento, Qualis A1 BR são o caminho natural.
+
+## Estrutura RAMESES II
+
+### Title / Abstract
+
+- Identificar como "Realist Review" ou "Realist Synthesis" no título.
+- Abstract estruturado com indicadores de metodologia realist.
+
+### Introduction
+
+- **Rationale** para abordagem realist (por que realist e não SR estrito ou scoping?).
+- **Initial program theory (IPT)** explicitada — hipótese inicial sobre como o programa/intervenção funciona.
+- **Pergunta de pesquisa** em termos realist.
+
+### Methods
+
+- **Search strategy iterativa** — Realist reviews tipicamente fazem múltiplas rodadas de busca (refinamento à medida que a teoria evolui).
+- **Critérios de seleção** baseados em relevância à teoria do programa, não apenas tópico.
+- **Data extraction focada em CMO components** (Context, Mechanism, Outcome).
+- **Quality and relevance assessment** dos estudos incluídos.
+- **Synthesis approach**: refinamento da program theory testando contra evidência.
+
+### Results
+
+- **Document selection** (PRISMA-like flow adaptado).
+- **Document characteristics** summary.
+- **Main findings** expressos como CMO configurations.
+- **Refined program theory** — como mudou da inicial.
+
+### Discussion
+
+- Síntese dos achados (program theory + CMOs principais).
+- Comparação com literatura existente.
+- **Limitations específicas da metodologia realist** (single-reviewer, dependência de program theory inicial, iteração subjetiva).
+- Implicações para política/prática + pesquisa futura.
+
+### Other
+
+- Funding + Conflicts of Interest.
+- AI Disclosure (OBRIGATÓRIA).
+
+## Conceitos-chave da metodologia realist
+
+### Context (C)
+
+Características do ambiente/setting/população que influenciam se mecanismos são ativados:
+- Características demográficas (idade, gênero, classe social)
+- Características institucionais (tipo de escola, sistema de saúde)
+- Características temporais (momento de implementação)
+- Características políticas/regulatórias
+
+### Mechanism (M)
+
+Processos causais — como o programa produz resultados:
+- Mudanças cognitivas (raciocínio dos atores)
+- Mudanças motivacionais
+- Mudanças relacionais
+- Mudanças estruturais
+
+### Outcome (O)
+
+Resultados observados, intencionais ou não:
+- Resultados pretendidos
+- Resultados não-pretendidos
+- Resultados negativos
+- Resultados em diferentes níveis (indivíduo, grupo, sistema)
+
+### CMO configuration
+
+Hipótese realist: "Em contexto C, mecanismo M produz outcome O".
+
+Exemplo para o tema do projeto base:
+> "Em contextos onde o professor está sobrecarregado E os alunos têm acesso desigual à internet (C), uma intervenção de jogo educacional digital (programa) não ativa o mecanismo de engajamento autônomo (M esperado) — em vez disso, ativa o mecanismo de exclusão tecnológica (M inesperado) — produzindo desigualdade de aprendizagem (O não-pretendido), não engajamento aumentado (O pretendido)."
+
+## Seções obrigatórias do manuscrito
+
+1. **Introduction** com IPT explícita
+2. **Methods** com busca iterativa documentada
+3. **Results** com PRISMA flow adaptado + CMO configurations
+4. **Discussion** com refinamento da program theory
+5. **Conclusion** com implicações
+6. **Limitations** específicas da metodologia realist
+7. **References**
+8. **Declarations** (AI + Funding + COI)
+
+## Selos no metadado YAML
+
+```yaml
+review_type: realist_review
+review_purpose: design_validation  # ou design_correction quando programa em revisão
+reporting_guideline_primary: RAMESES-II
+target_venue_primary: zenodo_realist_review
+target_venue_alternatives: [csp_fiocruz, ep_usp, bmc_medicine, implementation_science]
+program_evaluated: ""
+initial_program_theory: ""
+research_question_realist: ""  # "what works, for whom, in what contexts, why?"
+cmo_candidates: []
+search_iterations: 1  # tipicamente 2-3 em realist
+reviewer_count_human: 1
+reviewer_count_ai: 1
+authors:
+  - name: ""
+    orcid: ""
+    affiliation: ""
+ai_disclosure_required: true
+funding: ""
+conflicts_of_interest: ""
+prospero_or_osf_registration_id: ""
+```
+
+## Notas críticas
+
+- Realist Review é metodologicamente **mais demanding** que Scoping Review — exige iteração, refinamento de teoria, julgamento sobre mecanismos causais.
+- Realist Review é metodologicamente **mais apropriada** que SR estrito para perguntas sobre programas complexos onde "efeito médio" não responde à pergunta.
+- Para o projeto base: o tema **"IA na educação não substitui professor — em que contextos, por quê?"** é caso paradigmático onde Realist Review é metodologicamente superior a outros modos.
+- Single-reviewer é aceitável em RAMESES II com transparência total (diferente de SR estrito que exige 2 revisores).
+
+  ]]></markdown>
+</doc>

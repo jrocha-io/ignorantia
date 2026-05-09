@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="international" path="references/databases/international.md" type="database-catalog" lang="pt-BR">
+  <title>International databases — search syntax and access</title>
+  <markdown><![CDATA[
+# International databases — search syntax and access
+
+For each database: Boolean syntax, access notes, export format, and execution mode (skill executes directly vs. user executes manually).
+
+Mark each one in the protocol with:
+- **Direct:** skill executes via API/scraping
+- **Guided:** skill provides string + instructions; user executes
+- **Hybrid:** skill executes a partial query; user fills gaps
+
+## arXiv (Direct)
+
+- API: https://export.arxiv.org/api/query
+- Free, no auth.
+- Boolean: `cat:cs.AI AND (abs:transformer AND abs:"time series")`. Fields: `ti`, `au`, `abs`, `co`, `jr`, `cat`, `id`, `all`.
+- Date range: `submittedDate:[202001010000 TO 202612312359]`.
+- Returns Atom feed; parse with `feedparser`.
+- Use `scripts/search_arxiv.py`.
+
+## Semantic Scholar (Direct)
+
+- API: https://api.semanticscholar.org/graph/v1/paper/search
+- Free; rate-limited (100 req / 5 min unauthenticated, higher with API key).
+- Query is plain text (no Boolean operators in v1; use `&fieldsOfStudy=`, `&year=`, `&publicationTypes=` for filtering).
+- Returns JSON with paperId, title, abstract, authors, year, venue, citationCount, references, openAccessPdf.
+- Use `scripts/search_semantic_scholar.py`.
+
+## dblp (Direct)
+
+- API: https://dblp.org/search/publ/api?q=...&format=json
+- Free, no auth, fast. Best for completeness in CS.
+- Query syntax: `term1 term2$ year:2020:2026 type:Conference_and_Workshop_Papers|Journal_Articles` (terms with `$` are exact). Boolean is implicit AND; use `|` for OR.
+- Returns JSON. No abstracts (dblp is bibliographic only) — pair with Semantic Scholar to enrich.
+- Use `scripts/search_dblp.py`.
+
+## Crossref (Direct)
+
+- API: https://api.crossref.org/works?query=...
+- Free, no auth.
+- Filters: `&filter=from-pub-date:2020,until-pub-date:2026,type:journal-article`.
+- Useful for DOI resolution and bibliographic completeness; abstracts often missing.
+
+## Google Scholar (Guided)
+
+- No official API. Programmatic scraping is rate-limited and ToS-sensitive.
+- Skill approach: `web_search` with query like `site:scholar.google.com "exact phrase" topic` — but results are limited.
+- Better approach: instruct user to use Scholar manually with the booleans, export to BibTeX (using "Cite" → "BibTeX"), and paste back. Up to ~1000 results per query (Scholar caps).
+- Boolean syntax in Scholar: standard, with `OR` (must be uppercase), `-` to exclude, `"phrase"` for exact, `intitle:`, `author:`, `source:` operators.
+
+## ACM Digital Library (Hybrid)
+
+- https://dl.acm.org/
+- Some content is OA (especially since the ACM OA initiative); the rest is paywalled.
+- Boolean syntax (Advanced Search): `[All: transformer] AND [All: "time series"] AND [Publication Date: (01/01/2020 TO 12/31/2026)]`.
+- Export: BibTeX or RIS via "Export Citations".
+- Skill: `web_search` for OA portion, instruct user for the rest.
+
+## IEEE Xplore (Guided unless institutional access)
+
+- https://ieeexplore.ieee.org/
+- Mostly paywalled. Institutional access via IP or proxy.
+- Boolean syntax: `(("Document Title":transformer) AND ("All Metadata":"time series"))`.
+- Filters: Year range, Publication Type, IEEE journals/conferences.
+- Export: CSV (top 100), BibTeX (top 25), or "Save This Search" for persistence.
+- Skill: provide string + instructions; if user has institutional access, optionally generate a Python script using their library proxy URL. Never bypass the paywall.
+
+## Scopus (Guided)
+
+- https://www.scopus.com/
+- Paywalled; nearly always institutional.
+- Boolean syntax: `TITLE-ABS-KEY ( transformer AND "time series" ) AND PUBYEAR > 2019 AND PUBYEAR < 2027 AND DOCTYPE ( ar OR cp )`.
+- Operators: `AND, OR, AND NOT, W/n` (within n words), `PRE/n` (X precedes Y by n).
+- Export: CSV or BibTeX, up to 2000 records per export.
+- Scopus has its own API (Elsevier Developer) but requires API key + institutional subscription.
+
+## Web of Science / Clarivate (Guided)
+
+- https://www.webofscience.com/
+- Paywalled, institutional.
+- Boolean syntax: `TS=(transformer AND "time series") AND PY=(2020-2026) AND DT=(Article OR Proceedings Paper)`. Field tags: `TS=topic, TI=title, AU=author, SO=source, AB=abstract`.
+- Export: tab-delimited or BibTeX, up to 1000 records.
+- WoS Lite API exists but is institutional.
+
+## ScienceDirect / Elsevier (Guided)
+
+- https://www.sciencedirect.com/
+- Paywalled, institutional.
+- Search syntax: simpler — uses field selectors in advanced search UI.
+- Has OA content that's freely accessible.
+- Elsevier ScienceDirect API for institutional users.
+
+## Springer Link (Guided)
+
+- https://link.springer.com/
+- Mix of OA and paywalled.
+- Search syntax: standard Boolean with field qualifiers in advanced search.
+- Springer API: free with key, https://dev.springernature.com/.
+
+## Unpaywall (Direct, helper)
+
+- API: https://api.unpaywall.org/v2/{DOI}?email=...
+- Free, requires email parameter. Returns whether a paper has an OA copy and the URL.
+- Use during full-text retrieval phase to find legal OA versions of paywalled papers.
+
+## Strategy when user has institutional access
+
+If the user confirms access to Scopus / WoS / IEEE Xplore / ScienceDirect / Springer:
+
+1. Build the proper Boolean string in that base's syntax.
+2. Generate a Python script using `requests` + `requests.Session` that authenticates via the institution's proxy (e.g., `https://{base}.{proxy.uni.edu}/`).
+3. The script downloads only what the user is entitled to access.
+4. Output: CSV of metadata + downloaded PDFs in `pdfs/` folder.
+
+**Never bypass paywalls.** The script is a convenience automating manual access the user already has.
+
+## Strategy when user lacks institutional access
+
+1. Build the Boolean string and document it in the protocol anyway (for reproducibility).
+2. Mark the base as "documented but executed manually by user" or "not executed".
+3. Recommend the user use other free bases (arXiv, Semantic Scholar, dblp, Crossref) intensively.
+4. Suggest snowballing from a high-quality seed paper as a complement.
+
+  ]]></markdown>
+</doc>

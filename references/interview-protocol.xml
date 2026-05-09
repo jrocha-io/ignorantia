@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="interview-protocol" path="references/interview-protocol.md" type="document" lang="pt-BR">
+  <title>Interview Protocol — Scope-setting checklist</title>
+  <markdown><![CDATA[
+# Interview Protocol — Scope-setting checklist
+
+Use this checklist verbatim with the user before drafting the protocol. Prefer `ask_user_input_v0` on mobile; numbered prose otherwise. Don't proceed to Phase 2 until every item is answered.
+
+## 1. Research question
+
+- What is the central question? Try to elicit a one-sentence formulation.
+- Reformulate as PICO (health) or PICOC (software engineering) or analogue:
+  - **P**opulation / Problem
+  - **I**ntervention / Issue of interest
+  - **C**omparison (optional)
+  - **O**utcome
+  - **C**ontext (PICOC only)
+- Show the user the structured version and ask for confirmation/edits.
+
+## 2. Discipline and norm
+
+Map area to citation style. **ABNT overrides everything if the manuscript is in Brazilian Portuguese.**
+
+| Area | International (English) | Brazilian Portuguese |
+|------|-------------------------|----------------------|
+| Computer science, engineering, math, physics | IEEE | ABNT |
+| Medicine, nursing, public health | Vancouver | ABNT |
+| Psychology, education, pedagogy | APA | ABNT |
+| Other humanities | APA (default) | ABNT |
+
+Confirm the chosen style explicitly.
+
+## 3. Methodology
+
+- **PRISMA-2020** is the default for any SLR.
+- **Kitchenham guidelines** apply when the topic is software engineering or applied CS, and the user agrees.
+- Both can co-exist (PRISMA flow + Kitchenham QA), and that's actually best practice in SE.
+
+## 4. Temporal window
+
+- Default: last 10 years from current date.
+- If the field moves slowly (e.g., classical pedagogy theory), suggest extending.
+- If it moves fast (e.g., LLMs), suggest narrowing to last 3–5 years and including preprints.
+
+## 5. Study types
+
+- Peer-reviewed journal articles: yes/no
+- Conference proceedings: yes/no (typical yes for CS/SE)
+- Preprints (arXiv, SSRN): yes/no
+- Theses and dissertations: yes/no
+- Gray literature (technical reports, white papers): yes/no
+- Books / book chapters: yes/no
+
+## 6. Languages of source papers
+
+- English-only? Portuguese-only? Both? Other?
+
+## 7. Database access
+
+For each restricted base, ask:
+
+- Scopus — does the user have institutional access?
+- Web of Science — institutional access?
+- IEEE Xplore — institutional access?
+- ScienceDirect — institutional access?
+- Springer Link — institutional access?
+- ACM Digital Library — access? (some content is OA)
+- Portal de Periódicos CAPES (Brazilian researchers) — CAFe login available?
+
+If yes to any: offer to generate a Python script that automates download via the institution's proxy. **Never bypass paywalls.** The script only works with credentials the user legitimately has.
+
+If no: mark those bases as "documented but executed manually by the user" — generate the booleans, instruct, and accept CSV/BibTeX paste-back.
+
+## 8. Reviewer setup
+
+State plainly:
+
+> This skill does not simulate a second reviewer. PRISMA-2020 and Kitchenham both require independent dual review with Cohen's kappa agreement reported. The deliverable will be uploaded to Zenodo, where two human professors (your collaborators) perform the independent screening and compute the kappa. If you don't have collaborators arranged, that's fine — the skill still produces the protocol, screenings, and extractions; the kappa step happens after.
+
+Confirm the user understands.
+
+## 9. Output preferences
+
+- Manuscript format: LaTeX/PDF (exatas) or .docx (others) — auto-derived from area + language, but confirm.
+- Figures: PRISMA flow always. Other diagrams (timeline, taxonomy map, QA heatmap) — confirm interest.
+- Tables: included studies with QA scores always. Comparison tables by subtheme — confirm.
+- Length: no limit unless requested.
+
+## 10. Working pace
+
+Ask whether the user wants:
+- (a) **Full autonomous run** with checkpoints at end of each phase
+- (b) **Step-by-step**, validating each sub-step
+- (c) **Iterative** — start with a quick first pass, refine
+
+Default to (a) with clear checkpoints.
+
+  ]]></markdown>
+</doc>

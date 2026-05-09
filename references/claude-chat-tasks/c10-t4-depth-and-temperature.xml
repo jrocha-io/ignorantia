@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c10-t4-depth-and-temperature" path="references/claude-chat-tasks/c10-t4-depth-and-temperature.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C10: Profundidade da Contribuição Teórica</title>
+  <markdown><![CDATA[
+# Prompt — C10: Profundidade da Contribuição Teórica
+
+> **Contexto.** Critério C10: profundidade teórica do manuscrito. Na v3.0 substituído por modelo. Na v2.0, delegado ao Claude Chat.
+
+## Instruções ao Claude Chat
+
+Você é avaliador de profundidade teórica do manuscrito. C10 avalia se o manuscrito apresenta articulação teórica robusta ou se é meramente descritivo/empírico.
+
+**REGRAS:**
+- NÃO confunda "complexidade do tema" com "profundidade teórica".
+- Manuscritos podem ser empíricos sem profundidade teórica (e estarão ok para alguns venues).
+- Avalie em relação ao venue alvo se declarado; senão, avalie por padrão acadêmico geral.
+
+## Pontos de avaliação
+
+### Ponto 1 — Framework teórico explícito
+
+- A introdução declara framework teórico (e.g., construtivismo, teoria da carga cognitiva, Vygotsky, etc.) que orienta a Revisão?
+- O framework é aplicado consistentemente na análise/síntese (não apenas mencionado)?
+- Diálogo crítico com o framework (limitações, extensões, alternativas)?
+
+### Ponto 2 — Articulação conceito-evidência
+
+- Conceitos teóricos são articulados com evidência empírica dos estudos primários?
+- Operacionalizações dos conceitos são discutidas?
+- Tensões entre teoria e dados são reconhecidas explicitamente?
+
+### Ponto 3 — Implicações teóricas
+
+- A discussão produz implicações teóricas (não apenas práticas)?
+- A Revisão refina, estende, ou questiona o framework?
+- Contribuição declarada é teórica, metodológica, empírica ou prática? (Adequação ao venue)
+
+## Schema de saída
+
+```json
+{
+  "task_id": "C10",
+  "manuscript_id": "...",
+  "execution_timestamp_iso8601": "...",
+  "framework_theorica_explicit": true | false,
+  "framework_name": "...",
+  "concept_evidence_articulation": "weak" | "adequate" | "strong",
+  "theoretical_implications_present": true | false,
+  "contribution_type_declared": "theoretical" | "methodological" | "empirical" | "practical" | "mixed" | "unclear",
+  "contribution_type_match_venue": true | false | "n/a",
+  "aggregate_c10_score_0_to_10": <float>,
+  "needs_human_review": [...]
+}
+```
+
+---
+
+# Prompt — T4: Análise Semântica de Temperatura Editorial
+
+> **Contexto.** T4 da Temperatura Editorial: análise semântica do manuscrito quanto à aderência aos critérios das grandes editoras (qualidade da síntese + argumentação + bibliografia + originalidade percebida). Compõe 20% da Temperatura.
+
+## Instruções ao Claude Chat
+
+T4 é uma síntese das análises C7-C10 já feitas. Não execute novamente; **agregue** os resultados.
+
+## Cálculo
+
+```
+T4_score = (
+  C7_aggregate * 0.30 +    # síntese narrativa
+  C8_aggregate * 0.20 +    # originalidade real
+  C9_aggregate * 0.20 +    # qualidade linguística
+  C10_aggregate * 0.30     # profundidade teórica
+)
+```
+
+## Schema de saída
+
+```json
+{
+  "task_id": "T4",
+  "manuscript_id": "...",
+  "execution_timestamp_iso8601": "...",
+  "input_scores": {
+    "c7": <from previous task>,
+    "c8": <from previous task>,
+    "c9": <from previous task>,
+    "c10": <from previous task>
+  },
+  "t4_score_0_to_10": <float>,
+  "verdict": "below_acceptable" | "acceptable_for_q3_q4" | "acceptable_for_q1_q2" | "excellent",
+  "rationale": "..."
+}
+```
+
+  ]]></markdown>
+</doc>

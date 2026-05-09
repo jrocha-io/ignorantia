@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="semver-policy" path="references/semver-policy.md" type="document" lang="pt-BR">
+  <title>Política de versionamento SemVer das saídas — ignorantia</title>
+  <markdown><![CDATA[
+# Política de versionamento SemVer das saídas — ignorantia
+
+Cada saída (manuscrito + artefatos secundários) é um pacote fechado, identificado por um número SemVer no formato:
+
+```
+<MAJOR>.<MINOR>.<PATCH>
+```
+
+cuja semântica é redefinida para o domínio de revisão sistemática:
+
+| Posição | Nome | Quando incrementar |
+|--------|------|--------------------|
+| MAJOR | linha de pesquisa / raciocínio | Mudança na pergunta de pesquisa, mudança de escopo (ex.: incluir nova RQ não derivada das anteriores), mudança de área disciplinar, mudança de metodologia (PRISMA → Kitchenham), mudança de norma de citação por mudança de área. |
+| MINOR | inclusão / exclusão | Inclusão ou exclusão de estudos no corpus: novas buscas em bases adicionais, ampliação ou restrição da janela temporal, aplicação de novo critério CI/CE, snowballing posterior, correção de decisão de screening que altera o conjunto incluído. |
+| PATCH | correção | Erro tipográfico, citação ajustada, formatação, ortografia, número errado em tabela que não muda a interpretação substantiva, link clicável quebrado consertado. |
+
+A primeira saída completa é **1.0.0**. Saídas anteriores incompletas (rascunhos durante a fase de protocolo, screening parcial) podem ser marcadas como `0.x.y` se o usuário desejar registro, mas tipicamente o pacote completo só sai com 1.0.0 em diante.
+
+## Imutabilidade
+
+**Saídas são imutáveis.** Quando há mudança, gera-se nova versão; a anterior permanece intacta. Versões antigas são parte do registro científico, não rascunhos descartáveis. Isso vale tanto para o HTML quanto para todos os artefatos secundários.
+
+Implicações práticas:
+
+- O nome do arquivo HTML inclui a versão: `ignorantia-<slug>-v1.0.0.html`. Versão 1.0.1 vira `ignorantia-<slug>-v1.0.1.html`.
+- O `<title>` do HTML, o header visível, e o footer mostram a versão SemVer e a data ISO.
+- O Zenodo permite múltiplas versões do mesmo registro com DOIs distintos por versão e um DOI canônico que aponta sempre à mais recente — use esse modelo.
+- Cada `README.md` lista o que mudou em relação à versão anterior, com link ao pacote anterior no Zenodo se houver.
+
+## Decisão de bump
+
+Ao gerar uma nova saída, classifique a mudança em UMA categoria:
+
+1. **A linha de pesquisa mudou?** Se a RQ mudou, ou se você passou a estudar algo conceitualmente diferente da versão anterior, mesmo que partindo do mesmo material — incremente MAJOR. Reset MINOR e PATCH a 0.
+2. **O conjunto de estudos sintetizados mudou?** (Mas a RQ permanece.) Incremente MINOR. Reset PATCH a 0.
+3. **Apenas correções formais?** (Mesma RQ, mesmo corpus, mesmas conclusões.) Incremente PATCH.
+
+Em caso de dúvida, opte pelo incremento maior — é mais conservador e mantém o registro mais transparente.
+
+## Changelog
+
+Cada `README.md` da versão tem uma seção `## Mudanças desde v<anterior>`:
+
+```
+## Mudanças desde v1.0.0 (gerada em 2026-04-28)
+
+### Linha de pesquisa
+(nada)
+
+### Inclusão / exclusão
+- Adicionados 4 estudos via snowballing forward de Bostock et al. (2011): S73, S74, S75, S76.
+- Excluído S31 após segunda leitura (não atende CI3 — não trata de visualização dinâmica).
+
+### Correções
+- Tabela 1, linha S12: QA total corrigido de 8 para 9 (erro de soma).
+- Citação Munzner (2014): página corrigida de 234 para 232.
+- Link DOI de Heer & Robertson (2007) consertado.
+
+### Versão alvo
+v1.1.0 → v1.1.1?  Não — mudança de inclusão/exclusão pesa mais. Bump MINOR: v1.2.0.
+```
+
+## Hashes para reprodutibilidade
+
+Cada `README.md` da versão lista o hash SHA-256 de cada artefato:
+
+```
+manuscript.html         sha256:a3f2c8...
+protocol.md             sha256:7b1e92...
+searches.json           sha256:c4d8a1...
+screening.csv           sha256:5e2f97...
+quality-appraisal.csv   sha256:9b3a4c...
+extraction.csv          sha256:2d8f1e...
+prisma-flow.svg         sha256:8a4b3c...
+references.bib          sha256:6c7f2d...
+```
+
+Permite verificar que o pacote distribuído é idêntico ao depositado.
+
+## Convenção de nome de pacote
+
+```
+ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip
+```
+
+Exemplos:
+- `ignorantia-bnce-gamificacao-v1.0.0.zip`
+- `ignorantia-letramento-digital-idosos-v1.2.0.zip`
+- `ignorantia-d3js-dynamic-viz-v1.0.0.zip`
+
+Slugs em minúsculas, separados por hífen, sem acentos.
+
+## Continuidade entre versões
+
+Quando um usuário reusa o skill numa nova sessão para evoluir uma SLR existente:
+
+1. Skill pergunta na entrevista se é continuação de pacote anterior.
+2. Se sim, pede o número da versão anterior, o slug, e o link Zenodo (se houver).
+3. Skill carrega o `protocol.md` anterior como ponto de partida (usuário cola o conteúdo, ou aponta para o repositório).
+4. Mudanças propostas são classificadas em MAJOR/MINOR/PATCH antes da execução.
+5. A nova versão herda toda a infraestrutura (mesmas bases, mesma janela temporal salvo justificativa, mesma norma de citação salvo MAJOR).
+
+  ]]></markdown>
+</doc>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="persona-voice" path="assets/templates/persona-voice.md" type="template" lang="pt-BR">
+  <title>Persona-voice scaffold (Fase 7 — pre-writing protocol)</title>
+  <markdown><![CDATA[
+# Persona-voice scaffold (Fase 7 — pre-writing protocol)
+
+> **Read this file in full at the start of Fase 7, before generating any
+> content for `content.json`. The Decisão 20 persona is a binding writing
+> protocol, not advisory style guidance. The five sections below are the
+> mechanical anti-patterns observed in the RS-42 dogfood disaster
+> (2026-05-08) — repeating any of them is a Decisão 19 + Decisão 20
+> violation regardless of how technically correct the underlying claim is.**
+
+---
+
+## §1 — The single rule
+
+> **The manuscript voice describes the *method applied to the problem*,
+> never the *execution of the pipeline*.**
+
+This is the rule the dogfood failed. Every anti-pattern below is one
+specific way of breaking it.
+
+---
+
+## §2 — Anti-pattern → persona rewrite
+
+Each row is a phrase or sentence the dogfood actually produced (left)
+and what the Decisão 20 persona would have written from the same
+underlying material (right).
+
+| Anti-pattern (what to NEVER write) | Persona rewrite |
+|---|---|
+| "Phase 3 invocou `search_orchestrator.py` com `area=cs_se`" | "A busca foi conduzida em onze bases de acesso aberto e oito bases comerciais." |
+| "Cascata KEY → PROXY → FALLBACK_MD" | "Tentativa em três níveis: credencial institucional, proxy aberto, repositório aberto." |
+| "11 Tier 1 + 8 Tier 2 paywall" | "Onze bases de acesso aberto e oito bases comerciais." |
+| "Decisão 23 obrigatória — snowballing backward" | "Snowballing reverso (Wohlin, 2014) foi aplicado sobre os estudos seed." |
+| "DD-10 Camada 2 logging" | (não escrever — DD-10 é instrumentação interna; o paper não fala dela) |
+| "5 mitigações Categoria A da Decisão 8 do protocolo" | "Cinco mitigações foram aplicadas: pré-registro, depósito Zenodo, busca ativa por evidência contrária, declaração TRIPOD-LLM completa, autoria solo declarada." |
+| "review_purpose=design_validation declarado no metadado" | "A revisão tem propósito de validação metodológica, declarado no protocolo pré-registrado." |
+| "manuscript.tex compilado por pdflatex+bibtex+pdflatex×2" | (não escrever — o caminho de build do PDF não vai para o paper) |
+| "Esta v1.0.0 é uma execução única; v1.1.0 fará re-execução" | "Esta versão consiste em uma execução única; uma replicação independente está prevista." |
+| "Pacote ignorantia-cs_se-...-v1.0.0.zip de 199 KB com 97 arquivos" | (não escrever — o nome e tamanho do zip são metadados de depósito, não conteúdo do paper) |
+| "Score subiu de 4.0 para 4.4 no `generate_assessment.py`" | (não escrever — a avaliação interna do skill não vai para o paper; o paper apresenta a evidência sintetizada, não o autodiagnóstico) |
+
+**Padrão de tradução:** identifique o que o leitor de Qualis A1 precisa
+saber para julgar a metodologia. Tudo que é sobre *como o pipeline
+executou* fica fora; tudo que é sobre *como o método foi aplicado* entra.
+
+---
+
+## §3 — Pre-writing checklist (5 perguntas antes de cada seção)
+
+Antes de escrever cada parágrafo de cada seção do `content.json`,
+responda às cinco perguntas. Se a resposta for "sim" para qualquer uma
+das três primeiras, **não escreva esse parágrafo** e reformule.
+
+1. ❌ Esse parágrafo cita o nome de algum script Python, flag CLI,
+   diretório (`<output_dir>`), ou caminho de arquivo?
+2. ❌ Esse parágrafo cita uma "Decisão N", "DD-N", "Tier N", "Categoria
+   A/B" ou "Phase N" como referência interna?
+3. ❌ Esse parágrafo descreve o estado de execução do pipeline ("rodou",
+   "invoquei", "gerou em disco", "cascata X→Y→Z")?
+4. ✅ Esse parágrafo descreve o **objeto de estudo** (a literatura
+   revisada, os achados sintetizados, o método metodológico, a
+   limitação metodológica)?
+5. ✅ A voz é impessoal acadêmica ("foi conduzido", "observou-se",
+   "os achados sugerem")?
+
+---
+
+## §4 — Self-check pós-escrita (5 sinais mecânicos)
+
+Depois de gerar cada seção, execute mentalmente o equivalente a
+`grep -i` por:
+
+- `\bPhase\s+\d+\b` ou `\bFase\s+\d+\b` na prosa (deve ser zero;
+  "Fase metodológica" sem número está OK)
+- `\bDecis[ãa]o\s+\d+\b` (deve ser zero — está coberto pelo
+  verificador automático Fix 10)
+- `\bTier\s+[0-9]\b` (deve ser zero)
+- Nomes de scripts terminando em `.py` (zero)
+- Versões SemVer `vX.Y.Z` na prosa (zero — coberto pelo Fix 10)
+
+Se qualquer um aparecer, reescreva o parágrafo. Não tente "documentar
+honestamente" o vazamento — vazamento honesto continua sendo vazamento.
+
+---
+
+## §5 — Postura epistêmica (Decisão 20 expandida)
+
+A persona não esconde limitações; apenas as descreve em voz acadêmica:
+
+| Limitação real | Como NÃO escrever | Como escrever |
+|---|---|---|
+| Buscas só em 5 bases via SERP | "5 web_searches manuais em vez do orquestrador completo" | "A busca foi conduzida em cinco bases via mecanismo de busca acadêmica geral. As bases comerciais Tier institucional não foram acessadas nesta versão." |
+| Sem segundo revisor | "Apenas um revisor humano (autor); kappa não calculado por DD-X" | "A triagem foi conduzida por revisor único; o coeficiente de concordância inter-revisor não foi calculado." |
+| Versão imutável SemVer | "Pacote v1.0.0 imutável conforme Decisão 3" | "Esta versão fica imutável; revisões futuras serão depositadas como versões subsequentes do mesmo registro." |
+
+A regra: **declare a limitação no vocabulário do método**, não no
+vocabulário do *tooling*. Se a limitação for genuinamente sobre o
+tooling, ela vai para o `README.md` do pacote — não para o manuscrito.
+
+---
+
+## §6 — O que esta página NÃO substitui
+
+- Decisão 19 (vazamento de marca) — verificada pelo Fix 10
+  (`scripts/check_decision_19_vocabulary.py`).
+- Decisão 20 (persona — texto descritivo) — fica em `SKILL.md`.
+- O `references/quality-rubric.md` — D4 (qualidade textual) é avaliada
+  contra critérios separados.
+
+Esta página é o **scaffold operacional** que torna a Decisão 20
+acionável durante a Fase 7. Ler uma vez antes de gerar `content.json`,
+referenciar conforme dúvida surge, **não copiar trechos para o
+manuscrito**.
+
+  ]]></markdown>
+</doc>

@@ -3,7 +3,7 @@
 generate_assessment.py — Generate the avaliacao_v<X.Y.Z>.md report.
 
 Inspects the package artifacts and produces a graded assessment per
-references/quality-rubric.md. The score is an internal estimate that
+references/quality-rubric.xml. The score is an internal estimate that
 helps the human author know how far they are from elite-venue submission.
 
 It does NOT replace peer review. It DOES catch missing artifacts,
@@ -29,8 +29,26 @@ import csv
 import hashlib
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _reference_helpers import extract_doi, extract_url  # noqa: E402
+
+# ── gate (Fix 9, RS-42 dogfood remediation) ──────────────────────────────────
+#
+# The assessor used to always exit 0, even when reporting eliminatórios or
+# scores far below submission threshold. RS-42 v1.0.0 was packaged and shipped
+# with a 4.0/10.0 grade and three eliminatórios because nothing programmatic
+# blocked it. Fix 9 turns the assessor into a gate: it still always writes the
+# Markdown report, but it also writes a machine-readable `assessment_gate.json`
+# sidecar and exits non-zero (code 2) when the gate fails, so any wrapper that
+# chains "assess && package" short-circuits correctly.
+
+_DEFAULT_GATE_MIN_SCORE = 7.0
+_GATE_EXIT_CODE = 2
+_GATE_SIDECAR_FILENAME = "assessment_gate.json"
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -93,7 +111,7 @@ def assess_d1_methodology(args, ctx):
         notes.append("Completar protocolo com PICO/PICOC explícito, critérios CI1...CIn e CE1...CEn, e strings booleanas literais por base.")
     else:
         crit.append(("0.0/0.6", "Protocolo ausente (protocol.md não encontrado)"))
-        notes.append("Gerar protocol.md a partir de assets/templates/protocol.md.")
+        notes.append("Gerar protocol.md a partir de assets/templates/protocol.xml.")
 
     # 0.5 — PRISMA flow with coherent numbers
     prisma_path = Path(args.package_dir) / "prisma-flow.svg"
@@ -340,7 +358,7 @@ def assess_d2_compliance(args, ctx):
 
         # 0.2 — citations have DOI
         refs = content.get("references", [])
-        with_doi = sum(1 for r in refs if r.get("doi") or r.get("url"))
+        with_doi = sum(1 for r in refs if extract_doi(r) or extract_url(r))
         if refs and with_doi / len(refs) >= 0.9:
             points += 0.2
             crit.append((f"0.2/0.2", f"Citations with DOI/URL: {with_doi}/{len(refs)}"))
@@ -413,7 +431,7 @@ def assess_d3_corpus(args, ctx):
         notes.append(f"Buscar mais ativamente em IEEE Xplore, ACM DL, Nature/Springer, Elsevier flagship, Wiley flagship, etc. Atual: {elite_count}/{n_inc} = {pct_elite:.0f}% (alvo: ≥{threshold_pct}%).")
     else:
         crit.append((f"0.0/0.4", f"Quase nenhum venue de elite ({pct_elite:.0f}%)"))
-        notes.append(f"CRÍTICO — apenas {elite_count}/{n_inc} estudos de venues de elite. Para nota 10, buscar mais nas bases dos publishers de elite (`references/compliance-international.md`).")
+        notes.append(f"CRÍTICO — apenas {elite_count}/{n_inc} estudos de venues de elite. Para nota 10, buscar mais nas bases dos publishers de elite (`references/compliance-international.xml`).")
 
     # 0.3 — temporal window respected (proxy: years vary)
     years = [r.get("year") for r in extr_rows if r.get("year")]
@@ -936,14 +954,14 @@ def render_report(args, results, total, eliminatory, bonus_pts, bonus_applied,
     parts.append(f"\n## {section_titles[5]}\n")
     if is_ptbr:
         parts.append("Esta avaliação é gerada automaticamente pelo skill `ignorantia` "
-                     "com base na rubrica documentada em `references/quality-rubric.md`. "
+                     "com base na rubrica documentada em `references/quality-rubric.xml`. "
                      "Serve como autocheck antes da submissão. A decisão editorial final "
                      "é dos revisores humanos do periódico-alvo. A nota 10.0 não garante "
                      "aceitação — significa apenas que o manuscrito atende aos requisitos "
                      "formais e metodológicos para ser ELEGÍVEL a um venue de elite.\n")
     else:
         parts.append("This assessment is generated automatically by the `ignorantia` skill "
-                     "based on the rubric in `references/quality-rubric.md`. It serves as a "
+                     "based on the rubric in `references/quality-rubric.xml`. It serves as a "
                      "self-check before submission. Editorial decisions are made by human "
                      "reviewers at the target journal. A 10.0 does not guarantee acceptance — "
                      "it means the manuscript meets the formal and methodological requirements "
@@ -987,6 +1005,25 @@ def main():
     ap.add_argument("--is-health", action="store_true",
                     help="Tema é saúde / medicina / enfermagem")
     ap.add_argument("--out", required=True)
+    ap.add_argument(
+        "--gate-min-score",
+        type=float,
+        default=_DEFAULT_GATE_MIN_SCORE,
+        help=(
+            f"Minimum score required to pass the gate (default: "
+            f"{_DEFAULT_GATE_MIN_SCORE}). Below this, the script exits "
+            f"non-zero. Eliminatórios always fail the gate regardless."
+        ),
+    )
+    ap.add_argument(
+        "--no-gate",
+        action="store_true",
+        help=(
+            "Disable the exit-code gate. Report and JSON sidecar are still "
+            "written, but the script exits 0 even on assessment failure. "
+            "Use only for triage / partial-package debugging."
+        ),
+    )
     args = ap.parse_args()
 
     content = load_json(args.content) or {}
@@ -1025,6 +1062,45 @@ def main():
                            recommendation)
     Path(args.out).write_text(report, encoding="utf-8")
     print(f"Wrote {args.out}  (score: {total:.1f}/10.0)")
+
+    # Gate evaluation (Fix 9): write JSON sidecar and decide exit code.
+    gate_failed_eliminatory = bool(eliminatory)
+    gate_failed_score = total < args.gate_min_score
+    gate_passed = not (gate_failed_eliminatory or gate_failed_score)
+
+    sidecar_path = Path(args.package_dir) / _GATE_SIDECAR_FILENAME
+    sidecar_path.write_text(
+        json.dumps(
+            {
+                "passed": gate_passed,
+                "score": total,
+                "min_score": args.gate_min_score,
+                "eliminatory_count": len(eliminatory),
+                "eliminatory_failed": gate_failed_eliminatory,
+                "score_failed": gate_failed_score,
+                "report_path": str(Path(args.out).resolve()),
+                "version": args.version,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(f"Wrote {sidecar_path}  (gate: {'PASS' if gate_passed else 'FAIL'})")
+
+    if not gate_passed and not args.no_gate:
+        reasons = []
+        if gate_failed_eliminatory:
+            reasons.append(f"{len(eliminatory)} eliminatório(s)")
+        if gate_failed_score:
+            reasons.append(f"score {total:.1f} < {args.gate_min_score:.1f}")
+        print(
+            f"GATE FAILED: {' + '.join(reasons)}. Pacote NÃO deve ser finalizado.",
+            file=sys.stderr,
+        )
+        sys.exit(_GATE_EXIT_CODE)
+
     return total
 
 

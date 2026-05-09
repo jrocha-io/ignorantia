@@ -44,10 +44,178 @@ from assessor.visual_aids import (
     render_tldr_cards_html,
     decorate_section,
 )
+from _reference_helpers import (
+    extract_doi as ref_extract_doi,
+    extract_url as ref_extract_url,
+    render_reference_string,
+)
 
 
 def html_escape(s: str) -> str:
     return html.escape(s or "", quote=True)
+
+
+# ── Fix 16: template ↔ subs sync ──────────────────────────────────────
+#
+# RS-42 dogfood revealed that `manuscript-template.html` declared placeholders
+# the substitutions dict in `main()` did not provide — the rendered HTML kept
+# the literal `{{PLACEHOLDER}}` strings, polluting the output silently. The
+# audit identified ~50 unresolved keys split across three failure modes:
+#
+#   1. Direct renames (template uses LANG_TAG, subs uses LANG; etc.).
+#   2. i18n labels never wired up (section headings, tab labels, captions).
+#   3. Composite chunks the template wants split (template wants
+#      AUDIT_FINAL_GRADE_HTML + AUDIT_DIMENSIONS_HTML; subs has a single
+#      AUDIT_HTML).
+#
+# The strategy below:
+#   - `_build_i18n_labels(lang)` — supplies every label-only placeholder.
+#   - Aliasing in `main()` — direct renames map old → new keys.
+#   - `_validate_no_unresolved_placeholders()` — turns the silent failure
+#      into a loud one (warns by default, raises in strict mode).
+
+
+_PLACEHOLDER_RE = re.compile(r"\{\{([A-Z_][A-Z0-9_]*)\}\}")
+
+
+def _build_i18n_labels(lang: str = "pt-BR") -> dict[str, str]:
+    """Return label-only placeholders for the manuscript template.
+
+    These are static UI strings rendered into the template's chrome — section
+    headings, tab labels, table captions, audit-panel meta. They depend only
+    on language; HTML content chunks (RESULTS_HTML, AUDIT_*_HTML, etc.) are
+    populated separately.
+
+    Section headings use the canonical PRISMA-2020 11-section taxonomy
+    (SEC00 = title page, SEC01 = abstract, ... SEC10 = appendices).
+    """
+    is_ptbr = lang.lower().startswith("pt")
+    if is_ptbr:
+        return {
+            "TAB_MANUSCRIPT": "Manuscrito",
+            "TAB_AUDIT": "Auditoria",
+            "TAB_DATA": "Dados",
+            "TAB_VENUES": "Venues",
+            "SEARCH_PLACEHOLDER": "Buscar no manuscrito…",
+            "SEC00_HEADING": "Resumo",
+            "SEC01_HEADING": "Introdução",
+            "SEC02_HEADING": "Background",
+            "SEC03_HEADING": "Metodologia",
+            "SEC04_HEADING": "Resultados",
+            "SEC05_HEADING": "Síntese",
+            "SEC06_HEADING": "Discussão",
+            "SEC07_HEADING": "Ameaças à validade",
+            "SEC08_HEADING": "Conclusão",
+            "SEC09_HEADING": "Não nesta versão",
+            "SEC09_LABEL": "Itens deferidos",
+            "SEC10_HEADING": "Referências",
+            "SEC10_NOTE": "Lista completa em ordem de citação.",
+            "PRISMA_HEADING": "Fluxo PRISMA-2020",
+            "PRISMA_CAPTION": "Diagrama de fluxo PRISMA-2020 (identificação → triagem → elegibilidade → inclusão).",
+            "STUDIES_HEADING": "Estudos incluídos",
+            "STUDIES_NOTE": "Tabela completa dos estudos primários incluídos.",
+            "STUDIES_TABLE_HEAD": "<th>ID</th><th>Autor (ano)</th><th>Título</th><th>Venue</th><th>QA</th>",
+            "TEMPORAL_HEADING": "Distribuição temporal",
+            "TEMPORAL_CAPTION": "Estudos por ano de publicação.",
+            "QA_HEATMAP_HEADING": "Heatmap de qualidade (QA)",
+            "QA_CAPTION": "Pontuação por critério × estudo.",
+            "SEARCHES_HEADING": "Buscas",
+            "AUDIT_HEADER_META": "Avaliação automatizada — não substitui peer review.",
+            "AUDIT_HEADING": "Auditoria",
+            "AUDIT_SUBTITLE": "Diagnóstico do pacote contra a rubrica de qualidade.",
+            "DATA_HEADING": "Dados",
+            "DATA_SUBTITLE": "Tabelas, gráficos e buscas que sustentam o manuscrito.",
+            "VENUES_SUBTITLE": "Venues compatíveis com o estado atual do pacote.",
+            "VENUES_TOP_HEADING": "Recomendados",
+            "VENUES_NEXT_HEADING": "Próximos da meta",
+            "VENUES_REST_HEADING": "Demais venues considerados",
+            "VENUES_REST_NOTE": "Listados para transparência; não recomendados na versão atual.",
+            "LICENSE": "CC BY 4.0",
+            "FOOTER_NOTE": "Gerado pela skill ignorantia. Avaliação interna não substitui peer review.",
+            "HEADER_BADGES": "",
+        }
+    # English (default fallback)
+    return {
+        "TAB_MANUSCRIPT": "Manuscript",
+        "TAB_AUDIT": "Audit",
+        "TAB_DATA": "Data",
+        "TAB_VENUES": "Venues",
+        "SEARCH_PLACEHOLDER": "Search the manuscript…",
+        "SEC00_HEADING": "Abstract",
+        "SEC01_HEADING": "Introduction",
+        "SEC02_HEADING": "Background",
+        "SEC03_HEADING": "Methodology",
+        "SEC04_HEADING": "Results",
+        "SEC05_HEADING": "Synthesis",
+        "SEC06_HEADING": "Discussion",
+        "SEC07_HEADING": "Threats to validity",
+        "SEC08_HEADING": "Conclusion",
+        "SEC09_HEADING": "Not this version",
+        "SEC09_LABEL": "Deferred items",
+        "SEC10_HEADING": "References",
+        "SEC10_NOTE": "Full list in citation order.",
+        "PRISMA_HEADING": "PRISMA-2020 flow",
+        "PRISMA_CAPTION": "PRISMA-2020 flow diagram (identification → screening → eligibility → inclusion).",
+        "STUDIES_HEADING": "Included studies",
+        "STUDIES_NOTE": "Full table of included primary studies.",
+        "STUDIES_TABLE_HEAD": "<th>ID</th><th>Author (year)</th><th>Title</th><th>Venue</th><th>QA</th>",
+        "TEMPORAL_HEADING": "Temporal distribution",
+        "TEMPORAL_CAPTION": "Studies per publication year.",
+        "QA_HEATMAP_HEADING": "Quality heatmap (QA)",
+        "QA_CAPTION": "Score per criterion × study.",
+        "SEARCHES_HEADING": "Searches",
+        "AUDIT_HEADER_META": "Automated assessment — does not replace peer review.",
+        "AUDIT_HEADING": "Audit",
+        "AUDIT_SUBTITLE": "Package diagnosis against the quality rubric.",
+        "DATA_HEADING": "Data",
+        "DATA_SUBTITLE": "Tables, charts, and searches backing the manuscript.",
+        "VENUES_SUBTITLE": "Venues compatible with the current package state.",
+        "VENUES_TOP_HEADING": "Recommended",
+        "VENUES_NEXT_HEADING": "Near target",
+        "VENUES_REST_HEADING": "Other venues considered",
+        "VENUES_REST_NOTE": "Listed for transparency; not recommended for the current version.",
+        "LICENSE": "CC BY 4.0",
+        "FOOTER_NOTE": "Generated by the ignorantia skill. Internal assessment does not replace peer review.",
+        "HEADER_BADGES": "",
+    }
+
+
+def _split_tldrs_per_section(tldrs: list, n: int = 9) -> dict[str, str]:
+    """Split a flat TLDR list into TLDR_00..TLDR_NN slots used by the template.
+
+    The template renders one TLDR card per section (SEC00 → TLDR_00, etc.).
+    Missing slots become empty strings so the placeholder validator does not
+    flag them.
+    """
+    out: dict[str, str] = {f"TLDR_{i:02d}": "" for i in range(n)}
+    for i, tldr in enumerate(tldrs[:n]):
+        if isinstance(tldr, str):
+            out[f"TLDR_{i:02d}"] = tldr
+        elif isinstance(tldr, dict):
+            text = tldr.get("html") or tldr.get("text") or ""
+            out[f"TLDR_{i:02d}"] = str(text)
+    return out
+
+
+def _validate_no_unresolved_placeholders(rendered: str, *, strict: bool = False) -> list[str]:
+    """Detect any ``{{PLACEHOLDER}}`` literals that survived substitution.
+
+    Returns the sorted, de-duplicated list of unresolved placeholder names.
+    Always emits a stderr warning when any are found. In ``strict`` mode the
+    function raises ``RuntimeError`` instead of returning — used by tests and
+    by ``--strict`` CLI mode to make the silent failure mode loud.
+    """
+    found = sorted(set(_PLACEHOLDER_RE.findall(rendered)))
+    if not found:
+        return []
+    msg = (
+        "[render_v2] WARN: %d unresolved template placeholder(s): %s"
+        % (len(found), ", ".join(found))
+    )
+    print(msg, file=sys.stderr)
+    if strict:
+        raise RuntimeError(msg)
+    return found
 
 
 def _maybe_prepend_contextual_preamble(introduction_html: str, args, content: dict,
@@ -577,14 +745,20 @@ def build_audit_html(audit: dict, lang: str = "pt-BR") -> str:
 # ── References list ─────────────────────────────────────────────────────
 
 
-def build_references_list(refs: list[dict]) -> str:
+def build_references_list(refs: list) -> str:
+    """Render references as <li> entries.
+
+    Accepts both legacy ``list[str]`` and canonical ``list[dict]`` shapes
+    (Fix 17 / RS-42). String entries render as plain citation text without a
+    follow-on link unless an inline DOI/URL is detected.
+    """
     if not refs:
         return ""
     out = []
     for r in refs:
-        text = r.get("citation", "") or r.get("text", "")
-        doi = r.get("doi", "")
-        url = r.get("url", "") or (f"https://doi.org/{doi}" if doi else "")
+        text = render_reference_string(r)
+        doi = ref_extract_doi(r) or ""
+        url = ref_extract_url(r) or (f"https://doi.org/{doi}" if doi else "")
         link = ""
         if url:
             link = f' <a href="{html_escape(url)}" target="_blank" rel="noopener">{html_escape(url)}</a>'
@@ -802,8 +976,15 @@ def rq_options(rqs):
     )
 
 
-def replace_inline_ref_markers(html_text: str, refs: list[dict]) -> str:
-    """Faz [n] → <a href="#ref-n">[n]</a>"""
+def replace_inline_ref_markers(html_text: str, refs: list) -> str:
+    """Faz [n] → <a href="#ref-n">[n]</a>.
+
+    The ``refs`` parameter is accepted for call-site uniformity (the canonical
+    references list flows through here); it is intentionally unused — anchor
+    targets are derived from the marker number alone, not the entry shape.
+    Accepts ``list[str]`` or ``list[dict]`` (Fix 17 / RS-42).
+    """
+    del refs  # unused, kept for call-site uniformity
     def replace(match):
         n = match.group(1)
         return f'<a href="#ref-{n}" class="cite">[{n}]</a>'
@@ -835,6 +1016,9 @@ def main():
     parser.add_argument("--accent", default="#5d4eb8")
     parser.add_argument("--accent-soft", default="#e8e3f5")
     parser.add_argument("--out", required=True, type=Path)
+    # Fix 16 (RS-42): turn unresolved-placeholder warnings into hard failures.
+    parser.add_argument("--strict", action="store_true",
+                        help="Falha (exit != 0) se algum placeholder {{...}} sobreviver à substituição.")
     # F4 (v2.18.1): integração de contextual_preamble (DD-11)
     parser.add_argument("--contextual-preamble", action="store_true",
                         help="Inclui seção 'O campo onde este artigo vive' (Wikipedia + "
@@ -1029,10 +1213,76 @@ def main():
         "RQ_OPTIONS": rq_options(content.get("rqs", [])),
     }
 
+    # Fix 16 (RS-42): template ↔ subs sync.
+    # The dogfood diagnosed ~50 unresolved placeholders surviving into the
+    # rendered HTML. Three failure modes are handled here:
+    #
+    #   1. i18n labels (tab/section/audit headings, captions) — supplied
+    #      from a language-aware label dict.
+    #   2. Direct renames (template uses LANG_TAG, subs uses LANG; etc.) —
+    #      added as aliases below.
+    #   3. Composite chunks the template wants split — for now we stub the
+    #      audit-panel sub-keys to empty so the template renders cleanly;
+    #      a future PR can split AUDIT_HTML into the granular panels.
+
+    # 1. i18n labels
+    subs.update(_build_i18n_labels(lang))
+
+    # 2. Direct renames (template name ← existing subs key)
+    subs["LANG_TAG"] = subs["LANG"]
+    subs["RESULTS_HTML"] = subs["RESULTS_DESCRIPTIVE_HTML"]
+    subs["NOT_THIS_VERSION_ITEMS"] = subs["NOT_THIS_VERSION_ITEMS_HTML"]
+    subs["HASH"] = subs["HASH_LINE"]
+    subs["SKILL_TAG"] = subs["SKILL_VERSION"]
+    # STATUS_BANNER_HTML composes the existing phase + zone banners into the
+    # single chrome slot the template exposes.
+    subs["STATUS_BANNER_HTML"] = subs["PHASE_BANNER_HTML"] + subs["ZONE_BANNER_HTML"]
+    # TITLE_SHORT — derived from TITLE; truncated to fit the doc-meta strip.
+    title_full = content.get("title", "")
+    subs["TITLE_SHORT"] = html_escape(
+        title_full if len(title_full) <= 80 else title_full[:77].rstrip() + "…"
+    )
+
+    # 3. Per-section TLDR slots (TLDR_00..TLDR_08).
+    subs.update(_split_tldrs_per_section(tldrs, n=9))
+
+    # 4. Audit-panel sub-keys.
+    # The template wants AUDIT_FINAL_GRADE_HTML, AUDIT_DIMENSIONS_HTML,
+    # AUDIT_ELIMINATORY_HTML, AUDIT_MISSING_HTML, AUDIT_DETECTORS_HTML,
+    # AUDIT_DISCLAIMER_HTML as separate slots; the existing builders bundle
+    # them into AUDIT_HTML/ELIMINATORS_HTML. Until the audit panel split
+    # ships, route the existing bundles into the first slot and clear the
+    # rest so nothing is lost and the validator stays clean.
+    subs.setdefault("AUDIT_FINAL_GRADE_HTML", subs.get("AUDIT_HTML", ""))
+    subs.setdefault("AUDIT_DIMENSIONS_HTML",
+                    subs.get("CONTENT_DIMENSIONS_HTML", "") +
+                    subs.get("FORM_DIMENSIONS_HTML", ""))
+    subs.setdefault("AUDIT_ELIMINATORY_HTML", subs.get("ELIMINATORS_HTML", ""))
+    subs.setdefault("AUDIT_MISSING_HTML", subs.get("NOTES_HTML", ""))
+    subs.setdefault("AUDIT_DETECTORS_HTML",
+                    subs.get("PLAGIARISM_HTML", "") + subs.get("TEMPERATURE_HTML", ""))
+    subs.setdefault("AUDIT_DISCLAIMER_HTML", "")
+
+    # 5. Data-tab chart payloads (empty JSON until the chart pipeline lands).
+    subs.setdefault("TEMPORAL_DATA_JSON", "{}")
+    subs.setdefault("QA_HEATMAP_DATA_JSON", "{}")
+
+    # 6. Searches/venues panels — empty defaults until the dedicated builders
+    # ship; the template sections render with empty content rather than with
+    # raw `{{...}}` literals.
+    subs.setdefault("SEARCHES_TABLE_HTML", "")
+    subs.setdefault("VENUES_TOP_CARDS", subs.get("VENUES_HTML", ""))
+    subs.setdefault("VENUES_NEXT_TABLE", "")
+    subs.setdefault("VENUES_REST_LIST", "")
+
     # Apply substitutions
     output = template
     for key, val in subs.items():
         output = output.replace("{{" + key + "}}", str(val))
+
+    # Fail-clearly: surface any placeholder the substitutions dict missed.
+    strict = bool(getattr(args, "strict", False))
+    _validate_no_unresolved_placeholders(output, strict=strict)
 
     args.out.write_text(output, encoding="utf-8")
     print(f"Wrote {args.out}  ({len(output):,} chars)")

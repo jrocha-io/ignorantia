@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="publishable-aspects-analysis" path="references/draft/PUBLISHABLE_ASPECTS_ANALYSIS.md" type="document" lang="pt-BR">
+  <title>Aspectos Publicáveis da ferramenta ignorantia v2.0 — Análise Honesta</title>
+  <markdown><![CDATA[
+# Aspectos Publicáveis da ferramenta ignorantia v2.0 — Análise Honesta
+
+> **Status deste documento.** Diagnóstico, não plano de execução.
+>
+> **Versão da ferramenta analisada.** v2.0.0 — sandbox em /home/claude/ignorantia_v2/, post-Gaps-fechados.
+>
+> **Quando este documento é útil.** No dia em que houver bom motivo para escrever um artigo sobre a ferramenta. Até lá, este documento serve como mapa do que existe, do que falta, e dos caminhos honestos de publicação.
+>
+> **Postura epistêmica.** Foco está na ferramenta funcional para uso pessoal do autor; artigo é secundário, só acontece com bom motivo. Análise faz inventário sério, não esforço de venda.
+
+---
+
+## 1. Critérios de avaliação aplicados
+
+Para cada aspecto da v2.0, esta análise responde quatro perguntas:
+
+1. **É genuinamente inédito?** (existe trabalho publicado equivalente, ou o aspecto preenche lacuna real?)
+2. **Que validação tem hoje?** (demonstração funcional, casos canônicos sintéticos, casos reais, comparação com baseline, user study?)
+3. **Qual o tipo de paper viável?** (Tools, Position/Vision, Methodology, Empirical, Dataset, Tutorial?)
+4. **Que venues realistas?** (IEEE Software/IEEE Access/IEEE Computer? EMSE/IST/JSS? PLOS ONE? F1000Research? Tools papers em revistas de SLR como Research Synthesis Methods, JBI Evidence Synthesis?)
+
+Critério de "publicável honestamente": o paper precisa ter contribuição genuína E validação proporcional ao tipo. Tools papers exigem 3+ casos reais; Position papers exigem fundamentação teórica robusta; Methodology papers exigem novidade metodológica clara.
+
+---
+
+## 2. Inventário de aspectos potencialmente publicáveis
+
+### Aspecto A — Sistema de "distância a requisitos formais cross-venue com feedback acionável"
+
+**O que é.** Engine determinístico (Stages 1-7) que compara um manuscrito de SLR contra perfis YAML de 20 venues representativos e produz score agregado + vetor por dimensão + gaps priorizados + ranking de venues alternativos.
+
+**É inédito?** Parcialmente. Sistemas existentes (Pesquisa D1):
+- Editorial Manager / ScholarOne fazem checklist de submissão GENÉRICO, não cross-venue agregado.
+- JANE / Elsevier Journal Finder / B!SON fazem matching SEMÂNTICO de escopo, não compliance check.
+- Penelope.ai (BMJ Open) faz reporting checklist de UMA guideline em UM venue piloto, não cross-venue.
+- GoodReports (EQUATOR) faz autopreenchimento humano de checklist, não verificação automática.
+
+A combinação **(compliance estrutural duro × reporting guideline mapping × scope matching × ranking de venues alternativos)** com schema YAML declarativo versionado em Git, aplicada a SLRs especificamente, parece ser inédita na literatura científica publicada.
+
+**Validação atual.**
+- ✅ Funciona end-to-end (smoke test integrado passa).
+- ✅ 20 perfis YAML de venues criados.
+- ✅ Pipeline determinístico, reproduzível, auditável.
+- ❌ Nenhum estudo de caso real (apenas 4 cenários canônicos sintéticos: smoke, corpus18, ghostwriter, casoH).
+- ❌ Nenhuma comparação quantitativa com baseline.
+- ❌ Nenhum user study sobre utilidade percebida.
+
+**Tipo de paper viável.**
+- **Tools paper** (IEEE Software, EMSE, Research Synthesis Methods, F1000Research) — viável **apenas após** 3-6 estudos de caso reais documentados.
+- **Methodology paper** (PLOS ONE, Research Synthesis Methods, JBI Evidence Synthesis) — viável se posicionar como "schema declarativo + engine de compliance editorial" como contribuição metodológica em si.
+- **Vision paper / Position paper** (IEEE Software "Insights", IEEE Computer Position Papers) — viável agora com a v2.0 atual, sem casos reais, se enquadrar como "princípios de design para ferramentas de compliance editorial em SLRs cross-venue".
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje | Probabilidade com 3 casos reais |
+|---|---|---|---|
+| IEEE Software (Tools) | Tools paper | baixa | média-alta |
+| EMSE | Tools paper | muito baixa | baixa-média (EMSE rejeita tertiary studies sem contribuição empírica clara) |
+| Research Synthesis Methods | Methodology | baixa | alta |
+| F1000Research | Tools | média (peer review pós-publicação, mais aberto) | alta |
+| JBI Evidence Synthesis | Methodology | baixa | média |
+| PLOS ONE | Methodology | média | alta |
+| IEEE Access | Tools/Tutorial | média (Open Access pago, peer review mais permissivo) | alta |
+| IEEE Computer | Vision/Position | baixa (precisa de impacto demonstrado) | média |
+
+**O que falta para ser plenamente publicável (caminho honesto Tools paper).**
+
+1. **3-6 estudos de caso reais** (não fixtures): SLRs reais produzidas, rotuladas, depositadas, e auditadas pela ferramenta. Idealmente com ≥1 em cada de: saúde, educação, CS/SE.
+2. **Comparação quantitativa com baseline**: rodar Editorial Manager checklist + JANE recommendation + B!SON em mesmo conjunto de manuscritos; calcular Cohen's kappa entre julgamentos da ferramenta e julgamento humano de especialista.
+3. **User study mínimo**: 10-30 pesquisadores usando a ferramenta em SLR própria, com survey de utilidade percebida (NASA-TLX adaptado ou similar). Pode ser breve.
+4. **Validação externa cega**: pegar SLR já publicada em venue X e testar se a ferramenta correctly identifica X como top-1 ou top-3 em ranking de alternativas. Métrica: Recall@1, Recall@3.
+5. **Replication package** completo no Zenodo seguindo ACM Artifact Review and Badging.
+
+---
+
+### Aspecto B — Combinação ghostwriter + avaliação automática + auto-correção de Forma em loop
+
+**O que é.** Pipeline integrado: o ghostwriter produz manuscrito, o assessor avalia, identifica problemas de Forma (não de Conteúdo), aplica auto-correção (costura sem invenção) e re-avalia. Loop converge ou identifica bloqueios.
+
+**É inédito?** Pesquisa D1 não localizou ferramenta acadêmica publicada que combine geração + avaliação + auto-correção em loop para SLRs especificamente. Próximos do conceito:
+- Self-Refine (Madaan et al. 2023, NeurIPS) — framework geral de LLM self-correction; não específico para SLR.
+- Self-Correcting LLMs literature (Pan et al. 2024 ACL, Liang et al. 2024) — frameworks gerais.
+- Reflexion (Shinn et al. 2023) — agente autodiagnóstico geral.
+
+A aplicação específica desse paradigma a SLRs com **separação rigorosa entre Forma (auto-corrigível) e Conteúdo (não-auto-corrigível, exige humano)** é provavelmente inédita.
+
+**Validação atual.**
+- ✅ Funciona em cenários canônicos (smoke, corpus18, ghostwriter, casoH).
+- ✅ Política de auto-correção documentada (`references/auto-correction-policy.md`).
+- ❌ Nenhum estudo de convergência (quantos ciclos típicos? Casos que não convergem?)
+- ❌ Nenhuma análise de quando auto-correção introduz novos problemas (se introduz).
+- ❌ Nenhuma comparação com Self-Refine / Reflexion como baselines.
+
+**Tipo de paper viável.**
+- **Methodology paper** com foco no princípio "Form-Auto-Correctable, Content-Human-Required" como contribuição metodológica.
+- **Empirical paper** medindo taxa de convergência, taxa de regressão, casos limite.
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| Research Synthesis Methods | Methodology | baixa (sem dados empíricos) |
+| EMSE | Empirical | muito baixa |
+| AI Magazine (AAAI) | Methodology+Empirical | baixa-média |
+| ACM Computing Surveys | Methodology (revisão de paradigmas) | baixa |
+
+**O que falta.** Estudo empírico de convergência: rodar a ferramenta em 50-100 manuscritos, medir ciclos até convergência, taxa de manuscritos que não convergem, taxa de auto-correção que introduz novo problema. Sem esse dado, não há paper sério.
+
+---
+
+### Aspecto C — Política metodológica "Form-Auto-Correctable, Content-Human-Required"
+
+**O que é.** Princípio explicito da v1.x mantido na v2.0: Forma (norma de citação, comprimento, declarações estruturais) é auto-corrigível pelo skill com costura mas sem invenção; Conteúdo (síntese, argumentação, originalidade, profundidade) NUNCA é auto-corrigível, exige humano. Limitação intencional, não fraqueza.
+
+**É inédito?** A literatura sobre AI-assisted academic writing (Liang et al. 2024 *Lancet*, Tang et al. 2023 *Patterns*, Liu et al. 2024 *PLOS Digital Health*) discute riscos genéricos de AI em escrita acadêmica. Não localizei trabalho que formalize a distinção Forma/Conteúdo como princípio operacional verificável.
+
+**Validação atual.**
+- ✅ Princípio documentado (`references/auto-correction-policy.md`).
+- ✅ Implementado nos critérios C1-C7 (Conteúdo) vs F1-F4 (Forma) do assessor.
+- ❌ Nenhum trabalho empírico medindo a aderência ao princípio em produção real.
+- ❌ Nenhuma comparação com ferramentas que NÃO seguem esse princípio (Grammarly, Paperpal, Trinka) em manuscritos científicos.
+
+**Tipo de paper viável.**
+- **Position paper / Vision paper** — formato natural. Não exige validação empírica pesada; exige fundamentação filosófica + epistemológica robusta.
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| IEEE Software "Insights" | Position | média-alta (formato curto, opinião informada) |
+| Communications of the ACM | Position | baixa-média |
+| Nature Machine Intelligence | Position/Comment | baixa (espaço apertado, alta concorrência) |
+| PLOS Digital Health | Position | média |
+| AI & Society | Position | alta (escopo filosófico mais amplo) |
+| Journal of the Association for Information Science and Technology (JASIST) | Position | média |
+| Quantitative Science Studies | Position | média |
+
+**O que falta para ser plenamente publicável.**
+
+Position paper é o caminho mais viável agora. Precisa apenas:
+1. **Argumentação filosófica robusta**: por que Forma é auto-corrigível e Conteúdo não é?
+2. **Mapeamento com literatura adjacente**: Self-Refine, Reflexion, AI-assisted writing, automated peer review, NIST AI Risk Management Framework, ACM Code of Ethics em escrita acadêmica.
+3. **Limites do princípio**: casos em que a fronteira Forma/Conteúdo é ambígua (e.g., reescrita de parágrafo: forma ou conteúdo?).
+4. **Implementação concreta**: como o ignorantia operacionaliza o princípio (resumo do código, não código completo).
+
+Esse paper poderia ser escrito **agora**, sem mais validação empírica, se houver bom motivo. Tempo estimado: 4-6 semanas de trabalho focado.
+
+---
+
+### Aspecto D — Cobertura de venues brasileiros A1 com perfis máquina-legíveis
+
+**O que é.** Os 9 perfis YAML de venues brasileiros A1/A2/B1 (Cadernos de Saúde Pública, Revista de Saúde Pública, Ciência & Saúde Coletiva, Educação e Pesquisa, Revista Brasileira de Educação, Cadernos de Pesquisa, JBCS/SBC, JISTEM, RBIE) com requisitos formais explícitos parseados das Author Instructions oficiais.
+
+**É inédito?** SIM. A literatura internacional foca em venues anglófonos. Não há trabalho publicado mapeando venues brasileiros Qualis A1 com schema máquina-legível. Há uso prático (Editorial Manager, OJS), mas não como dataset citável.
+
+**Validação atual.**
+- ✅ 9 perfis criados, validados contra documentos oficiais (URLs, datas).
+- ❌ Não há comparação contra outras ferramentas (B!SON, JANE) cobrindo venues BR — porque essas ferramentas não cobrem.
+
+**Tipo de paper viável.**
+- **Dataset paper** (Scientific Data, GigaScience, F1000Research, Data in Brief) — formato natural para "20 venue profiles in machine-readable format".
+- Pode ser publicado **mesmo sem demonstrar uso da ferramenta**, porque o dataset em si é a contribuição.
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| Scientific Data (Nature Springer) | Dataset paper | média (precisa demonstrar reuso potencial) |
+| Data in Brief (Elsevier) | Dataset paper | alta |
+| F1000Research | Tools/Dataset | alta |
+| Journal of Open Source Software (JOSS) | Tools | alta (bom encaixe — schema + engine) |
+| RoSE Open (Research on Scholarly Editing) | Methodology | baixa-média |
+
+**O que falta.**
+1. **Expandir base de venues** para ≥30 perfis (idealmente 50): cobrir A2/B1 BR adicionais e Q2/Q3 INT por área.
+2. **Versionamento Git formal** com tags SemVer e changelog por perfil.
+3. **Validação contra Editor**: pelo menos 2-3 venues respondendo "sim, este perfil reflete corretamente nossas Author Instructions".
+4. **Schema validation CI** (já existe; documentar).
+5. **JOSS submission template** (formato de paper bem definido para JOSS, ~1000-2000 palavras + repo + tests + docs).
+
+Esse caminho é particularmente promissor porque JOSS é desenhado para tools/datasets pequenos com peer review aberto, baixa barreira, alto impacto comunitário.
+
+---
+
+### Aspecto E — Engine de compliance determinístico sem treinar modelos
+
+**O que é.** Stages 1-7 totalmente determinísticos: parse, hard requirements, reporting guideline mapping, scope matching (TF-IDF + thesaurus + citation overlap + anchors), aggregation, gap prioritization, multi-venue ranking. Sem GPU, sem modelo treinado, sem dependência de API externa exceto Crossref/OpenAlex/Retraction Watch para verificação de DOIs.
+
+**É inédito?** Sim como pacote integrado. Componentes individuais existem (TF-IDF é antigo; thesaurus matching é antigo). A combinação aplicada ao caso específico de compliance editorial cross-venue para SLRs, com perfis YAML versionados, é nova.
+
+**Validação atual.**
+- ✅ Funciona; pipeline reproduzível.
+- ✅ Determinismo demonstrável (mesmo input → mesmo output).
+- ❌ Sem benchmark contra alternativas (B!SON usa embeddings; JANE usa Lucene).
+- ❌ Sem análise de erro (precision/recall em ranking de venues).
+
+**Tipo de paper viável.**
+- **Tools paper / Software paper** com ênfase em "deterministic compliance engine, no ML required, fully auditable".
+- O argumento de "auditável e reproduzível por design" é forte em era de DORA/CoARA/Leiden Manifesto.
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| JOSS (Journal of Open Source Software) | Tools | alta |
+| F1000Research | Tools | alta |
+| SoftwareX (Elsevier) | Tools | média |
+| IEEE Software (Tools) | Tools | baixa-média |
+
+**O que falta.** O mesmo que Aspecto A — casos reais + baseline + user study. Sem isso, JOSS é a aposta mais segura (peer review focado em código + docs + tests, não em validação empírica de utilidade).
+
+---
+
+### Aspecto F — Verificação automática de DOIs alucinados (Crossref + OpenAlex + Retraction Watch)
+
+**O que é.** Módulo `scripts/zenodo/doi_verifier.py` que verifica cada DOI citado contra três fontes públicas: Crossref REST API (autoridade primária), OpenAlex (fallback + retraction info), Retraction Watch (via OpenAlex). Estados: verified, not_found, retracted, invalid_format, unverified_no_network, error.
+
+**É inédito?** Componentes existem (Crossref API tem ~10 anos; OpenAlex desde 2022; Retraction Watch desde 2010). A integração específica focada em verificar DOIs gerados por LLMs em SLRs, como camada obrigatória pré-publicação, parece nova.
+
+Walters & Wilder 2023 (*Sci Rep* 13:14045) documentam que LLMs alucinam ~15-30% de DOIs em SLRs. Esse é o problema concreto que o módulo resolve.
+
+**Validação atual.**
+- ✅ Funciona; testado contra DOIs reais e fakes.
+- ❌ Sem benchmark sistemático: que % de DOIs LLM-gerados o módulo identifica corretamente como falsos? Métricas precision/recall ausentes.
+
+**Tipo de paper viável.**
+- **Short technical paper / Tool note** sobre "automatic detection of LLM-hallucinated DOIs in SLRs".
+- Tem ângulo de **integridade científica** (forte em era de retraction).
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| Research Integrity and Peer Review | Tool note | média-alta |
+| Nature Index (mais visibilidade) | Comment | baixa |
+| Journal of Information Science | Tools | média |
+| JASIST | Tools | média |
+
+**O que falta.** Benchmark contra dataset de DOIs alucinados conhecidos. Walters & Wilder 2023 fornecem dataset; replicar a validação com o módulo. Tempo: 1-2 semanas. **Caminho relativamente curto para publicação.**
+
+---
+
+### Aspecto G — Três modos formalmente diferenciados (Scoping/Rapid/Mapping/SR-strict)
+
+**O que é.** Decisão 1 da v2.0: "systematic review" reservado APENAS a casos com 2 revisores humanos validados. Demais casos rotulados como Scoping/Rapid/Mapping com selo explícito + perfil de reporting guideline correspondente + eliminatório E16 bloqueando uso indevido.
+
+**É inédito?** A distinção em si não é (PRISMA-ScR existe desde 2018, PRISMA-RR desde 2024, mapping studies desde 2008). A operacionalização em ferramenta automatizada com bloqueio computacional do uso indevido do termo "systematic review" é nova.
+
+**Validação atual.**
+- ✅ Implementado (templates por modo, eliminatório E16, perfis YAML por guideline).
+- ✅ E16 validado em 5 casos canônicos.
+- ❌ Sem dados empíricos sobre frequência de mau uso do termo "systematic review" em produção real (contexto: literatura mostra que ~30-40% de SLRs publicadas em saúde não cumprem PRISMA-2020 — esse é o problema que E16 endereça).
+
+**Tipo de paper viável.**
+- **Position paper / Methodology paper** sobre "Type-checking systematic reviews: automated rejection of nomenclature misuse".
+- Tem dimensão prescritiva (deveria ser feito assim) e descritiva (mostrar quantos SR não cumprem).
+
+**Venues realistas.**
+| Venue | Tipo | Probabilidade hoje |
+|---|---|---|
+| Research Synthesis Methods | Methodology | média-alta |
+| BMJ Evidence-Based Medicine | Position | média |
+| Systematic Reviews (BMC) | Methodology | média-alta |
+| Journal of Clinical Epidemiology | Methodology | média |
+
+**O que falta.** Análise descritiva: pegar 100 "systematic reviews" recentes em PubMed/CINAHL e medir quantas cumprem PRISMA-2020 itens 8-9 (2 revisores). Estudo descritivo conhecido na literatura (várias publicações dessa natureza), mas focado em compliance estrutural automatizado seria novo. Tempo: 2-4 semanas.
+
+---
+
+## 3. Síntese: o que é publicável HOJE vs com mais trabalho
+
+### Publicável **hoje** (sem mais trabalho empírico, dado bom motivo)
+
+| Aspecto | Tipo | Venue | Esforço |
+|---|---|---|---|
+| **C** — Política Form/Content | Position paper | IEEE Software Insights, AI & Society, JASIST | 4-6 semanas |
+| **D** (parcial) — 9 perfis BR + schema | Tools/Dataset paper | JOSS, Data in Brief, F1000Research | 3-5 semanas |
+| **G** (parcial) — Three-mode framework | Position paper | Research Synthesis Methods, Systematic Reviews | 3-5 semanas |
+
+### Publicável **com 1-3 semanas de validação adicional**
+
+| Aspecto | Tipo | Venue | Validação faltante |
+|---|---|---|---|
+| **F** — DOI hallucination detector | Tool note | Research Integrity and Peer Review | Benchmark contra Walters & Wilder 2023 dataset |
+| **D** (expandido) — 30+ perfis | Dataset paper | JOSS, Scientific Data, Data in Brief | Expandir base + validação editorial 2-3 venues |
+
+### Publicável **com 2-4 meses de trabalho empírico**
+
+| Aspecto | Tipo | Venue | Validação faltante |
+|---|---|---|---|
+| **A** — Compliance engine cross-venue | Tools paper | F1000Research, JOSS, IEEE Access | 3-6 estudos de caso reais + baseline comparison + user study |
+| **B** — Generate-evaluate-correct loop | Empirical paper | Research Synthesis Methods, EMSE | Estudo de convergência em 50-100 manuscritos |
+| **G** (expandido) — Three-mode + descriptive | Methodology paper | Research Synthesis Methods | Análise descritiva de 100 SR PubMed |
+
+### Não publicável de forma honesta no estado atual
+
+| Aspecto | Por quê |
+|---|---|
+| Sprint Badge classificador de qualidade | n=187 SLRs é insuficiente. v3.0 com n=1.600-3.200 é o caminho (Artigo 9 Tools Paper). |
+| Classificador regressivo SJR+JIF | Não existe — é v3.0. |
+| Embeddings semânticos avançados (SPECTER2) | Não está implementado — é v3.0. |
+
+---
+
+## 4. Recomendação estratégica honesta
+
+**Primeira observação:** o usuário declarou explicitamente que artigo é secundário. A ferramenta é o objetivo; publicação é eventualidade futura. Esta análise respeita essa postura.
+
+**Segunda observação:** caso um dia haja bom motivo para publicar, o ranking de prioridade pelo critério **(probabilidade hoje × valor do venue × esforço)** é:
+
+1. **JOSS (Journal of Open Source Software)** — Aspecto D ou E. JOSS é o caminho mais natural: peer review focado em código + docs + tests, baixa barreira, formato curto (~1000-2000 palavras), aceita ferramentas em estágio inicial desde que sejam funcionais e bem documentadas. ✅ A v2.0 atende todos os critérios técnicos do JOSS hoje. **Recomendação: se houver bom motivo, JOSS primeiro.**
+
+2. **Research Integrity and Peer Review** — Aspecto F (DOI hallucination detector). Tema atual, ferramenta pequena focada, validação empírica relativamente fácil (1-2 semanas com dataset Walters & Wilder).
+
+3. **IEEE Software Insights** — Aspecto C (Position paper Form/Content). Formato curto, opinião informada, baixa exigência de dados empíricos. Útil para impacto comunitário sem custo de validação.
+
+4. **Para o futuro distante (Artigo 9 Tools Paper)** — Aspecto A (sistema completo) com casos reais + baseline + user study. Esse é o paper "definitivo" sobre a ferramenta, mas exige todo o trabalho empírico que o usuário declarou que não vai acontecer no curto prazo. Fica como horizonte.
+
+**Não recomendado:** escrever artigos pelos artigos. O usuário disse: "Se a ferramente for trivial, deixemos para escrever quando ela for de interesse da ciência." Esse princípio vale.
+
+---
+
+## 5. O que esta análise NÃO faz
+
+- Não decide por você se algum desses caminhos vale a pena.
+- Não estima custo de oportunidade vs. desenvolvimento da ferramenta.
+- Não considera caminhos não-IEEE (revistas brasileiras Qualis A1, Springer LNCS, conferências como ICSE/FSE/ESEM).
+- Não considera o cenário específico em que a ferramenta seja útil para o usuário primeiro, e os artigos venham como subproduto natural quando a base de uso real existir.
+
+A última observação merece destaque: **a forma mais provável de você publicar honestamente sobre a ferramenta é depois de tê-la usado por meses em produção real** (5-20 RS depositadas no Zenodo com a ferramenta). A partir desse uso real, naturalmente surgem os 3-6 estudos de caso, surgem dados sobre convergência do loop, surgem evidências de que o ranking de venues é (ou não) acurado, surge feedback de leitores das RS no Zenodo. Esse é o caminho mais barato e mais defensável.
+
+---
+
+## 6. Histórico de versões deste documento
+
+| Versão | Data | Mudança |
+|---|---|---|
+| 1.0 | 2026-05-02 | Criação inicial. Diagnóstico de 7 aspectos potencialmente publicáveis (A-G), com avaliação por inéditeza, validação atual, tipo de paper viável, venues realistas, e gaps. Posicionado como mapa para o futuro, não plano imediato. |
+
+  ]]></markdown>
+</doc>

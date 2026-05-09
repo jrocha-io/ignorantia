@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="decisions" path="references/DECISIONS.md" type="document" lang="pt-BR">
+  <title>Registro de Decisões — ignorantia</title>
+  <markdown><![CDATA[
+# Registro de Decisões — ignorantia
+
+Este arquivo é o registro **central, persistente e canônico** de decisões editoriais e de design da skill ignorantia. Toda decisão registrada aqui deve ser consultada antes de qualquer implementação que possa entrar em conflito.
+
+> **Regra operacional do projeto:** Se o pedido ou questionamento contradiz decisão registrada → cite a decisão, mostre o registro, explique consequências e peça confirmação antes de executar. **Não trate hipótese como decisão.**
+
+---
+
+## Decisões editoriais (Decisões 1-33 da skill)
+
+Decisões editoriais formalizadas estão consolidadas em `SKILL.md` e referenciam o estado v2.11.0. Esta seção é índice rápido; conteúdo detalhado fica em SKILL.md para manter coerência com o esqueleto da skill.
+
+| # | Decisão | Versão de origem |
+|---|---|---|
+| 1 | Modos de saída do ghostwriter | v1.0 + v2.1 |
+| 2 | Pacote de reprodutibilidade Zenodo obrigatório | v1.0 |
+| 3 | Preprint server semi-automático | v1.0 |
+| 4 | Dois modos de Forma | v1.0 |
+| 5 | Monitoramento EQUATOR Network | v1.0 |
+| 6 | Living review reservado a protocolo formal | v1.0 |
+| 7 | Idiomas v2.0 | v2.0 |
+| 8 | Mitigações de conflito de interesse Cat. A obrigatórias (5 itens) | v2.0 |
+| 9 | (...) | (...) |
+| 10 | Dez modos em hierarquia tripla | v2.1 |
+| 11 | Política OA-first com 3 tiers | v2.1 |
+| 12 | (...) | (...) |
+| 18 | Outputs encadeáveis (.docx, .tex, .pdf) | v2.10.0 |
+| 21 | Phase 4 consent registrado em manifest | v2.9.0 |
+| 22 | Search runs auditáveis em manifest | v2.9.0 |
+| 24 | Tier 0 OA locator + gap_report.md | v2.9.0 |
+| 25 | Bases ibero-americanas obrigatórias | v2.9.0 |
+| 27 | pt-BR + es-LA + en suportados por design | v2.9.0 |
+| 33 | Identidade da skill como segredo industrial | v2.8.0 |
+
+Para conteúdo detalhado de cada decisão, consultar SKILL.md seção `## Decisões`.
+
+---
+
+## Decisões de design da arquitetura de buscadores
+
+### DD-1 (v2.10.0) — Hierarquia OA-first em 3 categorias
+
+Bases bibliográficas são organizadas em três categorias operacionais:
+- **Tier 1** — OA gratuito, full-text. Busca SEMPRE; busca primeiro.
+- **Tier 2** — Metadados livres. Busca SEMPRE; declara limitações de full-text.
+- **`priority_0_routing`** — Bases pagas com alta relevância. Acesso via Tier 0 routing (Unpaywall + OAB + CORE + Periódicos CAPES) + gap_report.md.
+
+### DD-2 (v2.10.2) — Categoria `unimplementable[]` para bases sem API pública
+
+Bases sem API pública gratuita são declaradas honestamente em `unimplementable[]` com razão técnica, **em vez de listadas em Tier 2 e silenciosamente puladas**. Cobertura declarada vs implementada deve ser 1:1.
+
+### DD-3 (v2.10.2) — Disclosure user-facing com 3 categorias claras
+
+A mensagem pré-busca distingue: (1) bases que vou efetivamente buscar agora, (2) bases declaradas inviáveis automaticamente, (3) bases priority_0 tentadas via Tier 0.
+
+### DD-4 (v2.11.0) — Cobertura "premium" via 19 adapters MoSCoW
+
+Análise MoSCoW dos adapters esperados por reviewers Q1/banca/consultoria identificou 19 adapters: 5 MUSTs, 6 SHOULDs, 8 COULDs (1 utilitário). Implementados em v2.11.0.
+
+### DD-5 (v2.11.0) — WON'T originais (revogados em DD-7)
+
+A v2.11.0 declarou **14 bases pagas + 3 plataformas de auto-arquivamento** como WON'T:
+- 14 publishers paywall: scopus_full, wos_full, embase, ssrn, acm_full, ieee_full, sciencedirect_full, springer_full, wiley_full, cinahl_full, psycinfo_full, jstor_full, sage_full, hein_online
+- 3 plataformas: google_scholar, researchgate, academia.edu
+
+**Premissa original**: "auto-implementação por scraping seria ToS-questionável e frágil".
+
+**Status atual**: revogado parcialmente em DD-7. Premissa mudou (não é mais scraping).
+
+---
+
+### DD-6 (v2.11.1) — ToS de plataforma é restrição absoluta
+
+> "Conflito com ToS de plataforma é inaceitável. Sempre visar boas relações com as plataformas."
+
+Esta decisão tem precedência sobre qualquer outra consideração de cobertura. **Nenhum adapter da skill** acessa plataforma em violação dos seus Termos de Serviço, mesmo que a violação seja marginal ou tolerada na prática.
+
+**Consequências operacionais**:
+- ResearchGate, Academia.edu **NÃO terão adapters** (ToS proíbe scraping; sem API pública).
+- Google Scholar acessível apenas via SerpApi (serviço de terceiros que assume responsabilidade legal/técnica do scraping).
+- Publishers paywall acessíveis apenas via API oficial **com credencial do usuário** ou proxy institucional **legítimo do usuário**.
+
+---
+
+### DD-7 (v2.11.1) — Revisão de DD-5 sob nova premissa
+
+Premissa original da DD-5 era "auto-implementação por scraping". Premissa atual: **"acesso via mecanismo legal de propriedade do usuário"** (chave própria, proxy institucional próprio, ou serviço de terceiros como SerpApi pago pelo usuário).
+
+Sob a nova premissa, 14 das 17 bases anteriormente WON'T tornam-se implementáveis:
+- **14 publishers paywall**: implementáveis via cascata `chave → proxy → fallback .md`.
+- **Google Scholar**: implementável via SerpApi.
+- **ResearchGate, Academia.edu**: continuam WON'T (ToS proíbe; ver DD-6).
+
+Esta decisão **NÃO** invalida DD-5 retroativamente; ela altera a premissa para frente. v2.11.0 endereçava cenário "auto-scraping"; v2.12.0+ endereça cenário "credencial-do-usuário".
+
+---
+
+### DD-8 (v2.11.1) — Cascata de mecanismos legais para acesso a base paga
+
+Cada adapter de base paga implementa cascata de tentativas em ordem:
+
+1. **`KEY` mode**: detecta variável de ambiente ou `--api-key`; usa API oficial do publisher.
+2. **`PROXY` mode**: detecta `--proxy-host` ou env var `IGNORANTIA_PROXY_HOST`; usa proxy institucional do usuário (ezproxy, OpenAthens, CAFe).
+3. **`FALLBACK_MD` mode**: gera `citations_to_obtain.md` com lista de citações + DOI + ISSN + ISBN + instruções de obtenção manual via Periódicos CAPES.
+4. **`MOCK` mode**: determinístico, para testes/CI.
+
+**Regra**: o adapter NÃO pula direto para fallback. Tenta todos os mecanismos legais primeiro.
+
+---
+
+### DD-9 (v2.11.1) — Substituição funcional de ResearchGate/Academia.edu
+
+ResearchGate e Academia.edu seriam usadas para "descoberta de PDFs auto-arquivados em repositórios pessoais/institucionais". Essa função já é desempenhada de forma **estritamente superior** por:
+
+- `search_unpaywall.py` (~50M PDFs OA com DOI)
+- `search_core.py` (~290M registros de repositórios institucionais)
+- `search_openalex.py` (~250M obras com identificadores estáveis)
+
+Esses três cobrem mais e com identificadores estáveis (DOI, OAI-PMH) que RG/Academia não fornecem. ResearchGate/Academia indexam papers já indexados nesses meta-buscadores.
+
+**Consequência**: a disclosure user-facing pode declarar honestamente que cobre ResearchGate/Academia indiretamente via Unpaywall+CORE+OpenAlex.
+
+---
+
+### DD-10 (v2.11.1) — Logs em duas camadas (adapter + screening)
+
+> **Esclarecimento honesto sobre cobertura (v2.18.1, F12 da auditoria):** Camada 1 é gerada nativamente apenas pelos 16 adapters paywall que herdam de `PaywallAdapter` (v2.12+). Para os 45 adapters legados (v2.0-v2.11), a Camada 1 é gerada **automaticamente pelo orquestrador** via pós-processador `scripts/searches/_log_enrichment.py` quando o adapter é executado por `search_orchestrator.py`. Chamada direta de adapter legado pela CLI (sem o orquestrador) **não gera** logs Camada 1 — esse é gap conhecido. Para SR rigorosa, recomenda-se executar todos os adapters via orquestrador, não diretamente.
+
+A função "logar encontrado/descartado por título/abstract/conteúdo" é separada em duas camadas distintas:
+
+**Camada 1 — Adapter (busca):**
+- `fetched`: registros recuperados do endpoint.
+- `kept_after_local_filter`: passaram por filtros locais aplicáveis (janela temporal, idioma, deduplicação intra-adapter).
+- `discarded_local`: descartados localmente, com razão técnica (fora da janela, idioma não-aceito, sem DOI, etc.).
+
+**Camada 2 — Screening pipeline (Fase 4 PRISMA):**
+- `discarded_by_title`: títulos não passaram critério.
+- `discarded_by_abstract`: abstracts não passaram critério.
+- `discarded_by_full_text`: full-text não passou critério.
+
+Justificativa: o adapter de busca **encontra** metadados; ele não tem semântica de critério de inclusão para "descartar por conteúdo". Confundir as camadas viola PRISMA-2020.
+
+---
+
+### DD-11 (v2.11.1) — Wikipedia/Wikidata como preâmbulo contextual, não busca
+
+Wikipedia e Wikidata **NÃO são adapters de busca**. São fontes de **background contextual** para apresentações leigas e preâmbulos de HTML/PPTX. Implementação:
+
+- Módulo `scripts/contextual_preamble.py` (separado de `scripts/searches/`).
+- Roda na **Fase 7** (síntese), depois de extraction.csv consolidado.
+- Gera seção intitulada **"O campo onde este artigo vive"** distinta da Introdução.
+- Referências da Wikipedia citadas com link verificável + data de acesso (ABNT NBR 10520).
+- Nunca fonte primária; sempre acessório explicativo para audiência leiga.
+
+---
+
+### DD-12 (v2.11.1) — Estratégia de implementação em 8 rodadas
+
+Plano persistido em `IMPLEMENTATION_STRATEGY.md`. Rodadas devem ser executadas em sequência; o usuário deu autonomia para seguir sem interrupção exceto em caso de erro técnico não-recuperável, descoberta que altera premissa, ou limite operacional.
+
+### DD-13 (v2.22.0) — Renderer HTML canônico vs alternativo
+
+A skill mantém **dois renderers HTML** com propósitos distintos, decisão consolidada após auditoria #4 (C8):
+
+**`scripts/render_chunks.py`** — **renderer canônico** (Decisão 18, v2.10.0):
+- Usado por `pipeline_finalize.py` na Etapa 3.
+- Renderização incremental em chunks com checkpoint.
+- Suporta `contextual_preamble_html` desde v2.21.0 (B2).
+- 254 linhas — focado e eficiente.
+
+**`scripts/render_v2.py`** — **renderer alternativo standalone**:
+- Standalone CLI; NÃO é chamado pelo pipeline.
+- 4-tabs (Manuscrito/Auditoria/Dados/Venues), Sprint Badge, ricos features de visualização.
+- Suporta `--contextual-preamble` desde v2.18.1 (F4).
+- 1042 linhas — mais features, mais peso.
+
+**Decisão**: não migrar features de `render_v2.py` para `render_chunks.py` — custo de manutenção (1042 vs 254 linhas) > benefício (poucos usuários do pipeline precisam de 4-tabs no HTML auto-contido). Quem precisa do 4-tabs roda `render_v2.py` standalone após o pipeline.
+
+**`scripts/render_manuscript.py`** — **DEPRECATED desde v2.21.0** (B11). Mantido apenas por compatibilidade com `test_v28_eliminations.py::test_decision_19_render_manuscript_default_interface_is_protected`. Emite `DeprecationWarning` em runtime desde v2.22.0 (C5). Será removido em v3.0.0.
+
+---
+
+## Histórico de mudanças deste arquivo
+
+| Data | Versão | Mudança |
+|---|---|---|
+| 2026-05-03 | v2.11.1 | Criação. Decisões DD-1 a DD-12 registradas. DD-5 marcada como parcialmente revogada por DD-7. |
+| 2026-05-04 | v2.22.0 | DD-13 adicionada (renderer HTML canônico vs alternativo). |
+
+  ]]></markdown>
+</doc>

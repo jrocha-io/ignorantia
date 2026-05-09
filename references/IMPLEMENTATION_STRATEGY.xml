@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="implementation-strategy" path="references/IMPLEMENTATION_STRATEGY.md" type="document" lang="pt-BR">
+  <title>Estratégia de Implementação — Rodadas v2.12 a v2.18</title>
+  <markdown><![CDATA[
+# Estratégia de Implementação — Rodadas v2.12 a v2.18
+
+Este arquivo persiste a estratégia das rodadas de implementação aprovadas em v2.11.1. Deve ser consultado antes de cada rodada.
+
+> **Mandato operacional do usuário (v2.11.1):** "Crie uma estratégia de fazer tudo em rodadas e siga a estratégia." Autonomia para seguir sem interrupção, exceto em caso de (a) erro técnico não-recuperável, (b) descoberta que muda premissa, (c) limite operacional do sandbox.
+
+---
+
+## Visão geral das 8 rodadas
+
+| R | Versão | Conteúdo | Status |
+|---|---|---|---|
+| **R1** | v2.11.1 | DECISIONS.md + WONT_IMPLEMENT.md + IMPLEMENTATION_STRATEGY.md + atualização SKILL.md | ✅ entregue 2026-05-03 |
+| **R2** | v2.12.0 | Template `_adapter_base.py` + 3 adapters Elsevier (Scopus, ScienceDirect, Embase) | ✅ entregue 2026-05-04 (em v2.15.0) |
+| **R3** | v2.13.0 | 4 adapters: Springer Nature, Wiley TDM, IEEE Xplore, Clarivate WoS Starter | ✅ entregue 2026-05-04 (em v2.15.0) |
+| **R4** | v2.14.0 | 4 adapters APA/EBSCO/JSTOR/Sage (mais reliance em fallback .md) | ✅ entregue 2026-05-04 (em v2.15.0) |
+| **R5** | v2.15.0 | 4 adapters sem API: ACM, SSRN, Hein Online, ProQuest (cascata proxy + .md) | ✅ entregue 2026-05-04 |
+| **R6** | v2.16.0 | Google Scholar via SerpApi | ✅ entregue 2026-05-04 (em v2.15.0) |
+| **R7** | v2.17.0 | Logs detalhados em duas camadas (Camada 1 adapter + Camada 2 screening pipeline) | ✅ entregue 2026-05-04 (em v2.18.0) |
+| **R8** | v2.18.0 | `contextual_preamble.py` (Wikipedia + Wikidata, com referências linkadas) integrado a HTML/PPTX | ✅ entregue 2026-05-04 |
+| **Auditoria** | v2.19.0 | Fechamento dos 17 achados em 4 sprints (S1-S4) — vitrine quebrada→funcional, promessas→realidade, módulos isolados→integrados | ✅ entregue 2026-05-04 |
+| **Auditoria #2** | v2.20.0 | Fechamento dos 9 achados em 3 sprints (H1-H3) — bugs introduzidos pela v2.19.0 + gaps declarativos | ✅ entregue 2026-05-04 |
+| **Auditoria #3** | v2.21.0 | Fechamento dos 13 achados em 3 sprints (T1-T3) — pipeline propaga preâmbulo, schema unificado, 16 testes E2E | ✅ entregue 2026-05-04 |
+| **Auditoria #4** | v2.22.0 | Fechamento dos 8 achados em 3 sprints (U1-U3) — schema unificado, 4 parsers ibero, DD-13 sobre renderers | ✅ entregue 2026-05-04 |
+| **Auditoria #5 + SOLID/DRY** | v2.23.0 | Fechamento dos 6 achados D1-D6 + 10 SOLID/DRY E1-E10 em 4 sprints (W1-W4) — paridade mock vs real, Liskov source_tier, DRY USER_AGENT, Open/Closed pipeline. TDD estrito. | ✅ entregue 2026-05-04 |
+
+**Estratégia executada por completo.** As 8 rodadas planejadas em 2026-05-03 foram entregues entre 2026-05-03 e 2026-05-04.
+
+**Notas de consolidação:**
+- R2-R4 + R6 foram entregues juntas como v2.15.0 (todas seguem o mesmo padrão arquitetural; eficiência releasing como conjunto).
+- R7 + R8 foram entregues juntas como v2.18.0 (módulos novos sem dependência mútua entre si).
+- Todas as 12 Decisões de Design (DD-1 a DD-12) estão implementadas.
+
+---
+
+## Arquitetura de cascata para R2-R5 (DD-8)
+
+Cada adapter de base paga implementa cascata em ordem rigorosa:
+
+```
+1. KEY mode    → env var ou --api-key → API oficial publisher
+2. PROXY mode  → --proxy-host ou IGNORANTIA_PROXY_HOST → proxy institucional
+3. FALLBACK_MD → gera citations_to_obtain.md com lista do que precisa ser baixado
+4. MOCK mode   → determinístico, para testes
+```
+
+### Template `_adapter_base.py`
+
+Classe abstrata `PaywallAdapter` com:
+- `_try_key_mode(query, year_start, year_end, max_results)` → retorna dict ou None
+- `_try_proxy_mode(query, ...)` → retorna dict ou None
+- `_generate_fallback_md(query, ...)` → escreve `citations_to_obtain.md`
+- `_mock(query, ...)` → fixtures determinísticas
+- `search(...)` orquestra: tenta KEY → PROXY → FALLBACK_MD; nunca pula uma etapa.
+
+Cada adapter concreto herda e implementa apenas o que é específico do publisher (endpoint, parser, schema).
+
+### Schema do `citations_to_obtain.md`
+
+Quando KEY e PROXY falham, o adapter gera arquivo Markdown estruturado:
+
+```markdown
+# Citações a obter manualmente — [PUBLISHER]
+
+Esta lista foi gerada porque a busca automática neste publisher não foi possível
+sem credencial. Para obter os full-texts, você precisa:
+
+## Opção 1 — Via Periódicos CAPES (CAFe)
+1. Acesse https://www-periodicos-capes-gov-br.ezl.periodicos.capes.gov.br/
+2. Faça login via CAFe com suas credenciais institucionais
+3. Busque cada item da lista abaixo
+
+## Opção 2 — Via biblioteca da sua instituição
+[instruções específicas]
+
+## Opção 3 — Via contato com autor correspondente
+[instruções específicas]
+
+---
+
+## Citações localizadas via outros adapters (que parecem estar neste publisher)
+
+| # | Título | Autores | Ano | DOI | ISSN | Venue | Encontrado via |
+|---|---|---|---|---|---|---|---|
+| 1 | [...] | [...] | [...] | [...] | [...] | [...] | crossref |
+| 2 | [...] | [...] | [...] | [...] | [...] | [...] | openalex |
+```
+
+A lista é populada cruzando adapters Tier 2 (crossref, openalex, semantic_scholar, dimensions) com filtro de venue/publisher correspondente.
+
+---
+
+## Detalhamento por publisher (R2-R5)
+
+### R2 — Elsevier
+
+| Adapter | API endpoint | Chave | Proxy compatível | Custo |
+|---|---|---|---|---|
+| `search_scopus_full.py` | `https://api.elsevier.com/content/search/scopus` | API Key (institucional) | Sim | Gratuita p/ academic |
+| `search_sciencedirect_full.py` | `https://api.elsevier.com/content/search/sciencedirect` | API Key | Sim | Gratuita |
+| `search_embase.py` | `https://api.elsevier.com/embase` | API Key (chave separada) | Sim | Pago |
+| `search_crossref_oa_extension.py` | já existe | - | - | Apenas extensão de filtros |
+
+**Nota técnica**: Elsevier exige aceitação de "Elsevier API Service Agreement" e tem limite de chamadas/semana por chave acadêmica.
+
+### R3 — Outros publishers grandes
+
+| Adapter | API endpoint | Chave | Custo |
+|---|---|---|---|
+| `search_springer_full.py` | `https://api.springernature.com/meta/v2/json` | Springer Nature API Key | **Gratuita com cadastro** |
+| `search_wiley_tdm.py` | `https://api.wiley.com/onlinelibrary/tdm/v1` | Wiley TDM Key | Gratuita p/ academic mediante TDM agreement |
+| `search_ieee_full.py` | `https://api.ieee.org/api/v1/search/articles` | IEEE Xplore API Key | Pago/institucional |
+| `search_wos_starter.py` | `https://wos-api.clarivate.com/api/wos-starter/v1` | Clarivate API Key | Starter limitada gratuita |
+
+### R4 — APA/EBSCO/JSTOR/Sage
+
+| Adapter | Mecanismo | Status realista |
+|---|---|---|
+| `search_psycinfo_full.py` | APA PsycNET via EBSCOhost API | KEY raro; PROXY mais comum |
+| `search_cinahl_full.py` | EBSCOhost API | Apenas PROXY |
+| `search_jstor_full.py` | JSTOR Data for Research (DfR) | KEY exige aprovação acadêmica |
+| `search_sage_full.py` | Sage TDM em desenvolvimento | Apenas PROXY na maioria dos casos |
+
+Esperado: predominância de fallback `.md` para usuários sem credencial institucional.
+
+### R5 — Sem API pública
+
+| Adapter | Mecanismo | Status realista |
+|---|---|---|
+| `search_acm_full.py` | Apenas ACM Digital Library via PROXY | Apenas PROXY + FALLBACK_MD |
+| `search_ssrn_full.py` | OAI-PMH muito limitado; sem busca textual robusta | FALLBACK_MD predominante |
+| `search_hein_online.py` | Apenas HeinOnline via PROXY | Apenas PROXY + FALLBACK_MD |
+| `search_proquest_full.py` | ProQuest API via PROXY | Apenas PROXY + FALLBACK_MD (search_proquest_oa.py para subset OA já existe) |
+
+### R6 — Google Scholar via SerpApi
+
+| Adapter | Mecanismo | Custo |
+|---|---|---|
+| `search_google_scholar_serpapi.py` | https://serpapi.com/search?engine=google_scholar | Pago: ~$50/mo (5k queries) - $150/mo (15k queries) |
+
+SerpApi é serviço comercial de scraping; eles assumem responsabilidade legal/técnica. Chave do usuário em `SERPAPI_KEY`.
+
+---
+
+## Logs detalhados — R7 (v2.17.0)
+
+### Camada 1 — Adapter
+
+Cada adapter grava logs JSON Lines em `logs/{adapter_name}/{run_id}.jsonl`:
+
+```json
+{"event": "fetched", "n": 156, "source": "scopus_full", "method": "KEY"}
+{"event": "kept_after_local_filter", "n": 142, "filtered_count": 14, "filter_reasons": {"out_of_window": 8, "no_doi": 6}}
+{"event": "discarded_local", "n": 14, "items": [...]}
+```
+
+### Camada 2 — Screening pipeline
+
+`scripts/screening_pipeline.py` expandido para gerar `screening_log.csv`:
+
+```csv
+study_id,doi,stage,decision,reason,reviewer,timestamp
+S001,10.1234/abc,title,kept,relevant,human,2026-05-03T...
+S002,10.1234/def,title,discarded,off_topic,human,2026-05-03T...
+S003,10.1234/ghi,abstract,discarded,no_intervention,ai_dual,2026-05-03T...
+S004,10.1234/jkl,full_text,kept,...,human,2026-05-03T...
+```
+
+Compatível com PRISMA-2020 flow diagram (números coerentes via cross-check `flow.json`).
+
+---
+
+## Wikipedia/Wikidata — R8 (v2.18.0)
+
+### Função
+
+Gerar seção **"O campo onde este artigo vive"** no início de:
+- HTML do paper (preâmbulo antes da seção 1. Introdução)
+- PPTX (slide 2-3, depois do título; antes de "Pergunta de pesquisa")
+
+### Conteúdo
+
+3-5 parágrafos explicando para audiência leiga:
+1. Disciplina-mãe e suas subdivisões relevantes ao tema
+2. Marcos históricos e principais paradigmas no campo
+3. Atores institucionais e teóricos relevantes
+4. Por que este tema importa neste momento histórico
+5. Como esta pesquisa específica se conecta ao campo maior
+
+### Fontes
+
+- **Wikipedia EN/PT-BR/ES** (artigos da disciplina-mãe + tema específico)
+- **Wikidata** (entidades vinculadas, relações estruturadas, identifiers cross-base)
+
+### Citação
+
+Cada afirmação deve ter referência clicável + data de acesso (ABNT NBR 10520):
+- Wikipedia: `(Wikipedia, "Termo", acesso em 2026-05-03)` com link.
+- Wikidata: `(Wikidata QXXXX, "label", acesso em 2026-05-03)` com link.
+
+### NÃO confundir com Introdução
+
+Esta seção apresenta **o campo**, não a pesquisa. Introdução continua sendo escrita pelo autor sobre o **tema específico**. A seção contextual é prefácio explicativo para o leitor leigo entender onde a pesquisa se encaixa.
+
+---
+
+## Critérios de pausa entre rodadas
+
+A skill pausa para confirmação humana se ocorrer:
+
+1. **Erro técnico não-recuperável**: API mudou schema; teste regressão quebra mais de 10% dos casos.
+2. **Descoberta que muda premissa**: publisher mudou ToS; nova categoria de bases esperada.
+3. **Limite operacional**: contexto da sessão saturado; necessário compactar.
+
+Sem esses gatilhos, a skill prossegue para a próxima rodada automaticamente.
+
+---
+
+## Histórico
+
+| Data | Versão | Mudança |
+|---|---|---|
+| 2026-05-03 | v2.11.1 | Criação. Plano de 8 rodadas registrado. R1 em execução. |
+
+  ]]></markdown>
+</doc>

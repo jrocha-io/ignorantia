@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="c9-linguistic-quality" path="references/claude-chat-tasks/c9-linguistic-quality.md" type="chat-task" lang="pt-BR">
+  <title>Prompt — C9: Qualidade Linguística do Manuscrito</title>
+  <markdown><![CDATA[
+# Prompt — C9: Qualidade Linguística do Manuscrito
+
+> **Contexto.** Critério C9: qualidade da escrita acadêmica (gramática, fluência, coerência). Na v3.0 será substituído por scorer linguístico treinado. Na v2.0, é delegado ao Claude Chat.
+>
+> **Output esperado.** JSON estruturado.
+
+## Instruções ao Claude Chat
+
+Você é avaliador de qualidade linguística do manuscrito anexado. Avalie na linguagem nativa do manuscrito (PT-BR, EN, ES).
+
+**REGRAS:**
+- NÃO faça correção; apenas avaliação.
+- Reporte erros como categoria + frequência + 2-3 exemplos representativos, não lista exaustiva.
+
+## Categorias avaliadas
+
+### Categoria 1 — Gramática e ortografia
+
+- **PT-BR**: concordância (sujeito-verbo, nominal), regência verbal, uso de pronomes oblíquos, próclise/ênclise, acentuação, hifenização Acordo Ortográfico 1990.
+- **EN**: subject-verb agreement, articles (a/an/the), prepositions, tense consistency, comma splices, pronoun reference.
+- **ES**: concordancia, ser/estar, subjuntivo, leísmo/laísmo.
+
+**Saída:**
+```json
+"category_1_grammar": {
+  "errors_per_1000_words_estimate": <float>,
+  "examples": [{"original": "...", "type": "concordancia"}, ...],
+  "severity": "minor" | "moderate" | "severe",
+  "publishable_as_is": true | false
+}
+```
+
+### Categoria 2 — Fluência e estilo acadêmico
+
+**Avaliar:**
+- Voz passiva excessiva (>40% das frases)?
+- Hedging adequado (não-categórico onde adequado, categórico onde adequado)?
+- Frases muito longas (>40 palavras frequentes)?
+- Vocabulário acadêmico apropriado para o venue alvo (lay vs technical)?
+- Coesão entre parágrafos (conectivos lógicos)?
+
+**Saída:**
+```json
+"category_2_fluency": {
+  "passive_voice_percentage": <int>,
+  "average_sentence_length_words": <float>,
+  "hedging_appropriate": true | false,
+  "vocabulary_register_match_target": "low" | "adequate" | "high",
+  "cohesion_quality": "poor" | "adequate" | "good" | "excellent",
+  "examples": [...]
+}
+```
+
+### Categoria 3 — Coerência argumentativa interna
+
+**Avaliar:**
+- Há contradições entre seções (e.g., introdução afirma X, conclusão afirma não-X)?
+- Numeração de RQs em §01 corresponde à numeração nos resultados e na conclusão?
+- Tabelas e figuras referenciadas no texto e vice-versa?
+- Acrônimos definidos na primeira ocorrência?
+
+**Saída:**
+```json
+"category_3_internal_coherence": {
+  "contradictions_found": [...],
+  "rq_numbering_consistent": true | false,
+  "tables_figures_referenced": true | false,
+  "acronyms_defined": true | false,
+  "severity": "minor" | "moderate" | "severe"
+}
+```
+
+### Categoria 4 — Adequação ao venue alvo
+
+**Avaliar (apenas se venue alvo for declarado no manuscrito):**
+- Estilo (formal/conciso para IEEE; estruturado-formal para BMJ; mais discursivo para Educação ABNT)?
+- Comprimento adequado ao venue?
+- Norma de citação aplicada?
+
+**Saída:**
+```json
+"category_4_venue_fit": {
+  "applicable": true | false,
+  "venue_id": "...",
+  "style_match": "poor" | "adequate" | "good",
+  "length_within_limits": true | false,
+  "citation_style_match": true | false
+}
+```
+
+## Schema final
+
+```json
+{
+  "task_id": "C9",
+  "manuscript_id": "...",
+  "execution_timestamp_iso8601": "...",
+  "language_detected": "pt" | "en" | "es",
+  "categories": {
+    "category_1_grammar": {...},
+    "category_2_fluency": {...},
+    "category_3_internal_coherence": {...},
+    "category_4_venue_fit": {...}
+  },
+  "aggregate_c9_score_0_to_10": <float>,
+  "publishable_as_is": true | false,
+  "recommended_action": "ready_for_submission" | "minor_revision" | "major_revision" | "professional_proofreading_recommended"
+}
+```
+
+  ]]></markdown>
+</doc>

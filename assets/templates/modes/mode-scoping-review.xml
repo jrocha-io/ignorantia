@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-scoping-review" path="assets/templates/modes/mode-scoping-review.md" type="template" lang="pt-BR">
+  <title>Mode template — AI-Assisted Scoping Review</title>
+  <markdown><![CDATA[
+# Mode template — AI-Assisted Scoping Review
+
+> Aplica-se quando `review_type: scoping_review` no metadado do manuscrito.
+> Combinar com o template-base (manuscript-template.html) — este arquivo descreve apenas as especificidades do modo.
+
+## Selo obrigatório no header do manuscrito
+
+```html
+<div class="review-mode-badge mode-scoping" role="status">
+  <strong>AI-Assisted Scoping Review</strong>
+  <span class="mode-detail">following PRISMA-ScR (Tricco et al. 2018) + JBI Manual cap. 11</span>
+  <span class="mode-disclaimer">Single-reviewer with LLM-assisted screening (full transparency in §03 / Reproducibility Package).</span>
+</div>
+```
+
+Estilo CSS sugerido (cor distinta para cada modo — scoping = azul/teal):
+```css
+.review-mode-badge.mode-scoping {
+  background: #e0f7fa;
+  border-left: 4px solid #00838f;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+```
+
+## Seções obrigatórias específicas
+
+Além das seções padrão do manuscript-template, este modo exige:
+
+### §02.x — Justificativa do escopo (não systematic)
+
+Texto-padrão a inserir (ajustar ao tema):
+
+> "This review is reported as a Scoping Review, not a Systematic Review, by deliberate methodological choice. The author is the sole reviewer; LLM-assisted screening was used with full transparency (see Reproducibility Package). Per PRISMA-ScR (Tricco et al. 2018) and JBI Manual chapter 11, single-reviewer scoping reviews are methodologically acceptable when limitations are explicitly declared. Should this body of evidence later require systematic-review-level rigor (e.g., for clinical guidance), an upgrade with two independent human reviewers is the appropriate path."
+
+### §03 — Declaração de uso de IAG (modo scoping)
+
+Texto-padrão:
+
+> "**Declaration of AI use** — Generative AI (specify model: e.g., Claude Opus 4.7, OpenAI GPT-X) was used for the following stages: search query expansion (with human validation), title/abstract screening (with human dual-check on a stratified random sample of N=15% of records), data extraction template assistance, and synthesis drafting. The AI was NOT used for: critical appraisal scoring, discussion content judgment, or final inclusion decisions on borderline cases. The complete prompt sequences, model parameters (temperature, top_p, seed when available), and validation logs are deposited in the Reproducibility Package (Zenodo DOI: [to be filled after deposit])."
+
+### §04.x — Limitações específicas do scoping mode
+
+Texto-padrão a adicionar à seção de limitações:
+
+> "Methodological limitations specific to scoping methodology: (i) critical appraisal of individual sources is reported but not used as exclusion criterion (per PRISMA-ScR); (ii) synthesis is descriptive/thematic rather than meta-analytic; (iii) single-reviewer screening was mitigated by AI-assisted dual-checking but does not fully replicate independent two-human-reviewer consensus."
+
+## Reporting guideline aplicável
+
+`PRISMA-ScR` (22 items) — perfil em `references/profiles/_guidelines/prisma-scr.yaml`.
+
+## Selos no metadado YAML do manuscrito
+
+```yaml
+review_type: scoping_review
+review_purpose: design_foundational  # ou design_validation, design_correction, independent_inquiry
+reporting_guideline_primary: PRISMA-ScR
+reporting_guideline_secondary: []
+reviewer_count_human: 1
+reviewer_count_ai: 1
+ai_dual_check_sample_pct: 15  # mínimo recomendado
+two_reviewer_kappa_documented: false
+title_must_contain: "Scoping Review"  # ou "scoping" em PT/ES
+```
+
+  ]]></markdown>
+</doc>

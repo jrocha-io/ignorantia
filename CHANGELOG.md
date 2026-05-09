@@ -4,6 +4,205 @@ Todas as mudanças notáveis serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 Versionamento [SemVer 2.0.0](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [2.23.2] — 2026-05-09
+
+**Patch RS-42 dogfood remediation, segunda onda (Fix 9–18).**
+A primeira onda (Fix 1–8 / v2.23.1) endereçou o protocolo de chunked
+write e a promoção de PDF/DOCX a artefatos canônicos. Esta segunda
+onda fecha as três classes de loophole que ainda permitiriam a uma
+SLR como RS-42 v1.0.0 ser empacotada apesar de inaceitável: gates
+de qualidade ausentes, confusão de schema referência↔template, e
+padding de referências em produção (50+ arquivos `*.md`). Todas as
+mudanças são compatíveis para trás — não há breaking changes para
+consumidores externos.
+
+### Adicionado
+
+- **Gate de assessment programático** (Fix 9) —
+  `scripts/generate_assessment.py` agora emite
+  `assessment_gate.json` e sai com código 2 quando há eliminatórios
+  ou nota total < `--gate-min-score` (default 7.0). Encadeamento
+  `&&` no pipeline de empacotamento curto-circuita em falha.
+  Flag `--no-gate` para sessões de triagem.
+- **Decisão 19 vocabulary checker** (Fix 10) —
+  `scripts/check_decision_19_vocabulary.py` cobre cinco classes de
+  vazamento meta-narrativo (SemVer rhetoric, referências
+  procedimentais internas, classificações skill-internal, nomes de
+  campos JSON, brand string). Substitui o teste literal
+  `ignorantia` que deixou RS-42 v1.0.0 passar.
+- **Pipeline invariants gate** (Fix 11) —
+  `scripts/check_pipeline_invariants.py` enforça três invariantes
+  antes do empacotamento: I1 (sem `single_session_ad_hoc_web_search`,
+  a menos que `--accept-ad-hoc-search`), I2 (≥3 databases em
+  `searches.json`, mínimo PRISMA), I3 (zero passos `ERROR` em
+  `pipeline_summary.json`).
+- **Persona-voice scaffold + heuristic checker** (Fix 12, Decisão 20
+  camada mecânica) — captura phrasing de "execução de pipeline" no
+  manuscrito (`Phase 3 invocou search_orchestrator.py`,
+  `Tier 1 + Tier 2 paywall em cascata`, `DD-10 Camada 2 logging`)
+  que escapa do checker de vocabulário. Complementar à Fix 10.
+- **`paper_mode=True`** em `render_tex()` / `render_tex_and_pdf()`
+  (Fix 13, paper/wiki schema split) — emite `\section{Title}`
+  auto-numerado por padrão; flag `--legacy-wiki-prefix` opta no
+  comportamento legado `\section*{§<id> Title}` (HTML wiki).
+  Elimina o prefixo `§<id>` literal de PDFs e DOCX.
+- **Markdown processor no main section loop** (Fix 14) —
+  `render_latex.py:335` e `render_docx_abnt.py:265` agora roteiam
+  body/long_quote através de `_markdown_to_latex()` / processor
+  equivalente do DOCX. `**bold**`, `*italic*` e `[text](url)` são
+  renderizados em vez de aparecerem literais.
+- **`scripts/_reference_helpers.py`** (Fix 17) — helpers
+  shape-tolerant para `references[]`:
+  `render_reference_string(ref)`, `extract_doi(ref)`,
+  `extract_url(ref)`, `normalize_reference(ref)`,
+  `normalize_references(refs)`. Aceitam `str` (legacy) e
+  `dict` (canônico com chave `citation`).
+- **`scripts/migrate_md_to_xml.py`** (Fix 18 / F1) — converter
+  Markdown→XML que envolve cada doc em `<doc>` com payload CDATA
+  preservando o body verbatim. Neutraliza `]]>` no body para manter
+  XML well-formed.
+- **`scripts/bundle_xml.py`** (Fix 18 / F6) — bundler que consolida
+  XMLs same-stage em um `<doc_bundle stage="..." count="N">` por
+  diretório. Mapeamento default cobre 4 diretórios bundleable
+  (`citation-styles`, `databases`, `modes`, `templates-modes`).
+  Splicing raw em vez de ElementTree para preservar CDATA literal.
+- **Flag `--bundle-xml`** em `scripts/build_production_package.py`
+  (Fix 18 / F8) — gera `bundle-<stage>.xml` em build-time e
+  substitui os XMLs individuais bundleable. Reduz o pacote de 219
+  para 195 arquivos (24 a menos), restaurando 25 slots de headroom
+  abaixo do teto de 220.
+
+### Corrigido
+
+- **`render_v2` ↔ `manuscript-template.html`** (Fix 16) —
+  template declarava 89 `{{PLACEHOLDER}}` mas `render_v2.main`
+  fornecia 50, deixando ~50 literais vazarem para o HTML. Adicionado
+  `_build_i18n_labels(lang)` (pt-BR / en-US), aliases para 6
+  renomeações (`LANG_TAG ← LANG`, `RESULTS_HTML ←
+  RESULTS_DESCRIPTIVE_HTML`, etc.) e
+  `_validate_no_unresolved_placeholders(rendered, strict=False)`
+  para falhar claramente em divergência futura.
+- **Schema `references[]` divergente** (Fix 17) — `render_latex.py`
+  e `render_docx_abnt.py` consumiam `list[str]`; `render_v2.py` e
+  `generate_assessment.py` consumiam `list[dict]`. Schema canônico
+  agora é `list[dict]` com chave `citation`; helpers shape-tolerant
+  permitem manuscritos legados com strings continuarem funcionando.
+- **`scripts/assessor/` ausente do pacote** (Fix 15) —
+  `SCRIPTS_SUBDIR_GLOB` só incluía `scripts/searches/*.py`, fazendo
+  `from assessor.visual_aids import …` falhar em skills deployadas
+  com `ModuleNotFoundError`. Adicionado tuple para cobrir os 10+
+  módulos em `scripts/assessor/`.
+
+### Mudou
+
+- **Migração de 71 arquivos `*.md` para `*.xml`** (Fix 18 / F2-F5)
+  — todas as referências (`references/citation-styles/`,
+  `references/databases/`, `references/claude-chat-tasks/`,
+  `references/modes/`, top-level `references/*.md`,
+  `references/audits/`, `references/calibrations/`,
+  `references/draft/`, `references/user-guidance/`) e templates
+  (`assets/templates/*.md`, `assets/templates/modes/`) agora têm
+  XML como source-of-truth. Markdown body preservado intacto via
+  CDATA — round-trip é lossless.
+- **Referências de path `*.md` → `*.xml`** em `SKILL.md` e scripts
+  consumidores (Fix 18 / F7).
+- **CI workflow** — concurrency group agora inclui `event_name`
+  para evitar mútuo cancelamento entre triggers `push` e
+  `pull_request`. `pip-audit` invocado com `--skip-editable`
+  para pular o package self-installable em modo editável.
+
+### Operacional
+
+A v2.23.2 é o último patch da linha 2.x dedicado à closure dos
+loopholes que permitiram RS-42 v1.0.0 ser empacotada inaceitável.
+Os três gates programáticos novos (Fix 9, 10, 11, 12) tornam
+mecanicamente verificáveis as Decisões que antes dependiam de
+auto-disciplina do Claude na sessão de chat. A migração XML
+(Fix 18) reduz o pacote de produção para confortavelmente abaixo do
+teto de 220 arquivos quando combinada com `--bundle-xml`,
+liberando headroom para crescimento futuro de referências sem
+re-arquitetar o packager.
+
+## [2.23.1] — 2026-05-08
+
+**Patch RS-42 dogfood remediation.** Série de oito correções
+endereçando o incidente em que a SLR RS-42, gerada na sessão de
+chat, abortou com "Esta conversa não pode ser compactada ainda
+mais" antes de qualquer artefato ser gravado em disco. Os fixes
+realocam HTML para subcomando opt-in, promovem PDF (compilado de
+LaTeX+BibTeX) ao papel de artefato acadêmico canônico para depósito
+Zenodo, e formalizam protocolo de chunked-write + budget guardrails
+operacionais que o Claude verifica em sessão antes de prosseguir.
+
+### Adicionado
+
+- **Decisão 34** — Protocolo de chunked write para SLRs grandes
+  (Fix 1, PR #82). Regra operacional vinculante: SLRs com ≥5
+  seções OU ≥20 referências OU ≥3 web searches persistem
+  `searches.json`/`extraction.csv`/`quality-appraisal.csv` em
+  disco antes da síntese narrativa, e renderizam HTML por seções
+  via `render_chunks.py --append` em chamadas separadas.
+- **Decisão 35** — Budget guardrails operacionais por fase (Fix 4,
+  PR #85). Limites mecânicos: ≤5 web searches/SLR na Fase 3;
+  ≤30 referências processadas em uma resposta na Fase 6;
+  ≤1 seção HTML por resposta na Fase 7; empacotamento Zenodo é
+  uma única chamada subprocess.
+- **Decisão 36** — HTML reclassificado como artefato secundário
+  (Fix 5, PR #86); PDF/DOCX promovidos a artefatos acadêmicos
+  canônicos. PDF compilado de LaTeX+BibTeX é o que vai pro
+  depósito Zenodo (proteção de IP por timestamping autoral
+  imutável); HTML deixa de ser default.
+- **Decisão 37** — HTML Wiki-style segregado em subcomando
+  dedicado `ignorantia render --format html-wiki` (Fix 8,
+  PR #89). Pipeline canônico (LaTeX → BibTeX → PDF → DOCX) não
+  invoca chunked-render; HTML só é gerado opt-in, depois do
+  pacote acadêmico estar em disco.
+- **`build_pre_render_search_step`** (Fix 2, PR #83) — pipeline
+  step que executa `SearchForStudiesUseCase` por comando, faz
+  dedup cross-query por título, escreve `searches.json` validado
+  contra schema antes da Fase 4.
+- **`build_incremental_html_render_step`** (Fix 3, PR #84) —
+  pipeline step para escrita HTML chunked: `render_opening` →
+  loop por seções com flush — `render_references_section` →
+  `render_closing`. Helpers públicos correspondentes em
+  `HtmlRenderer`.
+- **BibTeX como output de primeira classe** (Fix 6, PR #87) —
+  novo `BibTexEntryFormatterPort` com quatro adapters (plain,
+  unsrt, abntex2-num, IEEEtran), `BibFileRenderer` com chave de
+  citação determinística (`<surname><year><first-significant-word>`,
+  diacríticos removidos, stop-words PT/EN puladas, sufixos
+  `a`/`b`/`c` em colisão), `build_bibtex_render_step` factory.
+  `LatexRenderer` ganha modo external-BibTeX (parâmetros
+  `bib_file=` + `bibliography_style=`) que emite
+  `\bibliographystyle{}` + `\bibliography{}` no lugar do
+  `\thebibliography` inline.
+- **Pipeline de compilação PDF + DOCX** (Fix 7, PR #88) —
+  `build_pdf_compile_step` invoca o ciclo canônico
+  `pdflatex + bibtex + pdflatex × 2` via subprocess; falha
+  graciosa (`StepStatus.SKIPPED`) se `pdflatex`/`bibtex` não
+  estiverem no PATH. `build_docx_from_latex_step` converte o
+  mesmo `.tex` para `.docx` via pandoc com `--bibliography=`.
+  Logs de cada passe gravados em `<base>.compile.log`.
+
+### Mudou
+
+- **`<mandatories>` da SKILL.md** — substituída a regra "GERE
+  sempre o HTML interativo" por "GERE sempre PDF+DOCX (Zenodo);
+  HTML é subcomando-only".
+- **Decisão 18** — escopo limitado ao subcomando `html-wiki`
+  (Fix 8); rebaixada a artefato secundário pela Decisão 36.
+- **Decisão 31 / Decisão 32** — `.docx` agora vem do mesmo `.tex`
+  via pandoc (estruturalmente idêntico ao PDF); `.tex` + `.pdf`
+  reclassificados como artefato canônico.
+
+### Operacional
+
+A v2.23.1 é o pacote operativo até a v3.0.0-rc1 (instalada em
+paralelo) absorver a versão Clean Architecture do pipeline. As
+Decisões 34–37 são vinculantes mecânicas para o Claude na sessão
+de chat; o `pipeline_summary.json` registra as chamadas
+subprocess para verificação a posteriori.
+
 ## [3.0.0-rc1] — 2026-05-07
 
 **Release candidate da reescrita Clean Architecture v3.** Reorganiza

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-01-scoping-review" path="references/modes/mode-01-scoping-review.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 01 — AI-Assisted Scoping Review</title>
+  <markdown><![CDATA[
+# Modo 01 — AI-Assisted Scoping Review
+
+> Camada hierárquica: **PRIMÁRIA** (você sozinho + pesquisa bibliográfica autônoma).
+
+## Caso de uso
+
+Mapear extensão e características da literatura existente sobre um tema, sem julgamento de qualidade individual dos estudos. Apropriado para:
+- Mapeamento exploratório de campo emergente.
+- Identificação de gaps na literatura para fundamentar pesquisa primária futura.
+- Apoio a decisão de design quando síntese sistemática é prematura.
+
+## Layer 1 — Modo
+
+| Dimensão | Especificação |
+|---|---|
+| **review_type** | `scoping_review` |
+| **Reporting guideline primário** | PRISMA-ScR (Tricco et al. 2018) + JBI Manual cap. 11 |
+| **Reporting guideline secundário** | PRISMA-S (extensão de busca) |
+| **Camada hierárquica** | Primária |
+| **Tempo típico de produção** | `user_estimate_15min_unvalidated` |
+| **Selo HTML** | `mode-scoping` (teal) |
+
+## Layer 2 — Reporting guideline (PRISMA-ScR)
+
+| Dimensão | Especificação |
+|---|---|
+| **Itens da checklist** | 22 itens (PRISMA-ScR) |
+| **Itens automatizáveis (full)** | 6 |
+| **Itens automatizáveis (partial)** | 11 |
+| **Itens human-only** | 5 |
+| **Revisores humanos exigidos** | 1 (single-reviewer aceito com transparência) |
+| **AI dual-check exigido** | Recomendado (não obrigatório) |
+| **Pré-registro** | OSF recomendado, PROSPERO opcional |
+
+### Declarações obrigatórias
+
+- **Funding** (blocking)
+- **Conflicts of Interest** (blocking) — pelas 5 mitigações Cat A v2.0
+- **AI Disclosure** (blocking)
+- **Pre-registration link** (major) — OSF recomendado
+- **Data Availability** (major) — pacote Zenodo obrigatório
+
+### Estrutura mínima (seções)
+
+1. Title contendo "scoping review" ou "revisão de escopo"
+2. Structured abstract
+3. Introduction com PCC framework
+4. Methods com critérios PCC + busca + seleção + extração + appraisal
+5. Results com PRISMA flow + characteristics table + síntese descritiva
+6. Discussion com sumário, limitações, implicações
+7. Funding + COI + AI Disclosure
+
+## Layer 3 — Venue padrão e alternativas (OA-first)
+
+### Padrão (OA-gratuito, $0 APC)
+
+**Zenodo** + preprint paralelo conforme área:
+- Saúde: medRxiv
+- Educação: EdArXiv
+- Psicologia: PsyArXiv
+- CS/SE: arXiv (cs.SE/cs.HC/cs.CY)
+- Multi-área Latam: SciELO Preprints
+
+DOI persistente, sem peer review, máxima visibilidade comunitária.
+
+### Alternativas com peer review (Qualis A1 BR, $0 APC)
+
+- **Cadernos de Saúde Pública** (Fiocruz) — A1 saúde, EN
+- **Revista de Saúde Pública** (USP) — A1 saúde, EN/PT/ES
+- **Educação e Pesquisa** (USP) — A1 educação, PT/EN/ES
+- **Revista Brasileira de Educação** (ANPEd) — A1 educação, PT/EN/ES/FR
+
+### Alternativas internacionais (peer review, hybrid/paywall)
+
+- **Educational Research Review** (Elsevier, Q1) — hybrid, ~$3000 APC para OA
+- **Research Synthesis Methods** (Wiley, Q1) — hybrid, ~$3500 APC para OA
+
+## Bases de busca recomendadas
+
+Mínimo: **3 bases** (PRISMA-ScR item 7 + ESS-3 quando CS/SE).
+
+Tier 1 (sempre OA, sempre buscar):
+- **Saúde**: PubMed Central + LILACS + SciELO + EuropePMC
+- **Educação**: ERIC OA filter + SciELO + Google Scholar (limitado)
+- **CS/SE**: arXiv (cs.SE/cs.HC) + DBLP (livre) + Crossref OA filter
+
+Tier 2 (metadados livres, full-text pode requerer fornecimento):
+- **Saúde**: PubMed (todos), CINAHL (subset OA)
+- **Educação**: ERIC (todos), PsycINFO (subset OA)
+- **CS/SE**: Semantic Scholar, OpenAlex
+
+Tier 3 (apenas via material fornecido pelo usuário):
+- Scopus, Web of Science, IEEE Xplore (subset paywall), ACM DL (subset paywall)
+
+## Estudos primários esperados
+
+Tipicamente **30-200 estudos incluídos** após filtragem. Scoping reviews são por definição amplas — número baixo (<20) sugere busca insuficiente; número muito alto (>500) sugere que pergunta de pesquisa é ampla demais e deveria ser um Mapping Study ou subdividida.
+
+## Custos para o usuário
+
+- **APC**: $0 (padrão Zenodo) ou $0 (Qualis A1 BR)
+- **Software**: opcional (Zotero/Mendeley/Rayyan free tier suficientes)
+- **Bases pagas**: não exigidas (Tier 1 + 2 cobre)
+- **Pré-registro**: $0 (OSF gratuito)
+
+## Eliminadores aplicáveis
+
+- E1-E15 todos aplicáveis
+- E16: dispara se manuscrito reivindicar "Systematic Review" sem 2 revisores; manter `review_type: scoping_review` evita o gatilho.
+
+## Limitações declaradas obrigatoriamente no manuscrito
+
+- Single-reviewer (mitigado por AI assistance, não substituído).
+- Não há quality appraisal usado como exclusão (per PRISMA-ScR).
+- Síntese é descritiva-temática, não meta-analítica.
+- Não substitui Systematic Review se evidência precisa orientar guideline clínica/educacional.
+
+## Quando NÃO usar este modo (e qual usar)
+
+- Decisão urgente com prazo curto → Modo 2 (Rapid Review)
+- Pergunta sobre mecanismos causais → Modo 10 (Realist Review)
+- Literatura mista quanti/quali/teórica em saúde/educação → Modo 9 (Integrative Review)
+- Preciso meta-análise com 2 revisores → Modo 4 (SR estrito)
+- CS/SE com classificação categórica → Modo 3 (Mapping Study)
+
+  ]]></markdown>
+</doc>

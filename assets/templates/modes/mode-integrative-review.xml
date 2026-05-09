@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-integrative-review" path="assets/templates/modes/mode-integrative-review.md" type="template" lang="pt-BR">
+  <title>Mode template — Integrative Review</title>
+  <markdown><![CDATA[
+# Mode template — Integrative Review
+
+> Aplica-se quando `review_type: integrative_review` no metadado.
+> Camada hierárquica: **Primária** (pesquisa bibliográfica autônoma em bases OA).
+> Combinar com o template-base.
+
+## Selo obrigatório no header
+
+```html
+<div class="review-mode-badge mode-integrative" role="status">
+  <strong>AI-Assisted Integrative Review</strong>
+  <span class="mode-detail">following Whittemore & Knafl (2005) + Toronto & Remington (2020)</span>
+  <span class="mode-disclaimer">Synthesis of mixed evidence types (quantitative, qualitative, theoretical) under unified narrative.</span>
+</div>
+```
+
+CSS sugerido (integrative = verde-azulado):
+```css
+.review-mode-badge.mode-integrative {
+  background: #e0f2f1;
+  border-left: 4px solid #00695c;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+```
+
+## Quando faz sentido este modo
+
+Integrative Review é apropriado quando:
+- A literatura sobre o tema mistura **estudos quantitativos, qualitativos e teóricos** (comum em saúde, enfermagem, educação).
+- Síntese **narrativa-temática** é mais informativa que meta-analítica.
+- O objetivo é **conhecimento amplo do tópico**, não comparação de efeitos de uma intervenção única.
+- Especialmente comum em revistas brasileiras Qualis A1 em saúde e educação (Cadernos de Saúde Pública, Revista Brasileira de Educação, Educação e Pesquisa, etc.).
+
+Não é apropriado quando:
+- O tema exige comparação rigorosa de efeitos quantitativos → Modo 4 (SR estrito) com meta-análise.
+- Apenas estudos de um tipo metodológico estão na literatura → Modo 1 (Scoping) ou Modo 4 (SR).
+
+## Pré-requisitos
+
+ANTES de iniciar este modo, o usuário deve declarar:
+
+1. **Pergunta de pesquisa** estruturada (PICO, PCC, SPIDER, ou framework apropriado para o tema).
+2. **Variáveis de interesse** definidas operacionalmente.
+3. **Tipos de evidência** que serão incluídos (quanti? quali? teóricos? grey lit?).
+
+## Venue padrão e alternativas (OA-first)
+
+**Padrão**: **Zenodo** + preprint em SciELO Preprints (para temas em PT-BR) ou medRxiv/PsyArXiv conforme área. $0 APC. Coerente com OA-first.
+
+**Alternativas explicadas (Qualis A1 BR fully OA, $0 APC)**:
+- **Cadernos de Saúde Pública (Fiocruz)**: A1 saúde, OJS, $0, EN.
+- **Revista de Saúde Pública (USP)**: A1 saúde, OJS, $0, EN/PT/ES.
+- **Ciência & Saúde Coletiva (Abrasco)**: A1 saúde, OJS, $0, PT/EN/ES.
+- **Educação e Pesquisa (USP)**: A1 educação, OJS, $0, PT/EN/ES.
+- **Revista Brasileira de Educação (ANPEd)**: A1 educação, OJS, $0, PT/EN/ES/FR.
+- **Revista Latino-Americana de Enfermagem (USP)**: alta visibilidade enfermagem, OJS, $0.
+
+**Alternativas internacionais (paywall/hybrid)**:
+- **Journal of Advanced Nursing (Wiley)**: hybrid (~$3500 APC para OA), tradicional para integrative reviews em enfermagem.
+- **International Journal of Nursing Studies (Elsevier)**: hybrid, alto impacto.
+
+A ferramenta apresenta a escolha ao usuário no início. Para autores brasileiros sem orçamento, os Qualis A1 BR são o caminho natural.
+
+## Cinco estágios da metodologia (Whittemore & Knafl)
+
+### Estágio 1 — Problem Identification
+
+- Identificar problema e propósito da revisão.
+- Definir variáveis operacionalmente.
+- Framework de pergunta (PICO, PCC, SPIDER).
+
+### Estágio 2 — Literature Search
+
+- Busca abrangente em ≥3 bases (saúde: PubMed + LILACS + CINAHL/SciELO; educação: ERIC + SciELO + Google Scholar com critérios estritos).
+- Inclusão de literatura teórica + empírica + grey literature quando apropriado.
+- Estratégia de busca documentada por base.
+- Critérios de inclusão/exclusão explícitos.
+- Snowballing forward/backward recomendado.
+
+### Estágio 3 — Data Evaluation
+
+Quality appraisal usando instrumentos apropriados ao tipo de estudo:
+- **Estudos quantitativos**: JBI Critical Appraisal Tools, Newcastle-Ottawa Scale.
+- **Estudos qualitativos**: CASP Qualitative Checklist.
+- **Estudos mixed-methods**: MMAT (Mixed Methods Appraisal Tool).
+- **Estudos teóricos**: avaliação narrativa da contribuição teórica.
+
+### Estágio 4 — Data Analysis
+
+- **Data reduction**: categorização emergente das fontes.
+- **Data display**: matriz/tabela organizando fontes por categorias.
+- **Data comparison**: cross-tabulação de achados entre fontes.
+- **Conclusion drawing and verification**: temas derivados da síntese.
+
+### Estágio 5 — Presentation
+
+- Síntese narrativa com estrutura temática.
+- Implicações para teoria, prática, pesquisa futura.
+- Limitações explícitas (single-reviewer se aplicável; heterogeneidade metodológica).
+
+## Seções obrigatórias do manuscrito
+
+Estrutura padrão IMRaD adaptada:
+
+1. **Introduction** — Problema, justificativa, pergunta de pesquisa.
+2. **Methods** — Cobrir os 5 estágios W&K explicitamente.
+3. **Results** — Características das fontes incluídas (tabela), síntese temática.
+4. **Discussion** — Interpretação dos temas, comparação com literatura.
+5. **Conclusion** — Implicações para teoria, prática, pesquisa.
+6. **Limitations** — OBRIGATÓRIO.
+7. **References** — Vancouver para saúde, ABNT para PT-BR.
+8. **Declarations** — AI Disclosure + Funding + COI.
+
+## Selos no metadado YAML
+
+```yaml
+review_type: integrative_review
+review_purpose: independent_inquiry
+reporting_guideline_primary: WHITTEMORE-KNAFL
+target_venue_primary: zenodo_integrative_review
+target_venue_alternatives: [csp_fiocruz, rsp_usp, csc_abrasco, ep_usp, rbe_anped]
+research_question_framework: ""  # PICO | PCC | SPIDER | other
+included_study_types: []  # ["quantitative", "qualitative", "theoretical", "mixed_methods", "grey_literature"]
+qa_instruments_used: []  # ["JBI", "CASP", "MMAT", "Newcastle-Ottawa"]
+reviewer_count_human: 1
+reviewer_count_ai: 1
+ai_dual_check_sample_pct: 100  # recomendado para single-reviewer
+authors:
+  - name: ""
+    orcid: ""
+    affiliation: ""
+ai_disclosure_required: true
+funding: ""
+conflicts_of_interest: ""
+prospero_or_osf_registration_id: ""  # opcional mas recomendado
+```
+
+## Notas críticas
+
+- Integrative Review **não está na EQUATOR Network** mas é amplamente aceito por revistas brasileiras Qualis A1.
+- Para temas brasileiros, é frequentemente o **formato mais publicável** dada a escassez de A1 internacionais OA-gratuitos e a frequência com que a literatura mistura tipos de estudo.
+- Diferença vs Scoping Review: Scoping mapeia extensão (descritivo); Integrative sintetiza substantivamente (interpretativo).
+- Diferença vs SR: SR exige homogeneidade metodológica + 2 revisores humanos; Integrative aceita heterogeneidade + single-reviewer.
+
+  ]]></markdown>
+</doc>

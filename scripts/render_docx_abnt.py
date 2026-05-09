@@ -27,6 +27,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from _reference_helpers import render_reference_string  # noqa: E402
+
 try:
     from docx import Document
     from docx.shared import Cm, Pt, Inches
@@ -108,6 +111,53 @@ def _set_paragraph_abnt_heading(paragraph) -> None:
         run.bold = True
 
 
+def _add_runs_with_markdown(paragraph, text: str) -> None:
+    """Fix 14 (RS-42 remediation): apply Markdown formatting to a docx paragraph.
+
+    Parses ``**bold**``, ``*italic*``, and ``[text](url)`` and adds appropriate
+    ``add_run()`` calls to ``paragraph`` with ``bold=True`` / ``italic=True``
+    flags (links are not rendered as hyperlinks here — python-docx's hyperlink
+    API requires XML manipulation; for now they render as the link text only,
+    with the URL stripped).
+
+    Plain segments are added as runs without formatting flags. The font name /
+    size are not set here; callers are expected to apply formatting via
+    ``_set_paragraph_abnt_*`` helpers afterwards (which iterate ``paragraph.runs``).
+    """
+    import re
+
+    # Tokenize: split into a sequence of (kind, text) tuples
+    # where kind ∈ {"plain", "bold", "italic", "link_text"}.
+    # Order matters: links first (so [...](url) doesn't get parsed as italic),
+    # then bold (**...**) before italic (*...*) to avoid greedy capture.
+    pos = 0
+    pattern = re.compile(
+        r"\[([^\]]+?)\]\((https?://[^)]+)\)"  # link
+        r"|\*\*([^*]+?)\*\*"                   # bold
+        r"|(?<![\w*])\*([^*\n]+?)\*(?![\w*])"  # italic (word-boundary aware)
+    )
+    for m in pattern.finditer(text):
+        if m.start() > pos:
+            paragraph.add_run(text[pos:m.start()])
+        if m.group(1) is not None:
+            # link: render as the link text (URL stripped — python-docx
+            # hyperlinks require xml plumbing not done here).
+            paragraph.add_run(m.group(1))
+        elif m.group(3) is not None:
+            run = paragraph.add_run(m.group(3))
+            run.bold = True
+        elif m.group(4) is not None:
+            run = paragraph.add_run(m.group(4))
+            run.italic = True
+        pos = m.end()
+    if pos < len(text):
+        paragraph.add_run(text[pos:])
+    # Edge case: if no markdown matched and text wasn't empty, ensure at least
+    # one run exists so callers can apply font formatting.
+    if not paragraph.runs and text:
+        paragraph.add_run(text)
+
+
 def _add_page_numbers(document) -> None:
     """Adiciona numeração de página no canto superior direito (NBR 14724:2011 §5.4)."""
     section = document.sections[0]
@@ -133,7 +183,8 @@ def render_docx_abnt(content: dict, output_path: Path,
                      *, title: str, authors: list[str] | None = None,
                      abstract: str | None = None,
                      keywords: list[str] | None = None,
-                     contextual_preamble_markdown: str | None = None
+                     contextual_preamble_markdown: str | None = None,
+                     paper_mode: bool = True,
                      ) -> DocxRenderResult:
     """Renderiza o manuscrito completo como .docx ABNT.
 
@@ -245,11 +296,18 @@ def render_docx_abnt(content: dict, output_path: Path,
         spacer.paragraph_format.space_after = Pt(18)
 
     sections = content.get("sections", [])
-    for s in sections:
+    for idx, s in enumerate(sections, start=1):
         sec_id = s.get("id", "")
         sec_title = s.get("title", "")
         heading = doc.add_paragraph()
-        heading.add_run(f"§{sec_id} {sec_title}".strip())
+        # Fix 13 (RS-42 remediation): paper_mode controla a forma do título.
+        # Em paper_mode=True (default), emite "<N> Título" com numeração
+        # acadêmica. Em paper_mode=False, mantém o legacy "§<id> Título"
+        # apropriado para o caminho HTML wiki-style.
+        if paper_mode:
+            heading.add_run(f"{idx} {sec_title}".strip())
+        else:
+            heading.add_run(f"§{sec_id} {sec_title}".strip())
         _set_paragraph_abnt_heading(heading)
 
         paragraphs = s.get("paragraphs", [])
@@ -262,13 +320,20 @@ def render_docx_abnt(content: dict, output_path: Path,
             ptype = para.get("type", "body")
             if not text.strip():
                 continue
-            p = doc.add_paragraph(text)
-            if ptype == "long_quote":
+            # Fix 14 (RS-42 remediation): body and long_quote paragraphs may
+            # contain Markdown markers in the manuscript voice. Parse them
+            # into formatted runs instead of leaving asterisks literal.
+            # References are already-formatted ABNT strings — keep plain.
+            p = doc.add_paragraph()
+            if ptype == "reference":
+                p.add_run(text)
+                _set_paragraph_abnt_reference(p)
+            elif ptype == "long_quote":
+                _add_runs_with_markdown(p, text)
                 _set_paragraph_abnt_long_quote(p)
                 n_long_quotes += 1
-            elif ptype == "reference":
-                _set_paragraph_abnt_reference(p)
             else:
+                _add_runs_with_markdown(p, text)
                 _set_paragraph_abnt_body(p)
 
     # Referências
@@ -277,7 +342,7 @@ def render_docx_abnt(content: dict, output_path: Path,
         h = doc.add_paragraph(); h.add_run("Referências")
         _set_paragraph_abnt_heading(h)
         for r in refs:
-            p = doc.add_paragraph(r)
+            p = doc.add_paragraph(render_reference_string(r))
             _set_paragraph_abnt_reference(p)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -314,6 +379,11 @@ def _cli() -> int:
     p.add_argument("--preamble-area", default="multi")
     p.add_argument("--preamble-language", default="pt-BR")
     p.add_argument("--preamble-mock", action="store_true")
+    # Fix 13 (RS-42 remediation)
+    p.add_argument("--legacy-wiki-prefix", action="store_true",
+                   help="(Compatibilidade) Restaura o prefixo legacy '§<id> Título' nas "
+                        "seções (apropriado para HTML wiki-style). Default agora é "
+                        "paper-mode (numeração acadêmica '1 Título', '2 Título'...).")
     args = p.parse_args()
     content = json.loads(Path(args.content_json).read_text(encoding="utf-8"))
 
@@ -339,7 +409,8 @@ def _cli() -> int:
                   "renderizando sem preâmbulo.", file=sys.stderr)
 
     result = render_docx_abnt(content, Path(args.output), title=args.title,
-                                contextual_preamble_markdown=preamble_md)
+                                contextual_preamble_markdown=preamble_md,
+                                paper_mode=not args.legacy_wiki_prefix)
     print(f"[render_docx_abnt] {result.n_sections} seções, "
           f"{result.n_references} refs, {result.n_long_quotes} citações longas, "
           f"{result.file_size_bytes} bytes → {result.output_path}")

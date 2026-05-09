@@ -19,7 +19,7 @@ description: Constrói base de conhecimento via revisão sistemática/scoping/ra
 
 ## Auditoria sistemática
 
-A skill é mantida via auditorias iterativas. Para evitar redescoberta de categorias de bugs, **`references/audits/AUDIT_PROCEDURE.md`** documenta as **27 dimensões conhecidas** de erro em 7 camadas (correção, convenções, especificação, reprodutibilidade, compatibilidade, segurança, lifecycle). Uma rodada de auditoria que cubra todas as dimensões substitui ~5 rodadas improvisadas. Histórico das auditorias em `references/audits/AUDIT_LOG.md`.
+A skill é mantida via auditorias iterativas. Para evitar redescoberta de categorias de bugs, **`references/audits/AUDIT_PROCEDURE.xml`** documenta as **27 dimensões conhecidas** de erro em 7 camadas (correção, convenções, especificação, reprodutibilidade, compatibilidade, segurança, lifecycle). Uma rodada de auditoria que cubra todas as dimensões substitui ~5 rodadas improvisadas. Histórico das auditorias em `references/audits/AUDIT_LOG.xml`.
 
 ## Estado quantitativo da skill (v2.20.0)
 
@@ -30,7 +30,7 @@ A skill em sua versão atual (v2.20.0) tem o seguinte estado quantitativo, expos
 - **7 áreas** suportadas: saude, educacao, cs_se, ciencias_sociais, humanidades, business, multi.
 - **6 etapas** no `pipeline_finalize.py` (cross_tab, format_abnt, render_html_chunks, render_docx_abnt, render_latex, screening_pipeline). A Etapa 6 foi adicionada em v2.19.0 (F5 da auditoria).
 - **291+ testes** com regressão verde a cada release (v2.18.0: 243; v2.18.1: +16 = 259; v2.19.0: +7 = 266; v2.20.0: +25 = 291; v2.21.0: +16 = 307; v2.22.0: +18 = 325).
-- **33 decisões editoriais** em `references/DECISIONS.md` (Decisões 1-33).
+- **33 decisões editoriais** em `references/DECISIONS.xml` (Decisões 1-33).
 - **13 decisões de design (DD)** todas implementadas (DD-1 a DD-13). DD-10 (logs em duas camadas) tem asterisco honesto: Camada 1 nativa só nos 16 paywall; legados via pós-processador do orquestrador. DD-13 (v2.22.0) consolida decisão sobre renderer HTML canônico (`render_chunks.py`) vs alternativo (`render_v2.py`).
 - **3 módulos auxiliares** em `scripts/searches/`: `_adapter_base.py`, `_log_enrichment.py`. Mais 2 standalone em `scripts/`: `screening_pipeline.py`, `contextual_preamble.py`.
 
@@ -79,7 +79,7 @@ Mensagem pré-busca declara 4 categorias:
 
 ## Decisões editoriais v2.0 — três modos de saída e mitigações
 
-> **Registro central de decisões:** Para o registro canônico de **todas** as decisões editoriais e de design da skill (incluindo decisões de arquitetura de adapters, ToS, e estratégia de implementação), consultar `references/DECISIONS.md`. Para o registro de plataformas que NÃO serão implementadas e razões técnicas, consultar `references/WONT_IMPLEMENT.md`. Para a estratégia de rodadas em curso, consultar `references/IMPLEMENTATION_STRATEGY.md`.
+> **Registro central de decisões:** Para o registro canônico de **todas** as decisões editoriais e de design da skill (incluindo decisões de arquitetura de adapters, ToS, e estratégia de implementação), consultar `references/DECISIONS.xml`. Para o registro de plataformas que NÃO serão implementadas e razões técnicas, consultar `references/WONT_IMPLEMENT.xml`. Para a estratégia de rodadas em curso, consultar `references/IMPLEMENTATION_STRATEGY.xml`.
 
 Estas decisões são **vinculantes em toda execução do skill em modo v2.0**:
 
@@ -143,7 +143,7 @@ A Forma muda; o Conteúdo (rigor metodológico, PRISMA itens) é invariante.
 
 ### Decisão 5 — Monitoramento EQUATOR Network
 
-O arquivo `references/equator-monitoring.md` lista as guidelines de IA emergentes (PRISMA-AI, TRIPOD-AI, CHART, CONSORT-AI, SPIRIT-AI, etc.). Job mensal verifica atualizações. Quando uma guideline relevante for publicada, abrir issue obrigatória para incorporação à v2.x.
+O arquivo `references/equator-monitoring.xml` lista as guidelines de IA emergentes (PRISMA-AI, TRIPOD-AI, CHART, CONSORT-AI, SPIRIT-AI, etc.). Job mensal verifica atualizações. Quando uma guideline relevante for publicada, abrir issue obrigatória para incorporação à v2.x.
 
 ### Decisão 6 — "Living review" reservado a protocolo formal
 
@@ -165,11 +165,11 @@ Toda revisão produzida pelo skill deve incluir, sem exceção:
 4. **Categorização `review_purpose`** no metadado: `design_foundational | design_validation | design_correction | independent_inquiry`.
 5. **Pacote de reprodutibilidade Zenodo** completo (Decisão 2).
 
-Mitigações de Categoria B (vinculação bidirecional, auditoria periódica, open peer review) são **decisões editoriais do autor**, fora do escopo do skill. Documentadas em `references/user-guidance/post-deposit-actions.md`.
+Mitigações de Categoria B (vinculação bidirecional, auditoria periódica, open peer review) são **decisões editoriais do autor**, fora do escopo do skill. Documentadas em `references/user-guidance/post-deposit-actions.xml`.
 
 ### Decisão 9 — Sprint Badge marcado como experimental/preview
 
-O Sprint Badge atual (calibrado com n=187 SLRs em v1.x) é mantido na v2.0 mas explicitamente rotulado como **experimental/preview**. Calibração definitiva (regressiva SJR+JIF, n=1.600-3.200) é alvo da v3.0 no Cowork. O whitepaper preliminar está em `references/draft/whitepaper-PRELIMINARY.md` com aviso explícito.
+O Sprint Badge atual (calibrado com n=187 SLRs em v1.x) é mantido na v2.0 mas explicitamente rotulado como **experimental/preview**. Calibração definitiva (regressiva SJR+JIF, n=1.600-3.200) é alvo da v3.0 no Cowork. O whitepaper preliminar está em `references/draft/whitepaper-PRELIMINARY.xml` com aviso explícito.
 
 ### Decisão 10 — Dez modos de saída em hierarquia tripla (v2.1)
 
@@ -193,7 +193,7 @@ A v2.1 expande de 4 para 10 modos de saída do ghostwriter, organizados em três
 
 A ferramenta NÃO oferece o Modo 4 como recomendação default. Ele só é apresentado quando o usuário declara explicitamente que tem segundo revisor humano qualificado disponível, ou quando pergunta especificamente sobre SR estrita. O eliminatório E16 garante essa separação computacionalmente.
 
-Cada modo tem perfil individual detalhado em três layers (modo + reporting guideline + venue padrão+alternativas) em `references/modes/mode-XX-*.md`. O panorama master está em `references/modes/MODES_OVERVIEW.md`.
+Cada modo tem perfil individual detalhado em três layers (modo + reporting guideline + venue padrão+alternativas) em `references/modes/mode-XX-*.md`. O panorama master está em `references/modes/MODES_OVERVIEW.xml`.
 
 ### Decisão 11 — Política OA-first (3 tiers de bases)
 
@@ -203,7 +203,7 @@ A v2.1 formaliza a constraint operacional de que o ghostwriter SÓ consulta base
 - **Tier 2 — metadados livres, full-text pode requerer fornecimento.** Crossref geral, OpenAlex geral, Semantic Scholar, PubMed completo, etc. O ghostwriter declara explicitamente quando full-text não acessível.
 - **Tier 3 — apenas via material fornecido pelo usuário.** Scopus, Web of Science, Embase, IEEE Xplore subset paywall, ACM DL subset paywall, Elsevier ScienceDirect, etc.
 
-Cada modo declara os mínimos esperados de bases Tier 1 (e quando aplicável, se Tier 3 via fornecimento é praticamente exigido). O orquestrador `scripts/searches/search_orchestrator.py` aplica a política e gera disclosure ao usuário pré- e pós-busca. Detalhes completos em `references/databases/oa-tiers.md`.
+Cada modo declara os mínimos esperados de bases Tier 1 (e quando aplicável, se Tier 3 via fornecimento é praticamente exigido). O orquestrador `scripts/searches/search_orchestrator.py` aplica a política e gera disclosure ao usuário pré- e pós-busca. Detalhes completos em `references/databases/oa-tiers.xml`.
 
 ### Decisão 12 — Padrão de venues OA-first com alternativas explicadas
 
@@ -219,7 +219,7 @@ Tempo estimado típico de produção do ghostwriter para qualquer modo: ~15 minu
 
 ### Decisão 13 — Qualis CAPES em transição (registrado em v2.2.0)
 
-A CAPES anunciou em janeiro/2026 que **a classificação conceitual A1-C do Qualis Periódicos será descontinuada para o quadriênio 2025-2028**. Os perfis YAML do ignorantia v2.x usam o quadriênio 2021-2024 (último válido com classificação conceitual) como referência canônica. Quando o novo modelo de avaliação CAPES for publicado, será necessário ciclo de migração dos perfis YAML — registrado como gap em `references/equator-monitoring.md` para revisão futura. A ferramenta declara explicitamente o quadriênio referenciado ao apresentar Qualis ao usuário.
+A CAPES anunciou em janeiro/2026 que **a classificação conceitual A1-C do Qualis Periódicos será descontinuada para o quadriênio 2025-2028**. Os perfis YAML do ignorantia v2.x usam o quadriênio 2021-2024 (último válido com classificação conceitual) como referência canônica. Quando o novo modelo de avaliação CAPES for publicado, será necessário ciclo de migração dos perfis YAML — registrado como gap em `references/equator-monitoring.xml` para revisão futura. A ferramenta declara explicitamente o quadriênio referenciado ao apresentar Qualis ao usuário.
 
 ### Decisão 14 — Vocabulário de tiers OA-first (registrado em v2.2.2)
 
@@ -293,7 +293,7 @@ O test `test_decision_17_excluded_platforms` em `tests/test_v26_tier0.py` valida
 - Retome com `--resume-after-gap-report`.
 - OU pule a resolução com `--skip-gap-resolution` — itens não providenciados serão registrados como "excluídos por inacessibilidade" no PRISMA flow diagram, com motivo declarado para auditoria.
 
-### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0)
+### Decisão 18 — HTML em chunks/append na Fase 7 (registrado em v2.8.0, implementado em v2.10.0; **rebaixada a artefato secundário** em v2.23.1, Decisão 36; **escopo limitado ao subcomando `html-wiki`** em v3.0.0-rc1, Decisão 37)
 
 A renderização anterior fazia uma única passada com substituição de placeholders. Falha em qualquer seção invalidava todo o trabalho. A v2.10.0 implementa renderização incremental em `scripts/render_chunks.py`:
 
@@ -304,6 +304,8 @@ A renderização anterior fazia uma única passada com substituição de placeho
 5. Se uma seção falha, o usuário pode reprocessar só aquela seção sem perder as demais (`--resume-from-chunk N`).
 
 Smoke test `test_render_chunks_does_not_leak_skill_brand` valida que o HTML produzido pelo render incremental também não vaza nome do skill (Decisão 19).
+
+**Escopo (v3.0.0-rc1 — RS-42 remediation):** este protocolo aplica-se **apenas** ao subcomando `ignorantia render --format html-wiki` (Decisão 37). O pipeline canônico (LaTeX → BibTeX → PDF → DOCX) não invoca chunked-render — o `.tex` é gravado em uma única operação porque seu peso é uma ordem de grandeza menor que o HTML auto-contido. A Decisão 34 (Fix 1 do remediation) refina o protocolo de write incremental e também é escopada ao subcomando.
 
 ### Decisão 19 — Anti-vazamento de meta-discurso do skill no manuscrito (registrado em v2.8.0)
 
@@ -322,7 +324,15 @@ Esta decisão é vinculante e mecanicamente verificável. A v2.8.0 limpou:
 - `assets/templates/manuscript-template.html`: removido `<title>... ignorantia v...`, `<meta generator="ignorantia v...">`, brand "ignorantia" no topbar e footer.
 - `scripts/render_manuscript.py`: removido default `"ignorantia v..."` no campo `interface` do AI disclosure (substituído pelo padrão segredo industrial).
 
-A v2.10.0 adicionará teste mecânico `test_decision_19_no_skill_leakage_in_manuscript` que parseia o `manuscript.html` final e falha o build se qualquer dos termos proibidos aparecer no output renderizado.
+A v2.10.0 adicionou teste mecânico que parseia o template final e falha o build se a string literal `"ignorantia"` aparecer. **A v2.23.1 (Fix 10 do RS-42 remediation) expande o escopo** com `scripts/check_decision_19_vocabulary.py`, que vetta uma **família** de leakages encontrados no dogfood RS-42 v1.0.0:
+
+- **SemVer rhetoric** (`v1.0.0`, `v1.1.0`) — texto acadêmico diz "future work", não "v1.1.0".
+- **Referência procedural interna** (`Decisão 8 do protocolo`, `Decisão 22`) — atribui as escolhas metodológicas a um item de checklist em vez do pesquisador.
+- **Classificação interna** (`Categoria A`, `Categoria B`) — taxonomia de mitigações é metadado, não prosa.
+- **Nomes literais de campos JSON** (`review_purpose`, `purpose_per_stage`, `human_oversight`, `execution_method`, etc.) — pertencem ao metadado, não à voz acadêmica.
+- **Brand `ignorantia`** consolidado sob o mesmo verificador.
+
+O verificador é binding: exit code 2 quando há qualquer violação. Deve ser encadeado via `&&` antes do empacotamento Zenodo. Cobertura mecânica em `tests/integration/test_v2231_decision_19_vocabulary.py` (17 casos, incluindo regressão direta com frases extraídas literalmente do RS-42 v1.0.0). LaTeX preamble é ignorado para não falsificar com `\\usepackage[utf8]`.
 
 ### Decisão 20 — Voz autoral padrão (persona) registrada (v2.8.0)
 
@@ -341,6 +351,13 @@ A skill opera como ghostwriter sob uma voz autoral padrão registrada. Esta voz 
 > **O que a persona NÃO faz:** não cita o próprio histórico no texto; não usa primeira pessoa para reivindicar autoridade; não menciona o skill `ignorantia` nem qualquer ferramenta interna do pipeline; não cita a si própria como persona em parte alguma do output.
 
 A persona é instrução para o ghostwriter, não personagem do paper. O pesquisador real (declarado no protocolo) é quem assina; a persona é o estilo do raciocínio textual.
+
+**Adendo de manutenção (v2.23.1, Fix 12 do RS-42 remediation):** o dogfood de 2026-05-08 revelou que a Decisão 20 era seguida só intermitentemente — o consumidor lia o texto descritivo e ainda escrevia `Phase 3 invocou search_orchestrator.py` no manuscrito. A causa: nada na skill tornava a persona mecanicamente acionável. A correção introduziu duas camadas (não documentadas aqui na seção descritiva, mas no corpo operacional da skill):
+
+- `assets/templates/persona-voice.xml` — scaffold pareado anti-padrão ↔ persona, lido pelo consumidor na Fase 7. Operação detalhada em `<mandatories>` e na seção de fluxo de trabalho.
+- `scripts/check_persona_voice.py` — verificador heurístico advisory/strict. Operação detalhada em `<mandatories>`.
+
+**Para quem mantém esta skill:** a Decisão 20 sozinha não bloqueia o vazamento de voz; o scaffold + verificador são o caminho mecânico. Remover qualquer um deles re-abre o anti-padrão observado no dogfood RS-42 v1.0.0.
 
 ### Decisão 21 — Spot-check humano da Fase 4 = aceite implícito ao prosseguir (registrado em v2.8.0)
 
@@ -414,7 +431,7 @@ A heurística "extrair só o núcleo (5-10 estudos)" foi eliminada. O critério 
 
 A rubrica antiga marcava "(Polimento) Idiomas restritos a EN/PT/ES" como lacuna a declarar. Erro: a skill **suporta esses três idiomas por design** (Decisão 7 v2.0). Cumprimento da especificação não é limitação a declarar.
 
-**A v2.9.0 remove** quaisquer linguagens em `references/quality-rubric.md` ou na seção §09 gerada do manuscrito que tratem EN/PT/ES como restrição. Idiomas adicionais (mandarim, francês, alemão) ficam como roadmap declarado para v3.0+/Cowork.
+**A v2.9.0 remove** quaisquer linguagens em `references/quality-rubric.xml` ou na seção §09 gerada do manuscrito que tratem EN/PT/ES como restrição. Idiomas adicionais (mandarim, francês, alemão) ficam como roadmap declarado para v3.0+/Cowork.
 
 ### Decisão 28 — Formatação ABNT NBR 6023:2018 + NBR 10520:2023 obrigatória em pt-BR (registrado em v2.9.0)
 
@@ -448,7 +465,7 @@ Feature anteriormente prevista (camada decorativa de anotações vermelhas estil
 
 **Test-cases legados** (`test-cases/scenarios/{ghostwriter,smoke,corpus18}/manuscript.html`) ainda contêm a feature renderizada — são snapshots históricos de regressão da v1.x e **não vão para o pacote dist**. Não serão reescritos porque sua função é congelar o comportamento histórico para detecção de regressão.
 
-### Decisão 31 — Geração `.docx` ABNT obrigatória (registrado em v2.10.0)
+### Decisão 31 — Geração `.docx` ABNT obrigatória (registrado em v2.10.0; redefinida via `pandoc` a partir do `.tex` em v2.23.1, Fix 7)
 
 Output `.docx` no padrão ABNT (NBR 14724:2011 + NBR 6023:2018 + NBR 10520:2023) é parte obrigatória do pacote final em pt-BR. Implementação em `scripts/render_docx_abnt.py` usando `python-docx`.
 
@@ -463,7 +480,7 @@ Padrões aplicados:
 
 Coopera com `scripts/format_abnt.py` (Decisão 28) — referências e citações já formatadas como string entram como `paragraphs[i].type = "reference"` ou `"long_quote"` no content.json e o renderer aplica a tipografia correta.
 
-### Decisão 32 — Geração `.tex` + `.pdf` obrigatória (registrado em v2.10.0)
+### Decisão 32 — Geração `.tex` + `.pdf` obrigatória (registrado em v2.10.0; reclassificada como **artefato canônico** em v2.23.1, Decisão 36)
 
 Output `.tex` (LaTeX) é parte obrigatória do pacote final. Compilação para `.pdf` é opcional (depende de `pdflatex` ou `xelatex` no PATH). Implementação em `scripts/render_latex.py`.
 
@@ -497,6 +514,213 @@ A v2.8.0 aplicou esta decisão limpando:
 - `scripts/render_manuscript.py` — campo `interface` do AI disclosure passou de `"ignorantia v..."` para `"algoritmo particular do autor (não-divulgado por segredo industrial) + LLM declarado acima"`.
 
 Releases futuras (v2.9.0+) farão varredura sistemática nos demais templates de modo (`assets/templates/modes/*.md`) e nos prompts gerados.
+
+### Decisão 34 — Protocolo de chunked write para SLRs grandes (registrado em v2.23.1, urgência alta)
+
+A Decisão 18 (v2.10.0) implementou renderização incremental em
+`scripts/render_chunks.py`, mas o uso operacional pelo Claude na
+sessão de chat ainda assumia produção do HTML completo numa única
+passada de resposta. Em SLRs com >5 seções OU >20 referências, a
+soma de (a) resultados de buscas web, (b) verificação de DOIs, (c)
+extração + síntese e (d) geração de prosa em uma única resposta
+estoura o budget de contexto antes de qualquer arquivo ser escrito
+em disco. Sintoma observado em RS-42 (2026-05-08): a sessão aborta
+com "Esta conversa não pode ser compactada ainda mais. Inicie um
+novo chat para continuar." sem produzir nenhum artefato.
+
+**Regra operacional vinculante**: SLRs que satisfaçam **qualquer**
+critério abaixo seguem o protocolo de chunked write:
+
+- ≥5 seções no manuscrito (introdução + métodos + resultados +
+  discussão + conclusão já satisfaz);
+- ≥20 referências no corpus final;
+- ≥3 web searches projetadas para a Fase 3;
+- modo `systematic_review_strict` (sempre).
+
+**Protocolo (vincula `Claude` em sessão chat, não código Python)**:
+
+1. **Persistir `searches.json` ANTES da síntese.** Toda Fase 3
+   (busca) escreve `<output_dir>/searches.json` em disco antes de
+   qualquer prosa ser gerada na resposta. O conteúdo do JSON
+   nunca volta para o contexto da resposta — apenas o
+   `searches.json` path é referenciado a partir da Fase 4.
+
+2. **Persistir `extraction.csv` e `quality-appraisal.csv` antes
+   da síntese narrativa.** A Fase 5/6 grava em CSV; a Fase 7 lê
+   o CSV via `python3 scripts/...` e produz prosa **uma seção
+   por vez**.
+
+3. **Renderização HTML por seções (chunked append).** Para cada
+   seção §00, §01, …, §N, invocar em chamada separada:
+
+   ```bash
+   python3 scripts/render_chunks.py \
+       --output-dir <out> \
+       --section §<N> \
+       --append \
+       --content <out>/content-section-<N>.json
+   ```
+
+   Cada chamada é uma round-trip independente. O HTML completo
+   nunca está no contexto da conversa — só o chunk corrente.
+
+4. **Render LaTeX/DOCX/PDF é uma única chamada de pipeline** que
+   lê `<out>/content.json` consolidado em disco (não o contexto):
+
+   ```bash
+   python3 scripts/pipeline_finalize.py \
+       --output-dir <out> \
+       --skip-html-chunks  # já gerados acima
+   ```
+
+5. **NUNCA acumular HTML completo no contexto da conversa.** Se a
+   resposta tiver mais de ~10 KB de prosa renderizada, particionar
+   antes de continuar. O Claude deve preferir "vou gerar a próxima
+   seção em uma chamada separada" a "vou continuar a redação aqui".
+
+**Verificação mecânica**: o pipeline_summary.json gerado deve
+mostrar `"steps": [...]` com `"render_html_chunks"` chamado N
+vezes (uma por seção) **OU** o Claude deve emitir a sequência
+correspondente de subprocess calls visíveis na transcrição.
+Sessões que produzem 0 chamadas a `render_chunks.py --append`
+mas alegam ter renderizado HTML são suspeitas — o usuário deve
+validar.
+
+Esta decisão **não substitui** a Decisão 18; ela formaliza o
+protocolo operacional que Claude segue para *invocar* o mecanismo
+incremental que a Decisão 18 já tinha disponível em código mas
+não estava sendo acionado.
+
+### Decisão 35 — Budget guardrails operacionais por fase (registrado em v2.23.1)
+
+Complementa a Decisão 34 (chunked write) com **limites mecânicos
+por fase** que o Claude verifica em sessão de chat antes de
+prosseguir. O objetivo não é blindar o pipeline contra abuso (não
+há atacante); é dar ao Claude pontos de decisão claros onde optar
+por externalizar trabalho em vez de continuar acumulando no
+contexto.
+
+#### Fase 3 — Buscas web
+
+* **Máximo 5 web searches por execução de SLR** quando a sessão
+  está conduzindo o pipeline diretamente. SLRs maiores devem
+  receber a lista de queries pré-pesquisada via
+  `<output_dir>/searches.json` gerado em sessão anterior.
+* Se a Fase 3 efetiva exigir >5 queries, parar, escrever a lista
+  em `<output_dir>/queries-pending.txt`, recomendar ao usuário
+  rodar `python3 scripts/searches/search_orchestrator.py --batch
+  <queries-pending.txt>` em terminal (subprocess longo fora do
+  chat), e aguardar o `searches.json` consolidado.
+
+#### Fase 6 — Extração
+
+* **Máximo 30 referências processadas em uma única resposta**.
+  Para >30, processar em lotes de 25 escrevendo
+  `extraction.csv` incrementalmente (modo `--append`); cada lote
+  é uma chamada subprocess separada, não uma resposta longa.
+* O CSV vai pra disco a cada lote; o contexto da conversa
+  guarda só o caminho `<output_dir>/extraction.csv`, não os
+  registros.
+
+#### Fase 7 — Síntese narrativa
+
+* **Máximo 1 seção por resposta**. Cada `<section>` HTML é uma
+  chamada subprocess a `render_chunks.py --append --section §<N>`
+  conforme Decisão 34.
+* Se a resposta corrente já tem >10 KB de prosa renderizada,
+  parar antes de iniciar a próxima seção e ceder o controle de
+  volta ao usuário com a próxima seção como próximo passo
+  explicitado.
+
+#### Fase 8 — Empacotamento Zenodo
+
+* Empacotamento final é uma única chamada a
+  `python3 scripts/slr_to_package.py --output-dir <out>`. O
+  conteúdo do ZIP nunca volta ao contexto da conversa — apenas
+  o caminho do `.zip` e o SHA-256 calculado.
+
+#### Verificação mecânica
+
+A Decisão 35 é vinculante mas **não tem teste pytest** — é uma
+diretriz operacional para sessões interativas. A verificação é
+indireta:
+
+* **`pipeline_summary.json`** mostra quantas chamadas a
+  `render_chunks.py --append` ocorreram. Sessões que afirmam ter
+  processado SLR grande mas mostram <N seções no summary são
+  suspeitas.
+* **Logs de adapter (Camada 1, DD-10)** registram timestamps das
+  buscas. Mais de 5 timestamps próximos numa SLR pequena indica
+  que a Fase 3 não foi externalizada.
+
+### Decisão 36 — Reclassificação do HTML como artefato secundário; PDF/DOCX como artefatos acadêmicos canônicos (registrado em v2.23.1)
+
+**Reclassificação de hierarquia de saída**. A v2.10.0 / Decisão 18
+estabeleceu o `manuscript.html` como "renderer canônico" via
+`scripts/render_chunks.py`. Operacionalmente, em uso real
+(RS-42 dogfood, 2026-05-08), ficou claro que o HTML não é o
+artefato acadêmico — é um relatório informativo estilo Wikipedia
+com design instrucional, útil para banca, white paper e leitura
+de divulgação, mas **não é o que vai pro Zenodo como depósito de
+IP**. Para registro acadêmico (proteção contra roubo de ideias,
+citação canônica em catálogos), o que conta é PDF compilado de
+LaTeX + BibTeX.
+
+**Nova hierarquia (vinculante a partir de v2.23.1):**
+
+| Artefato | Papel | Geração default? |
+|---|---|---|
+| `manuscript.tex` | **Source-of-truth** do artigo | ✅ sim |
+| `bibliography.bib` | BibTeX entries (referenciado por `\bibliography{}`) | ✅ sim (após Fix 6) |
+| `manuscript.pdf` | **Citação canônica do depósito Zenodo** (compilado por `pdflatex+bibtex`) | ✅ sim |
+| `manuscript.docx` | Formato secundário para revisores que pedem `.docx` (convertido via `pandoc -s manuscript.tex -o manuscript.docx`) | ✅ sim |
+| `manuscript.html` | Relatório informativo Wikipedia-style (TOC, dark mode, design instrucional) | ❌ **não — só com flag explícita** |
+
+**Implicações operacionais:**
+
+1. **Skill **não** gera HTML por padrão.** O HTML continua acessível
+   mas exige requisição explícita do usuário ("quero o HTML
+   também", "gere a versão Wikipedia", `--with-html` no CLI).
+   Sem isso, o pipeline produz apenas `.tex` + `.bib` + `.pdf` +
+   `.docx`.
+
+2. **HTML, quando pedido, roda em sessão separada.** O HTML
+   chunked-write (Decisão 34) acontece numa invocação
+   independente, depois que o artigo acadêmico (`.pdf`) já
+   foi gerado e salvo. Nunca na mesma sessão de chat. Isso
+   alinha com Fix 8 (relocação do protocolo de chunked render
+   para subcomando separado).
+
+3. **Decisões 18, 31, 32 permanecem em vigor** para os
+   respectivos artefatos, mas a **canonicidade** muda: o
+   "renderer canônico" agora é `render_latex.py` → PDF
+   (Decisão 32 reclassificada). O HTML chunked
+   (`render_chunks.py`, Decisão 18) continua sendo o **canônico
+   para o caminho HTML** quando o caminho HTML é pedido — só
+   que esse caminho deixou de ser default.
+
+4. **Pacote Zenodo**: `manuscript.pdf` + `manuscript.docx` +
+   `manuscript.tex` + `bibliography.bib` + protocolos +
+   logs + declarações. `manuscript.html` permanece em
+   **arquivo separado**, não no ZIP de depósito acadêmico.
+   (Detalhe completo em `docs/MIGRATION_v2_TO_v3.md` e
+   subsequentes notas de release.)
+
+**Justificativa de IP** (motivação primária da Decisão):
+o depósito Zenodo serve para **timestamping autoral imutável** —
+DOI emitido pelo Zenodo + SHA-256 do ZIP + carimbo de data.
+Cumpre a função de *proof-of-anteriority*. PDF é o formato
+universalmente aceito por revisores e catálogos como evidência
+de autoria; HTML não tem essa convenção (cada Zenodo
+landing-page renderiza HTML diferentemente). A escolha
+operacional é gerar primeiro o que protege a IP, depois o que
+diverge para divulgação.
+
+**Migração**: Fixes 6 e 7 (BibTeX como first-class + pipeline
+de compilação PDF/DOCX) fornecem o código que torna esta
+Decisão executável. Até Fix 6 lançar, `manuscript.tex`
+continua emitindo `\thebibliography` inline (compila pra PDF
+mas não gera `.bib` separado).
 
 ## Infraestrutura de comparação automatizada (v2.5.0 — Etapa 4b)
 
@@ -536,8 +760,8 @@ NUNCA omita as 5 mitigações Categoria A de CoI (Decisão 8): pré-registro, de
 </prohibitions>
 
 <mandatories>
-GERE sempre os 8 artefatos secundários: protocol.md, searches.json, screening.csv, quality-appraisal.csv, extraction.csv, prisma-flow.svg, references.bib, README.md.
-GERE sempre o HTML interativo, mesmo quando o usuário pede também .docx ou .tex/.pdf.
+GERE sempre os 8 artefatos secundários: protocol.md, searches.json, screening.csv, quality-appraisal.csv, extraction.csv, prisma-flow.svg, bibliography.bib, README.md.
+GERE sempre o pacote acadêmico canônico: manuscript.tex + bibliography.bib → manuscript.pdf (Zenodo) + manuscript.docx (revisão Word). HTML Wiki-style **NÃO** é gerado pelo fluxo padrão — só quando o usuário invoca explicitamente o subcomando `ignorantia render --format html-wiki` (Decisão 37).
 NOMEIE o pacote como ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip.
 INCLUA hash SHA-256 de cada artefato no README.md.
 APLIQUE a norma de citação correta automaticamente: PT-BR→ABNT; EN+exatas→IEEE; EN+saúde→Vancouver; EN+psicologia/educação→APA.
@@ -547,9 +771,13 @@ PERGUNTE ao usuário, no início, se há acesso institucional a Scopus/WoS/IEEE 
 INSIRA o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN) em §03 ou §03.x do manuscrito, listando ferramenta, versão, etapas e responsabilidade humana.
 PRIORIZE literatura de venues e publishers de elite na busca: Nature/Science/PNAS/Lancet/Cell, periódicos IEEE/ACM/Elsevier/Springer Nature/Wiley/Sage/Taylor & Francis, AAAS, AMA, BMJ, ACS, RSC, APS, ASME, OUP, CUP, MIT Press, conforme área.
 SUGIRA na Fase 8 entre 3 e 5 venues de submissão da área, com URL da política de IA do publisher, ISSN, JIF/CiteScore, modelo de acesso.
-GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.md`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo.
+LEIA `assets/templates/persona-voice.xml` no início da Fase 7, **antes de gerar `content.json`** (Decisão 40, Fix 12 do RS-42 remediation). O scaffold contém anti-padrões pareados extraídos do dogfood RS-42 e checklist pré/pós-escrita de 5 perguntas que torna a Decisão 20 acionável. Não copiar trechos para o manuscrito — o scaffold é instrução, não conteúdo.
+EXECUTE durante a Fase 7 `python3 scripts/check_persona_voice.py <output_dir>/manuscript.tex` em modo advisory para diagnosticar warnings de voz; reescrever os parágrafos sinalizados antes de prosseguir. Adicionar `--strict` ao chain pré-empacotamento (Fase 8) para falhar com exit 2 se a voz ainda vazar.
+GERE ao final da Fase 8 o arquivo `avaliacao_v<X.Y.Z>.md` via `scripts/generate_assessment.py` — nota 0.0-10.0 contra a rubrica em `references/quality-rubric.xml`, com lista priorizada do que falta para 10.0. Nota 10.0 = pronto para venue de elite máxima OU Qualis A1 nacional. Arredondamento sempre para baixo. **A partir de v2.23.1 (Decisão 38, Fix 9 do RS-42 remediation)** o assessor é vinculante: exit code 2 quando há eliminatórios OU nota < 7.0 (configurável via `--gate-min-score`); o sidecar `assessment_gate.json` em `<output_dir>/` registra `passed`/`score`/`eliminatory_count`. Pacote Zenodo **não pode ser empacotado** com `passed: false`. `--no-gate` existe apenas para triagem em sessões de debug; nunca em fluxo de produção.
+EXECUTE antes do empacotamento Zenodo `python3 scripts/check_pipeline_invariants.py <output_dir>` — gate de invariantes (Decisão 39, Fix 11 do RS-42 remediation): I1 rejeita `execution_method=single_session_ad_hoc_web_search` sem `--accept-ad-hoc-search`, I2 exige ≥3 bases referenciadas, I3 rejeita steps com `status: ERROR` no `pipeline_summary.json`. Exit code 2 em violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com I1.
+EXECUTE antes do empacotamento Zenodo `python3 scripts/check_decision_19_vocabulary.py <output_dir>/manuscript.tex` — gate de Decisão 19 (Fix 10 do RS-42 remediation) que vetta SemVer rhetoric, referências `Decisão N do protocolo`, classificação `Categoria A/B` e nomes literais de campos JSON na voz acadêmica. Exit code 2 em qualquer violação; encadear via `&&` antes do ZIP. RS-42 v1.0.0 falharia com 28 violações.
 LISTE no README.md o checklist de compliance executado (CNPq art. 9, COPE, ICMJE, LGPD, CEP/CONEP) com cada item marcado E a nota da avaliação automática.
-DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.md` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
+DECLARE explicitamente, no header e no metadado do manuscrito, o `review_type`. Valores válidos v2.1 (ver `references/modes/MODES_OVERVIEW.xml` e `VALID_REVIEW_TYPES_V21` em `scripts/assessor/eliminators.py`): camada primária = scoping_review | rapid_review | mapping_study | integrative_review | realist_review; camada secundária = software_paper | position_paper | theoretical_essay | technical_report | white_paper | policy_brief; camada terciária = systematic_review_with_2_reviewers — Decisões 1, 10 v2.1.
 DECLARE no metadado o `review_purpose` (design_foundational | design_validation | design_correction | independent_inquiry) — Decisão 8 v2.0.
 GERE pacote de reprodutibilidade via `scripts/zenodo/` antes do depósito Zenodo, com DOIs verificados via Crossref+Retraction Watch+OpenAlex — Decisão 2 v2.0.
 APLIQUE engine de compliance via `scripts/compliance/` contra venue alvo (se declarado) e produza `compliance_report.json` com aggregate_score + dimensões + gaps priorizados + venues alternativos ranqueados.
@@ -573,11 +801,13 @@ O pacote contém `avaliacao_v<X.Y.Z>.md` com nota numérica 0.0-10.0, ponto-a-po
 
 </critical_rules>
 
-## Saída primária: HTML único auto-contido
+## Saída opcional: HTML Wiki-style (subcomando dedicado)
 
-O artefato principal deste skill é **um arquivo HTML** que reúne, num só documento navegável, o manuscrito completo (introdução → método → resultados → discussão → conclusão), o diagrama PRISMA, a tabela interativa de estudos incluídos, gráficos D3.js dinâmicos, a camada de anotações de professor, e a lista de referências clicáveis.
+> **NÃO é o artefato acadêmico canônico.** O artefato canônico para depósito Zenodo / proteção de IP é o **PDF compilado a partir de `manuscript.tex` + `bibliography.bib`** (ver Decisão 32 e Decisão 36 — a serem mescladas pelas Fixes 5/7 do remediation RS-42). O DOCX é secundário (mesma estrutura, formato compatível com revisão Word). O HTML descrito nesta seção é **opt-in**, gerado apenas quando o usuário invoca explicitamente o subcomando `ignorantia render --format html-wiki` — nunca faz parte do pacote acadêmico depositado no Zenodo.
 
-Características obrigatórias do HTML:
+A saída HTML, quando invocada, reúne num só documento navegável o manuscrito completo (introdução → método → resultados → discussão → conclusão), o diagrama PRISMA, a tabela interativa de estudos incluídos, gráficos D3.js dinâmicos, a camada de anotações de professor, e a lista de referências clicáveis. Funciona como artigo no estilo Wikipedia/divulgação técnica — distribuição didática, não registro acadêmico de prioridade. Por causa do seu peso (200-260 KB de tokens em renderização single-pass), depende obrigatoriamente do **protocolo de chunked-render** descrito na Decisão 18 (e refinado pela Decisão 34, a ser mesclada pela Fix 1 do RS-42).
+
+Características obrigatórias quando o subcomando é invocado:
 
 - **Toolbar fixa** com busca textual, filtros por seção/RQ/ano/tipo de estudo, toggles de dark mode e camada de anotações.
 - **Estrutura modular numerada** (§00 prólogo, §01 introdução, ..., §N referências), no estilo dos documentos de referência do projeto. Cada seção é colapsável.
@@ -591,23 +821,87 @@ Características obrigatórias do HTML:
 
 O HTML é **auto-contido**: CSS inline em `<style>`, JS inline em `<script>`, sem dependências externas exceto D3.js v7 carregado via CDN com fallback local opcional. Funciona offline depois de carregado.
 
+### Decisão 37 — HTML Wiki-style segregado em subcomando dedicado (registrado em v3.0.0-rc1)
+
+Após o incidente RS-42 (dogfood falhou com "Esta conversa não pode ser compactada ainda mais" antes de qualquer artefato ser gravado), ficou claro que o pipeline padrão **não pode** assumir geração de HTML como passo obrigatório. O HTML é pesado (200-260 KB de tokens), depende de chunked-render (Decisão 18) e não é o artefato acadêmico — é divulgação. Mistura-lo no fluxo canônico fazia o pipeline falhar antes de produzir o PDF acadêmico, que é o que de fato precisa ser depositado no Zenodo.
+
+**Regra:** o pipeline default da skill produz `manuscript.tex` + `bibliography.bib` → PDF (canônico) + DOCX (secundário). HTML Wiki-style **só é gerado** quando o usuário invoca `ignorantia render --format html-wiki` separadamente, **após** o pipeline canônico ter terminado com sucesso. Implicações:
+
+1. Quando o subcomando `html-wiki` é invocado, o protocolo de chunked-render (Decisão 18, refinado pela Decisão 34 a ser mesclada da Fix 1) é obrigatório.
+2. Falha na renderização HTML **não invalida** o pacote acadêmico (PDF + DOCX já estão em disco).
+3. O HTML gerado **não vai** para Zenodo — o pacote depositado contém apenas o PDF, DOCX, telemetria, declarações éticas e dados de reprodutibilidade.
+4. O HTML é distribuído separadamente (site institucional, blog, redes acadêmicas) como divulgação didática.
+
+Esta decisão fecha o laço aberto pela Decisão 36 (Fix 5 — HTML reclassificado como secundário) ao explicitar **onde no fluxo** o HTML é gerado: nunca dentro do pipeline canônico, sempre como subcomando opt-in posterior. Decisão 18 (chunks) e Decisão 34 (chunked-write) permanecem aplicáveis mas escopadas ao subcomando.
+
+### Decisão 38 — Avaliador automático é gate vinculante para empacotamento Zenodo (registrado em v2.23.1, Fix 9 do RS-42 remediation)
+
+O dogfood RS-42 v1.0.0 (2026-05-08) foi empacotado e entregue mesmo após `scripts/generate_assessment.py` reportar **4.0/10.0** com **três eliminatórios** (cobertura insuficiente, declaração de IA ausente, IA possivelmente listada como autora). O assessor sempre saía com exit code 0; nada programático impedia o empacotamento de um artefato que o próprio sistema marcou como `"INACEITÁVEL para submissão"`. Resultado: usuário recebeu pacote ruim e teve que rejeitar manualmente.
+
+**Regra (vinculante a partir de v2.23.1):** o avaliador é um **gate**. Comportamento padrão:
+
+1. Exit code **2** quando há **qualquer** eliminatório, OU quando a nota final < `--gate-min-score` (default `7.0`).
+2. Sidecar `<package_dir>/assessment_gate.json` sempre escrito, com `{passed, score, min_score, eliminatory_count, eliminatory_failed, score_failed, report_path, version}` para consumo programático por wrappers.
+3. Relatório markdown em `--out` continua sendo escrito mesmo em falha — o gate não suprime a saída humana.
+4. Flag `--no-gate` existe **apenas** para triagem em sessão de debug; nunca em fluxo de produção. Wrappers que invoquem `--no-gate` em produção devem ser tratados como bug.
+
+**Implicações operacionais:**
+
+- Toda chamada do avaliador na Fase 8 deve ser encadeada via shell short-circuit:
+  ```bash
+  python3 scripts/generate_assessment.py ... && \
+      python3 scripts/zenodo/build_package.py ...
+  ```
+  O `&&` honra o exit code 2 e impede a montagem do ZIP quando o gate falha.
+- O Claude, em sessão de chat, deve ler `assessment_gate.json` antes de declarar a entrega como concluída. Se `passed: false`, a próxima ação obrigatória é endereçar os itens da seção "Crítico" do `avaliacao_v<X.Y.Z>.md`, **não** empacotar.
+- Pacote Zenodo com nota baixa só é admissível como artefato de **versão preview/draft** (ex.: `v0.x.y` ou tag `-rc`), nunca como release final.
+
+**Verificação mecânica:** suite em `tests/integration/test_v2231_assessment_gate.py` cobre exit-code 2 em falha por eliminatório, exit-code 2 em falha por score, escrita do sidecar JSON em ambos os casos, escrita do relatório markdown mesmo em falha, e bypass via `--no-gate`. Releases futuras devem manter o gate como invariante de design — relaxar `--gate-min-score` é decisão consciente do operador, não um default.
+
+Esta decisão **complementa** a Decisão 8 (mitigações Categoria A obrigatórias) e a Decisão 19 (anti-vazamento de meta-discurso) ao adicionar o último elo da cadeia: depois de gerar o relatório de qualidade, **respeitar** o relatório.
+
+### Decisão 39 — Invariantes de pipeline são gate vinculante para empacotamento (registrado em v2.23.1, Fix 11 do RS-42 remediation)
+
+O dogfood RS-42 v1.0.0 (2026-05-08) declarou em `searches.json.metadata.execution_method` o valor `single_session_ad_hoc_web_search` — Claude executou 5 queries via Google SERP em sessão de chat em vez de invocar o `search_orchestrator.py` com as 14+ bases Tier 1+Tier 2 que a SKILL.md prescreve. O pacote foi finalizado mesmo assim porque nada programático bloqueou.
+
+**Regra (vinculante a partir de v2.23.1):** três invariantes mecânicos são verificados antes do empacotamento Zenodo via `scripts/check_pipeline_invariants.py`:
+
+- **I1 — método de execução não-ad-hoc.** `searches.json.metadata.execution_method` não pode ser `single_session_ad_hoc_web_search` em fluxo de produção. Operador pode passar `--accept-ad-hoc-search` para aceitar conscientemente uma cobertura parcial (preview/draft), mas isso é decisão deliberada e nunca o default.
+- **I2 — cobertura mínima de bases.** ≥3 bases distintas em `metadata.tier1_databases_actually_queried` (ou layout legado `per_database`). PRISMA-2020 espera múltiplas bases; pipelines com 0–2 violam o protocolo.
+- **I3 — sem steps em ERROR.** Quando `pipeline_summary.json` existe, nenhum step pode ter `status: ERROR`. Steps com falha devem ser resolvidos antes do empacotamento.
+
+Exit code do verificador:
+
+| Código | Significado |
+|---|---|
+| 0 | Todos os invariantes passam — pacote pode ser empacotado |
+| 1 | Input ausente ou inválido (`searches.json` faltando ou JSON quebrado) |
+| 2 | Pelo menos um invariante falhou |
+
+Comportamento: deve ser encadeado via `&&` antes do ZIP, igual à Decisão 38 (assessor gate) e à expansão da Decisão 19 (vocabulário). A combinação dos três gates fecha o caminho que permitiu RS-42 v1.0.0 ser entregue como pacote final.
+
+**Verificação mecânica:** suite em `tests/integration/test_v2231_pipeline_invariants.py` (17 casos) cobre cada invariante isoladamente, o bypass via flag explícita, layouts v3 e v2 do `searches.json`, e regressão direta com payload extraído do RS-42 v1.0.0.
+
 ## Saídas secundárias (geradas em paralelo)
 
-Sempre acompanham o HTML, no mesmo pacote versionado:
+Acompanham o pipeline canônico (PDF + DOCX), no mesmo pacote versionado depositado no Zenodo:
 
-- `protocol.md` — protocolo pré-registrado da SLR (template em `assets/templates/protocol.md`).
+- `protocol.md` — protocolo pré-registrado da SLR (template em `assets/templates/protocol.xml`).
 - `searches.json` — strings booleanas, datas, hits brutos por base.
 - `screening.csv` — cada paper com decisão (incluir/excluir/dúvida) e CI/CE invocado.
 - `quality-appraisal.csv` — pontuação CASP/DARE/Kitchenham por estudo, por questão.
 - `extraction.csv` — formulário de extração preenchido.
 - `prisma-flow.svg` e `prisma-flow.pdf` — diagrama PRISMA (gerado por `scripts/prisma_flow.py`).
-- `references.bib` — bibliografia em BibTeX para reuso em LaTeX.
+- `bibliography.bib` — bibliografia em BibTeX, consumida tanto pela compilação canônica do PDF (via `\bibliography{}` no `.tex`) quanto pela conversão DOCX via pandoc.
 - `README.md` — versão, hashes, instruções de reprodução.
 
-**Manuscrito formal opcional:**
-- `manuscript.tex` + `manuscript.pdf` — quando exatas e idioma EN (norma IEEE).
-- `manuscript.docx` — quando humanas/saúde, ou quando idioma é PT-BR (ABNT).
-- O HTML interativo é sempre gerado, independentemente da saída formal.
+**Manuscrito acadêmico canônico (default, sempre gerado):**
+- `manuscript.tex` — fonte LaTeX que importa `bibliography.bib`.
+- `manuscript.pdf` — PDF compilado por `pdflatex + bibtex + pdflatex × 2` (Fix 7). **Este é o artefato depositado no Zenodo.**
+- `manuscript.docx` — DOCX convertido do mesmo `.tex` via pandoc (Fix 7), estruturalmente idêntico ao PDF, para revisão Word.
+
+**Distribuição didática opcional (subcomando separado):**
+- `manuscript.html` — HTML Wiki-style auto-contido. Gerado **apenas** quando `ignorantia render --format html-wiki` é invocado explicitamente. **Não vai** para o pacote Zenodo. Ver Decisão 37.
 
 ## Compliance ético e legal
 
@@ -623,7 +917,7 @@ Aplicar **simultaneamente**:
 - **LGPD (Lei 13.709/2018)** — não inserir dados pessoais de terceiros em IAG. Cuidado especial com temas de saúde, menores, dados sensíveis.
 - **Lei de Direitos Autorais (Lei 9.610/1998)** — citação com atribuição (já garantida pelos DOI/URL clicáveis), paráfrase como padrão, não reproduzir figuras de outras obras.
 
-Carregue `references/compliance-ptbr.md` para detalhes operacionais e o checklist completo. Esse arquivo contém também o **bloco padrão da declaração de IA** que deve entrar tanto no HTML quanto no manuscrito formal.
+Carregue `references/compliance-ptbr.xml` para detalhes operacionais e o checklist completo. Esse arquivo contém também o **bloco padrão da declaração de IA** que deve entrar tanto no HTML quanto no manuscrito formal.
 
 ### Manuscritos internacionais (EN)
 
@@ -633,7 +927,7 @@ Aplicar **simultaneamente**:
 - **ICMJE Recommendations (jan 2024 update)** — Sections II.A.3-4 e IV.A.3.d: declaração no submission cover letter e no manuscript; AI não citável como fonte; revisores não fazem upload de manuscritos a LLMs.
 - **Política específica do publisher-alvo** quando conhecido. As principais (Elsevier, Springer Nature, Wiley, Taylor & Francis, Sage, IEEE, ACM, AAAS/Science, Nature, BMJ, JAMA, OUP, CUP, MIT Press, ACS, RSC, APS, ASME, AMA) têm políticas alinhadas com COPE/ICMJE mas com variações específicas — consultar.
 
-Carregue `references/compliance-international.md` para detalhes operacionais, lista de venues de elite por área, política específica de cada publisher, e o **bloco padrão "Declaration of AI use"** em inglês.
+Carregue `references/compliance-international.xml` para detalhes operacionais, lista de venues de elite por área, política específica de cada publisher, e o **bloco padrão "Declaration of AI use"** em inglês.
 
 ### Preferência por publishers/instituições de elite
 
@@ -650,7 +944,7 @@ Tanto na fase 3 (busca) quanto na fase 8 (recomendação de venue para submissã
 - Imprensas universitárias: OUP, CUP, MIT Press.
 - OA de elite: PLOS, eLife, Royal Society Open Science.
 
-A lista completa por área, com URLs e ISSNs, está em `references/compliance-international.md`. Na **Fase 8**, a skill produz uma lista de **3-5 venues sugeridos** para submissão, com nome, publisher, URL da política de IA do publisher, ISSN, JIF/CiteScore mais recente, ciclo editorial típico, e modelo de acesso.
+A lista completa por área, com URLs e ISSNs, está em `references/compliance-international.xml`. Na **Fase 8**, a skill produz uma lista de **3-5 venues sugeridos** para submissão, com nome, publisher, URL da política de IA do publisher, ISSN, JIF/CiteScore mais recente, ciclo editorial típico, e modelo de acesso.
 
 ### Acesso legítimo a bases pagas
 
@@ -674,7 +968,7 @@ A skill pode gerar, sob demanda, um script Python (`scripts/download_via_proxy.p
 
 A primeira saída completa é **v1.0.0**. Cada saída posterior é um pacote novo (HTML + secundários + flow + bib + readme), com seu próprio número de versão e data ISO. **Saídas antigas não são editadas — elas permanecem como registro histórico.** O `README.md` de cada versão lista o que mudou em relação à anterior, com link ao pacote anterior se houver.
 
-A ler obrigatoriamente: `references/semver-policy.md` antes de qualquer publicação de versão.
+A ler obrigatoriamente: `references/semver-policy.xml` antes de qualquer publicação de versão.
 
 ## PRISMA-2020 — execução completa, não apenas documentação
 
@@ -685,8 +979,8 @@ Estes elementos são todos **executados**, com artefato real saindo do pipeline:
 3. **Strings booleanas por base** — uma por base na sintaxe correta (ACM, IEEE Xplore, Scopus, WoS, dblp, SciELO, CAPES, etc.). (`searches.json`)
 4. **Critérios de inclusão/exclusão** numerados, aplicados, decisão registrada para cada paper. (`screening.csv`)
 5. **PRISMA flow diagram** com números reais — identificados, deduplicados, screened, full-text avaliados, incluídos. (`prisma-flow.svg/pdf`, gerado por `scripts/prisma_flow.py`)
-6. **Quality appraisal** CASP ou DARE para cada estudo incluído. (`quality-appraisal.csv`, instrumento descrito em `assets/templates/quality-appraisal.md`)
-7. **Extração de dados** num formulário pré-definido. (`extraction.csv`, schema em `assets/templates/extraction-form.md`)
+6. **Quality appraisal** CASP ou DARE para cada estudo incluído. (`quality-appraisal.csv`, instrumento descrito em `assets/templates/quality-appraisal.xml`)
+7. **Extração de dados** num formulário pré-definido. (`extraction.csv`, schema em `assets/templates/extraction-form.xml`)
 8. **Reprodutibilidade** — outro pesquisador que rode o pipeline com o protocolo chega ao mesmo conjunto de papers (sujeito a atualizações dos índices). Pacote completo no Zenodo.
 
 **Cohen's kappa entre dois revisores:** o skill **não simula** o segundo revisor. O pacote vai ao Zenodo, dois professores humanos fazem a revisão independente, e o kappa é computado por eles. O skill produz a primeira passagem e a infraestrutura para a segunda.
@@ -721,11 +1015,11 @@ Pergunte cobrindo as 8 dimensões abaixo. Use `ask_user_input_v0` quando o ambie
 9. **Venue-alvo (opcional).** Se o usuário já tem um periódico/conferência em mente para submissão, registre — a skill ajusta norma de citação, comprimento, e estrutura ao máximo. Se não tem, a Fase 8 sugere 3-5 venues. Em pt-BR, perguntar também se há programa de pós-graduação stricto sensu vinculado (Plataforma Sucupira). Em EN, perguntar a área-foco para alinhar com o publisher de elite mais adequado.
 10. **Vinculação a financiador.** Se o usuário recebe fomento CNPq/CAPES/FAP, informar — afeta as declarações obrigatórias e o local de pré-registro do protocolo (Zenodo serve em todos os casos; PROSPERO se for SLR de saúde).
 
-Carregue `references/interview-protocol.md` para o checklist completo.
+Carregue `references/interview-protocol.xml` para o checklist completo.
 
 ### Fase 2 — Protocolo pré-registrado
 
-Use `assets/templates/protocol.md`. Valide explicitamente com o usuário antes de qualquer busca. Salve como `protocol-v<X.Y.Z>.md`.
+Use `assets/templates/protocol.xml`. Valide explicitamente com o usuário antes de qualquer busca. Salve como `protocol-v<X.Y.Z>.md`.
 
 ### Fase 3 — Execução das buscas
 
@@ -733,7 +1027,7 @@ Use `assets/templates/protocol.md`. Valide explicitamente com o usuário antes d
 
 **Bases guiadas** (Scopus, WoS, IEEE Xplore, ScienceDirect, Springer Link, Portal CAPES): gerar string booleana correta + instruções; se acesso institucional, gerar Python script via proxy. Nunca burlar paywall.
 
-Carregue `references/databases/international.md` ou `references/databases/portuguese.md`.
+Carregue `references/databases/international.xml` ou `references/databases/portuguese.xml`.
 
 Para cada base: data, string usada, hits brutos. Salvar em `searches.json`.
 
@@ -743,11 +1037,11 @@ Para cada base: data, string usada, hits brutos. Salvar em `searches.json`.
 
 ### Fase 5 — Quality appraisal
 
-CASP ou DARE para todos. Kitchenham QA1–QA8 adicional se SE. Score por estudo. Threshold: estudos abaixo do corte ficam sinalizados na síntese, mas a inclusão/exclusão pelo QA é registrada. Saída: `quality-appraisal.csv`. Carregue `assets/templates/quality-appraisal.md`.
+CASP ou DARE para todos. Kitchenham QA1–QA8 adicional se SE. Score por estudo. Threshold: estudos abaixo do corte ficam sinalizados na síntese, mas a inclusão/exclusão pelo QA é registrada. Saída: `quality-appraisal.csv`. Carregue `assets/templates/quality-appraisal.xml`.
 
 ### Fase 6 — Extração
 
-Formulário pré-definido (`assets/templates/extraction-form.md`). Saída: `extraction.csv`.
+Formulário pré-definido (`assets/templates/extraction-form.xml`). Saída: `extraction.csv`.
 
 ### Fase 7 — Síntese e geração do HTML interativo
 
@@ -761,9 +1055,9 @@ A geração do HTML usa `assets/templates/manuscript-template.html` como base e 
 - Renderizar referências como `[n]` com `<a href="DOI">` e `<span class="ref-tooltip">` para o tooltip.
 - Renderizar a camada de anotações como `<aside class="annotation" data-anchor="paragraph-id">` que aparece via toggle.
 - Aplicar a paleta correspondente à área (dark mode opcional).
-- **Inserir o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN)** em §03.x, conforme `references/compliance-ptbr.md` ou `references/compliance-international.md`.
+- **Inserir o bloco "Declaração de uso de IAG" (pt-BR) ou "Declaration of AI use" (EN)** em §03.x, conforme `references/compliance-ptbr.xml` ou `references/compliance-international.xml`.
 
-Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|vancouver|apa|abnt}.md`. Carregue `references/output-design-patterns.md` para detalhes de layout, paleta, e padrões de interação.
+Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|vancouver|apa|abnt}.md`. Carregue `references/output-design-patterns.xml` para detalhes de layout, paleta, e padrões de interação.
 
 ### Fase 8 — Manuscrito formal opcional + sugestão de venues + empacotamento
 
@@ -782,7 +1076,7 @@ Carregue o arquivo de norma correspondente: `references/citation-styles/{ieee|va
 - Estimativa de ciclo editorial (semanas até primeira decisão)
 - Justificativa breve da adequação ao tema
 
-Lista canônica das instituições/publishers a priorizar, por área, em `references/compliance-international.md`. Para pt-BR, complementar com a verificação dos Documentos de Área CAPES (`references/compliance-ptbr.md`).
+Lista canônica das instituições/publishers a priorizar, por área, em `references/compliance-international.xml`. Para pt-BR, complementar com a verificação dos Documentos de Área CAPES (`references/compliance-ptbr.xml`).
 
 Salve em `venue-suggestions.md` no pacote.
 
@@ -796,7 +1090,7 @@ Salve em `venue-suggestions.md` no pacote.
 - `venue-suggestions.md` — lista de 3-5 venues
 - `ai-declaration.md` — cópia standalone da declaração de uso de IA (pt-BR ou EN)
 - `compliance-checklist.md` — checklist com cada item marcado (CNPq art. 9, COPE/ICMJE quando EN, LGPD, CEP/CONEP, LDA, periódicos prioritários consultados)
-- **`avaliacao_v<X.Y.Z>.md`** — relatório de avaliação automática contra a rubrica de qualidade. Gerado obrigatoriamente por `scripts/generate_assessment.py` ao final da Fase 8. Contém: nota final 0.0–10.0, notas por dimensão (D1 metodologia, D2 compliance, D3 corpus, D4 textual, D5 apresentação), bonificadores aplicados, eliminatórios verificados, **lista priorizada do que falta para nota 10.0** (separada em Crítico / Importante / Polimento), e veículo-alvo recomendado conforme a faixa de nota. **Critério essencial:** a nota 10.0 só é atingida quando o manuscrito está pronto para submissão a pelo menos UM venue de elite máxima (Elsevier/Nature/Wiley/T&F/Sage flagships, IEEE/ACM Transactions, ASME, APS, ACS, RSC, AAAS, AMA/JAMA, BMJ, NEJM/MMS, OUP, CUP, MIT Press) ou Qualis A1 nacional para pt-BR. A nota é arredondada SEMPRE para baixo. Detalhes da rubrica em `references/quality-rubric.md`.
+- **`avaliacao_v<X.Y.Z>.md`** — relatório de avaliação automática contra a rubrica de qualidade. Gerado obrigatoriamente por `scripts/generate_assessment.py` ao final da Fase 8. Contém: nota final 0.0–10.0, notas por dimensão (D1 metodologia, D2 compliance, D3 corpus, D4 textual, D5 apresentação), bonificadores aplicados, eliminatórios verificados, **lista priorizada do que falta para nota 10.0** (separada em Crítico / Importante / Polimento), e veículo-alvo recomendado conforme a faixa de nota. **Critério essencial:** a nota 10.0 só é atingida quando o manuscrito está pronto para submissão a pelo menos UM venue de elite máxima (Elsevier/Nature/Wiley/T&F/Sage flagships, IEEE/ACM Transactions, ASME, APS, ACS, RSC, AAAS, AMA/JAMA, BMJ, NEJM/MMS, OUP, CUP, MIT Press) ou Qualis A1 nacional para pt-BR. A nota é arredondada SEMPRE para baixo. Detalhes da rubrica em `references/quality-rubric.xml`.
 - `README.md` com SemVer, datas, hashes SHA-256, link para versão anterior se houver, e resumo do checklist + nota da avaliação automática
 - `LICENSE` (CC-BY-4.0 default, confirmado com usuário)
 
@@ -810,9 +1104,11 @@ Salve em `venue-suggestions.md` no pacote.
 6. Para SLRs em saúde, considerar pré-registro adicional no PROSPERO (https://www.crd.york.ac.uk/prospero/).
 7. Para vinculados a programa de pós-graduação stricto sensu brasileiro, declarar a publicação na Plataforma Sucupira após o aceite do periódico-alvo.
 
-## Padrões de design do HTML — referência rápida
+## Padrões de design do HTML — referência rápida (subcomando `html-wiki`)
 
-A leitura completa está em `references/output-design-patterns.md`. Pontos críticos:
+> Aplica-se **apenas** quando o subcomando opcional de renderização HTML é invocado (Decisão 37). O pipeline canônico (PDF + DOCX) não usa estes padrões — usa LaTeX puro com BibTeX externo (Fix 6).
+
+A leitura completa está em `references/output-design-patterns.xml`. Pontos críticos:
 
 - **Numeração de seções** explícita (§00–§N), igual aos documentos de referência do projeto.
 - **Tiers/categorias com cor temática.** Ex.: tier A vermelho, B laranja, C azul, D verde, E cinza. Definir paleta no início do template, derivar do tema da área.
@@ -835,20 +1131,20 @@ A leitura completa está em `references/output-design-patterns.md`. Pontos crít
 
 ### Existentes desde v1.x
 
-- `references/interview-protocol.md` — checklist da entrevista
-- `references/prisma-2020.md` — checklist PRISMA-2020 e diagrama
-- `references/kitchenham.md` — guidelines Kitchenham
+- `references/interview-protocol.xml` — checklist da entrevista
+- `references/prisma-2020.xml` — checklist PRISMA-2020 e diagrama
+- `references/kitchenham.xml` — guidelines Kitchenham
 - `references/citation-styles/{ieee,vancouver,apa,abnt}.md` — exemplos por tipo de fonte
-- `references/databases/international.md` — sintaxe de busca por base internacional
-- `references/databases/portuguese.md` — sintaxe de busca por base lusófona
-- `references/output-design-patterns.md` — padrões de design do HTML interativo
-- `references/semver-policy.md` — política de versionamento SemVer das saídas
-- `references/compliance-ptbr.md` — Portaria CNPq nº 2.664/2026, CAPES, CEP/CONEP, LGPD, LDA
-- `references/compliance-international.md` — COPE, ICMJE, políticas dos publishers de elite
-- `references/quality-rubric.md` — rubrica de avaliação 0.0-10.0 com 5 dimensões
-- `assets/templates/protocol.md` — template de protocolo pré-registrado
-- `assets/templates/extraction-form.md` — schema de extração
-- `assets/templates/quality-appraisal.md` — instrumentos CASP/DARE/Kitchenham
+- `references/databases/international.xml` — sintaxe de busca por base internacional
+- `references/databases/portuguese.xml` — sintaxe de busca por base lusófona
+- `references/output-design-patterns.xml` — padrões de design do HTML interativo
+- `references/semver-policy.xml` — política de versionamento SemVer das saídas
+- `references/compliance-ptbr.xml` — Portaria CNPq nº 2.664/2026, CAPES, CEP/CONEP, LGPD, LDA
+- `references/compliance-international.xml` — COPE, ICMJE, políticas dos publishers de elite
+- `references/quality-rubric.xml` — rubrica de avaliação 0.0-10.0 com 5 dimensões
+- `assets/templates/protocol.xml` — template de protocolo pré-registrado
+- `assets/templates/extraction-form.xml` — schema de extração
+- `assets/templates/quality-appraisal.xml` — instrumentos CASP/DARE/Kitchenham
 - `assets/templates/manuscript-template.html` — template HTML interativo
 
 ### Novos na v2.0
@@ -857,13 +1153,13 @@ A leitura completa está em `references/output-design-patterns.md`. Pontos crít
 - `references/profiles/_guidelines/{prisma-2020,prisma-s,prisma-scr,prisma-rr,mecir,campbell-standards,sigsoft-empirical-standards}.yaml` — perfis declarativos das reporting guidelines
 - `references/profiles/venues_a1_br/{csp_fiocruz,rsp_usp,csc_abrasco,ep_usp,rbe_anped,cp_fcc,jbcs_sbc,jistem_usp,rbie_sbc}.yaml` — 9 venues brasileiros
 - `references/profiles/venues_q1_int/{nejm,lancet,bmj,cdsr,tse_ieee,tosem_acm,emse_springer,err_elsevier,rer_aera,campbell_sage,rsm_wiley}.yaml` — 11 venues Q1 internacionais
-- `references/equator-monitoring.md` — monitoramento de guidelines de IA emergentes
-- `references/claude-chat-tasks/c7-semantic-review.md` — prompt estruturado para C7 (releitura semântica) — *presente no full package; removido do dist por limite de 200 arquivos*
-- `references/claude-chat-tasks/c8-originality-check.md` — prompt para C8 (originalidade real) — *idem*
-- `references/claude-chat-tasks/c9-linguistic-quality.md` — prompt para C9 (qualidade linguística) — *idem*
-- `references/claude-chat-tasks/c10-t4-depth-and-temperature.md` — prompts para C10 (profundidade) e T4 (agregação) — *idem*
-- `references/draft/whitepaper-PRELIMINARY.md` — whitepaper preliminar do Sprint Badge (rotulado como rascunho até v3.0) — *presente no full package; removido do dist*
-- `references/user-guidance/post-deposit-actions.md` — orientações ao usuário sobre mitigações Cat. B (vinculação bidirecional, auditoria periódica, open peer review) — fora do escopo do skill
+- `references/equator-monitoring.xml` — monitoramento de guidelines de IA emergentes
+- `references/claude-chat-tasks/c7-semantic-review.xml` — prompt estruturado para C7 (releitura semântica) — *presente no full package; removido do dist por limite de 200 arquivos*
+- `references/claude-chat-tasks/c8-originality-check.xml` — prompt para C8 (originalidade real) — *idem*
+- `references/claude-chat-tasks/c9-linguistic-quality.xml` — prompt para C9 (qualidade linguística) — *idem*
+- `references/claude-chat-tasks/c10-t4-depth-and-temperature.xml` — prompts para C10 (profundidade) e T4 (agregação) — *idem*
+- `references/draft/whitepaper-PRELIMINARY.xml` — whitepaper preliminar do Sprint Badge (rotulado como rascunho até v3.0) — *presente no full package; removido do dist*
+- `references/user-guidance/post-deposit-actions.xml` — orientações ao usuário sobre mitigações Cat. B (vinculação bidirecional, auditoria periódica, open peer review) — fora do escopo do skill
 
 ### Scripts
 

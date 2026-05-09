@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="mode-06-position-paper" path="references/modes/mode-06-position-paper.md" type="mode-spec" lang="pt-BR">
+  <title>Modo 06 — Position Paper / Theoretical Essay</title>
+  <markdown><![CDATA[
+# Modo 06 — Position Paper / Theoretical Essay
+
+> Camada hierárquica: **SECUNDÁRIA** (você sozinho + tese argumentativa fornecida).
+
+## Caso de uso
+
+Documento argumentativo defendendo uma posição (filosófica, metodológica, política) com argumentação rigorosa estruturada (Toulmin/Walton-inspired). Busca bibliográfica é complementar para fundamentar argumentos.
+
+## Layer 1 — Modo
+
+| Dimensão | Especificação |
+|---|---|
+| **review_type** | `position_paper` (alias: `theoretical_essay`) |
+| **Reporting guideline primário** | POSITION-PAPER-GENERIC |
+| **Camada hierárquica** | Secundária |
+| **Tempo típico de produção** | `user_estimate_15min_unvalidated` |
+| **Selo HTML** | `mode-position-paper` (magenta) |
+
+## Layer 2 — Reporting guideline (POSITION-PAPER-GENERIC)
+
+| Dimensão | Especificação |
+|---|---|
+| **Itens checklist** | 12 itens |
+| **Revisores humanos** | 1 (autor) |
+| **AI Disclosure** | OBRIGATÓRIO |
+| **Comprimento** | 3000-10000 palavras conforme venue |
+
+### Pré-requisitos (declarações iniciais do usuário)
+
+- A tese (claim) explícita em uma frase clara
+- Audiência alvo
+- Premissas filosóficas/empíricas/metodológicas
+- Escopo do argumento (onde se aplica e onde não)
+
+### Estrutura obrigatória
+
+1. Background / Context
+2. Position Statement explícito (claim)
+3. Argumentation (grounds + warrants + backing)
+4. **Counter-arguments** (OBRIGATÓRIO — sem isso vira propaganda)
+5. Qualifiers + Rebuttals
+6. Implications (prática + política + pesquisa)
+7. Author's epistemological position (recomendado)
+8. AI Disclosure
+9. References (literatura argumentativa, busca complementar OA)
+10. Funding + COI
+
+## Layer 3 — Venue padrão e alternativas (OA-first)
+
+### Padrão (OA-gratuito, $0 APC)
+
+**Zenodo** (Position Paper) + preprint paralelo no servidor da área:
+- Filosofia/educação: PhilArchive ou EdArXiv
+- Psicologia: PsyArXiv
+- CS/SE: arXiv (cs.HC/cs.CY)
+- Política/sociologia: SSRN
+
+DOI persistente, sem peer review formal mas com visibilidade comunitária.
+
+### Alternativas com peer review
+
+- **AI & Society (Springer)** — hybrid OA, ~$2890 APC, escopo filosófico-social amplo (~6000-10000 palavras).
+- **Communications of the ACM (Viewpoints)** — hybrid, formato curto, alta visibilidade CS.
+- **IEEE Software (Insights/Viewpoints)** — hybrid, formato curto (~3000 palavras), foco SE.
+
+## Bases de busca
+
+Busca complementar (não sistemática) em Tier 1 OA:
+- **Filosofia/educação**: PhilArchive + ERIC OA + Google Scholar (limitado)
+- **CS/SE**: arXiv + DBLP
+- **Multi-área**: SciELO + OpenAlex (filtro is_oa=true)
+
+10-30 referências argumentativas tipicamente.
+
+## Estudos primários esperados
+
+**Não aplicável** — Position Paper não revisa literatura sistematicamente. Cita evidência seletiva para fundamentar argumentação.
+
+## Custos para o usuário
+
+- **APC**: $0 (Zenodo) ou $2890 (AI & Society)
+- **Software**: nenhum
+- **Tempo**: o trabalho intelectual é predominantemente humano (formulação da posição)
+
+## Caso particular do projeto base
+
+Para o projeto: posições candidatas para Position Paper:
+- "AI-assisted single-reviewer reviews are honest when properly framed; pretending two-reviewer rigor without it is dishonest."
+- "Form is auto-correctable; Content requires human judgment — operationalizing the distinction in AI-assisted academic writing."
+- "Volume of literature reviews requires honest mode taxonomy, not all reviews can be 'systematic'."
+
+Cada uma seria Position Paper distinto, com argumentação específica.
+
+## Limitações declaradas
+
+- Não substitui pesquisa empírica primária.
+- A posição é argumentação informada, não evidência.
+
+## Quando NÃO usar
+
+- Sem tese clara para defender → fazer trabalho prévio de formulação
+- Pergunta exige evidência empírica → modos primários (Scoping/Rapid/Mapping/Integrative/Realist)
+- Documento prescritivo de política pública → Modo 8 (White Paper)
+
+  ]]></markdown>
+</doc>

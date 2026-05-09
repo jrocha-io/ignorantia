@@ -160,3 +160,105 @@ class TestStructuralOrdering:
     def test_sections_before_thebibliography(self, renderer: LatexRenderer) -> None:
         out = renderer.render(_doc()).decode("utf-8")
         assert out.find(r"\section{Introduction}") < out.find(r"\begin{thebibliography}")
+
+
+class TestExternalBibtexMode:
+    """LatexRenderer with bib_file + bibliography_style configured."""
+
+    def test_emits_bibliography_command(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        renderer = LatexRenderer(
+            formatter=_StubFormatter(),
+            bib_file="bibliography",
+            bibliography_style=BibTexStyle.PLAIN,
+        )
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\bibliography{bibliography}" in out
+        assert r"\bibliographystyle{plain}" in out
+
+    def test_emits_nocite_star(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        renderer = LatexRenderer(
+            formatter=_StubFormatter(),
+            bib_file="bibliography",
+            bibliography_style=BibTexStyle.PLAIN,
+        )
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\nocite{*}" in out
+
+    def test_does_not_emit_inline_thebibliography(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        renderer = LatexRenderer(
+            formatter=_StubFormatter(),
+            bib_file="bibliography",
+            bibliography_style=BibTexStyle.PLAIN,
+        )
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\begin{thebibliography}" not in out
+        assert r"\bibitem" not in out
+
+    def test_style_appears_in_directive(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        renderer = LatexRenderer(
+            formatter=_StubFormatter(),
+            bib_file="bibliography",
+            bibliography_style=BibTexStyle.IEEETRAN,
+        )
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\bibliographystyle{IEEEtran}" in out
+
+    def test_custom_bib_filename(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        renderer = LatexRenderer(
+            formatter=_StubFormatter(),
+            bib_file="refs",
+            bibliography_style=BibTexStyle.PLAIN,
+        )
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\bibliography{refs}" in out
+        assert r"\bibliography{bibliography}" not in out
+
+
+class TestConstructorValidation:
+    def test_bib_file_without_style_rejected(self) -> None:
+        with pytest.raises(ValueError, match="together"):
+            LatexRenderer(
+                formatter=_StubFormatter(),
+                bib_file="bibliography",
+                bibliography_style=None,
+            )
+
+    def test_style_without_bib_file_rejected(self) -> None:
+        from ignorantia.domain.render.ports.bibtex_entry_formatter_port import (
+            BibTexStyle,
+        )
+
+        with pytest.raises(ValueError, match="together"):
+            LatexRenderer(
+                formatter=_StubFormatter(),
+                bib_file=None,
+                bibliography_style=BibTexStyle.PLAIN,
+            )
+
+    def test_neither_keeps_legacy_inline_mode(self) -> None:
+        # Default constructor — both None — uses the legacy inline
+        # \thebibliography path.
+        renderer = LatexRenderer(formatter=_StubFormatter())
+        out = renderer.render(_doc()).decode("utf-8")
+        assert r"\begin{thebibliography}" in out
+        assert r"\bibliography{" not in out
