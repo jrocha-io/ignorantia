@@ -13,6 +13,32 @@
 
 ---
 
+> **Aviso ao consumidor da skill (Decisão 41):** este template é depositado no Zenodo como artefato público. Não introduzir vocabulário operacional da skill (`Tier 1/2`, `FALLBACK_MD`, `KEY → PROXY`, `Decisão N`, `DD-N`, `review_purpose=design_foundational`, `projeto subjacente`, `função declaratória/instrumental`, tags SemVer em prosa). Em particular, a tabela de bases em §3 mantém os headers exatos do template (Base / Tipo / Acesso / Modo de execução) — não criar colunas com nomes de skill-internal-cascade. Para tradução de cada label, ver `references/artifact-vocabulary-policy.xml`.
+
+## §00 — Declaração do propósito da revisão
+
+[1 parágrafo. Descreva o objetivo declarado da revisão em prosa científica. Se a revisão é parte de uma agenda de pesquisa em que outras revisões fundamentam decisões de design subsequentes do mesmo autor, **nomeie o projeto específico** (ex: "projeto Ler e Escrever / EMAI gamificado") e descreva o vínculo. **Não usar a expressão genérica "projeto subjacente"** — é meta-discurso de skill, não vocabulário científico. **Não usar tokens enum** como "design_foundational" no corpo do parágrafo — esses tokens são metadado JSON. A categorização operacional do propósito da revisão fica registrada em `reproducibility_manifest.json`, fora deste protocolo.]
+
+**Exemplo de prosa correta:**
+
+> Esta revisão metodológica fundamenta a validade das demais revisões assistidas por IA conduzidas pelo mesmo autor no projeto Ler e Escrever / EMAI gamificado, que aplica metodologia análoga à descrita aqui. Antes de utilizar essas demais revisões como base de evidência para decisões de design educacional, é necessário diagnosticar limites e estratégias de mitigação documentadas na literatura sobre revisões assistidas por IA.
+
+**Anti-padrão (não escrever assim):**
+
+> design_foundational — esta revisão metodológica fundamenta a validade das outras 41 revisões executadas no mesmo projeto subjacente.
+
+## §01 — Declaração de conflito de interesse
+
+[1–2 parágrafos. (a) Nome o projeto específico ao qual o autor é vinculado e descreva o tipo de relação; (b) declare a tensão potencial entre informar a literatura e validar metodologia de pesquisa aplicada; (c) liste 5 mitigações concretas adotadas. **Não usar "projeto subjacente"; não usar "função declaratória vs. função instrumental" — descreva a tensão em prosa direta**.]
+
+**Exemplo de prosa correta:**
+
+> O autor é proponente do projeto Ler e Escrever / EMAI gamificado, no qual aplica metodologia análoga à descrita aqui. Há, portanto, tensão potencial entre o objetivo de informar a literatura sobre revisões assistidas por IA e o objetivo de validar a metodologia que o autor planeja usar nas suas pesquisas aplicadas. As mitigações adotadas são: pré-registro deste protocolo no Zenodo antes da execução das buscas, com timestamp imutável; declaração explícita do propósito; seção dedicada (§08) a registrar evidências contrárias eventualmente encontradas; pacote de reprodutibilidade Zenodo completo; e convite explícito a revisão adversarial por terceiros.
+
+**Anti-padrão (não escrever assim):**
+
+> O autor é o proponente do projeto subjacente que motiva a presente revisão. Há, portanto, conflito potencial entre a função declaratória (informar a literatura) e a função instrumental (validar a metodologia que o autor planeja usar).
+
 ## 1. Contexto e justificativa
 
 [2–4 parágrafos. Motivar por que a SLR é necessária: lacunas no conhecimento, ausência de revisões anteriores, mudanças recentes no campo. Citar revisões existentes próximas ao tema e explicar como esta difere/complementa.]

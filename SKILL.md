@@ -38,6 +38,8 @@ Cobertura média por área (TIER_DATABASES): tier1=13, tier2=4, paywall=6, total
 
 ## Arquitetura v2.15-v2.18 — cobertura premium, logs, preâmbulo
 
+> **Aviso de vocabulário (Decisão 41).** As seções desta divisão descrevem a **arquitetura interna** da skill. Os labels `KEY`, `PROXY`, `FALLBACK_MD`, `MOCK`, `Tier 1`, `Tier 2`, `DD-N` (Decisões DD-6, DD-8, DD-9, DD-10, DD-11) são **vocabulário operacional do código**, não vocabulário científico. Eles **nunca aparecem em prosa de artefato depositado** (manuscript, protocol, README, compliance, ai-declaration, venue-suggestions, avaliacao, gap_report, citations_to_obtain). Em prosa, traduzir conforme `references/artifact-vocabulary-policy.xml` — por exemplo, "Tier 1" → "bases de acesso aberto"; "cascata KEY → PROXY → FALLBACK_MD" → "credencial institucional, depois proxy de biblioteca, e em último caso lista cruzada para retomada manual"; "DD-6: ToS proíbe scraping" → "exclusão de plataformas cuja política de termos de serviço veta acesso automatizado".
+
 ### Cascata `KEY → PROXY → FALLBACK_MD → MOCK` (Decisão DD-8, v2.15.0)
 
 A skill cobre 16 bases pagas (Scopus, Web of Science, ScienceDirect, Embase, Springer Nature, Wiley TDM, IEEE Xplore, APA PsycInfo, EBSCO CINAHL, JSTOR full, Sage TDM, ACM Digital Library, SSRN, Hein Online, ProQuest full, Google Scholar via SerpApi) através de adapters que herdam de `scripts/searches/_adapter_base.py:PaywallAdapter`. Os adapters concretos são: `search_scopus_full.py`, `search_wos_full.py`, `search_sciencedirect_full.py`, `search_embase.py`, `search_springer_full.py`, `search_wiley_tdm.py` (chave `wiley_full`), `search_ieee_full.py`, `search_psycinfo_full.py`, `search_cinahl_full.py`, `search_jstor_full.py`, `search_sage_full.py`, `search_acm_full.py`, `search_ssrn_full.py`, `search_hein_online.py`, `search_proquest_full.py`, `search_google_scholar_serpapi.py` (chave `google_scholar`). Cada adapter implementa cascata em ordem rigorosa:
@@ -160,9 +162,9 @@ O termo **"living review"** é reservado a casos que cumprem o protocolo formal 
 Toda revisão produzida pelo skill deve incluir, sem exceção:
 
 1. **Pré-registro PROSPERO/OSF com timestamp** antes da decisão de design (template gerado pelo skill).
-2. **Declaração CoI padronizada** identificando o projeto subjacente, tipo de relação, e timing review-vs-design.
+2. **Declaração CoI no §01 do manuscrito** que (a) **nomeia o projeto específico** ao qual a revisão se vincula (ex: "projeto Ler e Escrever / EMAI gamificado") — nunca usar a expressão genérica "projeto subjacente", que é meta-discurso de skill —, (b) descreve o tipo de relação do autor com o projeto, e (c) declara o timing da revisão em relação às decisões de design que ela fundamenta. A declaração é redigida em prosa científica neutra; ver template em `assets/templates/protocol.xml` §01 e exemplos pareados em `references/artifact-vocabulary-policy.xml`.
 3. **Seção obrigatória "Evidência contrária encontrada"** — declarar achados que contradizem decisões de projeto, ou declarar honestamente que nenhum foi identificado.
-4. **Categorização `review_purpose`** no metadado: `design_foundational | design_validation | design_correction | independent_inquiry`.
+4. **Categorização do propósito da revisão**, gravada **apenas no metadado JSON** do pacote (`reproducibility_manifest.json`), em uma das quatro classes operacionais — *design-foundational* (a revisão fundamenta decisões de design subsequentes do autor no mesmo projeto), *design-validation* (a revisão valida empiricamente uma decisão de design já tomada), *design-correction* (a revisão diagnostica falha numa decisão prévia e propõe correção), *independent-inquiry* (a revisão não está ligada a decisão de design específica). Os tokens literais de enum (`design_foundational`, `design_validation`, `design_correction`, `independent_inquiry`) ficam **apenas no JSON**; em prosa de manuscript/protocol/README, traduzir para a descrição correspondente. A literal `design_foundational` no corpo de qualquer artefato depositável é violação da Decisão 41 e bloqueia o empacotamento.
 5. **Pacote de reprodutibilidade Zenodo** completo (Decisão 2).
 
 Mitigações de Categoria B (vinculação bidirecional, auditoria periódica, open peer review) são **decisões editoriais do autor**, fora do escopo do skill. Documentadas em `references/user-guidance/post-deposit-actions.xml`.
@@ -376,11 +378,13 @@ phase4_exclusions_review:
 
 E a rubrica D1 (Metodologia) **deixa de penalizar** ausência de spot-check separado. O critério "Spot-check humano nas exclusões da Fase 4 não foi conduzido" é **removido** da rubrica.
 
-### Decisão 22 — Re-execução obrigatória de buscas em data diferente por subversão (registrado em v2.9.0)
+### Decisão 22 — Re-execução obrigatória de buscas em data diferente em cada nova execução (registrado em v2.9.0; vocabulário corrigido em v2.23.3, Fix 19.5)
 
-A rubrica antiga continha "(Importante) Reprodutibilidade entre runs não testada — re-executar as buscas em datas diferentes". Esse critério foi reescrito como **obrigação**: cada subversão (incremento PATCH ou MINOR com data nova) **deve** re-executar as buscas e reportar diff contra a execução anterior. Estabilidade ≥ 95% em N de hits brutos por base é o threshold; abaixo disso o skill emite warning e exige justificativa do usuário.
+A rubrica antiga continha "(Importante) Reprodutibilidade entre runs não testada — re-executar as buscas em datas diferentes". Esse critério foi reescrito como **obrigação**: cada nova execução completa do pipeline **deve** re-rodar as buscas em data distinta da execução anterior e reportar diff contra ela. Estabilidade ≥ 95% em N de hits brutos por base é o threshold; abaixo disso o skill emite warning e exige justificativa do usuário.
 
-**Implementação técnica:** o `reproducibility_manifest.yaml` ganha o bloco `search_runs` com timestamps por execução. O orquestrador detecta automaticamente quando `today != last_run_date` e re-executa Tier 1 antes de prosseguir para Tier 2.
+**Em prosa do manuscrito (ex: §06 limitações, §07 trabalhos futuros):** descrever como "re-execução em data subsequente" ou "execução futura". A retórica SemVer interna (`subversão`, `incremento PATCH/MINOR`, `v1.1.0`) é vocabulário de gerenciamento de versão e **não aparece em prosa de artefato** — fica apenas em filename do pacote (`ignorantia-...-v1.1.0.zip`) e em metadado JSON.
+
+**Implementação técnica:** o `reproducibility_manifest.yaml` ganha o bloco `search_runs` com timestamps por execução. O orquestrador detecta automaticamente quando `today != last_run_date` e re-executa as bases de acesso aberto antes de prosseguir para as comerciais.
 
 ### Decisão 23 — Snowballing backward obrigatório (Wohlin 2014) (registrado em v2.9.0)
 
@@ -990,7 +994,9 @@ A skill pode gerar, sob demanda, um script Python (`scripts/download_via_proxy.p
 - **MINOR** — inclusão ou exclusão de estudos no corpus: novas buscas, novo critério aplicado, ampliação ou restrição da janela temporal. A linha de pesquisa permanece; o conjunto sintetizado muda.
 - **PATCH** — correções: erro tipográfico, citação ajustada, ortografia, número errado em tabela. Não muda o conteúdo substantivo.
 
-A primeira saída completa é **v1.0.0**. Cada saída posterior é um pacote novo (HTML + secundários + flow + bib + readme), com seu próprio número de versão e data ISO. **Saídas antigas não são editadas — elas permanecem como registro histórico.** O `README.md` de cada versão lista o que mudou em relação à anterior, com link ao pacote anterior se houver.
+A primeira saída completa recebe a tag SemVer **v1.0.0** **no nome do arquivo do pacote** (`ignorantia-...-v1.0.0.zip`) e no metadado JSON (`reproducibility_manifest.json.version`). Cada execução posterior é um pacote novo (HTML + secundários + flow + bib + readme), com seu próprio número de versão e data ISO no filename + metadado. **Saídas antigas não são editadas — elas permanecem como registro histórico.** O `README.md` de cada versão lista o que mudou em relação à anterior, com link ao pacote anterior se houver.
+
+**As tags SemVer são metadado de gerenciamento, não vocabulário científico.** Em prosa do manuscript/protocol/README/etc., descrever progressão como "primeira execução" / "execução subsequente" / "atualização posterior" / "trabalho futuro" — nunca `v1.0.0`/`v1.1.0`. O leitor cego do paper não conhece a convenção SemVer da skill, e ela não acrescenta informação científica.
 
 A ler obrigatoriamente: `references/semver-policy.xml` antes de qualquer publicação de versão.
 
@@ -1035,7 +1041,7 @@ Pergunte cobrindo as 8 dimensões abaixo. Use `ask_user_input_v0` quando o ambie
 5. **Tipos de estudo.** Peer-reviewed, preprints, teses, anais, gray lit.
 6. **Acesso institucional** a Scopus/WoS/IEEE Xplore/ACM DL/CAPES — para gerar scripts de download legítimo via proxy.
 7. **Pacote de revisão.** Avise que o pacote final será depositado no Zenodo; revisão humana por dois professores e kappa ocorrem fora do skill.
-8. **Versão de partida.** Se é a primeira passagem (será v1.0.0); se é continuação de uma SLR anterior do mesmo usuário, informe a versão anterior para gerar v1.1.0 / v2.0.0 / etc.
+8. **Execução de partida.** Pergunte se é a primeira execução completa ou continuação de uma revisão anterior do mesmo usuário. Use a resposta apenas para definir o número SemVer do pacote (filename + metadado JSON: primeira execução → v1.0.0; continuação → bump apropriado). Em prosa do manuscript/protocol, mencionar como "primeira execução do protocolo" ou "execução subsequente, revisitando a janela temporal" — sem citar tags SemVer.
 9. **Venue-alvo (opcional).** Se o usuário já tem um periódico/conferência em mente para submissão, registre — a skill ajusta norma de citação, comprimento, e estrutura ao máximo. Se não tem, a Fase 8 sugere 3-5 venues. Em pt-BR, perguntar também se há programa de pós-graduação stricto sensu vinculado (Plataforma Sucupira). Em EN, perguntar a área-foco para alinhar com o publisher de elite mais adequado.
 10. **Vinculação a financiador.** Se o usuário recebe fomento CNPq/CAPES/FAP, informar — afeta as declarações obrigatórias e o local de pré-registro do protocolo (Zenodo serve em todos os casos; PROSPERO se for SLR de saúde).
 

@@ -407,6 +407,162 @@ def test_skill_md_mentions_decision_41_and_policy_file() -> None:
     )
 
 
+# ── F19.5 — code-region suppression for filename cross-references ──────
+
+
+def test_latex_texttt_filename_reference_is_not_flagged() -> None:
+    """``\\texttt{protocol-v1.0.0.md}`` is a filename ref, not SemVer rhetoric.
+
+    Without this suppression, every cross-reference between deposit
+    files (which legitimately carry version tags in their filenames)
+    would falsely trigger the SemVer pattern.
+    """
+    text = (
+        "O protocolo (\\texttt{protocol-v1.0.0.md}, presente no pacote) "
+        "declara explicitamente os critérios."
+    )
+    violations = find_violations(text, is_latex=False)
+    semver_hits = [v for v in violations if v.label == "semver-version-tag"]
+    assert semver_hits == [], (
+        f"\\texttt{{}} should suppress filename SemVer matches; got "
+        f"{[v.matched_text for v in semver_hits]}"
+    )
+
+
+def test_html_code_filename_reference_is_not_flagged() -> None:
+    text = (
+        "<p>Pacote: <code>ignorantia-rs42-validade-v1.0.0.zip</code> "
+        "depositado no Zenodo.</p>"
+    )
+    violations = find_violations(text)
+    semver_hits = [v for v in violations if v.label == "semver-version-tag"]
+    assert semver_hits == []
+
+
+def test_html_code_brand_is_still_flagged() -> None:
+    """Skill brand fails even inside <code>... — the brand never ships."""
+    text = "<p>Pacote: <code>ignorantia-rs42-validade-v1.0.0.zip</code></p>"
+    violations = find_violations(text)
+    brand_hits = [v for v in violations if v.label == "skill-brand"]
+    assert len(brand_hits) >= 1, (
+        "skill-brand must remain bound even inside code-formatted regions; "
+        "the brand never appears in a deposited artifact, formatted or not"
+    )
+
+
+def test_decision_n_inside_backticks_is_still_flagged() -> None:
+    """Wrapping ``Decisão 8`` in backticks does NOT turn it into a
+    legitimate filename reference. The narrow code-region suppression
+    only applies to ``semver-version-tag`` (which can legitimately
+    appear inside filenames like ``protocol-v1.0.0.md``)."""
+    text = "Critério IC4 — vide `Decisão 27` da skill: três idiomas como obrigação."
+    violations = find_violations(text)
+    assert any(v.label == "decision-number-reference" for v in violations), (
+        "Decisão N must fire inside backticks — backticks do not legitimize "
+        "skill-internal numbering in deposit prose"
+    )
+
+
+def test_review_purpose_enum_inside_backticks_is_still_flagged() -> None:
+    """The most common pattern in the bad protocol — ``\`design_foundational\``
+    in prose body. Backtick wrapping is cosmetic; the literal token
+    is still skill-internal vocabulary in prose."""
+    text = "`design_foundational` — esta revisão metodológica fundamenta..."
+    violations = find_violations(text)
+    assert any(v.label == "review-purpose-enum" for v in violations), (
+        "review_purpose enum value must fire even inside backticks — the "
+        "label is metadata-only; in prose it belongs translated, not quoted"
+    )
+
+
+def test_tier_label_inside_code_is_still_flagged() -> None:
+    text = "Acesso: `Tier 1 OA` ou `Tier 2 paywall`, conforme tabela."
+    violations = find_violations(text)
+    tier_hits = [v for v in violations if v.label == "tier-tiering-label"]
+    assert len(tier_hits) >= 2, (
+        "Tier labels must fire inside backticks — they are skill-internal "
+        "taxonomy regardless of formatting"
+    )
+
+
+def test_fallback_md_inside_code_is_still_flagged() -> None:
+    text = "Mode `FALLBACK_MD` é acionado quando..."
+    violations = find_violations(text)
+    assert any(v.label == "fallback-mode-label" for v in violations), (
+        "FALLBACK_MD must fire even inside backticks"
+    )
+
+
+def test_markdown_inline_backtick_filename_reference_is_not_flagged() -> None:
+    text = "O documento `protocol-v1.0.0.md` está no pacote Zenodo."
+    violations = find_violations(text)
+    semver_hits = [v for v in violations if v.label == "semver-version-tag"]
+    assert semver_hits == []
+
+
+def test_markdown_fenced_code_block_suppresses_only_semver() -> None:
+    """Triple-backtick blocks suppress ONLY the SemVer pattern — code
+    legitimately contains version constants. Decisão N, enum values,
+    and skill-internal labels still fire even inside fences, because
+    those literals are skill vocabulary regardless of formatting."""
+    text = (
+        "Veja o bloco abaixo:\n\n"
+        "```\n"
+        "review_purpose = design_foundational  # Decisão 8\n"
+        "version = v1.0.0\n"
+        "```\n\n"
+        "Fim."
+    )
+    violations = find_violations(text)
+    labels = [v.label for v in violations]
+    # SemVer is suppressed — version constants in a code block are fine.
+    assert "semver-version-tag" not in labels
+    # But skill-internal labels still fire.
+    assert "decision-number-reference" in labels
+    assert "review-purpose-enum" in labels
+
+
+def test_markdown_fenced_code_block_brand_still_flagged() -> None:
+    text = (
+        "```\n"
+        "package = ignorantia\n"
+        "```\n"
+    )
+    violations = find_violations(text)
+    assert any(v.label == "skill-brand" for v in violations), (
+        "skill-brand must fire even inside fenced code blocks"
+    )
+
+
+def test_latex_href_url_with_version_is_not_flagged() -> None:
+    text = (
+        "\\href{https://zenodo.org/records/abc/files/manuscript-v1.0.0.pdf}{"
+        "Manuscrito}"
+    )
+    violations = find_violations(text)
+    semver_hits = [v for v in violations if v.label == "semver-version-tag"]
+    assert semver_hits == []
+
+
+def test_prose_outside_code_still_caught() -> None:
+    """Sanity: code-region suppression must NOT bleed into surrounding prose.
+
+    A SemVer tag in plain prose right next to a backtick code span must
+    still fire. This is the core safety of the suppression logic.
+    """
+    text = (
+        "O artefato `protocol-v1.0.0.md` está no pacote. "
+        "Esta v1.0.0 será re-executada em v1.1.0."
+    )
+    violations = find_violations(text)
+    semver_hits = [v for v in violations if v.label == "semver-version-tag"]
+    # Two SemVer tags are in prose ("Esta v1.0.0", "em v1.1.0"); the
+    # third (`protocol-v1.0.0.md` inside backticks) is suppressed.
+    assert len(semver_hits) == 2, (
+        f"prose SemVer must still fire; got {[v.matched_text for v in semver_hits]}"
+    )
+
+
 def test_no_gate_flag_reports_but_does_not_fail(tmp_path: Path) -> None:
     """``--no-gate`` is the triage opt-out; sidecar still written, exit 0."""
     deposit = tmp_path / "deposit"
