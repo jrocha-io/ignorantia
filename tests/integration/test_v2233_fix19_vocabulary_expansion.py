@@ -295,3 +295,130 @@ def test_cli_all_quiet_emits_summary_only(tmp_path: Path) -> None:
     assert "FAILED" in result.stderr
     # In quiet mode, per-violation `why:` lines must be suppressed.
     assert "why:" not in result.stderr
+
+
+# ── F19.3 wiring: gate sidecar JSON ────────────────────────────────────
+
+
+def _read_sidecar(deposit: Path) -> dict:
+    import json
+    return json.loads((deposit / "vocabulary_gate.json").read_text("utf-8"))
+
+
+def test_gate_sidecar_emits_passed_true_on_clean_deposit(tmp_path: Path) -> None:
+    deposit = tmp_path / "deposit"
+    deposit.mkdir()
+    (deposit / "manuscript.md").write_text(
+        "# Manuscript\n\nClean academic prose.\n", encoding="utf-8"
+    )
+    result = _run_cli("--all", str(deposit), "--gate-sidecar", "--quiet")
+    assert result.returncode == 0
+    sidecar = _read_sidecar(deposit)
+    assert sidecar["passed"] is True
+    assert sidecar["total_violations"] == 0
+    assert sidecar["files_with_violations"] == []
+    assert sidecar["files_scanned"] == 1
+
+
+def test_gate_sidecar_emits_passed_false_with_full_aggregate(tmp_path: Path) -> None:
+    deposit = tmp_path / "deposit"
+    deposit.mkdir()
+    (deposit / "protocol.md").write_text(
+        "Cascata Tier 0 (Decisão 24); FALLBACK_MD para paywall.\n",
+        encoding="utf-8",
+    )
+    (deposit / "manuscript.md").write_text(
+        "Clean.\n", encoding="utf-8"
+    )
+    result = _run_cli("--all", str(deposit), "--gate-sidecar", "--quiet")
+    assert result.returncode == 2
+    sidecar = _read_sidecar(deposit)
+    assert sidecar["passed"] is False
+    assert sidecar["total_violations"] >= 3
+    assert "protocol.md" in sidecar["files_with_violations"]
+    # By-label aggregate must contain the labels we expect.
+    by_label = sidecar["violations_by_label"]
+    assert "tier-tiering-label" in by_label
+    assert "decision-number-reference" in by_label
+    assert "fallback-mode-label" in by_label
+
+
+def test_gate_sidecar_requires_all_flag(tmp_path: Path) -> None:
+    """--gate-sidecar without --all is a CLI error."""
+    f = tmp_path / "x.md"
+    f.write_text("hello\n", encoding="utf-8")
+    result = _run_cli(str(f), "--gate-sidecar")
+    assert result.returncode == 1
+    assert "requires --all" in result.stderr
+
+
+def test_artifact_vocabulary_policy_exists_and_is_well_formed() -> None:
+    """The policy file is the structural pair of the regex set.
+
+    Adding a new pattern to ``_FORBIDDEN`` without updating this policy
+    would leave Claude with no concrete translation guidance — the gate
+    would fail with no actionable direction. The two files are paired
+    sources of truth and must co-evolve.
+    """
+    import xml.etree.ElementTree as ET
+    policy_path = ROOT / "references" / "artifact-vocabulary-policy.xml"
+    assert policy_path.is_file(), (
+        f"Decisão 41 requires {policy_path.relative_to(ROOT)}"
+    )
+    root = ET.parse(policy_path).getroot()
+    assert root.tag == "doc"
+    assert root.attrib.get("type") == "policy"
+    body = (root.find("markdown").text or "").strip()
+    # The six required vocabulary classes must each have a section.
+    expected_class_headers = [
+        "Database access cascade",
+        "Skill-internal numbering",
+        "Enum values vs. prose",
+        "Meta-projeto bleed-through",
+        "SemVer rhetoric",
+        "Skill brand",
+    ]
+    for header in expected_class_headers:
+        assert header in body, (
+            f"policy file is missing the '{header}' translation section — "
+            f"Decisão 41 requires all six classes to be paired with a "
+            f"prose translation"
+        )
+
+
+def test_skill_md_mentions_decision_41_and_policy_file() -> None:
+    """SKILL.md must instruct Claude to read the policy.
+
+    Without this pointer, Claude doesn't know the policy exists. Pairing
+    the file with the SKILL.md mandatory is the wiring step that closes
+    the loop on F19.4 (structural refactor).
+    """
+    skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    assert "Decisão 41" in skill, (
+        "SKILL.md must register Decisão 41 (deposit-wide vocabulary gate)"
+    )
+    assert "artifact-vocabulary-policy.xml" in skill, (
+        "SKILL.md must point Claude at references/artifact-vocabulary-policy.xml "
+        "so the translation table is discoverable from the operational doc"
+    )
+    assert "--all" in skill and "vocabulary_gate.json" in skill, (
+        "SKILL.md mandatories must invoke the deposit-wide gate with sidecar "
+        "emission, not the legacy single-file form"
+    )
+
+
+def test_no_gate_flag_reports_but_does_not_fail(tmp_path: Path) -> None:
+    """``--no-gate`` is the triage opt-out; sidecar still written, exit 0."""
+    deposit = tmp_path / "deposit"
+    deposit.mkdir()
+    (deposit / "protocol.md").write_text("Decisão 8 aqui.\n", encoding="utf-8")
+    result = _run_cli(
+        "--all", str(deposit), "--gate-sidecar", "--no-gate", "--quiet"
+    )
+    assert result.returncode == 0
+    sidecar = _read_sidecar(deposit)
+    assert sidecar["passed"] is False
+    assert sidecar["total_violations"] >= 1
+    # The triage warning must surface to stderr so wrappers cannot pretend
+    # they didn't see it.
+    assert "GATE NOT ENFORCED" in result.stderr

@@ -42,10 +42,18 @@ The check operates on the **body** of the artifact only — LaTeX preamble
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+# Sidecar filename — parallel to ``assessment_gate.json`` (Fix 9) and
+# ``pipeline_invariants_gate.json`` (Fix 11). All three sidecars live in
+# the deposit directory and are inspected by downstream packagers via a
+# chained shell ``&&``.
+_GATE_SIDECAR_FILENAME = "vocabulary_gate.json"
+_GATE_EXIT_CODE = 2
 
 # ---------------------------------------------------------------------------
 # Forbidden vocabulary (Decisão 19; expanded in v2.23.1 by Fix 10 and in
@@ -332,10 +340,37 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Suppress the per-violation report; print only the summary.",
     )
+    parser.add_argument(
+        "--gate-sidecar",
+        action="store_true",
+        help=(
+            "Emit ``vocabulary_gate.json`` into the deposit directory, "
+            "parallel to ``assessment_gate.json`` (Fix 9) and "
+            "``pipeline_invariants_gate.json`` (Fix 11). Requires --all."
+        ),
+    )
+    parser.add_argument(
+        "--no-gate",
+        action="store_true",
+        help=(
+            "Compute and (with --gate-sidecar) write the report, but do "
+            "not exit non-zero on violations. Triage / debug only — "
+            "must never be set in production packaging flows."
+        ),
+    )
     args = parser.parse_args(argv)
 
+    if args.gate_sidecar and not args.all:
+        print("ERROR: --gate-sidecar requires --all", file=sys.stderr)
+        return 1
+
     if args.all:
-        return _main_all(args.path, quiet=args.quiet)
+        return _main_all(
+            args.path,
+            quiet=args.quiet,
+            gate_sidecar=args.gate_sidecar,
+            no_gate=args.no_gate,
+        )
     return _main_single(args.path, quiet=args.quiet)
 
 
@@ -362,18 +397,54 @@ def _main_single(path: Path, *, quiet: bool) -> int:
     return 2
 
 
-def _main_all(root: Path, *, quiet: bool) -> int:
+def _main_all(
+    root: Path,
+    *,
+    quiet: bool,
+    gate_sidecar: bool = False,
+    no_gate: bool = False,
+) -> int:
     if not root.is_dir():
         print(f"ERROR: {root} is not a directory", file=sys.stderr)
         return 1
 
     findings = find_violations_in_directory(root)
     total = sum(len(v) for v in findings.values())
+    files_scanned = sum(
+        1
+        for p in root.rglob("*")
+        if p.is_file() and p.suffix.lower() in _SCAN_EXTENSIONS
+    )
+    passed = not findings
 
-    if not findings:
+    if gate_sidecar:
+        sidecar_path = root / _GATE_SIDECAR_FILENAME
+        sidecar_path.write_text(
+            json.dumps(
+                {
+                    "passed": passed,
+                    "total_violations": total,
+                    "files_scanned": files_scanned,
+                    "files_with_violations": [
+                        str(p.relative_to(root)) for p in findings
+                    ],
+                    "violations_by_label": _aggregate_by_label(findings),
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        print(
+            f"Wrote {sidecar_path}  "
+            f"(gate: {'PASS' if passed else 'FAIL'})"
+        )
+
+    if passed:
         print(
             f"Decisão 19 vocabulary check PASSED for deposit {root} "
-            f"(0 violations across {root}/**/*.{{md,tex,html}})"
+            f"(0 violations across {files_scanned} file(s))"
         )
         return 0
 
@@ -391,7 +462,27 @@ def _main_all(root: Path, *, quiet: bool) -> int:
             f"{len(findings)} file(s)",
             file=sys.stderr,
         )
-    return 2
+
+    if no_gate:
+        # Triage mode: report but do not enforce.
+        print(
+            "GATE NOT ENFORCED (--no-gate): proceeding despite violations. "
+            "Production packaging must NEVER set this flag.",
+            file=sys.stderr,
+        )
+        return 0
+    return _GATE_EXIT_CODE
+
+
+def _aggregate_by_label(
+    findings: dict[Path, list[Violation]],
+) -> dict[str, int]:
+    """Count violations grouped by label, for the sidecar summary."""
+    counts: dict[str, int] = {}
+    for vlist in findings.values():
+        for v in vlist:
+            counts[v.label] = counts.get(v.label, 0) + 1
+    return dict(sorted(counts.items()))
 
 
 if __name__ == "__main__":
