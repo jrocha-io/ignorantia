@@ -1,31 +1,42 @@
 #!/usr/bin/env python3
-"""Decisão 19 vocabulary check — Fix 10 of RS-42 dogfood remediation.
+"""Decisão 19 vocabulary check — Fix 10 of RS-42 dogfood remediation,
+expanded by Fix 19 (RS-42 third wave).
 
 Decisão 19 forbids skill-internal meta-discourse from leaking into the
-manuscript voice. The pre-existing test (``test_v28_eliminations.py``)
-covers only the literal brand string ``ignorantia``. RS-42 v1.0.0
-slipped through that test while still producing a manuscript that read
-as engineering documentation, because the leakage was in a *family* of
-terms — not the single brand string:
+artifact voice. RS-42 Mark 4 (v2.23.2 dogfood) showed two new failure
+classes that Fix 10 did not catch:
 
-* SemVer rhetoric (``v1.0.0``, ``v1.1.0``, ``será corrigido em v1.1.0``)
-* Internal procedural references (``Decisão 8 do protocolo``, ``Decisão 22``)
-* Skill-internal classifications (``Categoria A``, ``Categoria B``)
-* Literal JSON / metadata field names (``review_purpose``,
-  ``purpose_per_stage``, ``execution_method``)
+* **Skill-internal taxonomy** appearing literal in deposited artifacts:
+  ``Tier 1 / Tier 2``, ``FALLBACK_MD``, ``KEY → PROXY → FALLBACK_MD``,
+  ``DD-6``, ``cascata Tier 0``. These are operational labels the skill
+  uses to organise execution — they have no place in a scientific paper
+  or pre-registered protocol.
+* **Meta-project bleed-through**: ``projeto subjacente``,
+  ``as outras 41 revisões``, ``função declaratória / função instrumental``,
+  ``design_foundational``. A reviewer reading the artifact blind should
+  not learn that the paper is part of a 42-review workflow.
 
-This module enumerates the forbidden phrases as a single allowlist-of-bans
-and provides:
+Fix 19 also widens the **scope** of the check: instead of running only
+against ``manuscript.tex`` it now scans every depositable artifact
+(``.md`` / ``.tex`` / ``.html``) in a deposit directory via ``--all``.
+The protocol that ships in the Zenodo zip is just as much a public
+artifact as the manuscript — and that is precisely where the worst
+leakage was found.
 
-1. A pure function ``find_violations(text)`` that returns a list of
-   ``Violation`` records — used by tests and other Python callers.
-2. A CLI ``python3 scripts/check_decision_19_vocabulary.py <path>``
-   that exits with code 2 when the file contains any violation,
-   so it can be chained via shell ``&&`` like the Fix 9 gate.
+Public surface:
 
-The check operates on the **body** of the manuscript only — it
-deliberately ignores LaTeX preamble (``\\begin{document}`` upward) so
-package versions in ``\\usepackage[...]`` lines don't false-positive.
+1. ``find_violations(text, *, is_latex=False)`` — pure function for tests
+   and other Python callers.
+2. ``find_violations_in_directory(root)`` — walk a deposit directory,
+   return a mapping of file → violations.
+3. CLI ``python3 scripts/check_decision_19_vocabulary.py <path>`` —
+   single-file mode, exits 2 on any violation.
+4. CLI ``python3 scripts/check_decision_19_vocabulary.py --all <dir>`` —
+   directory mode, exits 2 if any file in the deposit has any violation.
+
+The check operates on the **body** of the artifact only — LaTeX preamble
+(everything up to ``\\begin{document}``) is stripped so version-bearing
+``\\usepackage[...]`` lines don't false-positive.
 """
 
 from __future__ import annotations
@@ -37,12 +48,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
-# Forbidden vocabulary (Decisão 19, expanded in v2.23.1)
+# Forbidden vocabulary (Decisão 19; expanded in v2.23.1 by Fix 10 and in
+# v2.23.3 by Fix 19 — RS-42 Mark 4 regression patterns).
 # ---------------------------------------------------------------------------
 #
 # Each entry is (compiled regex, human-readable label, why-it-matters).
 # Patterns are anchored to whole-word boundaries where appropriate to
-# minimise false-positives. They are tested against the manuscript body
+# minimise false-positives. They are tested against the artifact body
 # *after* preamble stripping, so LaTeX package names like
 # ``\usepackage[utf8]{inputenc}`` don't trip them.
 
@@ -59,8 +71,15 @@ _FORBIDDEN: tuple[tuple[re.Pattern[str], str, str], ...] = (
         re.compile(r"\bDecis[ãa]o\s+\d+\b", re.IGNORECASE),
         "decision-number-reference",
         "'Decisão N' references the skill's internal protocol numbering. "
-        "Manuscript voice attributes methodological choices to the researcher, "
+        "Artifact voice attributes methodological choices to the researcher, "
         "not to a numbered checklist item.",
+    ),
+    # Design Decisions — internal skill numbering distinct from "Decisão N".
+    (
+        re.compile(r"\bDD-\d+\b"),
+        "design-decision-reference",
+        "'DD-N' is the skill's internal design-decision numbering. "
+        "Translate the rationale into prose instead of citing the label.",
     ),
     # Skill-internal classification taxonomy.
     (
@@ -68,6 +87,28 @@ _FORBIDDEN: tuple[tuple[re.Pattern[str], str, str], ...] = (
         "category-classification",
         "'Categoria A' / 'Categoria B' is the skill's CoI mitigation taxonomy. "
         "Use prose descriptions of mitigations instead of taxonomic labels.",
+    ),
+    # Skill-internal database tiering. Fix 19 — RS-42 Mark 4 leaked these
+    # straight into the protocol and the manuscript Methods section.
+    (
+        re.compile(r"\bTier\s*[012]\b"),
+        "tier-tiering-label",
+        "'Tier 0/1/2' is the skill's internal database-access cascade label. "
+        "Scientific prose says 'open access' / 'subscription' / 'paywall'.",
+    ),
+    # FALLBACK_MD / KEY → PROXY cascade — internal mode labels.
+    (
+        re.compile(r"\bFALLBACK_MD\b"),
+        "fallback-mode-label",
+        "'FALLBACK_MD' is an internal mode label for paywall-without-credential "
+        "handling. Prose should describe the gap report deliverable, not the mode.",
+    ),
+    (
+        re.compile(r"\bKEY\s*(?:→|->)\s*PROXY\b"),
+        "key-proxy-cascade",
+        "'KEY → PROXY → FALLBACK_MD' is the skill's internal credential cascade. "
+        "Translate to plain language: 'institutional credential, then proxy, then "
+        "manual citation list'.",
     ),
     # Literal JSON / metadata field names leaking into prose.
     (
@@ -80,13 +121,49 @@ _FORBIDDEN: tuple[tuple[re.Pattern[str], str, str], ...] = (
         "literal JSON/metadata field names belong in the package metadata, "
         "not in academic prose. Translate to natural language.",
     ),
+    # review_purpose enum values — leak the skill's classification taxonomy.
+    (
+        re.compile(r"\bdesign[_-](foundational|validation|decision)\b"),
+        "review-purpose-enum",
+        "'design_foundational' / 'design_validation' are review_purpose enum "
+        "values used internally to classify the review type. Use a prose "
+        "description of the review's purpose instead of the literal token.",
+    ),
+    # Meta-project bleed-through (Fix 19, RS-42 Mark 4) — the artifact
+    # narrates the broader 42-review workflow it belongs to.
+    (
+        re.compile(r"\bprojeto\s+subjacente\b", re.IGNORECASE),
+        "meta-project-reference",
+        "'projeto subjacente' refers to the broader workflow this artifact "
+        "is part of. A reviewer reading the deposit blind should not need to "
+        "know about other reviews — declare the specific project of CoI "
+        "concern by name (e.g. 'Ler e Escrever / EMAI'), not as 'subjacente'.",
+    ),
+    (
+        re.compile(r"\boutr[ao]s?\s+\d{1,3}\s+(revis[õo]es|estudos)\b", re.IGNORECASE),
+        "sibling-reviews-count",
+        "phrasings like 'as outras 41 revisões' or 'outros 12 estudos do "
+        "autor' narrate the workflow, not the science. Each artifact stands "
+        "on its own; cross-references between deposited artifacts go in the "
+        "README, not in the manuscript body.",
+    ),
+    (
+        re.compile(
+            r"\bfun[çc][ãa]o\s+(declarat[óo]ria|instrumental)\b",
+            re.IGNORECASE,
+        ),
+        "coi-function-split",
+        "'função declaratória vs. função instrumental' is the skill's "
+        "internal taxonomy for CoI mitigation. Describe the mitigation in "
+        "natural language; do not reproduce the taxonomy label.",
+    ),
     # Skill brand (kept here for completeness — already covered by v2.8.0
     # test, but consolidated under Decisão 19 for one-stop checking).
     (
         re.compile(r"\bignorantia\b", re.IGNORECASE),
         "skill-brand",
-        "the manuscript voice is the researcher's, not the skill's. "
-        "The skill name must not appear anywhere in the manuscript body.",
+        "the artifact voice is the researcher's, not the skill's. "
+        "The skill name must not appear anywhere in the artifact body.",
     ),
 )
 
@@ -132,7 +209,7 @@ def find_violations(text: str, *, is_latex: bool = False) -> list[Violation]:
     """Scan ``text`` and return all Decisão 19 vocabulary violations.
 
     Args:
-        text: Manuscript content (.tex, .html, .md, plain).
+        text: Artifact content (.tex, .html, .md, plain).
         is_latex: When ``True``, strip preamble before scanning so
             ``\\usepackage`` lines don't false-positive on version tags.
 
@@ -161,6 +238,43 @@ def find_violations(text: str, *, is_latex: bool = False) -> list[Violation]:
     return violations
 
 
+# Extensions scanned by ``find_violations_in_directory``. Anything else
+# (CSV, JSON, SVG, ZIP, binary) is left out — the gate's job is prose,
+# not data.
+_SCAN_EXTENSIONS: frozenset[str] = frozenset({".md", ".tex", ".latex", ".html", ".htm"})
+
+
+def find_violations_in_directory(root: Path) -> dict[Path, list[Violation]]:
+    """Walk ``root`` recursively, scanning every prose artifact.
+
+    The deposit artifacts that need checking are the manuscript
+    (``.tex`` / ``.html``), the protocol (``.md``), and the auxiliary
+    Markdown files that ship with the Zenodo zip — README, compliance
+    checklist, AI declaration, venue suggestions, the auto-assessment.
+    Data files (CSV, JSON), figures (SVG, PDF) and the package archive
+    itself are skipped.
+
+    Args:
+        root: Deposit directory (or any subtree containing artifacts).
+
+    Returns:
+        Mapping from artifact path to its violations, in stable
+        path-sorted order. Files with zero violations are omitted from
+        the mapping.
+    """
+    findings: dict[Path, list[Violation]] = {}
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        if path.suffix.lower() not in _SCAN_EXTENSIONS:
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        violations = find_violations(text, is_latex=_is_latex(path))
+        if violations:
+            findings[path] = violations
+    return findings
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
@@ -182,14 +296,36 @@ def _is_latex(path: Path) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry point. Returns the process exit code (0 = clean, 2 = violations)."""
+    """CLI entry point. Returns the process exit code (0 = clean, 2 = violations).
+
+    Two modes:
+
+    * Single-file: ``check_decision_19_vocabulary.py <path>``.
+    * Directory: ``check_decision_19_vocabulary.py --all <dir>``.
+      Scans every ``.md`` / ``.tex`` / ``.html`` file under the given
+      directory and aggregates the report.
+    """
     parser = argparse.ArgumentParser(
-        description="Verify a manuscript file for Decisão 19 vocabulary leakage."
+        description=(
+            "Verify a deposited artifact (or a whole deposit directory) "
+            "for Decisão 19 vocabulary leakage."
+        )
     )
     parser.add_argument(
         "path",
         type=Path,
-        help="Path to manuscript.tex / manuscript.html / manuscript.md.",
+        help=(
+            "Path to a single artifact (manuscript.tex, protocol.md, etc.) "
+            "or to a deposit directory when --all is set."
+        ),
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help=(
+            "Treat <path> as a deposit directory and scan every prose "
+            "artifact (.md/.tex/.html) recursively."
+        ),
     )
     parser.add_argument(
         "--quiet",
@@ -198,25 +334,63 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    if not args.path.is_file():
-        print(f"ERROR: {args.path} does not exist", file=sys.stderr)
+    if args.all:
+        return _main_all(args.path, quiet=args.quiet)
+    return _main_single(args.path, quiet=args.quiet)
+
+
+def _main_single(path: Path, *, quiet: bool) -> int:
+    if not path.is_file():
+        print(f"ERROR: {path} does not exist", file=sys.stderr)
         return 1
 
-    text = args.path.read_text(encoding="utf-8", errors="replace")
-    violations = find_violations(text, is_latex=_is_latex(args.path))
+    text = path.read_text(encoding="utf-8", errors="replace")
+    violations = find_violations(text, is_latex=_is_latex(path))
 
     if not violations:
-        print(f"Decisão 19 vocabulary check PASSED for {args.path} (0 violations)")
+        print(f"Decisão 19 vocabulary check PASSED for {path} (0 violations)")
         return 0
 
-    if args.quiet:
+    if quiet:
         print(
-            f"Decisão 19 vocabulary check FAILED for {args.path}: "
+            f"Decisão 19 vocabulary check FAILED for {path}: "
             f"{len(violations)} violation(s)",
             file=sys.stderr,
         )
     else:
-        print(_format_report(args.path, violations), file=sys.stderr)
+        print(_format_report(path, violations), file=sys.stderr)
+    return 2
+
+
+def _main_all(root: Path, *, quiet: bool) -> int:
+    if not root.is_dir():
+        print(f"ERROR: {root} is not a directory", file=sys.stderr)
+        return 1
+
+    findings = find_violations_in_directory(root)
+    total = sum(len(v) for v in findings.values())
+
+    if not findings:
+        print(
+            f"Decisão 19 vocabulary check PASSED for deposit {root} "
+            f"(0 violations across {root}/**/*.{{md,tex,html}})"
+        )
+        return 0
+
+    if quiet:
+        print(
+            f"Decisão 19 vocabulary check FAILED for deposit {root}: "
+            f"{total} violation(s) across {len(findings)} file(s)",
+            file=sys.stderr,
+        )
+    else:
+        for path, violations in findings.items():
+            print(_format_report(path, violations), file=sys.stderr)
+        print(
+            f"\nDeposit total: {total} violation(s) across "
+            f"{len(findings)} file(s)",
+            file=sys.stderr,
+        )
     return 2
 
 
