@@ -14,7 +14,7 @@ for the project at large.
 |---|---|
 | New to Ignorantia | [Tutorial — 30 min walkthrough](TUTORIAL.md) |
 | Migrating from v2 | [Migration guide v2 → v3](MIGRATION_v2_TO_v3.md) |
-| Looking for the architecture | [C4 diagrams](architecture/C4_DIAGRAMS.md) and [`V3_ARCHITECTURE_PLAN.md`](https://github.com/jrocha-io/ignorantia/blob/main/references/V3_ARCHITECTURE_PLAN.md) |
+| Looking for the architecture | [C4 diagrams](architecture/C4_DIAGRAMS.md) and [`V3_ARCHITECTURE_PLAN.xml`](https://github.com/jrocha-io/ignorantia/blob/main/dev-docs/V3_ARCHITECTURE_PLAN.xml) |
 | Composing use cases programmatically | [API reference](api/index.md) |
 
 ## v3 in one paragraph

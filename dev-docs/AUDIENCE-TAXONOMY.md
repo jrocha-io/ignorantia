@@ -18,7 +18,7 @@
 | `## Auditoria sistemática` | 20-23 | **Developer** | → `dev-docs/SKILL-HISTORY.md` |
 | `## Estado quantitativo da skill (v2.20.0)` | 24-38 | **Developer** | → `dev-docs/SKILL-HISTORY.md` |
 | `## Arquitetura v2.15-v2.18 — cobertura premium, logs, preâmbulo` | 39-78 | **Developer** | → `dev-docs/SKILL-HISTORY.md` |
-| `## Decisões editoriais v2.0 — três modos de saída e mitigações` (Decisões 1-39) | 80-925 | **Both** (split per Decisão) | Strip developer markers; keep rule body |
+| `## Decisões editoriais v2.0 — três modos de saída e mitigações` (Decisões 1-39) | 80-925 | **Developer (full numbered registry)** + **Operator (rules in prose, no numbering)** | Copy to `dev-docs/DECISIONS-REGISTRY.md` preserving everything. Rewrite the rules as operator-facing prose in SKILL.md, organized by topic/phase, WITHOUT numbering. The "Decisão N" anchor disappears from SKILL.md entirely — only commits/PRs/issues continue using the numbering, by reading the dev-docs registry. |
 | `## Infraestrutura de comparação automatizada (v2.5.0 — Etapa 4b)` | 745+ | **Developer** | → `dev-docs/SKILL-HISTORY.md` |
 | `## Saída opcional: HTML Wiki-style (subcomando dedicado)` | 824+ | Operator | Keep, scrub markers |
 | `## Saídas secundárias (geradas em paralelo)` | 925+ | Operator | Keep |
@@ -74,21 +74,60 @@ These string patterns are developer-facing annotations interleaved through SKILL
 
 ## `dev-docs/` — new tree
 
-After Phase B:
+After Phase B + C + E:
 
 ```
 dev-docs/
-├── AUDIENCE-TAXONOMY.md          (this file)
-├── SKILL-HISTORY.md              (content stripped from SKILL.md)
-├── DECISIONS.xml                 (moved from references/)
-├── V3_ARCHITECTURE_PLAN.xml      (moved from references/)
-├── IMPLEMENTATION_STRATEGY.xml   (moved from references/)
-├── WONT_IMPLEMENT.xml            (moved from references/)
-├── _manifesto.xml                (moved from references/)
-└── sprint-formal-roadmap.xml     (moved from references/)
+├── AUDIENCE-TAXONOMY.md          (Phase A — this file)
+├── DECISIONS-REGISTRY.md         (Phase C — full numbered registry, 39 Decisões with history)
+├── SKILL-HISTORY.md              (Phase E — Auditoria + Estado quantitativo + Arquitetura v2.15-v2.18 + Scripts index)
+├── DECISIONS.xml                 (Phase B — moved from references/)
+├── V3_ARCHITECTURE_PLAN.xml      (Phase B — moved from references/)
+├── IMPLEMENTATION_STRATEGY.xml   (Phase B — moved from references/)
+├── WONT_IMPLEMENT.xml            (Phase B — moved from references/)
+├── _manifesto.xml                (Phase B — moved from references/)
+└── sprint-formal-roadmap.xml     (Phase B — moved from references/)
 ```
 
 `dev-docs/` is excluded from `scripts/build_production_package.py` allowlists.
+
+## SKILL.md after the refactor — structural diff
+
+**Before** (operator surface contains developer vocabulary):
+
+```markdown
+### Decisão 8 — Mitigações de conflito de interesse — Categoria A (5 itens) obrigatórios
+
+Toda revisão produzida pelo skill deve incluir, sem exceção:
+
+1. **Pré-registro PROSPERO/OSF com timestamp** antes da decisão de design...
+2. **Declaração CoI no §01 do manuscrito** que (a) **nomeia o projeto específico**...
+...
+```
+
+**After** (operator surface uses prose vocabulary, no numbering):
+
+```markdown
+## Conflito de interesse
+
+Toda revisão depositada deve incluir cinco mitigações obrigatórias:
+
+- **Pré-registro com timestamp imutável** (Zenodo, OSF ou PROSPERO) antes da decisão de design...
+- **§01 do manuscrito** nomeia o projeto específico ao qual o autor é vinculado...
+...
+```
+
+The full numbered version with all the history lives in `dev-docs/DECISIONS-REGISTRY.md`:
+
+```markdown
+### Decisão 8 — Mitigações de conflito de interesse — Categoria A (5 itens) obrigatórios (registrado em v2.0; item 2 reformulado em v2.23.3 Fix 19.5)
+
+**Operator surface mapping**: SKILL.md §"Conflito de interesse"
+
+[full body with version history, Fix annotations, etc.]
+```
+
+Commits and PRs continue to use the numbering: "Fix 19.5 reformula Decisão 8 item 2". The number is a developer index that never reaches the operator.
 
 ## Production package allowlist diff
 

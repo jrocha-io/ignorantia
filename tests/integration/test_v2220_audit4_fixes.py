@@ -249,7 +249,7 @@ def test_dd13_documented():
     Markdown body is preserved verbatim inside CDATA, so textual assertions
     still match.
     """
-    content = (ROOT / "references" / "DECISIONS.xml").read_text(encoding="utf-8")
+    content = (ROOT / "dev-docs" / "DECISIONS.xml").read_text(encoding="utf-8")
     assert "### DD-13" in content
     assert "Renderer HTML canônico" in content or "render_chunks" in content
 

@@ -154,7 +154,7 @@ referenced in the architecture plan only as future scope — there
 is no implementation in v3 and no API surface that would imply
 its presence. See:
 
-* `references/V3_ARCHITECTURE_PLAN.md` (Domain events: future)
+* `dev-docs/V3_ARCHITECTURE_PLAN.xml` (Domain events: future)
 * No `cowork` / `collaboration` / `multi_author` modules in
   `src/ignorantia/`.
 
