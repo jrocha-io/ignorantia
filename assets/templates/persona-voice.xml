@@ -38,8 +38,13 @@ underlying material (right).
 | "DD-10 Camada 2 logging" | (não escrever — DD-10 é instrumentação interna; o paper não fala dela) |
 | "5 mitigações Categoria A da Decisão 8 do protocolo" | "Cinco mitigações foram aplicadas: pré-registro, depósito Zenodo, busca ativa por evidência contrária, declaração TRIPOD-LLM completa, autoria solo declarada." |
 | "review_purpose=design_validation declarado no metadado" | "A revisão tem propósito de validação metodológica, declarado no protocolo pré-registrado." |
+| "design_foundational — esta revisão fundamenta..." | "Esta revisão metodológica fundamenta as decisões de design subsequentes do autor no projeto X." (nomeie X) |
+| "como a presente revisão e as outras 41 do projeto subjacente" | "como a presente revisão." (omitir contagem; meta-projeto não acrescenta informação para o leitor cego) |
+| "Há tensão entre função declaratória e função instrumental" | "Há tensão potencial entre o objetivo de informar a literatura e o de validar metodologia que o autor planeja usar em pesquisa aplicada." |
 | "manuscript.tex compilado por pdflatex+bibtex+pdflatex×2" | (não escrever — o caminho de build do PDF não vai para o paper) |
 | "Esta v1.0.0 é uma execução única; v1.1.0 fará re-execução" | "Esta versão consiste em uma execução única; uma replicação independente está prevista." |
+| "para v1.1.0, retentar com API key" | "trabalhos futuros / execução subsequente poderão obter dados desta base com credencial apropriada" |
+| "incremento MINOR (v1.1.0)" | "execução subsequente" |
 | "Pacote ignorantia-cs_se-...-v1.0.0.zip de 199 KB com 97 arquivos" | (não escrever — o nome e tamanho do zip são metadados de depósito, não conteúdo do paper) |
 | "Score subiu de 4.0 para 4.4 no `generate_assessment.py`" | (não escrever — a avaliação interna do skill não vai para o paper; o paper apresenta a evidência sintetizada, não o autodiagnóstico) |
 
@@ -76,9 +81,17 @@ Depois de gerar cada seção, execute mentalmente o equivalente a
 
 - `\bPhase\s+\d+\b` ou `\bFase\s+\d+\b` na prosa (deve ser zero;
   "Fase metodológica" sem número está OK)
-- `\bDecis[ãa]o\s+\d+\b` (deve ser zero — está coberto pelo
-  verificador automático Fix 10)
-- `\bTier\s+[0-9]\b` (deve ser zero)
+- `\bDecis[ãa]o\s+\d+\b` ou `\bDD-\d+\b` (deve ser zero — coberto
+  pelo Fix 10/19)
+- `\bTier\s+[0-9]\b`, `\bFALLBACK_MD\b`, `KEY → PROXY` (deve ser zero —
+  coberto pelo Fix 19)
+- `\bdesign_(foundational|validation|correction)\b`,
+  `\breview_purpose\b` literais em prosa (deve ser zero — esses tokens
+  ficam apenas em metadado JSON; em prosa, descrever em natural language)
+- `\bprojeto\s+subjacente\b`, `\boutr[ao]s?\s+\d+\s+revis` (deve ser
+  zero — coberto pelo Fix 19, banido como meta-projeto bleed-through)
+- `\bfun[çc][ãa]o\s+(declarat|instrument)` (deve ser zero — taxonomia
+  interna de CoI; reescrever em prosa direta)
 - Nomes de scripts terminando em `.py` (zero)
 - Versões SemVer `vX.Y.Z` na prosa (zero — coberto pelo Fix 10)
 

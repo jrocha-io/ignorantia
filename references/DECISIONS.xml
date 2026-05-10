@@ -6,7 +6,9 @@
 
 Este arquivo é o registro **central, persistente e canônico** de decisões editoriais e de design da skill ignorantia. Toda decisão registrada aqui deve ser consultada antes de qualquer implementação que possa entrar em conflito.
 
-> **Regra operacional do projeto:** Se o pedido ou questionamento contradiz decisão registrada → cite a decisão, mostre o registro, explique consequências e peça confirmação antes de executar. **Não trate hipótese como decisão.**
+> **Regra operacional do projeto:** Se o pedido ou questionamento contradiz decisão registrada → cite a decisão na conversa com o usuário (em chat / commits / PRs), mostre o registro, explique consequências e peça confirmação antes de executar. **Não trate hipótese como decisão.**
+>
+> **Aviso de vocabulário (Decisão 41).** "Cite a decisão" significa **citar na conversa com o usuário** (chat, mensagem de commit, descrição de PR), não em prosa de artefato depositado. As tags `Decisão N`, `DD-N`, `Tier 1/2`, `priority_0_routing`, `FALLBACK_MD` deste arquivo são vocabulário de arquitetura interna; **nunca aparecem em manuscript/protocol/README** do pacote Zenodo. Em prosa de artefato, traduzir conforme `references/artifact-vocabulary-policy.xml`.
 
 ---
 

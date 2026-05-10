@@ -198,6 +198,83 @@ def _extract_body(text: str, *, is_latex: bool) -> str:
     return text[match.end() :]
 
 
+# Code-formatted regions where filename references and identifier-like
+# tokens are legitimate (cross-references between deposit files). When a
+# vocabulary match lands inside one of these regions, it is suppressed —
+# *except* for skill-brand matches, which are bound everywhere.
+#
+# Examples that must NOT trip the gate when inside these regions:
+#
+#   - ``\\texttt{protocol-v1.0.0.md}``  (LaTeX file reference)
+#   - ``<code>bundle-v2.23.3.zip</code>``  (HTML file reference)
+#   - `` `protocol-v1.0.0.md` ``  (Markdown code span)
+#   - ``\\href{...protocol-v1.0.0.md}{...}``  (LaTeX URL)
+#
+# The brand ``ignorantia`` MUST still fail even inside code regions —
+# the brand never appears in any deposited artifact, code-formatted or
+# not.
+
+_CODE_REGION_PATTERNS: tuple[re.Pattern[str], ...] = (
+    # LaTeX: \texttt{...}, \href{...}{...} (capture URL arg only),
+    # \url{...}, \path{...}, \verb|...|.
+    re.compile(r"\\texttt\{[^{}]*\}"),
+    re.compile(r"\\href\{[^{}]*\}"),
+    re.compile(r"\\url\{[^{}]*\}"),
+    re.compile(r"\\path\{[^{}]*\}"),
+    re.compile(r"\\verb\|[^|]*\|"),
+    # HTML: <code>...</code>, <samp>...</samp>, <kbd>...</kbd>, <tt>...</tt>.
+    re.compile(r"<code\b[^>]*>.*?</code>", re.DOTALL),
+    re.compile(r"<samp\b[^>]*>.*?</samp>", re.DOTALL),
+    re.compile(r"<kbd\b[^>]*>.*?</kbd>", re.DOTALL),
+    re.compile(r"<tt\b[^>]*>.*?</tt>", re.DOTALL),
+    # Markdown: triple-backtick fenced blocks (multi-line) and inline
+    # backticks (single-line). Triple-backtick must come first so the
+    # inline pattern doesn't shred it.
+    re.compile(r"```[^\n]*\n.*?\n```", re.DOTALL),
+    re.compile(r"``[^`\n]+``"),
+    re.compile(r"`[^`\n]+`"),
+)
+
+
+def _build_code_region_mask(text: str) -> list[bool]:
+    """Return a per-character mask: ``True`` where the position is
+    inside a code-formatted region.
+
+    The mask is used by ``find_violations`` to suppress false positives
+    on filename cross-references like ``\\texttt{protocol-v1.0.0.md}``
+    — the version tag in the filename is metadata, not prose rhetoric.
+
+    Independently overlapping regions (rare) are merged to a single mask
+    to avoid double-counting.
+    """
+    mask = [False] * len(text)
+    for pat in _CODE_REGION_PATTERNS:
+        for m in pat.finditer(text):
+            for i in range(m.start(), m.end()):
+                mask[i] = True
+    return mask
+
+
+# Labels for which a code-formatted region (``\texttt{...}``,
+# ``<code>...</code>``, backticks, ``\href{...}``) suppresses the match.
+#
+# The only legitimate reason for a forbidden token to appear inside
+# a code region is a **filename cross-reference** between deposit files —
+# e.g. ``\\texttt{protocol-v1.0.0.md}`` cites the sibling protocol file
+# by its actual on-disk filename, which legitimately carries a SemVer
+# tag. Other forbidden tokens (``Decisão N``, ``design_foundational``,
+# ``Tier N``, ``FALLBACK_MD``, etc.) are NOT filenames; they are
+# skill-internal labels that don't belong in a deposit even when the
+# author dressed them up with backticks. So the suppression is narrow:
+# only the SemVer pattern is suppressed inside code regions.
+#
+# Skill-brand is bound everywhere (never appears in deposit, formatted
+# or not). All other labels also fire inside code regions — wrapping
+# ``Decisão 8`` in backticks does not turn it into a legitimate
+# filename reference.
+_CODE_SUPPRESSED_LABELS: frozenset[str] = frozenset({"semver-version-tag"})
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -229,10 +306,22 @@ def find_violations(text: str, *, is_latex: bool = False) -> list[Violation]:
     # Track preamble offset so reported line numbers map back to the
     # original document.
     preamble_offset = text[: len(text) - len(body)].count("\n") if is_latex else 0
+    # Code-region mask suppresses filename cross-references inside
+    # ``\texttt{...}``, ``<code>...</code>``, backticks, ``\href{...}``.
+    # Skill-brand matches are exempt — they fail everywhere.
+    code_mask = _build_code_region_mask(body)
 
     violations: list[Violation] = []
     for pattern, label, why in _FORBIDDEN:
         for match in pattern.finditer(body):
+            if (
+                label in _CODE_SUPPRESSED_LABELS
+                and code_mask[match.start()]
+            ):
+                # Inside a code-formatted region; treat as filename
+                # cross-reference (e.g. ``\texttt{protocol-v1.0.0.md}``),
+                # not SemVer rhetoric in prose.
+                continue
             line_number = body[: match.start()].count("\n") + 1 + preamble_offset
             violations.append(
                 Violation(

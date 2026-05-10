@@ -220,8 +220,8 @@ Na fase 3 (execução das buscas), o skill **prioriza** resultados das seguintes
 Se o usuário **não tiver acesso institucional** a uma base paga relevante, a skill:
 - Gera a string booleana correta para a base.
 - Sugere ao usuário que use o **Portal de Periódicos da CAPES** (com login CAFe) — que cobre a maior parte das bases pagas para vinculados a IES brasileiras.
-- Aciona automaticamente o **Tier 0** (Unpaywall + OAB) para resolver subset OA legítimo (golden, hybrid, green/preprint).
-- Para itens que permanecem inacessíveis após Tier 0, gera o **`gap_report.md`** listando os itens pendentes e **pausa**, permitindo que o usuário providencie o full-text por qualquer meio que escolher. Como o usuário obtém os itens é decisão do usuário; o `ignorantia` não recomenda nem desaconselha plataformas, serviços ou métodos.
+- Aciona automaticamente os localizadores OA (Unpaywall + Open Access Button + CORE) para resolver o subset com versão de acesso aberto legítimo (golden, hybrid, green/preprint).
+- Para itens que permanecem inacessíveis após os localizadores OA, gera o **`gap_report.md`** listando os itens pendentes e **pausa**, permitindo que o usuário providencie o full-text por qualquer meio que escolher. Como o usuário obtém os itens é decisão do usuário; a skill não recomenda nem desaconselha plataformas, serviços ou métodos.
 - Fornece um script Python (`scripts/download_via_proxy.py`, gerado sob demanda) que automatiza acesso via proxy institucional, quando o usuário fornece credenciais que ele próprio possui.
 
 ## 6. Lista de venues a sugerir para submissão (Fase 8)
