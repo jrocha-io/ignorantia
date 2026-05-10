@@ -4,6 +4,124 @@ Todas as mudanças notáveis serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 Versionamento [SemVer 2.0.0](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [2.23.4] — 2026-05-10
+
+**Patch RS-42 dogfood remediation — terceira onda (Fix 19) e refactor
+estrutural de separação de audiências (Fix 20).** A segunda onda
+(v2.23.2 / Fix 9–18) fechou 12 classes de loophole de gates de qualidade
+e migração XML. A terceira onda endereça a raiz estrutural diagnosticada
+pelo usuário no dogfood Mark 4 de 2026-05-09: *"o conteúdo não está bem
+dividido entre o que a IA que cria a skill deve seguir e o que a skill
+faz"*. v2.23.3 foi consumida pela cadeia experimental de PRs; v2.23.4
+consolida o resultado.
+
+### Adicionado
+
+- **Gate de vocabulário deposit-wide** (Fix 19) —
+  `scripts/check_decision_19_vocabulary.py` ganha modo
+  `--all <output_dir> --gate-sidecar` que varre recursivamente todos os
+  artefatos `.md`/`.tex`/`.html` do depósito procurando 12 classes de
+  label skill-internal: SemVer rhetoric (`v1.0.0`), `Decisão N`,
+  `DD-N`, `Categoria A/B`, `Tier N`, `FALLBACK_MD`, `KEY → PROXY`,
+  valores enum de `review_purpose`/`review_type`, `projeto subjacente`,
+  `outras N revisões`, `função declaratória/instrumental`, brand
+  `ignorantia`. Emite sidecar `vocabulary_gate.json` com
+  `{passed, total_violations, files_with_violations, violations_by_label}`.
+  Encadeado via `&&` no chain pré-empacotamento da Fase 8, junto com
+  os gates de assessment, pipeline invariants e persona-voice.
+- **`references/artifact-vocabulary-policy.xml`** (Fix 19) — tabela
+  de tradução vinculante: para cada label operacional da skill, dá a
+  prosa científica equivalente. Lida ANTES de gravar qualquer prosa em
+  disco. Inclui exemplos pareados anti-padrão ↔ padrão para §01 (CoI),
+  §04 (métodos), §06 (discussão).
+- **Templates de modo com aviso de metadado** (Fix 19) — os 10
+  arquivos `assets/templates/modes/mode-*.xml` carregam aviso explícito
+  acima do bloco YAML de metadado: os tokens enumerados (`review_type`,
+  `review_purpose`, valores) ficam **apenas no JSON metadata**; em
+  prosa, traduzir.
+- **`dev-docs/AUDIENCE-TAXONOMY.md`** (Fix 20) — taxonomia que
+  classifica cada arquivo do repositório como operator-facing ou
+  developer-facing. Estabelece o princípio estrutural "cada arquivo é
+  lido por exatamente uma audiência".
+- **`dev-docs/DECISIONS-REGISTRY.md`** (Fix 20) — registro numerado
+  canônico das 39 Decisões editoriais com history completo,
+  versionamento, fix annotations, verification pointers. Citado em
+  commits/PRs/issues/CHANGELOG. Substitui o registro previamente
+  embutido em SKILL.md.
+- **`dev-docs/SKILL-HISTORY.md`** (Fix 20) — snapshot byte-for-byte
+  da SKILL.md pré-refactor (1213 linhas), preservando integralmente
+  as 6 seções developer-facing cortadas (`## Auditoria sistemática`,
+  `## Estado quantitativo`, `## Arquitetura v2.15-v2.18`, etc.) e
+  os 44 marcadores inline (`registrado em vX.Y.Z`, `Verificação
+  mecânica:`, `Para quem mantém:`).
+- **`tests/integration/test_v2234_fix20_operator_surface_clean.py`**
+  (Fix 20) — meta-gate de 11 testes que valida operator-surface zero
+  developer-markers em SKILL.md + `references/*.xml` shipped +
+  `assets/templates/*`.
+
+### Mudou
+
+- **`SKILL.md` reescrita como manual operacional puro** (Fix 20) —
+  redução de 1213 para 474 linhas (61%). Zero numeração `Decisão N`,
+  zero `(registrado em vX.Y.Z, Fix N)`, zero `**Verificação
+  mecânica:**`, zero `**Para quem mantém:**`, zero `## Auditoria
+  sistemática` / `## Estado quantitativo` / `## Arquitetura v2.15-
+  v2.18` / `## Quando algo falhar`. As regras das 39 Decisões antigas
+  são reformuladas como prosa operacional organizada por tópico
+  (modos, vocabulário, CoI, idiomas, bases, persona, saídas,
+  versionamento, fluxo de 8 fases, mandatories). A numeração `Decisão
+  N` migra para `dev-docs/DECISIONS-REGISTRY.md` como índice estável
+  para o workflow developer (commits/PRs).
+- **6 XMLs developer-only migrados de `references/` para `dev-docs/`**
+  (Fix 20): `DECISIONS.xml`, `V3_ARCHITECTURE_PLAN.xml`,
+  `IMPLEMENTATION_STRATEGY.xml`, `WONT_IMPLEMENT.xml`, `_manifesto.xml`,
+  `sprint-formal-roadmap.xml`. O production zip agora contém 6 arquivos
+  a menos em `references/` — apenas o material que o operador (Claude
+  no chat) precisa.
+- **Mandatories do Fluxo da Fase 8 atualizados** (Fix 19) — substituída
+  invocação legacy `python3 scripts/check_decision_19_vocabulary.py
+  <output_dir>/manuscript.tex` (single-file) pela forma deposit-wide
+  `python3 scripts/check_decision_19_vocabulary.py --all <output_dir>
+  --gate-sidecar --quiet`. Os 4 gates (persona, assessment, pipeline
+  invariants, vocabulary) são encadeados via `&&` antes do ZIP.
+- **`SKILL.md` Decisão 8 reescrita** (Fix 19, F19.5) — item 2 (CoI)
+  banido o vocabulário "projeto subjacente"; item 4 (review_purpose)
+  reescrito para distinguir explicitamente token-em-metadado de
+  prosa-em-corpo. Decisão 22 reformulada para remover retórica SemVer
+  (`subversão`, `incremento PATCH/MINOR`). Phase 1 dim 8 e seção
+  "Versionamento SemVer das saídas" reformuladas para deixar claro
+  que tags SemVer são apenas metadado de filename + JSON, nunca em
+  prosa de artefato.
+- **`references/artifact-vocabulary-policy.xml` e
+  `assets/templates/persona-voice.xml` limpos** (Fix 20, Phase E) —
+  estripadas referências a `Fix N`, `RS-42 dogfood`, `Decisão N` que
+  vazavam developer-history para operator surface.
+
+### Corrigido
+
+- **Filename cross-reference false positives** (Fix 19, F19.5) — o gate
+  de vocabulário suprime matches de SemVer dentro de regiões de código
+  formatado (`\texttt{...}`, `<code>...</code>`, backticks Markdown,
+  `\href{...}`). Filenames como `protocol-v1.0.0.md` são referências
+  válidas a arquivos-irmãos do depósito, não retórica SemVer em prosa.
+  Brand `ignorantia` permanece bloqueado mesmo dentro de código (o
+  brand nunca aparece em depósito, formatado ou não). Outros padrões
+  (Tier, Decisão N, design_foundational) também continuam disparando
+  dentro de código — backtick em `` `design_foundational` `` não
+  legitima.
+
+### Operacional
+
+A v2.23.4 fecha o ciclo da remediation RS-42. Os 4 gates mecânicos
+(persona-voice strict, assessment, pipeline invariants, vocabulary
+deposit-wide) bloqueiam o empacotamento se a próxima dogfood reproduzir
+qualquer um dos 12+ padrões de leakage diagnosticados. A separação de
+audiências (Fix 20) endereça a causa estrutural: SKILL.md agora ensina
+Claude apenas em prosa científica, sem developer vocabulary que o
+manuscrito acabaria reproduzindo. Workflow de desenvolvimento (commits,
+PRs, issues, CHANGELOG) continua referenciando "Fix N" e "Decisão N"
+via `dev-docs/`, separadamente do operator surface.
+
 ## [2.23.2] — 2026-05-09
 
 **Patch RS-42 dogfood remediation, segunda onda (Fix 9–18).**
