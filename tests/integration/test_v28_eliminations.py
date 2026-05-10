@@ -99,13 +99,28 @@ def test_decision_30_skill_md_does_not_describe_fun_doodles():
 
 
 def test_decision_20_persona_block_present_in_skill_md():
-    """SKILL.md contém o bloco de Voz autoral padrão (Decisão 20)."""
+    """Post-F20: the persona contract is present in SKILL.md as prose.
+
+    Pre-F20 (mixed audience): the persona was registered as `### Decisão
+    20 — Voz autoral padrão`, with a numbered heading and an internal
+    label. Post-F20 (audience separation): SKILL.md describes the
+    persona contract in plain operator prose under `## Persona acadêmica`,
+    without the numbered Decisão prefix. The full numbered registry entry
+    lives in dev-docs/DECISIONS-REGISTRY.md.
+    """
     skill_md = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    assert "### Decisão 20 — Voz autoral padrão" in skill_md
-    # Garantir que blocos críticos estão presentes
+    # Operator surface: the persona section exists with the canonical
+    # body markers that pin the contract.
+    assert "Persona acadêmica" in skill_md
     assert "acadêmico neutro impessoal" in skill_md
-    assert "ABNT/Vancouver" in skill_md
     assert "IMRaD" in skill_md
-    assert "Sem hedging ornamental" in skill_md
-    # E especialmente o "O que a persona NÃO faz", que é a cláusula de bloqueio
-    assert "não menciona o skill" in skill_md.lower()
+    assert "hedging ornamental" in skill_md
+    # The "do not mention the skill" prohibition lives in the vocabulary
+    # rules section in operator prose (rule 1: "A skill nunca se nomeia
+    # no artefato").
+    assert "skill nunca se nomeia" in skill_md.lower() or "nome `ignorantia` não aparece" in skill_md.lower()
+    # Cross-check that the numbered registry still carries the legacy entry.
+    registry = (ROOT / "dev-docs" / "DECISIONS-REGISTRY.md")
+    if registry.is_file():
+        registry_text = registry.read_text(encoding="utf-8")
+        assert "Decisão 20" in registry_text

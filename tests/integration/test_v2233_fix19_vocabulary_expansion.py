@@ -386,25 +386,38 @@ def test_artifact_vocabulary_policy_exists_and_is_well_formed() -> None:
         )
 
 
-def test_skill_md_mentions_decision_41_and_policy_file() -> None:
-    """SKILL.md must instruct Claude to read the policy.
+def test_skill_md_wires_vocabulary_gate_and_policy_file() -> None:
+    """SKILL.md must instruct Claude to read the policy and run the gate.
 
-    Without this pointer, Claude doesn't know the policy exists. Pairing
-    the file with the SKILL.md mandatory is the wiring step that closes
-    the loop on F19.4 (structural refactor).
+    Without these wiring points, Claude doesn't know the policy exists
+    or that the gate must be run pre-packaging. The structural contract
+    pinned here: (a) the operator manual points at the policy file by
+    path; (b) the operator manual invokes the deposit-wide gate with
+    the sidecar; (c) the sidecar filename is named. The Decisão N
+    numbering used to live in SKILL.md before F20 (audience separation)
+    — after F20 the rule is described as binding prose without any
+    numeric anchor, so the developer-only registry under dev-docs/
+    carries the numbering instead.
     """
     skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    assert "Decisão 41" in skill, (
-        "SKILL.md must register Decisão 41 (deposit-wide vocabulary gate)"
-    )
     assert "artifact-vocabulary-policy.xml" in skill, (
         "SKILL.md must point Claude at references/artifact-vocabulary-policy.xml "
         "so the translation table is discoverable from the operational doc"
     )
     assert "--all" in skill and "vocabulary_gate.json" in skill, (
         "SKILL.md mandatories must invoke the deposit-wide gate with sidecar "
-        "emission, not the legacy single-file form"
+        "emission (--all <output_dir> --gate-sidecar), not a legacy "
+        "single-file form"
     )
+    # Cross-check that the developer registry still carries the numbered
+    # registration of the rule (post-F20: numbering moved to dev-docs).
+    registry = (ROOT / "dev-docs" / "DECISIONS-REGISTRY.md")
+    if registry.is_file():
+        registry_text = registry.read_text(encoding="utf-8")
+        assert "Decisão 41" in registry_text, (
+            "Post-F20: the numbered Decisão 41 must live in the developer "
+            "registry, not in SKILL.md"
+        )
 
 
 # ── F19.5 — code-region suppression for filename cross-references ──────

@@ -308,15 +308,20 @@ class TestDim4DeclarativeParity:
     """DIM 4: SKILL.md/README contadores devem bater com realidade."""
 
     def test_skill_md_says_correct_adapter_count(self):
-        """SKILL.md menciona '62 adapters' ou contagem correta."""
-        skill_md = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        """Post-F20: adapter count declared in dev-docs/SKILL-HISTORY.md.
+
+        Pre-F20 (mixed audience): the literal "62 adapters" count was
+        in SKILL.md as a developer-facing quantitative state snapshot.
+        Post-F20 (audience separation): operator-facing SKILL.md doesn't
+        carry skill-internal counts — those live in dev-docs alongside
+        the rest of the engineering audit log.
+        """
+        history = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
         adapter_count = len([f for f in os.listdir(ROOT / "scripts" / "searches")
                               if f.startswith("search_") and f.endswith(".py")])
-        # Aceita declaração que bate com contagem real
-        # (62 atual; tolera 61 a 63 para flexibilidade futura)
-        assert (f"{adapter_count} adapters" in skill_md or
-                "61 adapters" in skill_md or
-                "62 adapters" in skill_md), (
-            f"SKILL.md não declara contagem correta de adapters. "
+        assert (f"{adapter_count} adapters" in history or
+                "61 adapters" in history or
+                "62 adapters" in history), (
+            f"dev-docs/SKILL-HISTORY.md não declara contagem correta. "
             f"Real: {adapter_count}"
         )
