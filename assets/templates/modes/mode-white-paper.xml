@@ -132,6 +132,8 @@ Para audiência leiga (sociedade civil, imprensa). 200-300 palavras. No topo do 
 
 ## Selos no metadado YAML
 
+> **Atenção (vinculante).** O bloco abaixo é **metadado JSON/YAML** que vai apenas em `reproducibility_manifest.yaml` (ou JSON equivalente) do pacote Zenodo. **Os tokens enumerados (review_type, review_purpose, valores) NÃO entram em prosa** de manuscript/protocol/README. Em prosa, traduzir o tipo e o propósito da revisão para linguagem científica natural (ver `references/artifact-vocabulary-policy.xml`). A literal `design_foundational` ou `scoping_review` no corpo do paper bloqueia o empacotamento (gate de vocabulário).
+
 ```yaml
 review_type: white_paper
 review_purpose: independent_inquiry  # ou design_correction se documento responde a falha de política existente

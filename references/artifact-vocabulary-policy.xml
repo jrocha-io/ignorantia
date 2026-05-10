@@ -3,7 +3,7 @@
      path="references/artifact-vocabulary-policy.xml"
      type="policy"
      lang="pt-BR">
-  <title>Política de vocabulário de artefatos (Decisão 41 — Fix 19, RS-42 third wave)</title>
+  <title>Política de vocabulário de artefatos</title>
   <markdown><![CDATA[
 # Política de vocabulário de artefatos
 
@@ -12,7 +12,7 @@ no pacote Zenodo, em arXiv, ou em qualquer depósito público.
 
 ## Por que esta política existe
 
-O dogfood RS-42 Mark 4 (v2.23.2) produziu artefatos que **misturam**:
+Sem a política, artefatos depositados acabam **misturando**:
 
 - conteúdo científico (PRISMA-ScR, PCC, IC/EC, ABNT)
 - vocabulário operacional da skill (`Tier 1/2`, `FALLBACK_MD`,
@@ -113,7 +113,8 @@ emitido). Nunca corpo de prosa.
 nenhuma do depósito Zenodo, do arXiv, do preprint. O AI disclosure usa o
 padrão "algoritmo particular do autor (não-divulgado por segredo
 industrial) com modelo de linguagem da Anthropic, Claude (versão Opus
-4.7)" — Decisões 19 e 33.
+4.7)" — esta é a regra do segredo industrial que protege a identidade
+da skill.
 
 ## Como aplicar
 
@@ -147,7 +148,7 @@ empacotar de verdade.
 
 ### §01 Conflito de interesse
 
-❌ Anti-padrão (RS-42 Mark 4, L116):
+❌ Anti-padrão típico:
 
 > O autor é o proponente do projeto subjacente que motiva a presente
 > revisão. Há, portanto, conflito potencial entre a função declaratória
@@ -165,7 +166,7 @@ empacotar de verdade.
 
 ### §04 Métodos / Bases
 
-❌ Anti-padrão (RS-42 Mark 4, L188):
+❌ Anti-padrão típico:
 
 > Vinte e três bases foram consultadas, organizadas em três camadas:
 > Tier 1 de acesso aberto (arXiv, Crossref, …); Tier 2 ibero-americano
@@ -187,7 +188,7 @@ empacotar de verdade.
 
 ### §05 / §06 Discussão
 
-❌ Anti-padrão (RS-42 Mark 4, L384):
+❌ Anti-padrão típico:
 
 > Esta indefinição metodológica é exatamente o que justifica que
 > revisões assistidas por IA conduzidas por revisor único — como a
