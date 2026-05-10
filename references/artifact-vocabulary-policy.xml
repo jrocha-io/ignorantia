@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc id="artifact-vocabulary-policy"
+     path="references/artifact-vocabulary-policy.xml"
+     type="policy"
+     lang="pt-BR">
+  <title>Política de vocabulário de artefatos (Decisão 41 — Fix 19, RS-42 third wave)</title>
+  <markdown><![CDATA[
+# Política de vocabulário de artefatos
+
+**Status:** vinculante. Aplica-se a TODA prosa gravada em disco que ficará
+no pacote Zenodo, em arXiv, ou em qualquer depósito público.
+
+## Por que esta política existe
+
+O dogfood RS-42 Mark 4 (v2.23.2) produziu artefatos que **misturam**:
+
+- conteúdo científico (PRISMA-ScR, PCC, IC/EC, ABNT)
+- vocabulário operacional da skill (`Tier 1/2`, `FALLBACK_MD`,
+  `KEY → PROXY`, `DD-N`, `Decisão N`, `review_purpose`,
+  `design_foundational`, `projeto subjacente`, `outras 41 revisões`,
+  `função declaratória/instrumental`)
+
+Causa: Claude lê a SKILL.md e usa o vocabulário lá descrito **literalmente**
+nos artefatos. A SKILL.md fala com Claude — não com o leitor cego do paper.
+
+**Regra absoluta:** o leitor cego do artefato é um pesquisador externo
+sem acesso à SKILL.md. Ele não deve precisar entender a taxonomia
+interna da skill para ler o paper. Cada label operacional **deve ser
+traduzido** para vocabulário científico-natural antes de ir pro disco.
+
+## Mapa de tradução
+
+A coluna **NÃO escreva** lista o que NUNCA aparece no corpo de
+manuscript/protocol/README/compliance/ai-declaration/venue-suggestions/
+avaliacao/gap_report/citations_to_obtain. A coluna **Escreva** dá a
+tradução prosa que ocupa o lugar.
+
+### 1. Database access cascade
+
+| NÃO escreva | Escreva |
+|---|---|
+| `Tier 0` | "localizadores OA (Unpaywall, CORE, Open Access Button)" |
+| `Tier 1` | "bases de acesso aberto" |
+| `Tier 2` | "bases comerciais com paywall" |
+| `cascata Tier 0` | "tentativa OA via localizador agregador" |
+| `KEY → PROXY → FALLBACK_MD` | "credencial institucional (quando disponível), proxy de biblioteca como segunda tentativa, e — em último caso — geração de lista de citações para retomada manual" |
+| `FALLBACK_MD` | "lista cruzada de itens identificados via Crossref/OpenAlex com instruções de obtenção manual" |
+
+### 2. Skill-internal numbering
+
+| NÃO escreva | Escreva |
+|---|---|
+| `Decisão 8`, `Decisão 22`, `Decisão N` | descreva a regra metodológica em prosa, sem referenciar identificador |
+| `DD-6`, `DD-N` | descreva a constraint em prosa, sem referenciar identificador |
+| `Categoria A`, `Categoria B` | enumere as mitigações específicas (pré-registro, dados abertos, revisão adversarial, etc.) |
+
+### 3. Enum values vs. prose
+
+`review_type` e `review_purpose` são valores enumerados que vão **literalmente
+no metadado JSON** do pacote (e ALI são obrigatórios). Em **prosa do
+manuscript/protocol body**, são SEMPRE traduzidos:
+
+| Enum (metadata) | NÃO escreva em prosa | Escreva em prosa |
+|---|---|---|
+| `scoping_review` | "este trabalho é `scoping_review`" | "este trabalho é uma scoping review" |
+| `rapid_review` | "categoria `rapid_review`" | "uma rapid review" |
+| `mapping_study` | "tipo `mapping_study`" | "um mapping study" |
+| `design_foundational` | "este `review_purpose=design_foundational`" | "uma revisão metodológica que fundamenta as escolhas de design subsequentes deste autor no projeto X" — nomeie X |
+| `design_validation` | "função `design_validation`" | "uma revisão que valida empiricamente a decisão Y de design" — nomeie Y |
+| `independent_inquiry` | "modo `independent_inquiry`" | "investigação independente sem ligação a decisão de design específica" |
+
+**Quando precisar declarar no §03 / §04** (Métodos): "Esta revisão segue o
+protocolo PRISMA-ScR (TRICCO et al., 2018)". Não diga "categorizada como
+`scoping_review` no metadado". O leitor cego não tem o metadado.
+
+### 4. Meta-projeto bleed-through
+
+Quando o conflict-of-interest exige declarar que outras revisões do mesmo
+autor existem, **nomeie o projeto pelo nome real** (ex: "projeto Ler e
+Escrever / EMAI gamificado"). NUNCA escreva:
+
+| NÃO escreva | Escreva |
+|---|---|
+| `projeto subjacente` | nome real do projeto (uma vez, em §01) |
+| `as outras 41 revisões` | "outras revisões metodológicas conduzidas pelo autor no mesmo projeto" — sem contagem |
+| `as 41 demais revisões` | idem |
+| `função declaratória` / `função instrumental` | descreva a tensão em prosa: "este trabalho serve simultaneamente para informar a literatura e para validar metodologia que o autor usa em pesquisa aplicada" |
+
+**Critério mecânico:** o leitor cego deve poder ler o paper sem aprender
+quantas outras revisões o autor tem ou como elas se inter-relacionam. A
+declaração de CoI no §01 nomeia o projeto e diz que o autor é proponente —
+e nada mais sobre o ecossistema.
+
+### 5. SemVer rhetoric
+
+Nunca escreva `v1.0.0`, `v1.1.0`, `subversão MINOR`, `incremento PATCH` em
+prosa. Substitua por:
+
+| NÃO escreva | Escreva |
+|---|---|
+| `re-execução em v1.1.0` | "re-execução em data subsequente" / "trabalho futuro" |
+| `esta é a v1.0.0; v1.1.0 cobrirá` | "esta é a primeira execução; uma execução futura cobrirá" |
+| `incremento MINOR para o snowballing` | "o snowballing fica como continuação direta" |
+
+SemVer é vocabulário de gerenciamento de versão; a literatura científica
+não tem nem precisa dele. Tags de versão **são apenas metadado** (no
+README.md do pacote, no `reproducibility_manifest.json`, no DOI Zenodo
+emitido). Nunca corpo de prosa.
+
+### 6. Skill brand
+
+`ignorantia` (a skill) NUNCA aparece em prosa de artefato — em parte
+nenhuma do depósito Zenodo, do arXiv, do preprint. O AI disclosure usa o
+padrão "algoritmo particular do autor (não-divulgado por segredo
+industrial) com modelo de linguagem da Anthropic, Claude (versão Opus
+4.7)" — Decisões 19 e 33.
+
+## Como aplicar
+
+**Antes de gravar QUALQUER prosa em disco** (manuscript.tex,
+protocol.md, README.md, compliance-checklist.md, ai-declaration.md,
+venue-suggestions.md, avaliacao_*.md, gap_report.md,
+citations_to_obtain_*.md):
+
+1. Releia o parágrafo procurando os 6 padrões acima.
+2. Substitua cada label encontrado pela tradução de prosa correspondente.
+3. Escreva o arquivo.
+
+**Depois do empacotamento, antes de declarar o pacote pronto**, encadear:
+
+```
+python3 scripts/check_decision_19_vocabulary.py --all <output_dir> \
+    --gate-sidecar --quiet \
+&& zip ...
+```
+
+O gate falha (exit 2) e bloqueia o ZIP se qualquer arquivo `.md`/`.tex`/`.html`
+do depósito tiver violação. O sidecar `vocabulary_gate.json` registra
+`{passed, total_violations, files_with_violations, violations_by_label}`
+para auditoria posterior.
+
+`--no-gate` existe APENAS para triagem em sessão de debug; **nunca** em
+fluxo de produção. Use-o para diagnosticar o vazamento; remova antes de
+empacotar de verdade.
+
+## Exemplos pareados (anti-padrão ↔ padrão)
+
+### §01 Conflito de interesse
+
+❌ Anti-padrão (RS-42 Mark 4, L116):
+
+> O autor é o proponente do projeto subjacente que motiva a presente
+> revisão. Há, portanto, conflito potencial entre a função declaratória
+> (informar a literatura) e a função instrumental (validar a
+> metodologia que o autor planeja usar).
+
+✅ Padrão:
+
+> O autor é proponente do projeto Ler e Escrever / EMAI gamificado, no
+> qual aplica metodologia análoga à descrita aqui. Há, portanto, tensão
+> potencial entre o objetivo de informar a literatura e o objetivo de
+> validar a metodologia que o autor planeja usar nas suas pesquisas
+> aplicadas. As mitigações adotadas são pré-registro do protocolo no
+> Zenodo, …
+
+### §04 Métodos / Bases
+
+❌ Anti-padrão (RS-42 Mark 4, L188):
+
+> Vinte e três bases foram consultadas, organizadas em três camadas:
+> Tier 1 de acesso aberto (arXiv, Crossref, …); Tier 2 ibero-americano
+> obrigatório (SciELO, …); e bases comerciais com acesso restrito.
+> Para as últimas foi adotada cascata de acesso: KEY → PROXY →
+> FALLBACK_MD …
+
+✅ Padrão:
+
+> Vinte e três bases foram consultadas, divididas entre fontes de
+> acesso aberto (arXiv, Crossref, OpenAlex, PubMed Central, EuropePMC,
+> DOAJ, ERIC, EdArXiv, OSF, Zenodo, dblp), fontes ibero-americanas
+> (SciELO, LA Referencia, Redalyc, BDTD, Catálogo de Teses CAPES) e
+> fontes comerciais com paywall (Scopus, Web of Science, …). Para
+> estas últimas, na ausência de credencial institucional ativa, foram
+> registradas listas de citações cruzadas via Crossref e OpenAlex para
+> retomada manual posterior — abordagem documentada como limitação
+> específica de cobertura.
+
+### §05 / §06 Discussão
+
+❌ Anti-padrão (RS-42 Mark 4, L384):
+
+> Esta indefinição metodológica é exatamente o que justifica que
+> revisões assistidas por IA conduzidas por revisor único — como a
+> presente revisão e as outras 41 do projeto subjacente — sejam
+> classificadas explicitamente como scoping ou rapid review, e não
+> como systematic review estrita.
+
+✅ Padrão:
+
+> Esta indefinição metodológica é uma das razões pelas quais revisões
+> assistidas por IA conduzidas por revisor único, como a presente,
+> devem ser classificadas explicitamente como scoping review ou rapid
+> review — reservando a designação systematic review para casos com
+> dois revisores humanos com kappa documentado.
+
+(A frase removida — "as outras 41 do projeto subjacente" — não acrescenta
+informação para o leitor cego e introduz meta-discurso desnecessário.)
+  ]]></markdown>
+</doc>
