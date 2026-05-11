@@ -15,11 +15,11 @@ Publicada em 6 de março de 2026. Institui diretrizes obrigatórias para pesquis
 A Portaria não proíbe o uso de IAG, mas exige declaração obrigatória. O que isso impõe ao manuscrito gerado pelo skill:
 
 a. **Declaração obrigatória de uso de IAG** em qualquer etapa da pesquisa: concepção, análise de dados, redação, revisão. A declaração identifica:
-   - Ferramenta utilizada (ex.: "Claude Opus 4.7 da Anthropic, via skill `ignorantia` v<X.Y.Z>")
+   - Ferramenta utilizada (ex.: "algoritmo particular do autor — não-divulgado por segredo industrial — com modelo de linguagem da Anthropic, Claude (versão Opus 4.7), acessado via interface web claude.ai")
    - Versão e data de acesso
    - Finalidade específica do uso em cada etapa (ex.: "geração das strings booleanas; deduplicação automática; síntese narrativa de seção §05; geração do HTML interativo")
    - Identificação clara dos trechos onde houve mediação por IAG, quando relevante
-b. **Vedação de autoria à IA.** ChatGPT, Claude, Gemini, etc. não podem aparecer na lista de autores. A skill `ignorantia` é ferramenta, não autor.
+b. **Vedação de autoria à IA.** ChatGPT, Claude, Gemini, etc. não podem aparecer na lista de autores. A ferramenta usada para mediar a redação é, ela própria, ferramenta — não autor.
 c. **Responsabilidade integral do pesquisador humano** por: precisão factual, plágio (inclusive plágio gerado pela ferramenta), imprecisões e alucinações, e por todo conteúdo do manuscrito final.
 d. **Vedação à inserção de projetos de terceiros em ferramentas IAG para parecer.** Se o usuário do skill for revisor de um projeto, **não pode** colar o projeto em qualquer LLM para gerar parecer.
 
@@ -32,7 +32,7 @@ Em conformidade com a Portaria CNPq nº 2.664/2026, art. 9, declara-se:
 
 1. Ferramenta(s) utilizada(s): <nome do(s) modelo(s) e versão>
 2. Provedor: <Anthropic / OpenAI / Google / outro>
-3. Skill / interface: ignorantia v<X.Y.Z>
+3. Algoritmo / interface: algoritmo particular do autor (não-divulgado por segredo industrial), acessado via interface web do provedor
 4. Período de uso: <data inicial> a <data final>
 5. Etapas em que houve uso da ferramenta:
    [ ] Concepção da pergunta de pesquisa

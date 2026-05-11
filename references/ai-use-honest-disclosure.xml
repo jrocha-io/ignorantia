@@ -6,7 +6,7 @@
 
 > "A IA pode escrever para você. Mas se a banca pergunta 'por que você decidiu X?', e você não souber responder, é porque **você não fez ciência — você delegou**."
 
-Este documento explicita o que a IA pode fazer pelo usuário, o que **não pode** (mesmo declarando), e o que **deve fazer com supervisão estreita**. Aqui está a honestidade brutal que o nome `ignorantia` promete: trabalho acadêmico mediado por IA tem **limites éticos e práticos** que nenhuma quantidade de declaração formal compensa.
+Este documento explicita o que a IA pode fazer pelo usuário, o que **não pode** (mesmo declarando), e o que **deve fazer com supervisão estreita**. Aqui está a honestidade brutal sobre os limites: trabalho acadêmico mediado por IA tem **limites éticos e práticos** que nenhuma quantidade de declaração formal compensa.
 
 ## Fontes primárias
 
@@ -106,7 +106,7 @@ Zona cinzenta: tarefas onde a IA acelera mas o usuário **deve revisar parágraf
 
 ## Honrar a participação: o que isto significa na prática
 
-O `ignorantia` faz a primeira versão. Para o trabalho ser **seu**, você precisa:
+A primeira versão é produzida com auxílio de IA. Para o trabalho ser **seu**, você precisa:
 
 1. **Reler cada decisão de inclusão/exclusão** e confirmar (ou alterar) com base no seu juízo.
 2. **Reler cada quality appraisal** e ajustar pontuações com sua leitura crítica.
@@ -116,7 +116,7 @@ O `ignorantia` faz a primeira versão. Para o trabalho ser **seu**, você precis
 6. **Verificar cada citação no texto contra a fonte original**. A IA pode ter alucinado o que o paper diz.
 7. **Adicionar seu posicionamento** quando relevante (humanidades, ciências sociais).
 
-## Sinalização visual no `ignorantia`
+## Sinalização visual no manuscrito
 
 O HTML interativo do skill identifica, em cada parágrafo:
 
@@ -154,7 +154,7 @@ Se algum **não** ficou para trás, o trabalho não é seu o suficiente para ser
 
 ## A última frase
 
-A IA é **uma ferramenta extraordinária para aprender com profundidade**. É péssima ferramenta para **fingir competência**. `ignorantia` é construído para o primeiro uso. Se você usar para o segundo, o `avaliacao.html` vai dizer.
+A IA é **uma ferramenta extraordinária para aprender com profundidade**. É péssima ferramenta para **fingir competência**. Este protocolo é construído para o primeiro uso. Se você usar para o segundo, a `avaliacao.html` vai dizer.
 
   ]]></markdown>
 </doc>

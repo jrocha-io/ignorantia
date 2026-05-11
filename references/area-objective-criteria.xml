@@ -4,7 +4,7 @@
   <markdown><![CDATA[
 # Critérios objetivos por área disciplinar
 
-> **Função deste documento.** Listar, por área disciplinar, os critérios objetivos (programaticamente verificáveis) que o `ignorantia` aplica para avaliar adequação de um trabalho à área. Cada área tem reporting guidelines, instrumentos de QA, bases obrigatórias, e expectativas estruturais próprias. **Atenção:** estes critérios são complementares aos critérios gerais (qualquer área) declarados em `quality-rubric.md`.
+> **Função deste documento.** Listar, por área disciplinar, os critérios objetivos (programaticamente verificáveis) que o esta skill aplica para avaliar adequação de um trabalho à área. Cada área tem reporting guidelines, instrumentos de QA, bases obrigatórias, e expectativas estruturais próprias. **Atenção:** estes critérios são complementares aos critérios gerais (qualquer área) declarados em `quality-rubric.md`.
 
 ## Critérios gerais (qualquer área)
 
@@ -296,7 +296,7 @@ Lista canônica EQUATOR: https://www.equator-network.org/
 
 - **arXiv** + **Web of Science** + **Scopus** + **APS PROLA** + **IOP Science**.
 
-## Estrutura para o `ignorantia`
+## Estrutura para o esta skill
 
 Quando o usuário declara área na Fase 1, o skill carrega contextualmente o subset relevante deste documento e adapta:
 

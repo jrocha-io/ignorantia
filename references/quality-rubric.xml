@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc id="quality-rubric" path="references/quality-rubric.md" type="document" lang="pt-BR">
-  <title>Rubrica de avaliação — `ignorantia` v2</title>
+  <title>Rubrica de avaliação — esta skill</title>
   <markdown><![CDATA[
-# Rubrica de avaliação — `ignorantia` v2
+# Rubrica de avaliação — esta skill
 
 > "A nota não é prêmio. É **espelho**: mostra a distância real entre o que você (com a IA) construiu e o que a comunidade científica considera publicável."
 
@@ -95,8 +95,6 @@ Apenas calculada se **nenhum eliminatório foi acionado**. Soma de 5 dimensões:
 | 0.2 | Cohen's kappa **realizado** ou **declaradamente pendente** com plano de execução |
 | 0.1 | Para SE/CS: Kitchenham QA1-QA8; para saúde: GRADE; para psi/edu: APA JARS |
 
-> **Nota v2.10.1:** "Snowballing executado e documentado" foi **removido** como critério pontuável (Decisão 23, v2.9.0): snowballing backward + forward é **obrigatório** desde a v2.9.0, então não pode ser bonificação. Os 0.2 pts foram redistribuídos para o critério de bases consultadas (que ganhou de 0.3 para 0.5), refletindo a expansão do Tier 1 obrigatório com bases ibero-americanas (Decisão 25).
-
 ### D2 — Compliance ético-legal (1.5)
 
 #### Para pt-BR:
@@ -155,8 +153,6 @@ Apenas calculada se **nenhum eliminatório foi acionado**. Soma de 5 dimensões:
 | 0.1 | PRISMA flow inline (SVG) + matriz de venues |
 | 0.1 | Pacote completo (≥ 12 artefatos esperados) |
 | 0.1 | README com hashes SHA-256 + changelog + versão SemVer |
-
-> **Nota v2.8.0:** "Gráficos D3.js dinâmicos" foi removido como critério de qualidade (Decisão sobre rubrica, v2.8.0). Visualização interativa é agradável mas **não é evidência de mérito científico**. A v2.10.0 também tornará obrigatórios os outputs adicionais `.tex`, `.pdf` e `.docx` ABNT — esses passam a fazer parte do pacote completo (item de 0.1 acima), não como dimensão D5 expandida.
 
 ## Camada 4: Matriz por venue
 

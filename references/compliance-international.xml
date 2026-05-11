@@ -32,7 +32,7 @@ In line with COPE position on authorship and AI tools (https://publicationethics
 and the ICMJE Recommendations (January 2024 update, Sections II.A.4 and IV.A.3.d), we declare:
 
 1. AI tool(s) used: <model name and version, e.g. "Claude Opus 4.7 (Anthropic)">
-2. Interface: ignorantia skill v<X.Y.Z>
+2. Algorithm / interface: author's proprietary algorithm (undisclosed under industrial-secret rule), accessed via provider's web interface
 3. Period of use: <ISO start> to <ISO end>
 4. Stages where AI assistance was used:
    - [ ] Conceptualization of the research question

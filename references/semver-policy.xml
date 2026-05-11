@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc id="semver-policy" path="references/semver-policy.md" type="document" lang="pt-BR">
-  <title>Política de versionamento SemVer das saídas — ignorantia</title>
+  <title>Política de versionamento SemVer das saídas</title>
   <markdown><![CDATA[
-# Política de versionamento SemVer das saídas — ignorantia
+# Política de versionamento SemVer das saídas
 
 Cada saída (manuscrito + artefatos secundários) é um pacote fechado, identificado por um número SemVer no formato:
 
@@ -26,7 +26,7 @@ A primeira saída completa é **1.0.0**. Saídas anteriores incompletas (rascunh
 
 Implicações práticas:
 
-- O nome do arquivo HTML inclui a versão: `ignorantia-<slug>-v1.0.0.html`. Versão 1.0.1 vira `ignorantia-<slug>-v1.0.1.html`.
+- O nome do arquivo HTML inclui a versão: `<slug>-v1.0.0.html`. Versão 1.0.1 vira `<slug>-v1.0.1.html`.
 - O `<title>` do HTML, o header visível, e o footer mostram a versão SemVer e a data ISO.
 - O Zenodo permite múltiplas versões do mesmo registro com DOIs distintos por versão e um DOI canônico que aponta sempre à mais recente — use esse modelo.
 - Cada `README.md` lista o que mudou em relação à versão anterior, com link ao pacote anterior no Zenodo se houver.
@@ -84,13 +84,13 @@ Permite verificar que o pacote distribuído é idêntico ao depositado.
 ## Convenção de nome de pacote
 
 ```
-ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip
+<slug>-v<X.Y.Z>.zip
 ```
 
 Exemplos:
-- `ignorantia-bnce-gamificacao-v1.0.0.zip`
-- `ignorantia-letramento-digital-idosos-v1.2.0.zip`
-- `ignorantia-d3js-dynamic-viz-v1.0.0.zip`
+- `<slug>-v1.0.0.zip`
+- `<slug>-v1.2.0.zip`
+- `<slug>-v1.0.0.zip`
 
 Slugs em minúsculas, separados por hífen, sem acentos.
 

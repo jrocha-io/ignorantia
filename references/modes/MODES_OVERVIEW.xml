@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc id="modes-overview" path="references/modes/MODES_OVERVIEW.md" type="mode-spec" lang="pt-BR">
-  <title>Panorama dos 8 modos do ghostwriter ignorantia v2.1</title>
+  <title>Panorama dos 8 modos do ghostwriter esta skill</title>
   <markdown><![CDATA[
-# Panorama dos 8 modos do ghostwriter ignorantia v2.1
+# Panorama dos 8 modos do ghostwriter esta skill
 
 > **Objetivo deste documento.** Apresentar ao usuário, ANTES da escolha do modo de trabalho, todas as exigências de cada modo em três layers: (1) o modo em si, (2) o reporting guideline aplicável, (3) o venue alvo padrão e alternativas. Evita o cenário "tropeçar num eliminatório no meio do trabalho".
 >
-> **Quando consultar.** Ao iniciar qualquer trabalho com o ignorantia, antes de escolher o modo. Também quando reconsiderar mudança de modo durante a produção.
+> **Quando consultar.** Ao iniciar qualquer trabalho com esta skill, antes de escolher o modo. Também quando reconsiderar mudança de modo durante a produção.
 >
 > **Versão.** v2.1 — 2026-05-02. Atualizar quando novos modos forem adicionados.
 
@@ -134,14 +134,6 @@ Independente do modo:
 ### Pacote de reprodutibilidade Zenodo
 
 Todos os 8 modos geram pacote completo: `prompt.md`, `model.txt`, `databases.txt` (quando aplicável), `dois.csv` (quando aplicável), `selecao_log.json` (quando aplicável), `verificacao_dois.json`, `extraction_log.json` (quando aplicável), `ai_disclosure.md`, `reproducibility_manifest.yaml` (com SHA-256), `README.md`.
-
----
-
-## Histórico
-
-A trajetória de versões deste catálogo de modos é mantida no registro de
-desenvolvimento (`dev-docs/MODES-OVERVIEW-HISTORY.md`). O operador só
-precisa da definição corrente dos 10 modos descrita acima. |
 
   ]]></markdown>
 </doc>

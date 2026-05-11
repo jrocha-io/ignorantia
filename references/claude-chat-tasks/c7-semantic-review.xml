@@ -4,7 +4,7 @@
   <markdown><![CDATA[
 # Prompt — C7: Releitura Crítica Semântica do Manuscrito
 
-> **Contexto.** Este prompt é executado pelo Claude Chat dentro do pipeline `ignorantia` v2.0 quando o assessor está rodando em modo Chat. Ele substitui o que na v3.0 será um modelo linguístico treinado.
+> **Contexto.** Este prompt é executado pelo Claude Chat dentro do pipeline esta skill.0 quando o assessor está rodando em modo Chat. Ele substitui o que na v3.0 será um modelo linguístico treinado.
 >
 > **Quando aplicar.** Após o engine determinístico do assessor produzir notas de Forma, Eliminadores, Auditoria Forense e Temperatura Editorial. Este prompt produz a nota C7 (releitura crítica semântica) e contribui para Conteúdo geral.
 >

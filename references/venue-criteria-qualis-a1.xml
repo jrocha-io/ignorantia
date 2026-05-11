@@ -54,7 +54,7 @@ Para Educação especificamente, periódicos "Consolidados" no novo sistema (202
 
 ## Lista de Qualis A1 por área (2021-2024) — exemplos relevantes
 
-Para o `ignorantia`, listo Qualis A1 das áreas que aparecem nos 13 artigos do projeto-mãe:
+Para o esta skill, listo Qualis A1 das áreas que aparecem nos 13 artigos do projeto-mãe:
 
 ### Educação (área-mãe relevante para 1.x e 2.x)
 
@@ -121,7 +121,7 @@ Para áreas brasileiras que internacionalizam, A1 nacional ≈ Q1 internacional 
 - Saúde: NEJM, Lancet, BMJ, JAMA
 - Psicologia: Psychological Bulletin, JPSP, Annual Review of Psychology
 
-## Como o `ignorantia` usa isto
+## Como esta skill usa isto
 
 Na Fase 8, para SLR em pt-BR, o skill avalia adequação a Qualis A1 nacional considerando:
 
@@ -142,7 +142,7 @@ A CAPES está mudando para classificar artigo individual, não revista. Três pr
 2. **Híbrido**: indicadores do periódico + indicadores do artigo (FWCI, CrossRef, Altmetrics)
 3. **Avaliação qualitativa**: área julga o artigo individualmente
 
-O `ignorantia` v2 reporta as três visões quando aplicável.
+Esta skill reporta as três visões quando aplicável.
 
   ]]></markdown>
 </doc>

@@ -128,7 +128,6 @@ conflicts_of_interest: ""
 
 ## Notas críticas
 
-- Software Paper sobre o **próprio ignorantia** seria interessante, mas tem problema de circularidade epistêmica (a ferramenta produz o paper sobre a ferramenta). Isso é resolvível mas exige decisões editoriais delicadas (declaração explícita de self-generation, peer review pós-deposit, etc.).
 - Software Papers NÃO devem reportar resultados novos de pesquisa — isso é um paper de pesquisa, não software paper. O foco é o **software como contribuição**, não os achados que ele permite.
 - Se o software ainda não tem uso real além do autor, **considerar adiar a submissão** até que haja casos de uso reais documentados, ou submeter a F1000Research (mais flexível).
 

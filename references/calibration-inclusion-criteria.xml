@@ -35,7 +35,7 @@ Para entrar no corpus de calibração, um artigo deve **simultaneamente**:
 
 **E1**. Scoping reviews **sem** PRISMA-ScR (escopo mais leve, calibração diferente).
 **E2**. Revisões narrativas sem protocolo (literature review, narrative review).
-**E3**. Meta-análises de RCTs **puramente clínicas** sem síntese qualitativa (perfil distinto da SLR alvo do `ignorantia`).
+**E3**. Meta-análises de RCTs **puramente clínicas** sem síntese qualitativa (perfil distinto da SLR alvo do esta skill).
 **E4**. Pré-prints sem revisão por pares (incompatível com ground-truth Qualis).
 **E5**. Capítulos de livro, dissertações, teses, anais não indexados.
 **E6**. Errata, comentários, cartas, editoriais, correções.

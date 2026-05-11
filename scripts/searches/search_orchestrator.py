@@ -655,15 +655,16 @@ def main():
     print(build_user_disclosure_pre(args.area, args.mode, args.year_start, args.year_end, args.query))
     print()
 
-    # Tier 1 — sempre, primeiro
-    print("[Tier 1] Buscando em bases OA gratuitas...")
+    # Open-access bases — sempre, primeiro
+    print("[OA] Buscando em bases de acesso aberto...")
     tier1_files = run_tier1_searches(
         args.area, args.query, args.year_start, args.year_end, args.output_dir
     )
 
-    # Tier 2 — recomendado mas opcional para alguns modos
-    print("\n[Tier 2] Tier 2 implementado nos scripts existentes (search_crossref.py, search_semantic_scholar.py)")
-    print("        — execute-os separadamente se desejar enriquecer Tier 1.")
+    # Bases de metadados — recomendadas mas opcionais para alguns modos
+    print("\n[Metadados] Bases de metadados livres implementadas nos scripts existentes")
+    print("           (search_crossref.py, search_semantic_scholar.py)")
+    print("           — execute-os separadamente se desejar enriquecer a busca.")
 
     # Tier 2 paywall (v2.15.0) — cascata KEY → PROXY → FALLBACK_MD (DD-8)
     paywall_files = run_tier2_paywall_searches(
@@ -714,11 +715,11 @@ def main():
     tier0_summary = {"executed": False, "skipped": False, "n_dois": 0, "n_oa_found": 0,
                      "n_author_request_only": 0, "method": None}
     if args.skip_tier0:
-        print("\n[Tier 0] PULADO via --skip-tier0 (modo offline/CI).")
+        print("\n[OA-locator] PULADO via --skip-tier0 (modo offline/CI).")
         tier0_summary["skipped"] = True
     else:
-        print("\n[Tier 0] Resolvendo DOIs para URLs OA legítimas (Unpaywall + Open Access Button)...")
-        print("         Decisão 17: apenas fontes OA licenciadas. Plataformas em disputa judicial excluídas.")
+        print("\n[OA-locator] Resolvendo DOIs para URLs OA legítimas (Unpaywall + Open Access Button)...")
+        print("            Política: apenas fontes OA licenciadas. Plataformas em disputa judicial excluídas.")
         if not contact_email:
             print("         [warn] sem email de contato (--contact-email ou IGNORANTIA_CONTACT_EMAIL).")
             print("                Unpaywall exige email; resolução pode falhar.")

@@ -6,7 +6,7 @@
 
 > "Em 10 anos na universidade, ninguém me explicou isto direito." — usuário típico
 
-Documento operacional sobre o que é plágio, como citar, como parafrasear, e como o `ignorantia` detecta automaticamente.
+Documento operacional sobre o que é plágio, como citar, como parafrasear, e como o esta skill detecta automaticamente.
 
 ## Fontes primárias
 
@@ -68,7 +68,7 @@ Citar fonte que **não existe**, citar fonte **errada**, ou citar fonte que **n�
 >
 > O paper de Smith (2023) ou não existe, ou existe mas trata de outro assunto, ou existe mas não diz isso.
 
-**`ignorantia` adiciona:** plágio source-based é o **mais grave** quando mediado por IA, porque indica delegação não-revisada. Sempre verificar cada citação contra a fonte real.
+**esta skill adiciona:** plágio source-based é o **mais grave** quando mediado por IA, porque indica delegação não-revisada. Sempre verificar cada citação contra a fonte real.
 
 ## Quando precisa de aspas (literais)
 
@@ -82,7 +82,7 @@ A regra prática varia por tradição, mas converge:
   - Citação direta de até 3 linhas: entre aspas duplas, no corpo do texto
   - Citação direta com mais de 3 linhas: destacada, **recuo de 4cm da margem esquerda, fonte tamanho 11 (uma a menos que o corpo), espaçamento simples, sem aspas**
 
-**Regra `ignorantia`:** trechos de **3 ou mais palavras consecutivas idênticas a fonte** requerem aspas + atribuição com página. Para textos em pt-BR, seguir NBR 10520:2023.
+**Regra esta skill:** trechos de **3 ou mais palavras consecutivas idênticas a fonte** requerem aspas + atribuição com página. Para textos em pt-BR, seguir NBR 10520:2023.
 
 ## Quando precisa só de atribuição (paráfrase)
 
@@ -149,9 +149,9 @@ Mesmo citação direta com aspas tem limite. Reproduzir trechos longos pode viol
 - **ABNT NBR 10520:2023:** citação > 3 linhas vai recuada (não conta como "longa demais", é só formatação).
 - **Vários publishers de elite (Elsevier, Nature):** podem exigir permissão para qualquer reprodução substancial de texto, figura ou tabela.
 
-**`ignorantia` sinaliza:** qualquer citação direta > 40 palavras vai como "long quote — verificar copyright" no avaliacao.
+**esta skill sinaliza:** qualquer citação direta > 40 palavras vai como "long quote — verificar copyright" no avaliacao.
 
-## Detecção automática no `ignorantia`
+## Detecção automática no esta skill
 
 ### Camada 1: Match contra corpus interno (sempre, gratuito)
 
@@ -176,7 +176,7 @@ Se o usuário fornece credenciais Copyleaks ou iThenticate, o skill chama a API 
 
 **Patchwriting praticamente não é detectado por software** — é por isso que o documento está aqui: você tem que **saber não fazer**.
 
-**Plágio source-based exige verificação humana** de cada citação contra a fonte real. O `ignorantia` checa se DOIs estão vivos (HTTP HEAD), mas não consegue garantir que o que o paper diz é o que está sendo citado.
+**Plágio source-based exige verificação humana** de cada citação contra a fonte real. O esta skill checa se DOIs estão vivos (HTTP HEAD), mas não consegue garantir que o que o paper diz é o que está sendo citado.
 
 ## NBR 10520:2023 — operacional para pt-BR
 
@@ -247,7 +247,7 @@ Inicia pelo título com primeiras palavras em **maiúscula**:
 | Citação de citação (apud) | Sim | (depende) | (Original, ano *apud* INTERMEDIÁRIO, ano, p. X) |
 | Fonte sem autor | Sim | — | (TÍTULO em maiúscula, ano) |
 
-## Checklist do `ignorantia`
+## Checklist do esta skill
 
 Antes de empacotar, o skill verifica e o usuário confirma:
 

@@ -37,7 +37,7 @@ A maioria dos venues elite segue ICMJE. O que **todos** exigem:
 7. AI use declaration (jan 2024 update)
 8. ORCID dos autores
 
-**`ignorantia` valida estes 8 itens automaticamente** na Fase 8.
+**esta skill valida estes 8 itens automaticamente** na Fase 8.
 
 ## Diferenças críticas entre venues — o que rejeita ou aceita
 
@@ -159,7 +159,7 @@ Para chegar a "pronto para venue de elite" (10.0 numa avaliação rigorosa), os 
 7. **Reprodutibilidade exemplar** — código, dados, protocolo no Zenodo/OSF antes da submissão
 8. **Adesão completa** ao reporting guideline da área (PRISMA + extensões da área)
 
-## Como o `ignorantia` aplica isto
+## Como o esta skill aplica isto
 
 Na Fase 8, para cada venue de elite relevante ao tema, o skill avalia o manuscrito contra os critérios específicos do venue (acima) e atribui status:
 

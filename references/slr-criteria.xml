@@ -4,7 +4,7 @@
   <markdown><![CDATA[
 # Critérios para um trabalho ser identificado como Revisão Sistemática
 
-Este documento estabelece o que diferencia uma **revisão sistemática (SLR)** de uma revisão narrativa, mapeamento sistemático, scoping review, ou simples levantamento bibliográfico. O skill `ignorantia` segue PRISMA-2020 como norma principal e Kitchenham como complementar para SE/CS.
+Este documento estabelece o que diferencia uma **revisão sistemática (SLR)** de uma revisão narrativa, mapeamento sistemático, scoping review, ou simples levantamento bibliográfico. O skill esta skill segue PRISMA-2020 como norma principal e Kitchenham como complementar para SE/CS.
 
 ## Fontes primárias
 
@@ -33,7 +33,7 @@ Todas as decisões deste skill sobre o que constitui SLR vêm de:
 
 ## Os 8 elementos obrigatórios de uma SLR (segundo PRISMA-2020)
 
-Sem qualquer um destes, **não é SLR** — pode ser outro tipo de revisão, mas não SLR. O `ignorantia` checa cada um na rubrica de avaliação.
+Sem qualquer um destes, **não é SLR** — pode ser outro tipo de revisão, mas não SLR. O esta skill checa cada um na rubrica de avaliação.
 
 ### 1. Protocolo pré-registrado (item 5 PRISMA-2020)
 
@@ -117,7 +117,7 @@ Cada passo tem número de excluídos com **razão**.
 
 PRISMA exige (no item de "rigor") que triagem e extração sejam feitas **independentemente por dois revisores** e que discordâncias sejam computadas com Cohen's kappa, depois resolvidas por consenso ou terceiro revisor.
 
-**O `ignorantia` não simula segundo revisor.** O skill produz a primeira passagem (versão 0.x.y, declaradamente incompleta). O usuário precisa de **dois professores humanos** para fazer a segunda passagem independente e calcular o kappa real. Só então a versão sobe para 1.x.y (completa).
+**O esta skill não simula segundo revisor.** O skill produz a primeira passagem (versão 0.x.y, declaradamente incompleta). O usuário precisa de **dois professores humanos** para fazer a segunda passagem independente e calcular o kappa real. Só então a versão sobe para 1.x.y (completa).
 
 Se o usuário usar o skill sozinho, **o trabalho permanece em 0.x.y para sempre**, e a avaliação informa: "esta SLR não tem segundo revisor; segundo PRISMA, isto a torna **incompleta**, independentemente da qualidade dos demais elementos."
 
@@ -125,7 +125,7 @@ Se o usuário usar o skill sozinho, **o trabalho permanece em 0.x.y para sempre*
 
 Wohlin (2014) propõe snowballing como complemento ou alternativa às buscas em bases. Forward snowballing: papers que citam um seed paper. Backward snowballing: papers citados por um seed paper.
 
-**`ignorantia` recomenda snowballing como bonificador**, não como obrigatório. Documenta-se o que foi adicionado por snowballing e a partir de qual seed.
+**esta skill recomenda snowballing como bonificador**, não como obrigatório. Documenta-se o que foi adicionado por snowballing e a partir de qual seed.
 
 ## Diferenças por área
 
@@ -154,7 +154,7 @@ Wohlin (2014) propõe snowballing como complemento ou alternativa às buscas em 
 - Quality appraisal frequentemente adaptado da área
 - Síntese é predominantemente narrativa, não quantitativa
 
-## Critérios eliminatórios (para o `ignorantia`)
+## Critérios eliminatórios (para o esta skill)
 
 Se qualquer destes falha, o trabalho **não é uma SLR** segundo PRISMA, e a nota da avaliação é **0.0** (zona "inválido"):
 

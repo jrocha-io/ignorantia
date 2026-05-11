@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc id="output-design-patterns" path="references/output-design-patterns.md" type="document" lang="pt-BR">
-  <title>Padrões de design do HTML interativo — ignorantia</title>
+  <title>Padrões de design do HTML interativo</title>
   <markdown><![CDATA[
-# Padrões de design do HTML interativo — ignorantia
+# Padrões de design do HTML interativo
 
 Este documento define os padrões visuais e de interação do HTML que o skill produz. Consolidado a partir de duas referências do projeto: `parametros_especificacao_prompts_v1_0_0.html` (estrutura modular numerada, tiers, "limites declarados") e `prompt_engineering_reference_v3_IEEE_3.html` (tabela com filtros, blocos colapsáveis, referências numeradas com tooltip, meta-badges).
 
@@ -17,7 +17,7 @@ Este documento define os padrões visuais e de interação do HTML que o skill p
 ## Estrutura macro
 
 ```
-<header>           Logo "ignorantia" + título do artigo + subtítulo + badges (versão, idioma, data, área, framework)
+<header>           Cabeçalho (sem branding da skill) + título do artigo + subtítulo + badges (versão, idioma, data, área, framework)
 <nav.toolbar>      Sticky. Busca | Filtros | Toggles
 <main>
   <section §00>    Prólogo / Resumo estruturado
@@ -71,7 +71,7 @@ Definir paleta no `<style>` no topo do `<head>`, com variáveis que mudam quando
   --text-primary: #1a1a1a;
   --text-secondary: #555;
   --text-muted: #888;
-  --accent: #6b4eff;       /* púrpura ignorantia — pode ajustar por área */
+  --accent: #6b4eff;       /* púrpura padrão — pode ajustar por área */
   --accent-soft: #e8e4ff;
   --border: #d8d6d0;
   --border-strong: #aaa;
@@ -303,14 +303,14 @@ Toggle:
 function toggleDark() {
   const root = document.documentElement;
   const isDark = root.classList.toggle('dark');
-  try { localStorage.setItem('ignorantia-dark', isDark ? '1' : '0'); } catch(e) {}
+  try { localStorage.setItem('slr-dark-mode', isDark ? '1' : '0'); } catch(e) {}
   document.querySelectorAll('[aria-pressed]').forEach(b => {
     if (b.id === 'toggle-dark') b.setAttribute('aria-pressed', isDark);
   });
 }
 // On load
 try {
-  if (localStorage.getItem('ignorantia-dark') === '1') {
+  if (localStorage.getItem('slr-dark-mode') === '1') {
     document.documentElement.classList.add('dark');
   } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.classList.add('dark');
@@ -387,7 +387,7 @@ Em layouts com camada de anotações ativa, expandir o `max-width` para 1100px e
 
 ## "Box O que esta versão NÃO é"
 
-Bloco fixo ao final do método (antes de Resultados ou imediatamente antes das Referências), no estilo do v1.0.0 de parametros_especificacao_prompts:
+Bloco fixo ao final do método (antes de Resultados ou imediatamente antes das Referências):
 
 ```html
 <div class="not-this-version">
@@ -416,15 +416,19 @@ Estilo: borda esquerda destacada, fundo levemente diferente, sem ser intimidante
 
 ```html
 <footer>
+  <!-- Atenção: NÃO incluir nome da skill no rodapé. A tag SemVer é metadado
+       do pacote (filename + reproducibility_manifest.json); em prosa do
+       rodapé, descrever execução como "primeira execução"/"execução
+       subsequente". O leitor cego do paper não precisa do número SemVer. -->
   <p>
-    <strong>ignorantia</strong> · v1.0.0 · 2026-04-28 · pt-BR · ABNT
+    [Título curto do paper] · primeira execução · 2026-04-28 · pt-BR · ABNT
     · <a href="https://doi.org/10.5281/zenodo.XXXXXXX">Zenodo DOI</a>
     · <a href="LICENSE">CC-BY-4.0</a>
     · <span title="SHA-256 do HTML">hash: a3f2c8…</span>
   </p>
   <p>
-    Versão anterior: <a href="https://doi.org/10.5281/zenodo.YYYYYYY">v0.0.0 (rascunho)</a> ·
-    Próxima versão prevista: v1.1.0 (após snowballing forward)
+    Execução anterior: <a href="https://doi.org/10.5281/zenodo.YYYYYYY">rascunho</a> ·
+    Próxima execução prevista após snowballing forward
   </p>
 </footer>
 ```
