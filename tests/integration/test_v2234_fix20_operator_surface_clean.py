@@ -231,6 +231,39 @@ _BRAND_ALLOWED_PATHS: frozenset[str] = frozenset({
 })
 
 
+def test_no_branded_deposit_filename_pattern(
+    operator_files: list[Path],
+) -> None:
+    """The deposit filename pattern must not embed the skill brand.
+
+    ``ignorantia-<area>-<topic>-v<X.Y.Z>.zip`` instructs the operator
+    to embed the brand into the deposited Zenodo zip filename. A blind
+    reviewer reading the deposit metadata would see the brand in the
+    filename — that's a brand leak in deposit metadata, distinct from
+    a brand leak in deposit prose, but with the same effect.
+
+    The brand-strict gate (next test) allowlists SKILL.md as a whole
+    because the frontmatter declares ``name: ignorantia`` (required by
+    the Claude skill manifest convention) and the body teaches the
+    brand as anti-pattern. But the ``ignorantia-<...>.zip`` filename
+    pattern is *instructional* — it tells the operator to brand the
+    deposit. That's not anti-pattern teaching; it's the leak.
+    """
+    pattern = re.compile(r"ignorantia-<[^>]+>", re.IGNORECASE)
+    hits: list[str] = []
+    for path in operator_files:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for m in pattern.finditer(text):
+            line_no = text[: m.start()].count("\n") + 1
+            rel = str(path.relative_to(ROOT))
+            hits.append(f"  {rel}:{line_no}: {m.group(0)!r}")
+    assert not hits, (
+        f"The deposit filename convention embeds the skill brand. "
+        f"The operator deposit must not be branded — Decisão 41 applies "
+        f"to filenames as well as prose. Hits:\n" + "\n".join(hits)
+    )
+
+
 def test_skill_brand_only_in_allowlisted_files(
     operator_files: list[Path],
 ) -> None:
