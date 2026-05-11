@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jrocha-io/ignorantia/schemas/handoff-v1.schema.json",
+  "title": "Biphasic skill handoff — Phase 1 → Phase 2",
+  "description": "Contract between Phase 1 (Claude Desktop chat) and Phase 2 (Anthropic Cowork). Phase 1 emits this JSON at the end of its run; Phase 2 reads it as the sole entry point. Phase 2 must validate against this schema and recompute handoff_hash before any retrieval.",
+  "type": "object",
+  "required": [
+    "phase",
+    "schema_version",
+    "created_at",
+    "protocol",
+    "searches",
+    "dedup",
+    "screening",
+    "included_for_fulltext",
+    "metadata",
+    "handoff_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "phase": {
+      "type": "integer",
+      "const": 1,
+      "description": "Identifies the handoff origin phase. Phase 1 → Phase 2 has phase=1."
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.\\d+$",
+      "description": "Major.minor version of this schema. Phase 2 must reject incompatible majors."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when Phase 1 sealed this handoff."
+    },
+    "protocol": {
+      "type": "object",
+      "required": ["title", "authors", "review_type", "review_purpose", "language", "pcc", "inclusion_criteria", "exclusion_criteria", "bases", "search_strings", "ai_disclosure"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "minLength": 10},
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "orcid"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string", "minLength": 3},
+              "orcid": {"type": "string", "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"},
+              "affiliation": {"type": "string"},
+              "email": {"type": "string", "format": "email"}
+            }
+          }
+        },
+        "review_type": {
+          "type": "string",
+          "enum": ["scoping_review", "rapid_review", "mapping_study", "integrative_review", "realist_review", "software_paper", "position_paper", "theoretical_essay", "technical_report", "white_paper", "policy_brief", "systematic_review_with_2_reviewers"],
+          "description": "Operator-facing prose translates this enum; the literal token lives only in this metadata field."
+        },
+        "review_purpose": {
+          "type": "string",
+          "enum": ["design_foundational", "design_validation", "design_correction", "independent_inquiry"]
+        },
+        "language": {
+          "type": "string",
+          "enum": ["pt-BR", "en-US", "es-LA"]
+        },
+        "citation_style": {
+          "type": "string",
+          "enum": ["abnt", "ieee", "vancouver", "apa"],
+          "description": "Auto-derived from language + area but recorded explicitly for Phase 2."
+        },
+        "temporal_window": {
+          "type": "object",
+          "required": ["start_date", "end_date"],
+          "additionalProperties": false,
+          "properties": {
+            "start_date": {"type": "string", "format": "date"},
+            "end_date": {"type": "string", "format": "date"}
+          }
+        },
+        "pcc": {
+          "type": "object",
+          "description": "Population / Concept / Context decomposition (PRISMA-ScR). For health, can be PICO; for SE, PICOC. Field names normalised to PCC for schema simplicity.",
+          "required": ["population", "concept", "context"],
+          "properties": {
+            "population": {"type": "string", "minLength": 10},
+            "concept": {"type": "string", "minLength": 10},
+            "context": {"type": "string", "minLength": 10},
+            "comparison": {"type": "string"},
+            "outcome": {"type": "string"}
+          }
+        },
+        "sub_questions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string", "pattern": "^RQ\\d+(\\.\\d+)?$"},
+              "text": {"type": "string", "minLength": 10}
+            }
+          }
+        },
+        "inclusion_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string", "pattern": "^IC\\d+$"},
+              "text": {"type": "string", "minLength": 5}
+            }
+          }
+        },
+        "exclusion_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string", "pattern": "^EC\\d+$"},
+              "text": {"type": "string", "minLength": 5}
+            }
+          }
+        },
+        "bases": {
+          "type": "array",
+          "minItems": 3,
+          "description": "PRISMA-2020 requires multiple bases. Fewer than three triggers the pipeline-invariants gate.",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "access_tier", "execution_mode"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string"},
+              "name": {"type": "string"},
+              "access_tier": {
+                "type": "string",
+                "enum": ["open_access", "metadata_only", "subscription"],
+                "description": "Operator-facing prose. Internal cascade labels (Tier 1/2, FALLBACK_MD, KEY → PROXY) never appear in the handoff."
+              },
+              "execution_mode": {
+                "type": "string",
+                "enum": ["direct_api", "open_metadata", "credential_required", "manual_citation_list"]
+              },
+              "justification": {"type": "string"}
+            }
+          }
+        },
+        "search_strings": {
+          "type": "object",
+          "description": "Per-base canonical search string. Keys are base ids matching protocol.bases[].id.",
+          "additionalProperties": {"type": "string", "minLength": 10}
+        },
+        "ai_disclosure": {
+          "type": "object",
+          "required": ["template", "stages_used"],
+          "additionalProperties": false,
+          "properties": {
+            "template": {
+              "type": "string",
+              "enum": ["industrial_secret_cnpq_pt", "industrial_secret_icmje_en"],
+              "description": "Canonical disclosure template (Decisão 33 — segredo industrial). Phase 2 renders the actual block into the manuscript using this key."
+            },
+            "stages_used": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": ["scoping", "search_string_design", "deduplication", "screening_title_abstract", "screening_full_text", "quality_appraisal", "extraction", "synthesis", "drafting", "review", "compilation"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "searches": {
+      "type": "array",
+      "minItems": 3,
+      "description": "One entry per (base, query) execution.",
+      "items": {
+        "type": "object",
+        "required": ["base_id", "query", "executed_at", "n_hits_raw", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "base_id": {"type": "string"},
+          "query": {"type": "string"},
+          "executed_at": {"type": "string", "format": "date-time"},
+          "n_hits_raw": {"type": "integer", "minimum": 0},
+          "status": {
+            "type": "string",
+            "enum": ["success", "zero_hits", "api_failure", "rate_limited", "manual_citation_list_only"]
+          },
+          "error_message": {"type": "string"}
+        }
+      }
+    },
+    "dedup": {
+      "type": "object",
+      "required": ["n_in", "n_out", "hierarchy"],
+      "additionalProperties": false,
+      "properties": {
+        "n_in": {"type": "integer", "minimum": 0},
+        "n_out": {"type": "integer", "minimum": 0},
+        "hierarchy": {
+          "type": "array",
+          "items": {"type": "string", "enum": ["doi", "arxiv_id", "title_author_year_normalized"]}
+        }
+      }
+    },
+    "screening": {
+      "type": "object",
+      "required": ["passes", "trace_per_doi"],
+      "additionalProperties": false,
+      "properties": {
+        "passes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "n_in", "n_out", "criteria"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string"},
+              "n_in": {"type": "integer", "minimum": 0},
+              "n_out": {"type": "integer", "minimum": 0},
+              "criteria": {"type": "string", "minLength": 10}
+            }
+          }
+        },
+        "trace_per_doi": {
+          "type": "object",
+          "description": "Keys are DOIs; values are the decision trace through each screening pass. The final decision is the last entry.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["pass_name", "decision", "reason"],
+              "additionalProperties": false,
+              "properties": {
+                "pass_name": {"type": "string"},
+                "decision": {"type": "string", "enum": ["include", "exclude", "borderline"]},
+                "reason": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "included_for_fulltext": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Final list of DOIs that survived screening and are targeted for full-text retrieval in Phase 2.",
+      "items": {
+        "type": "object",
+        "required": ["doi", "title", "year", "expected_access_tier"],
+        "additionalProperties": false,
+        "properties": {
+          "doi": {"type": "string", "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$"},
+          "title": {"type": "string", "minLength": 3},
+          "authors": {"type": "array", "items": {"type": "string"}},
+          "year": {"type": "integer", "minimum": 1900, "maximum": 2100},
+          "venue": {"type": "string"},
+          "abstract": {"type": "string"},
+          "expected_access_tier": {
+            "type": "string",
+            "enum": ["open_access", "paywall_with_proxy", "paywall_no_credential", "preprint_only"]
+          },
+          "source_url_hint": {"type": "string", "format": "uri"},
+          "seed_for_snowballing": {"type": "boolean", "default": false}
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["skill_version", "model", "phase1_session_id"],
+      "additionalProperties": false,
+      "properties": {
+        "skill_version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+"},
+        "model": {"type": "string", "description": "Provider + model name + version, e.g. 'anthropic/claude-opus-4-7'"},
+        "phase1_session_id": {"type": "string", "description": "Opaque identifier of the Phase 1 chat session, for audit cross-reference."},
+        "operator_orcid": {"type": "string", "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"}
+      }
+    },
+    "handoff_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the canonical JSON-serialised handoff with the handoff_hash field removed. Phase 2 recomputes and verifies before accepting the handoff."
+    }
+  }
+}
