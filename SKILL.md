@@ -471,5 +471,3 @@ Padrões detalhados de design em `references/output-design-patterns.xml`.
 - `assets/templates/quality-appraisal.xml` — instrumentos CASP/DARE/Kitchenham.
 - `assets/templates/manuscript-template.html` — template HTML interativo (subcomando opcional).
 - `assets/templates/modes/*.xml` — protocolo-scaffold por modo de revisão.
-</content>
-</invoke>
