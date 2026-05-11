@@ -299,5 +299,5 @@ worth the migration.
 * **JSON schemas.** Every CLI manifest has a published schema in
   `src/ignorantia/interface/manifests/`. Downstream tooling can
   `$ref` them directly.
-* **Architecture deep-dive.** `references/V3_ARCHITECTURE_PLAN.md`
+* **Architecture deep-dive.** `dev-docs/V3_ARCHITECTURE_PLAN.xml`
   documents the design rationale and the bounded-context map.

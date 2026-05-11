@@ -165,35 +165,35 @@ def test_arxiv_still_accepts_legacy_start_date(tmp_path):
 # ============ A4: SKILL.md contadores ============
 
 def test_skill_md_has_quantitative_section():
-    """A4: SKILL.md tem seção 'Estado quantitativo da skill'."""
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    """A4: 'Estado quantitativo da skill' lives in dev history post-F20.
+
+    Pre-F20: in SKILL.md. Post-F20 (audience separation): the quantitative
+    snapshot is developer-facing and lives in dev-docs/SKILL-HISTORY.md.
+    """
+    content = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
     assert "Estado quantitativo" in content
 
 
 def test_skill_md_mentions_57_runners():
-    """A4: SKILL.md menciona '57 TIER1_RUNNERS' explicitamente."""
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    """A4: '57 TIER1_RUNNERS' documented in dev history post-F20."""
+    content = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
     assert "57 TIER1_RUNNERS" in content or "57** TIER1" in content
 
 
 def test_skill_md_mentions_correct_adapter_count():
-    """A4 + DIM 4 (v2.23.0): SKILL.md menciona contagem real de adapters.
-
-    Anteriormente hardcoded em '61 adapters'; v2.23.0 corrigiu para 62.
-    Este teste agora valida que a contagem em SKILL.md bate com filesystem.
-    """
+    """A4 + DIM 4: adapter count documented in dev history matches filesystem."""
     import os
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    content = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
     actual = len([f for f in os.listdir(ROOT / "scripts" / "searches")
                    if f.startswith("search_") and f.endswith(".py")])
     assert f"{actual} adapters" in content, (
-        f"SKILL.md não declara {actual} adapters (contagem real)"
+        f"dev-docs/SKILL-HISTORY.md não declara {actual} adapters (contagem real)"
     )
 
 
 def test_skill_md_mentions_6_pipeline_stages():
-    """A4: SKILL.md menciona 6 etapas do pipeline_finalize."""
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    """A4: 6 pipeline_finalize stages documented in dev history."""
+    content = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
     assert "6 etapas" in content
 
 

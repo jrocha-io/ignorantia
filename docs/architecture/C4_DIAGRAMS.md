@@ -176,4 +176,4 @@ C4Component
 
 For the design rationale behind the bounded-context split, the
 DDD vocabulary, and the SOLID principle mapping, see
-[`references/V3_ARCHITECTURE_PLAN.md`](../../references/V3_ARCHITECTURE_PLAN.md).
+[`dev-docs/V3_ARCHITECTURE_PLAN.xml`](../../dev-docs/V3_ARCHITECTURE_PLAN.xml).

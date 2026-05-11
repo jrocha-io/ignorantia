@@ -249,12 +249,18 @@ def test_dd13_documented():
     Markdown body is preserved verbatim inside CDATA, so textual assertions
     still match.
     """
-    content = (ROOT / "references" / "DECISIONS.xml").read_text(encoding="utf-8")
+    content = (ROOT / "dev-docs" / "DECISIONS.xml").read_text(encoding="utf-8")
     assert "### DD-13" in content
     assert "Renderer HTML canônico" in content or "render_chunks" in content
 
 
 def test_skill_md_mentions_13_dds():
-    """C8: SKILL.md menciona 13 DDs (não mais 12)."""
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    assert "13 decisões de design" in content or "DD-1 a DD-13" in content
+    """C8: the 13 DD architecture decisions remain registered.
+
+    Pre-F20: lived in SKILL.md (developer + operator surface mixed).
+    Post-F20 (audience separation): DD-N is internal architecture
+    vocabulary and lives in the developer registry, not in the operator
+    manual. The 13 DDs are now documented in dev-docs/DECISIONS.xml.
+    """
+    content = (ROOT / "dev-docs" / "DECISIONS.xml").read_text(encoding="utf-8")
+    assert "13 decisões de design" in content or "DD-1 a DD-13" in content or content.count("### DD-") >= 13

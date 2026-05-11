@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ignorantia"
-version = "2.23.2"
+version = "2.23.4"
 description = "Skill para revisões sistemáticas de literatura PRISMA-2020"
 readme = "README.md"
 requires-python = ">=3.10"

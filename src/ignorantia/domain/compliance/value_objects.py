@@ -134,7 +134,7 @@ _DD_ID_RE = re.compile(r"^DD-\d+$")
 class DesignDecision:
     """Pointer to a recorded Architecture Decision (ADR).
 
-    Mirrors the entries kept in ``references/DECISIONS.xml`` (e.g.
+    Mirrors the entries kept in ``dev-docs/DECISIONS.xml`` (e.g.
     DD-13 — *"Renderer HTML canônico vs alternativo"*). Compliance
     engine outputs cite these to justify rule choices, so the value
     object encodes the same metadata the markdown table holds.

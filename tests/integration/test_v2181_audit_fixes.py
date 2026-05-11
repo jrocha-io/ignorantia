@@ -174,34 +174,39 @@ def test_to_dict_includes_user_agent():
 # ============ F2: SKILL.md atualizado ============
 
 def test_skill_md_mentions_paywall_cascade():
-    """F2: SKILL.md documenta cascata KEY→PROXY→FALLBACK_MD."""
-    skill_path = ROOT / "SKILL.md"
-    content = skill_path.read_text(encoding="utf-8")
-    assert "FALLBACK_MD" in content or "fallback_md" in content.lower()
-    assert "PROXY" in content or "proxy" in content.lower()
-    assert "cascata" in content.lower() or "cascade" in content.lower()
+    """F2: paywall cascade documented in developer history (post-F20).
+
+    Pre-F20 (mixed audience): the cascade `KEY → PROXY → FALLBACK_MD`
+    lived in SKILL.md. Post-F20 (audience separation): operator surface
+    describes the cascade in scientific prose only; the internal label
+    chain is documented in dev-docs/SKILL-HISTORY.md for maintainers.
+    """
+    history = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
+    assert "FALLBACK_MD" in history or "fallback_md" in history.lower()
+    assert "PROXY" in history or "proxy" in history.lower()
+    assert "cascata" in history.lower() or "cascade" in history.lower()
 
 
 def test_skill_md_mentions_contextual_preamble():
-    """F2: SKILL.md menciona contextual_preamble (DD-11)."""
-    skill_path = ROOT / "SKILL.md"
-    content = skill_path.read_text(encoding="utf-8")
-    assert ("contextual_preamble" in content
-            or "campo onde este artigo vive" in content.lower())
+    """F2: contextual_preamble documented somewhere in operator+dev surface."""
+    skill_content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    history = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
+    combined = skill_content + history
+    assert ("contextual_preamble" in combined
+            or "campo onde este artigo vive" in combined.lower())
 
 
 def test_skill_md_mentions_screening_pipeline():
-    """F2: SKILL.md menciona screening_pipeline (DD-10 Camada 2)."""
-    skill_path = ROOT / "SKILL.md"
-    content = skill_path.read_text(encoding="utf-8")
-    assert ("screening_pipeline" in content
-            or "screening_log.csv" in content)
+    """F2: screening_pipeline (DD-10 Camada 2) documented."""
+    skill_content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    history = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
+    combined = skill_content + history
+    assert "screening_pipeline" in combined or "screening_log.csv" in combined
 
 
 def test_skill_md_mentions_paywall_adapters_count():
-    """F2: SKILL.md indica 16 adapters paywall ou os nomeia."""
-    skill_path = ROOT / "SKILL.md"
-    content = skill_path.read_text(encoding="utf-8")
+    """F2: 16 paywall adapters documented in dev history."""
+    content = (ROOT / "dev-docs" / "SKILL-HISTORY.md").read_text(encoding="utf-8")
     # Deve mencionar pelo menos alguns adapters paywall
     paywall_mentions = sum(1 for name in
                             ["scopus_full", "wos_full", "ieee_full",
