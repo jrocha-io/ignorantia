@@ -4,11 +4,11 @@
   <markdown><![CDATA[
 # Próximos Passos pós-Depósito Zenodo: Mitigações de Longo Prazo de Conflito de Interesse
 
-> **Escopo deste documento.** Este arquivo é uma orientação ao **operador humano** (você, autor) da ferramenta `ignorantia`, não instruções ao Claude Chat executando o pipeline. As ações descritas aqui ocorrem **fora do ghostwriter**: depois que a Revisão Sistemática (ou Scoping/Rapid/Mapping Review) já está depositada no Zenodo e em preprint server.
+> **Escopo deste documento.** Este arquivo é uma orientação ao **operador humano** (você, autor) da ferramenta, não instruções ao Claude Chat executando o pipeline. As ações descritas aqui ocorrem **fora do ghostwriter**: depois que a Revisão Sistemática (ou Scoping/Rapid/Mapping Review) já está depositada no Zenodo e em preprint server.
 >
-> **Por que existe este documento.** A ferramenta `ignorantia v2.0` cobre o que é exigência editorial obrigatória (pré-registro PROSPERO/OSF, declaração CoI padronizada, seção de evidência contrária encontrada, categorização `review_purpose`, pacote de reprodutibilidade). Mas há três classes de mitigação adicional que **não pertencem ao escopo do ghostwriter** porque são decisões editoriais e estratégicas do autor — e mesmo assim afetam materialmente a credibilidade científica do conjunto de Revisões depositadas. Este documento descreve essas três classes e como aplicá-las.
+> **Por que existe este documento.** A ferramenta `esta skill` cobre o que é exigência editorial obrigatória (pré-registro PROSPERO/OSF, declaração CoI padronizada, seção de evidência contrária encontrada, categorização `review_purpose`, pacote de reprodutibilidade). Mas há três classes de mitigação adicional que **não pertencem ao escopo do ghostwriter** porque são decisões editoriais e estratégicas do autor — e mesmo assim afetam materialmente a credibilidade científica do conjunto de Revisões depositadas. Este documento descreve essas três classes e como aplicá-las.
 >
-> **Quando ler este documento.** Após o pacote da Revisão sair do `ignorantia` e antes/durante/depois da submissão ao Zenodo + preprint server. Idealmente, revisar a cada nova Revisão depositada e periodicamente (por exemplo, a cada 10 Revisões) para o conjunto.
+> **Quando ler este documento.** Após o pacote da Revisão sair do esta skill e antes/durante/depois da submissão ao Zenodo + preprint server. Idealmente, revisar a cada nova Revisão depositada e periodicamente (por exemplo, a cada 10 Revisões) para o conjunto.
 
 ---
 
@@ -27,7 +27,7 @@ ainda restam três percepções possíveis por terceiros (revisores, leitores cr
 2. **"Todas as Revisões deste autor confirmam o projeto dele — sinal vermelho estatístico."**
 3. **"Zenodo + preprint sem peer review = AI slop com aparência de ciência."**
 
-A ferramenta `ignorantia` mitiga estas percepções até onde é metodologicamente possível dentro do escopo do ghostwriter. As ações abaixo complementam essa mitigação **fora** do ghostwriter, no nível do autor e do projeto.
+A ferramenta mitiga estas percepções até onde é metodologicamente possível dentro do escopo do ghostwriter. As ações abaixo complementam essa mitigação **fora** do ghostwriter, no nível do autor e do projeto.
 
 ---
 
@@ -116,7 +116,7 @@ Correto. Há dois níveis distintos:
 
 | Nível | O que é | Onde fica |
 |---|---|---|
-| **Dialética intra-Revisão** | Cada Revisão apresenta evidência pró e contra dentro do escopo da pergunta dela. Análise dialética, não confirmacionista. | **Já está no escopo do ghostwriter `ignorantia` v2.0** — coberto pelo critério C2 (cross-tabulação dialética) e pela seção obrigatória "Evidência contrária encontrada". |
+| **Dialética intra-Revisão** | Cada Revisão apresenta evidência pró e contra dentro do escopo da pergunta dela. Análise dialética, não confirmacionista. | **Já está no escopo do ghostwriter esta skill.0** — coberto pelo critério C2 (cross-tabulação dialética) e pela seção obrigatória "Evidência contrária encontrada". |
 | **Auditoria entre-Revisões** | A cada N Revisões, uma Revisão dedicada a "negative findings on widely-held assumptions in [area]". É a Revisão **inteira** que foca em desafiar suposições, não apenas a discussão de uma Revisão. | **Fora do escopo do ghostwriter.** Decisão editorial sua. |
 
 A dialética intra-Revisão é obrigatória; a auditoria entre-Revisões é opcional mas recomendada.

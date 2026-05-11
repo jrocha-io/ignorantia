@@ -4,7 +4,7 @@
   <markdown><![CDATA[
 # Monitoramento de Reporting Guidelines — EQUATOR Network
 
-> **Propósito.** Acompanhar guidelines de reporting científico relevantes para o ghostwriter `ignorantia` v2.0, especialmente as emergentes para uso de IA em pesquisa (PRISMA-AI, CHART, CONSORT-AI, etc.). Quando uma guideline relevante for publicada ou atualizada, abrir issue obrigatória para incorporação à v2.x.
+> **Propósito.** Acompanhar guidelines de reporting científico relevantes para o ghostwriter esta skill.0, especialmente as emergentes para uso de IA em pesquisa (PRISMA-AI, CHART, CONSORT-AI, etc.). Quando uma guideline relevante for publicada ou atualizada, abrir issue obrigatória para incorporação à v2.x.
 >
 > **Política de revisão.** Verificação mensal manual ou via job automatizado contra a página oficial da EQUATOR Network. Quando houver mudança detectada, atualizar este arquivo + criar issue no repositório.
 
@@ -15,7 +15,7 @@
 
 ## Guidelines aplicáveis e estado atual
 
-### Estabelecidas e implementadas em ignorantia v2.0
+### Estabelecidas e implementadas
 
 | ID | Nome | Versão atual | URL | Implementado em |
 |---|---|---|---|---|
@@ -56,37 +56,15 @@
 
 ---
 
-## Procedimento de atualização
-
-Quando uma guideline da lista "Em desenvolvimento" for publicada ou uma da lista "Estabelecidas mas não implementadas" for marcada como prioritária:
-
-1. **Obter o documento canônico** (PDF + checklist em formato máquina-legível se disponível).
-2. **Criar `references/profiles/_guidelines/{guideline-id}.yaml`** seguindo o template de PRISMA-2020.
-3. **Classificar cada item por automation_level** (full / partial / none).
-4. **Atualizar perfis de venue** que endossem a guideline (campo `taxonomy.reporting_guidelines_endorsed`).
-5. **Atualizar este arquivo** movendo a entrada da seção apropriada.
-6. **Bump de versão da skill** (minor, e.g., v2.0.0 → v2.1.0).
-7. **Atualizar journal.txt e CHANGELOG.md**.
-
----
-
-## Histórico de atualizações deste documento
-
-| Data | Mudança |
-|---|---|
-| 2026-05-02 | Criação inicial. 7 guidelines implementadas (PRISMA-2020, PRISMA-S, PRISMA-ScR, PRISMA-RR, MECIR, Campbell, SIGSOFT). 8 conhecidas + não implementadas. 9 monitoradas em desenvolvimento ou recém-publicadas. |
-| 2026-05-02 | v2.1.0: 6 guidelines novas adicionadas (Whittemore-Knafl, RAMESES II, Software Paper Generic, Position Paper Generic, ANSI/NISO Z39.18, White Paper Generic). Total: 13 guidelines implementadas. |
-| 2026-05-02 | v2.2.0: registro de gap "Qualis CAPES em transição" — CAPES anunciou em janeiro/2026 a descontinuação da classificação conceitual A1-C para o quadriênio 2025-2028. Perfis YAML continuam usando 2021-2024 como referência canônica. Quando novo modelo CAPES for publicado, ciclo de migração será necessário. |
-
 ## Gaps editoriais em monitoramento (não-EQUATOR)
 
-Esta seção registra gaps editoriais que afetam o ignorantia mas não são guidelines EQUATOR.
+Esta seção registra gaps editoriais que afetam o trabalho da revisão sistemática mas não são guidelines EQUATOR.
 
 ### Qualis CAPES — descontinuação da classificação conceitual
 
 - **Status**: Anunciado pela CAPES em janeiro/2026 junto com o resultado do quadriênio 2021-2024.
 - **Impacto**: O quadriênio 2025-2028 NÃO terá classificação A1-C. Novo modelo de avaliação a ser publicado.
-- **Implicação para o ignorantia**: Os campos `qualis_stratum` e `qualis_subarea` nos perfis YAML usam a referência 2021-2024 (último quadriênio válido com classificação conceitual). Quando o novo modelo for publicado:
+- **Implicação para esta skill**: Os campos `qualis_stratum` e `qualis_subarea` nos perfis YAML usam a referência 2021-2024 (último quadriênio válido com classificação conceitual). Quando o novo modelo for publicado:
   1. Avaliar se faz sentido manter campos `qualis_stratum` ou substituir por nova métrica CAPES
   2. Fazer ciclo de migração dos 12 perfis BR atuais
   3. Atualizar `venue-criteria-qualis-a1.md` e `venue-stratum-mapping.json`

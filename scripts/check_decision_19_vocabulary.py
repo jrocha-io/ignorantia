@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Decisão 19 vocabulary check — Fix 10 of RS-42 dogfood remediation,
+"""Artifact vocabulary check — Fix 10 of RS-42 dogfood remediation,
 expanded by Fix 19 (RS-42 third wave).
 
 Decisão 19 forbids skill-internal meta-discourse from leaking into the
@@ -379,7 +379,7 @@ def find_violations_in_directory(root: Path) -> dict[Path, list[Violation]]:
 
 def _format_report(path: Path, violations: list[Violation]) -> str:
     """Render a human-readable failure report."""
-    lines = [f"Decisão 19 vocabulary check FAILED for {path}", ""]
+    lines = [f"Artifact vocabulary check FAILED for {path}", ""]
     for v in violations:
         lines.append(f"  L{v.line_number}  [{v.label}]  '{v.matched_text}'")
         lines.append(f"     why: {v.why}")
@@ -472,12 +472,12 @@ def _main_single(path: Path, *, quiet: bool) -> int:
     violations = find_violations(text, is_latex=_is_latex(path))
 
     if not violations:
-        print(f"Decisão 19 vocabulary check PASSED for {path} (0 violations)")
+        print(f"Artifact vocabulary check PASSED for {path} (0 violations)")
         return 0
 
     if quiet:
         print(
-            f"Decisão 19 vocabulary check FAILED for {path}: "
+            f"Artifact vocabulary check FAILED for {path}: "
             f"{len(violations)} violation(s)",
             file=sys.stderr,
         )
@@ -532,14 +532,14 @@ def _main_all(
 
     if passed:
         print(
-            f"Decisão 19 vocabulary check PASSED for deposit {root} "
+            f"Artifact vocabulary check PASSED for deposit {root} "
             f"(0 violations across {files_scanned} file(s))"
         )
         return 0
 
     if quiet:
         print(
-            f"Decisão 19 vocabulary check FAILED for deposit {root}: "
+            f"Artifact vocabulary check FAILED for deposit {root}: "
             f"{total} violation(s) across {len(findings)} file(s)",
             file=sys.stderr,
         )

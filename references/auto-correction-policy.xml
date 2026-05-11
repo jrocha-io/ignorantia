@@ -267,7 +267,7 @@ Quando o autor humano recebe o pacote 0.0.1, a garantia é:
 4. **Nada inventado** — todo fato no manuscrito é rastreável aos artefatos extraídos OU ao material fornecido pelo usuário, conforme o modo.
 5. **Sinalizações claras** — quando Claude parou, está documentado por quê, com referência ao layer que falhou (Layer 1 modo / Layer 2 guideline / Layer 3 venue).
 
-Esta garantia é o que diferencia o `ignorantia` de um simples gerador de SLR. É também o que permite que o autor confie no pacote 0.0.1 como base honesta para honrar sua participação (transição 0→1).
+Esta garantia é o que diferencia o esta skill de um simples gerador de SLR. É também o que permite que o autor confie no pacote 0.0.1 como base honesta para honrar sua participação (transição 0→1).
 
 ## Modo standalone (API direta, sem Claude Chat)
 

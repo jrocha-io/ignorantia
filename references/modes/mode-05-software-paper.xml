@@ -85,13 +85,6 @@ Documento curto descrevendo software de pesquisa já desenvolvido. Foco no softw
 - Software paper documenta o software, não valida sua eficácia em todos os contextos.
 - Sem uso real demonstrado, JOSS gate-rejects.
 
-## Caso particular: paper sobre o próprio ignorantia
-
-Se o objetivo é escrever software paper sobre o ignorantia v2.4:
-- Repo público desde nov/2025 ou anterior é pré-requisito para JOSS.
-- Uso real demonstrado (3-6 RS produzidas) é gate.
-- Há circularidade epistêmica resolvível: declarar self-generation explicitamente, peer review pós-deposit, transparência total.
-
 ## Quando NÃO usar
 
 - Software ainda não pronto / sem testes / sem docs → adiar

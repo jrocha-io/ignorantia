@@ -285,7 +285,7 @@ Cada gate sai com exit code 2 em falha; o `&&` short-circuita. Sidecars de cada 
 - `pipeline_invariants_gate.json` — método de execução, cobertura mínima, ausência de steps em ERROR
 - `vocabulary_gate.json` — `{passed, total_violations, files_with_violations, violations_by_label}`
 
-Pacote nomeado `ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip`, com hash SHA-256 de cada artefato no README.
+Pacote nomeado `<author-slug>-<area-slug>-<topic-slug>-v<X.Y.Z>.zip` (o nome do depósito **não** carrega a brand da skill — o leitor cego do Zenodo não deve poder inferir a ferramenta a partir do filename), com hash SHA-256 de cada artefato no README.
 
 **Sugestão de venues para submissão.** Gere lista de **3-5 venues** alinhados ao tema, idioma, e preferência por publishers de elite. Para cada venue: nome, publisher/sociedade, ISSN, URL da política de IA do publisher, indicador de qualidade (JIF/CiteScore ou Qualis), modelo de acesso (subscription, hybrid, OA Gold com APC, OA Diamond), estimativa de ciclo editorial, justificativa breve. Salvar em `venue-suggestions.md`.
 
@@ -330,7 +330,7 @@ NUNCA escreva vocabulário operacional da skill em prosa de artefato — labels 
 <mandatories>
 GERE sempre os 8 artefatos secundários: protocol.md, searches.json, screening.csv, quality-appraisal.csv, extraction.csv, prisma-flow.svg, bibliography.bib, README.md.
 GERE sempre o pacote acadêmico canônico: manuscript.tex + bibliography.bib → manuscript.pdf (Zenodo) + manuscript.docx (revisão Word). HTML é subcomando opt-in (ver seção "Subcomando opcional html-wiki" adiante).
-NOMEIE o pacote como `ignorantia-<area-slug>-<topic-slug>-v<X.Y.Z>.zip`.
+NOMEIE o pacote como `<author-slug>-<area-slug>-<topic-slug>-v<X.Y.Z>.zip` (sem brand da skill no filename — Decisão 41 / segredo industrial aplica-se também a nomes de arquivo do depósito).
 INCLUA hash SHA-256 de cada artefato no README.md.
 APLIQUE a norma de citação correta automaticamente: PT-BR→ABNT; EN+exatas→IEEE; EN+saúde→Vancouver; EN+psicologia/educação→APA.
 APLIQUE PRISMA-2020 sempre. Para temas de SE/CS, complemente com Kitchenham QA1–QA8.

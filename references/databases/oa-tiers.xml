@@ -4,7 +4,7 @@
   <markdown><![CDATA[
 # Tiers Open Access — política de acesso a bases bibliográficas
 
-> **Constraint operacional v2.1:** O ghostwriter ignorantia SÓ consulta bases gratuitas (Tier 1) e bases com metadados livres (Tier 2). Material atrás de paywall (Tier 3) só é acessado via fornecimento manual pelo usuário (e.g., upload de PDF, exportação de citação, fornecimento de DOI específico).
+> **Constraint operacional v2.1:** Este ghostwriter SÓ consulta bases gratuitas (Tier 1) e bases com metadados livres (Tier 2). Material atrás de paywall (Tier 3) só é acessado via fornecimento manual pelo usuário (e.g., upload de PDF, exportação de citação, fornecimento de DOI específico).
 >
 > **Razão.** Coerência com o ethos OA-first do projeto + minimização de custos para o autor sem orçamento institucional + reprodutibilidade (qualquer terceiro pode replicar busca em Tier 1).
 
@@ -151,14 +151,6 @@ Após busca:
 | 8 (White Paper) | Tier 1 + grey literature |
 | 9 (Integrative) | Tier 1 + 2 |
 | 10 (Realist) | Tier 1 + 2 (multi-domínio) |
-
----
-
-## Histórico
-
-| Versão | Data | Mudança |
-|---|---|---|
-| 1.0 | 2026-05-02 | Criação. 3-tier architecture. Lista de bases por tier. Política operacional de transparência. |
 
   ]]></markdown>
 </doc>

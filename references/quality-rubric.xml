@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc id="quality-rubric" path="references/quality-rubric.md" type="document" lang="pt-BR">
-  <title>Rubrica de avaliação — `ignorantia` v2</title>
+  <title>Rubrica de avaliação — esta skill</title>
   <markdown><![CDATA[
-# Rubrica de avaliação — `ignorantia` v2
+# Rubrica de avaliação — esta skill
 
 > "A nota não é prêmio. É **espelho**: mostra a distância real entre o que você (com a IA) construiu e o que a comunidade científica considera publicável."
 
@@ -95,8 +95,6 @@ Apenas calculada se **nenhum eliminatório foi acionado**. Soma de 5 dimensões:
 | 0.2 | Cohen's kappa **realizado** ou **declaradamente pendente** com plano de execução |
 | 0.1 | Para SE/CS: Kitchenham QA1-QA8; para saúde: GRADE; para psi/edu: APA JARS |
 
-> **Nota v2.10.1:** "Snowballing executado e documentado" foi **removido** como critério pontuável (Decisão 23, v2.9.0): snowballing backward + forward é **obrigatório** desde a v2.9.0, então não pode ser bonificação. Os 0.2 pts foram redistribuídos para o critério de bases consultadas (que ganhou de 0.3 para 0.5), refletindo a expansão do Tier 1 obrigatório com bases ibero-americanas (Decisão 25).
-
 ### D2 — Compliance ético-legal (1.5)
 
 #### Para pt-BR:
@@ -156,8 +154,6 @@ Apenas calculada se **nenhum eliminatório foi acionado**. Soma de 5 dimensões:
 | 0.1 | Pacote completo (≥ 12 artefatos esperados) |
 | 0.1 | README com hashes SHA-256 + changelog + versão SemVer |
 
-> **Nota v2.8.0:** "Gráficos D3.js dinâmicos" foi removido como critério de qualidade (Decisão sobre rubrica, v2.8.0). Visualização interativa é agradável mas **não é evidência de mérito científico**. A v2.10.0 também tornará obrigatórios os outputs adicionais `.tex`, `.pdf` e `.docx` ABNT — esses passam a fazer parte do pacote completo (item de 0.1 acima), não como dimensão D5 expandida.
-
 ## Camada 4: Matriz por venue
 
 Para cada venue de elite **filtrado por área** (não os 30, mas os 5-15 relevantes), o skill atribui status:
@@ -216,23 +212,6 @@ A avaliação **não é mais um arquivo separado**. Está embutida no HTML princ
 - **Matriz de venues** com status colorido + clique para detalhar
 - **Lista priorizada do que falta** para subir de patamar
 - **Próxima versão sugerida** (PATCH/MINOR/MAJOR ou bump 0.x → 1.0)
-
-## Critérios removidos da rubrica (v2.8.0)
-
-Auditoria do RS-42 v1.0.0 identificou critérios que penalizavam o autor por situações que não são lacunas reais de qualidade. Os seguintes critérios foram **removidos** da rubrica:
-
-| Critério antigo | Razão da remoção |
-|---|---|
-| **"Spot-check humano nas exclusões da Fase 4 não foi conduzido"** (D1) | Decisão 21: ao prosseguir do screening para a extração, o autor já está aceitando as exclusões; auditoria separada é redundante. O `reproducibility_manifest.yaml` registra `phase4_exclusions_review: implicit_consent` automaticamente. |
-| **"Vinculação bidirecional Zenodo ↔ projeto subjacente é Categoria B"** (D2) | Decisão editorial pós-depósito, fora do escopo do skill. O skill não tem como avaliar isso porque acontece após a entrega do pacote. |
-| **"Bases Tier 3 (Scopus, WoS, IEEE Xplore subset, Embase) não consultadas"** como lacuna a aceitar | Reescrito na v2.9.0 (Decisão 24): essas bases passam a ser **prioridade 0** via Tier 0 routing (Unpaywall + OAB + CORE + CAFe + gap report). Não-consulta deixa de ser "limitação aceitável" e vira erro de configuração quando o usuário tinha como acessar. |
-| **"SciELO direto deveria ter sido consultado"** como limitação aceita | Reescrito na v2.9.0 (Decisão 25): SciELO + LA Referencia + Redalyc + CLACSO + BDTD + Scioteca + DOAJ + Periódicos CAPES + LILACS/BVS são **obrigatórias** na pesquisa pt-BR/es-LA. Não-consulta é defeito, não limitação. |
-| **"Apenas X% dos elegíveis foram extraídos com profundidade"** | Decisão 26 (v2.9.0): todo elegível recebe extração com mesmo rigor de SR, independente do modo. Esse critério deixa de existir. |
-| **"Idiomas restritos a EN/PT/ES"** | EN+PT+ES é **obrigação** da skill (Decisão 27, v2.9.0), não limitação a declarar. Critério removido. |
-| **"Gráficos D3.js dinâmicos não implementados"** (D5) | Removido: visualização interativa não é evidência de mérito científico. |
-| **"Camada de rabiscos for fun não implementada"** (D5) | Decisão 30 (v2.8.0): feature foi removida da skill. Critério já não se aplica. |
-| **"Manuscrito formal opcional (.docx ABNT) não gerado"** | Reescrito na v2.10.0: `.docx` ABNT, `.tex` e `.pdf` passam a ser **obrigatórios** no pacote final, dentro do critério "pacote completo" da D5. |
-| **"Snowballing executado e documentado" (D1, 0.2 pts)** + **"Snowballing forward + backward" como bonus (+0.1)** | Removido na v2.10.1: Decisão 23 (v2.9.0) já tornou snowballing backward + forward **obrigatório**. Os 0.2 pts de D1 foram redistribuídos para o critério de bases consultadas (que cobre a expansão Tier 1 da Decisão 25). Bonificação de +0.1 era duplicação. |
 
 ## Disclaimer obrigatório
 

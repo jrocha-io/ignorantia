@@ -42,11 +42,17 @@ DEVELOPER_MARKER_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bFix\s+\d+(?:\.\d+)?\b"), "fix-history-reference"),
     (re.compile(r"registrado em v\d+\.\d+"), "versioning-provenance"),
     (re.compile(r"tests/integration/"), "test-pointer"),
-    (re.compile(r"RS-42 dogfood"), "incident-reference"),
+    (re.compile(r"RS-42 dogfood|RS-42 v\d|RS-42 Mark"), "incident-reference"),
     (re.compile(r"Para quem mantém"), "maintainer-block"),
     (re.compile(r"Verificação mecânica"), "test-coverage-pointer"),
     (re.compile(r"Adendo de manutenção"), "maintenance-aside"),
     (re.compile(r"\bv\d+\.\d+\.\d+ falharia\b"), "incident-replay"),
+    # New patterns surfaced by the second-pass audit:
+    (re.compile(r"^##\s+Hist[óo]rico\b", re.MULTILINE), "version-history-section"),
+    (re.compile(r"\bCHANGELOG\.md\b"), "changelog-pointer"),
+    (re.compile(r"\bdev-docs/"), "devdocs-pointer-in-operator-surface"),
+    (re.compile(r"^>\s*\*\*Nota\s+v\d+\.\d+\.\d+:?\*\*", re.MULTILINE), "inline-version-note"),
+    (re.compile(r"\bauditoria iterativa\b", re.IGNORECASE), "developer-audit-iteration"),
 )
 
 
@@ -54,28 +60,29 @@ DEVELOPER_MARKER_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 
 
 def _operator_surface_files() -> list[Path]:
-    """Files Claude-using-skill reads at runtime."""
-    files: list[Path] = []
-    skill = ROOT / "SKILL.md"
-    if skill.is_file():
-        files.append(skill)
-    refs = ROOT / "references"
-    if refs.is_dir():
-        # Top-level XMLs only (subdirectories like profiles/, modes/,
-        # citation-styles/ are scanned via their own globs below).
-        files.extend(sorted(refs.glob("*.xml")))
-        for sub in ("citation-styles", "databases", "modes", "user-guidance"):
-            d = refs / sub
-            if d.is_dir():
-                files.extend(sorted(d.glob("*.xml")))
-    templates = ROOT / "assets" / "templates"
-    if templates.is_dir():
-        files.extend(sorted(templates.glob("*.html")))
-        files.extend(sorted(templates.glob("*.xml")))
-        modes = templates / "modes"
-        if modes.is_dir():
-            files.extend(sorted(modes.glob("*.xml")))
-    return files
+    """Files Claude-using-skill reads at runtime.
+
+    Source of truth: the exact set the production packager ships, via
+    ``scripts.build_production_package.resolve_allowlist``. This couples
+    the meta-gate directly to whatever ends up in the zip — adding a
+    new prose extension to the allowlist automatically widens the gate;
+    removing one narrows it. No risk of audit-allowlist drift.
+    """
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from build_production_package import resolve_allowlist
+
+    # Limit to prose extensions. ``.toml`` (config) and ``.yaml``
+    # (structured venue profile data) ship in the zip but are not read
+    # as prose by the operator — they're consumed by build tooling or
+    # data-loaders. Scanning them would flag false positives in
+    # comments and structured fields.
+    prose_exts = {".md", ".xml", ".html"}
+    return [
+        p
+        for p in resolve_allowlist(ROOT)
+        if p.suffix in prose_exts
+    ]
 
 
 # ── per-pattern scan ───────────────────────────────────────────────────
@@ -168,6 +175,125 @@ def test_no_incident_replay(operator_files: list[Path]) -> None:
     """Operator never reads ``v1.0.0 falharia com X violações``."""
     pat, lbl = DEVELOPER_MARKER_PATTERNS[7]
     _assert_pattern_absent(operator_files, pat, lbl)
+
+
+def test_no_version_history_section(operator_files: list[Path]) -> None:
+    """Operator never reads ``## Histórico`` — version-trajectory tables
+    are developer changelog material."""
+    pat, lbl = DEVELOPER_MARKER_PATTERNS[8]
+    _assert_pattern_absent(operator_files, pat, lbl)
+
+
+def test_no_changelog_pointer(operator_files: list[Path]) -> None:
+    """Operator never reads ``CHANGELOG.md`` — it doesn't ship in the
+    production zip and pointing at it from operator prose is dev-leak."""
+    pat, lbl = DEVELOPER_MARKER_PATTERNS[9]
+    _assert_pattern_absent(operator_files, pat, lbl)
+
+
+def test_no_devdocs_pointer(operator_files: list[Path]) -> None:
+    """Operator surface should never point at ``dev-docs/`` — that's the
+    developer-only tree, invisible to the operator at runtime."""
+    pat, lbl = DEVELOPER_MARKER_PATTERNS[10]
+    _assert_pattern_absent(operator_files, pat, lbl)
+
+
+def test_no_inline_version_note(operator_files: list[Path]) -> None:
+    """Operator never reads ``> **Nota v2.X.Y:**`` blockquotes — these
+    are version-trajectory annotations in rubric/spec files."""
+    pat, lbl = DEVELOPER_MARKER_PATTERNS[11]
+    _assert_pattern_absent(operator_files, pat, lbl)
+
+
+def test_no_developer_audit_iteration(operator_files: list[Path]) -> None:
+    """Operator never reads ``auditoria iterativa #N`` — that is dev
+    sprint vocabulary. The scientific term "auditoria" (peer audit) by
+    itself is allowed."""
+    pat, lbl = DEVELOPER_MARKER_PATTERNS[12]
+    _assert_pattern_absent(operator_files, pat, lbl)
+
+
+# ── brand-leak gate: skill name in operator surface ────────────────────
+
+
+# The skill brand is allowed in a tiny allowlist of files where the
+# brand legitimately appears: SKILL.md frontmatter declares the skill
+# name; artifact-vocabulary-policy.xml and persona-voice.xml teach
+# Claude NOT to write the brand and must mention it as anti-pattern
+# exemplar. Anywhere else in the operator surface, the brand must not
+# appear — including templates the operator copies (e.g. an HTML
+# manuscript template with ``ignorantia`` in the footer teaches the
+# operator to brand-leak the deposited HTML).
+_BRAND_ALLOWED_PATHS: frozenset[str] = frozenset({
+    "SKILL.md",
+    "references/artifact-vocabulary-policy.xml",
+    "assets/templates/persona-voice.xml",
+})
+
+
+def test_no_branded_deposit_filename_pattern(
+    operator_files: list[Path],
+) -> None:
+    """The deposit filename pattern must not embed the skill brand.
+
+    ``ignorantia-<area>-<topic>-v<X.Y.Z>.zip`` instructs the operator
+    to embed the brand into the deposited Zenodo zip filename. A blind
+    reviewer reading the deposit metadata would see the brand in the
+    filename — that's a brand leak in deposit metadata, distinct from
+    a brand leak in deposit prose, but with the same effect.
+
+    The brand-strict gate (next test) allowlists SKILL.md as a whole
+    because the frontmatter declares ``name: ignorantia`` (required by
+    the Claude skill manifest convention) and the body teaches the
+    brand as anti-pattern. But the ``ignorantia-<...>.zip`` filename
+    pattern is *instructional* — it tells the operator to brand the
+    deposit. That's not anti-pattern teaching; it's the leak.
+    """
+    pattern = re.compile(r"ignorantia-<[^>]+>", re.IGNORECASE)
+    hits: list[str] = []
+    for path in operator_files:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for m in pattern.finditer(text):
+            line_no = text[: m.start()].count("\n") + 1
+            rel = str(path.relative_to(ROOT))
+            hits.append(f"  {rel}:{line_no}: {m.group(0)!r}")
+    assert not hits, (
+        f"The deposit filename convention embeds the skill brand. "
+        f"The operator deposit must not be branded — Decisão 41 applies "
+        f"to filenames as well as prose. Hits:\n" + "\n".join(hits)
+    )
+
+
+def test_skill_brand_only_in_allowlisted_files(
+    operator_files: list[Path],
+) -> None:
+    """The skill brand ``ignorantia`` (case-insensitive) must not appear
+    in operator-surface files except for the explicit allowlist that
+    legitimately uses the brand (frontmatter declaration + anti-pattern
+    teachings).
+
+    A template that says ``<strong>ignorantia</strong>`` in an HTML footer
+    teaches the operator to ship the brand in the deposited HTML — the
+    very leak the deposit gate then catches downstream. Catch it at the
+    source instead.
+    """
+    pattern = re.compile(r"\bignorantia\b", re.IGNORECASE)
+    hits: list[str] = []
+    for path in operator_files:
+        rel = str(path.relative_to(ROOT))
+        if rel in _BRAND_ALLOWED_PATHS:
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for m in pattern.finditer(text):
+            line_no = text[: m.start()].count("\n") + 1
+            hits.append(f"  {rel}:{line_no}: {m.group(0)!r}")
+    assert not hits, (
+        f"Skill brand 'ignorantia' appears in {len(hits)} operator-surface "
+        f"location(s) outside the allowlist. The brand never appears in "
+        f"deposited artifacts; any operator-surface mention is at risk of "
+        f"being copied into output. Allowed: {sorted(_BRAND_ALLOWED_PATHS)}. "
+        f"Hits:\n" + "\n".join(hits)
+    )
 
 
 # ── aggregate (so CI sees one summary if multiple classes fail) ────────

@@ -54,12 +54,19 @@ ROOT = Path(__file__).resolve().parent.parent
 # to be a deliberate decision.
 
 # --- Top-level skill manifest + project metadata -----------------------
+# CHANGELOG.md is intentionally NOT shipped: it carries fix-history
+# breadcrumbs (`Fix N`, `RS-42 dogfood`, version-trajectory annotations)
+# that are developer-facing. The operator (Claude reading the skill in
+# chat) must never reproduce those tokens in deposited artifacts. The
+# full changelog stays at the repo root for developers.
 ROOT_FILES: tuple[str, ...] = (
     "SKILL.md",            # entry point read by Claude
-    "README.md",           # user-facing landing
     "LICENSE",
-    "CHANGELOG.md",
     "pyproject.toml",      # package metadata; consumed by build_production_package
+    # README.md is intentionally NOT shipped: it is the developer-facing
+    # repo landing on GitHub (installation instructions, architecture
+    # overview, Sprint Badge calibration corpus references). The operator
+    # entry point is SKILL.md; the operator never needs the GitHub README.
 )
 
 # --- Runtime knowledge base (references/) ------------------------------
