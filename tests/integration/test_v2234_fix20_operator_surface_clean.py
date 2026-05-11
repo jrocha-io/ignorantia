@@ -54,28 +54,29 @@ DEVELOPER_MARKER_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 
 
 def _operator_surface_files() -> list[Path]:
-    """Files Claude-using-skill reads at runtime."""
-    files: list[Path] = []
-    skill = ROOT / "SKILL.md"
-    if skill.is_file():
-        files.append(skill)
-    refs = ROOT / "references"
-    if refs.is_dir():
-        # Top-level XMLs only (subdirectories like profiles/, modes/,
-        # citation-styles/ are scanned via their own globs below).
-        files.extend(sorted(refs.glob("*.xml")))
-        for sub in ("citation-styles", "databases", "modes", "user-guidance"):
-            d = refs / sub
-            if d.is_dir():
-                files.extend(sorted(d.glob("*.xml")))
-    templates = ROOT / "assets" / "templates"
-    if templates.is_dir():
-        files.extend(sorted(templates.glob("*.html")))
-        files.extend(sorted(templates.glob("*.xml")))
-        modes = templates / "modes"
-        if modes.is_dir():
-            files.extend(sorted(modes.glob("*.xml")))
-    return files
+    """Files Claude-using-skill reads at runtime.
+
+    Source of truth: the exact set the production packager ships, via
+    ``scripts.build_production_package.resolve_allowlist``. This couples
+    the meta-gate directly to whatever ends up in the zip — adding a
+    new prose extension to the allowlist automatically widens the gate;
+    removing one narrows it. No risk of audit-allowlist drift.
+    """
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from build_production_package import resolve_allowlist
+
+    # Limit to prose extensions. ``.toml`` (config) and ``.yaml``
+    # (structured venue profile data) ship in the zip but are not read
+    # as prose by the operator — they're consumed by build tooling or
+    # data-loaders. Scanning them would flag false positives in
+    # comments and structured fields.
+    prose_exts = {".md", ".xml", ".html"}
+    return [
+        p
+        for p in resolve_allowlist(ROOT)
+        if p.suffix in prose_exts
+    ]
 
 
 # ── per-pattern scan ───────────────────────────────────────────────────
