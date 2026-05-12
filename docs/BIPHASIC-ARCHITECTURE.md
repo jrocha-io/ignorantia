@@ -23,7 +23,7 @@ session. Three structural failures recurred:
 2. **Ad-hoc fallback under pressure.** When the orchestrator scripts
    could not run, the chat session defaulted to `web_search` and
    produced `searches.json.metadata.execution_method:
-   single_session_ad_hoc_web_search` — RS-42 v1.0.0 shipped this way.
+   single_session_ad_hoc_web_search` — observed in early dogfood runs.
 3. **Abstract-based extraction.** The chat session lacked the
    throughput to download and read full-text for each elegible study,
    so the extraction was abstract-only. Claims in the synthesis could

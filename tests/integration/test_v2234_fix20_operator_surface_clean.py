@@ -226,8 +226,10 @@ def test_no_developer_audit_iteration(operator_files: list[Path]) -> None:
 # operator to brand-leak the deposited HTML).
 _BRAND_ALLOWED_PATHS: frozenset[str] = frozenset({
     "SKILL.md",
+    "SKILL-PHASE-2.md",                              # v3.0.0 biphasic — Cowork manifest
     "references/artifact-vocabulary-policy.xml",
     "assets/templates/persona-voice.xml",
+    "docs/BIPHASIC-ARCHITECTURE.md",                 # v3.0.0 — CLI command references (/ignorantia, /ignorantia-execute)
 })
 
 

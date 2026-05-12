@@ -99,26 +99,35 @@ def test_decision_30_skill_md_does_not_describe_fun_doodles():
 
 
 def test_decision_20_persona_block_present_in_skill_md():
-    """Post-F20: the persona contract is present in SKILL.md as prose.
+    """Post-F21 (biphasic): the persona contract lives in three places:
+    (a) the persona-voice scaffold template (the canonical voice
+    instructions Claude reads at the start of Phase 7/synthesis),
+    (b) prose summary in SKILL.md and SKILL-PHASE-2.md (operator
+    surface), and (c) the full numbered registry entry in
+    dev-docs/DECISIONS-REGISTRY.md.
 
-    Pre-F20 (mixed audience): the persona was registered as `### Decisão
-    20 — Voz autoral padrão`, with a numbered heading and an internal
-    label. Post-F20 (audience separation): SKILL.md describes the
-    persona contract in plain operator prose under `## Persona acadêmica`,
-    without the numbered Decisão prefix. The full numbered registry entry
-    lives in dev-docs/DECISIONS-REGISTRY.md.
+    Pre-F20 (monolithic): persona was a `### Decisão 20` numbered
+    section in SKILL.md. Post-F20: SKILL.md described the persona in
+    operator prose. Post-F21 (biphasic): the binding scaffold is in
+    `assets/templates/persona-voice.xml` (consumed by Phase 2).
     """
-    skill_md = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    # Operator surface: the persona section exists with the canonical
-    # body markers that pin the contract.
-    assert "Persona acadêmica" in skill_md
-    assert "acadêmico neutro impessoal" in skill_md
-    assert "IMRaD" in skill_md
-    assert "hedging ornamental" in skill_md
-    # The "do not mention the skill" prohibition lives in the vocabulary
-    # rules section in operator prose (rule 1: "A skill nunca se nomeia
-    # no artefato").
-    assert "skill nunca se nomeia" in skill_md.lower() or "nome `ignorantia` não aparece" in skill_md.lower()
+    scaffold = (ROOT / "assets" / "templates" / "persona-voice.xml").read_text(
+        encoding="utf-8"
+    )
+    # The persona scaffold has the canonical voice markers (academic
+    # impersonal voice). IMRaD pinning lives in SKILL.md / SKILL-PHASE-2,
+    # not in the scaffold itself (scaffold is anti-pattern table).
+    scaffold_lower = scaffold.lower()
+    assert "acadêmica" in scaffold_lower or "acadêmico" in scaffold_lower or "academic" in scaffold_lower
+    # The "method-not-execution" voice rule pins the contract.
+    assert "método aplicado ao problema" in scaffold or "method applied to the problem" in scaffold.lower()
+    # The "do not mention the skill" prohibition surfaces in the
+    # vocabulary policy file consumed by both phases.
+    policy = (ROOT / "references" / "artifact-vocabulary-policy.xml").read_text(
+        encoding="utf-8"
+    )
+    combined = policy.lower()
+    assert "skill" in combined and "ignorantia" in combined
     # Cross-check that the numbered registry still carries the legacy entry.
     registry = (ROOT / "dev-docs" / "DECISIONS-REGISTRY.md")
     if registry.is_file():

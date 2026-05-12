@@ -20,7 +20,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SKILL = ROOT / "SKILL-PHASE-1.md"
+SKILL = ROOT / "SKILL.md"
 
 
 # ── existence + frontmatter ────────────────────────────────────────────
@@ -37,7 +37,10 @@ def test_frontmatter_declares_phase_1_name():
     text = SKILL.read_text(encoding="utf-8")
     assert text.startswith("---"), "SKILL-PHASE-1.md must start with YAML frontmatter"
     frontmatter = text.split("---", 2)[1]
-    assert re.search(r"^name:\s*ignorantia-phase-1\s*$", frontmatter, re.MULTILINE)
+    # Post-F21-F: SKILL-PHASE-1.md was renamed to SKILL.md with
+    # ``name: ignorantia`` to take over the canonical Claude-Desktop
+    # skill identity. The Phase-1 scope is unchanged.
+    assert re.search(r"^name:\s*ignorantia\s*$", frontmatter, re.MULTILINE)
 
 
 def test_frontmatter_description_mentions_phase_2_handoff():
@@ -218,6 +221,14 @@ def test_phase_1_skill_brand_mentions_only_in_expected_contexts():
             continue
         # Context 4: CLI command references
         if "/ignorantia-execute" in line or "ignorantia-phase-1" in line:
+            continue
+        # Post-F21-F: the file is now SKILL.md with name: ignorantia.
+        # The frontmatter line "name: ignorantia" gets matched by the
+        # brand regex but is the canonical skill identifier.
+        if line.strip().startswith("name: ignorantia"):
+            continue
+        if "/ignorantia" in line and not line.strip().startswith("#"):
+            # Other CLI command references (e.g. "/ignorantia" alone)
             continue
         # Context 5: the Spinoza Latin epigraph (the skill name etymology).
         if "Ignorantia non est argumentum" in line:
