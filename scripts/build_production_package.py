@@ -60,13 +60,27 @@ ROOT = Path(__file__).resolve().parent.parent
 # chat) must never reproduce those tokens in deposited artifacts. The
 # full changelog stays at the repo root for developers.
 ROOT_FILES: tuple[str, ...] = (
-    "SKILL.md",            # entry point read by Claude
+    "SKILL.md",            # entry point Claude Desktop reads (Phase 1, chat)
+    "SKILL-PHASE-2.md",    # entry point Anthropic Cowork reads (Phase 2)
     "LICENSE",
     "pyproject.toml",      # package metadata; consumed by build_production_package
     # README.md is intentionally NOT shipped: it is the developer-facing
     # repo landing on GitHub (installation instructions, architecture
     # overview, Sprint Badge calibration corpus references). The operator
     # entry point is SKILL.md; the operator never needs the GitHub README.
+    # CHANGELOG.md is intentionally NOT shipped: developer fix-history.
+)
+
+# --- v3.0.0 biphasic artifacts ----------------------------------------
+# Phase 2 (Cowork) consumes:
+#   - SKILL-PHASE-2.md (the Phase 2 operator manifest)
+#   - schemas/handoff-v1.schema.json (handoff contract from Phase 1)
+#   - docs/BIPHASIC-ARCHITECTURE.md (reference for the 7 gates)
+#   - scripts/phase2_*.py + the 3 new gate scripts
+# Phase 1 (chat) needs only SKILL.md + references/ + assets/templates/.
+BIPHASIC_GLOB: tuple[tuple[str, str], ...] = (
+    ("schemas", "*.json"),
+    ("docs", "BIPHASIC-ARCHITECTURE.md"),
 )
 
 # --- Runtime knowledge base (references/) ------------------------------
@@ -163,11 +177,13 @@ SCRIPTS_SUBDIR_GLOB: tuple[tuple[str, str], ...] = (
 #   * Fix 12 — persona-voice scaffold (1 file under assets/templates/,
 #     1 file under scripts/) → +2.
 #   * Fix 15 — scripts/assessor/ packaging fix (~10 files) → +10.
-# Together: 200 → ~212. The ceiling at 220 leaves modest headroom for
-# the remaining Fixes 13/14/16/17 without forcing immediate trimming.
-# Bump back to 200 once the remediation series stabilises and any
-# now-redundant files are removed.
-MAX_FILES = 220
+# v3.0.0 biphasic refactor added ~10 files (SKILL-PHASE-2.md, the
+# handoff schema, BIPHASIC-ARCHITECTURE.md, four phase2_*.py scripts,
+# three new gate scripts). Default flow lands at ~222 files; with
+# --bundle-xml the four bundleable directories collapse 28 individuals
+# → 4 bundles, dropping the count by 24 to ~198. The ceiling at 250
+# keeps modest headroom for follow-up.
+MAX_FILES = 250
 
 
 # ----------------------------------------------------------------------
@@ -247,6 +263,9 @@ def resolve_allowlist(
     for rel_dir, pattern in SCRIPTS_TOP_GLOB:
         out.extend(_glob_dir(root, rel_dir, pattern))
     for rel_dir, pattern in SCRIPTS_SUBDIR_GLOB:
+        out.extend(_glob_dir(root, rel_dir, pattern))
+    # v3.0.0 biphasic artifacts (schema + design doc).
+    for rel_dir, pattern in BIPHASIC_GLOB:
         out.extend(_glob_dir(root, rel_dir, pattern))
 
     # Append bundle artifacts last so they sit alongside the existing

@@ -387,25 +387,24 @@ def test_artifact_vocabulary_policy_exists_and_is_well_formed() -> None:
 
 
 def test_skill_md_wires_vocabulary_gate_and_policy_file() -> None:
-    """SKILL.md must instruct Claude to read the policy and run the gate.
+    """The biphasic operator surface (SKILL.md for chat + SKILL-PHASE-2.md
+    for Cowork) must instruct Claude to read the policy and run the gate.
 
-    Without these wiring points, Claude doesn't know the policy exists
-    or that the gate must be run pre-packaging. The structural contract
-    pinned here: (a) the operator manual points at the policy file by
-    path; (b) the operator manual invokes the deposit-wide gate with
-    the sidecar; (c) the sidecar filename is named. The Decisão N
-    numbering used to live in SKILL.md before F20 (audience separation)
-    — after F20 the rule is described as binding prose without any
-    numeric anchor, so the developer-only registry under dev-docs/
-    carries the numbering instead.
+    Post-F21 (biphasic): the policy reference lives in SKILL.md (Phase 1
+    — operator is told NOT to write skill labels into the handoff) AND
+    in SKILL-PHASE-2.md (Phase 2 — operator is told to translate before
+    writing manuscript prose). The gate invocation lives in
+    SKILL-PHASE-2.md (Phase 2 runs the gates pre-packaging).
     """
     skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    assert "artifact-vocabulary-policy.xml" in skill, (
-        "SKILL.md must point Claude at references/artifact-vocabulary-policy.xml "
-        "so the translation table is discoverable from the operational doc"
+    phase2 = (ROOT / "SKILL-PHASE-2.md")
+    phase2_text = phase2.read_text(encoding="utf-8") if phase2.is_file() else ""
+    combined = skill + phase2_text
+    assert "artifact-vocabulary-policy.xml" in combined, (
+        "Operator surface must point at references/artifact-vocabulary-policy.xml"
     )
-    assert "--all" in skill and "vocabulary_gate.json" in skill, (
-        "SKILL.md mandatories must invoke the deposit-wide gate with sidecar "
+    assert "--all" in combined and "vocabulary_gate.json" in combined, (
+        "Phase-2 manifest must invoke the deposit-wide gate with sidecar "
         "emission (--all <output_dir> --gate-sidecar), not a legacy "
         "single-file form"
     )

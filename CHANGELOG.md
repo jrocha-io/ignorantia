@@ -4,6 +4,99 @@ Todas as mudanças notáveis serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 Versionamento [SemVer 2.0.0](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [3.0.0] — 2026-05-12
+
+**Refactor arquitetural bifásico (breaking change).** Substitui a
+arquitetura monolítica das séries 2.x, que rodava o pipeline completo
+em uma única sessão de chat e enfrentava três falhas estruturais
+recorrentes: exhaustão de budget de tokens em revisões grandes,
+fallback ad-hoc para `web_search` quando scripts de orquestração não
+conseguiam rodar, e extração baseada em abstract (sem verificação
+contra páginas-fonte). A v3.0.0 separa o pipeline no ponto de
+inflexão natural do PRISMA — após screening de título/abstract, antes
+de retrieval de full-text — em Phase 1 (chat, trabalho cognitivo) e
+Phase 2 (Anthropic Cowork, throughput).
+
+### Adicionado
+
+- **Arquitetura bifásica** (Fix 21):
+  - **Phase 1** roda em Claude Desktop: entrevista de escopo →
+    protocolo pré-registrado → busca metadado em ≥3 bases OA →
+    deduplicação → screening de título/abstract em 3 passes →
+    emissão de `handoff-v1.0.0.json` validado contra
+    `schemas/handoff-v1.schema.json`.
+  - **Phase 2** roda em Anthropic Cowork: validação do handoff →
+    retrieval full-text via cascade OA (Unpaywall → CORE → Open
+    Access Button → arXiv direct) → leitura/parse de PDFs e HTMLs →
+    extração com **mapeamento claim-to-source** (cada claim na prosa
+    rastreável a uma página/seção do paper-fonte) → snowballing
+    backward (≤2 níveis) → quality appraisal → cross-tabulação →
+    síntese narrativa → compilação LaTeX → 7 gates sequenciais → ZIP.
+
+- **Contrato Phase 1 ↔ Phase 2** (`docs/BIPHASIC-ARCHITECTURE.md` +
+  `schemas/handoff-v1.schema.json`): JSON Schema Draft 2020-12 que
+  valida o handoff (estrutura, enums, formato de DOI/ORCID, integridade
+  via SHA-256 self-attestation). Phase 2 aborta sem retrieval se o
+  handoff falha validação ou hash recompute.
+
+- **3 gates novos** (Fix 21 Phase D):
+  - `check_claim_source_coverage.py` — Gate 5. Toda citação em prosa
+    deve resolver a uma row em `claim_to_source.json` com
+    `source_anchor` não-vazio. Fix estrutural para alucinação
+    abstract-based.
+  - `check_citation_graph.py` — Gate 6. Verifica completude do grafo
+    (toda `\cite{key}` → entry em `.bib`), ausência de padding (toda
+    entry citada ≥1 vez), e liveness de DOIs via Crossref ping
+    (opt-in via `--verify-dois`).
+  - `check_manuscript_substantial.py` — Gate 7. PDF compilou, page
+    count ≥ threshold (12 default; 8 para rapid), word count ≥
+    threshold (5000 / 3000), todas as 10 seções obrigatórias presentes.
+
+- **Pipeline mecânico Phase 2** (Fix 21 Phase E):
+  - `scripts/phase2_init.py` — valida handoff e bootstrapa `runs/<run-id>/`.
+  - `scripts/phase2_retrieve.py` — cascade de OA resolvers com layer
+    HTTP injetável; itens irrecuperáveis vão para `gap_report.md`.
+  - `scripts/phase2_extract.py` — parse PDF (pypdf + fallback puro-
+    Python) e HTML (stdlib `html.parser`); produz `parsed/<slug>.txt`
+    com page-markers + `sources_index.json` catalogando cada source.
+  - `scripts/phase2_orchestrator.py` — subcomandos `prepare` (init +
+    retrieve + extract) e `finalize` (compile + 7 gates + ZIP).
+
+- **Manifestos bifásicos** (Fix 21 Phases B/C):
+  - `SKILL.md` (renomeado de SKILL-PHASE-1.md, `name: ignorantia`) —
+    manifest de Phase 1 (chat). Workflow de 6 etapas; mandatories
+    proíbem retrieval e manuscript-writing (Phase 2 work);
+    `<mandatories>` termina com "PARE depois de emitir o handoff."
+  - `SKILL-PHASE-2.md` — manifest de Phase 2 (Cowork). Workflow de 10
+    etapas; mandatories listam os 7 gates em ordem canônica;
+    mandatories terminam com "PARE depois de informar o caminho do
+    ZIP" (sem upload, sem email, sem contato externo).
+
+### Mudou
+
+- **MAX_FILES**: 220 → 250. A v3.0.0 adicionou ~10 arquivos ao zip
+  (manifest Phase 2, schema, doc de arquitetura, 4 scripts phase2_*,
+  3 gates novos). Default flow lands at 222; `--bundle-xml` mantém
+  abaixo de 200.
+
+- **SKILL.md** absorveu o conteúdo de SKILL-PHASE-1.md. O conteúdo
+  monolítico de v2.23.x foi arquivado em
+  `dev-docs/SKILL-MONOLITHIC-V2.md` para preservação histórica.
+
+- **Production zip allowlist** (`scripts/build_production_package.py`):
+  + `SKILL-PHASE-2.md` (ROOT_FILES)
+  + `schemas/*.json` (BIPHASIC_GLOB)
+  + `docs/BIPHASIC-ARCHITECTURE.md` (BIPHASIC_GLOB)
+
+### Operacional
+
+A v3.0.0 substitui a v2.23.x. O monolítico fica acessível apenas para
+revisões já iniciadas pré-corte; novas revisões usam o fluxo bifásico.
+
+Acceptance test mecânico ("publicar sem conferir"): se os 7 sidecars
+de gate em `<run_dir>/gates/` têm `passed: true`, o ZIP está, por
+construção, pronto para upload no Zenodo sem revisão humana adicional.
+
 ## [2.23.4] — 2026-05-10
 
 **Patch RS-42 dogfood remediation — terceira onda (Fix 19) e refactor
